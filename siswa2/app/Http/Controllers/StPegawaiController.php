@@ -1,0 +1,411 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Configurasi;
+use App\Models\StPegawai;
+use App\Models\Pegawai;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use App\Helpers\NumberHelper; // Import kelas NumberHelper
+
+
+class StPegawaiController extends Controller
+{
+    // Display all records
+    public function index()
+    {
+
+        $stPegawaiList = StPegawai::with('pegawais')->get();
+        return view('st_pegawai.index', compact('stPegawaiList'));
+    }
+
+    // Show form to create a new record
+    public function create()
+    {
+        $pegawais = Pegawai::all();
+        return view('st_pegawai.create', compact('pegawais'));
+    }
+
+    // Store a new record
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'dasar_surat' => 'required|string',
+            'tempat_kegiatan' => 'required|string',
+            'tgl_awal' => 'required|date',
+            'tgl_akhir' => 'required|date',
+            'nama_kegiatan' => 'required|string',
+            'tgl_kegiatan' => 'required|date',
+            'jam_kegiatan' => 'required|date_format:H:i',
+            'tgl_ditetapkan' => 'required|date',
+            'tempat_ditetapkan' => 'required|string',
+            'pegawai_id' => 'nullable|array',
+            'biaya_transportasi' => 'nullable|string',
+            'biaya_penginapan' => 'nullable|string',
+            'biaya_tiket' => 'nullable|string',
+            'transport_lokal' => 'nullable|string',
+            'uang_makan' => 'nullable|string',
+            'uang_saku' => 'nullable|string',
+            'uang_representasi' => 'nullable|string',
+            'uang_kediklatan' => 'nullable|string',
+            'korek' => 'nullable|string',
+        ]);
+
+        $stPegawai = StPegawai::create($validatedData);
+
+        if ($request->has('pegawai_id')) {
+            $stPegawai->pegawais()->attach($request->input('pegawai_id'));
+        }
+
+        return redirect()->route('st-pegawai.index')->with('success', 'Record created successfully.');
+    }
+
+    // Show a single record
+    public function show(StPegawai $stPegawai)
+    {
+        $stPegawai->load('pegawais');
+        return view('st_pegawai.show', compact('stPegawai'));
+    }
+
+    // Show form to edit a record
+
+    public function edit(StPegawai $stPegawai)
+    {
+        $pegawais = Pegawai::all();
+        if (!$stPegawai) {
+            abort(404, 'StPegawai not found');
+        }
+
+        $selectedPegawaiIds = $stPegawai->pegawais()->pluck('id')->toArray();
+        return view('st_pegawai.edit', compact('stPegawai', 'pegawais', 'selectedPegawaiIds'));
+    }
+
+
+
+    // Update a record
+    public function update(Request $request, StPegawai $stPegawai)
+    {
+        $validatedData = $request->validate([
+            'dasar_surat' => 'required|string',
+            'tempat_kegiatan' => 'required|string',
+            'tgl_awal' => 'required|date',
+            'tgl_akhir' => 'required|date',
+            'nama_kegiatan' => 'required|string',
+            'tgl_kegiatan' => 'required|date',
+            'jam_kegiatan' => 'required|date_format:H:i',
+            'tgl_ditetapkan' => 'required|date',
+            'tempat_ditetapkan' => 'required|string',
+            'pegawai_id' => 'nullable|array',
+            'biaya_transportasi' => 'nullable|string',
+            'biaya_penginapan' => 'nullable|string',
+            'biaya_tiket' => 'nullable|string',
+            'transport_lokal' => 'nullable|string',
+            'uang_makan' => 'nullable|string',
+            'uang_saku' => 'nullable|string',
+            'uang_representasi' => 'nullable|string',
+            'uang_kediklatan' => 'nullable|string',
+            'korek' => 'nullable|string',
+        ]);
+
+        $stPegawai->update($validatedData);
+
+        if ($request->has('pegawai_id')) {
+            $stPegawai->pegawais()->sync($request->input('pegawai_id'));
+        } else {
+            $stPegawai->pegawais()->detach();
+        }
+
+        return redirect()->route('st-pegawai.index')->with('success', 'Record updated successfully.');
+    }
+
+
+    // Delete a record
+    public function destroy(StPegawai $stPegawai)
+    {
+        $stPegawai->delete();
+        return redirect()->route('st-pegawai.index')->with('success', 'Record deleted successfully.');
+    }
+
+    public function pdf($id)
+    {
+        $atasanNama = Configurasi::valueOf('atasan.nama');
+        $atasanJabatan = Configurasi::valueOf('atasan.jabatan');
+        $atasanNip = Configurasi::valueOf('atasan.nip');
+        $atasanPangkat = Configurasi::valueOf('atasan.pangkat');
+        $atasanUnitkerja = Configurasi::valueOf('atasan.unitkerja');
+
+        $kpaNama = Configurasi::valueOf('kpa.nama');
+        $kpaJabatan = Configurasi::valueOf('kpa.jabatan');
+        $kpaNip = Configurasi::valueOf('kpa.nip');
+        $kpaPangkat = Configurasi::valueOf('kpa.pangkat');
+        $kpaUnitkerja = Configurasi::valueOf('kpa.unitkerja');
+
+        $stPegawai = StPegawai::find($id);
+        $pegawai_first = StPegawai::with('pegawais')->first();
+        $pdf = Pdf::loadView('st_pegawai.pdf', compact('pegawai_first', 'stPegawai', 'atasanNama', 'atasanNip', 'atasanPangkat', 'atasanUnitkerja', 'atasanJabatan', 'kpaNama', 'kpaNip', 'kpaPangkat', 'kpaUnitkerja', 'kpaJabatan'))
+            ->setOption('margin-top', 0);
+
+        // ->setPaper('a4', 'landscape'); // Set the paper size and orientation
+
+        return $pdf->stream('st_pegawai.pdf');
+    }
+
+
+
+    public function uploadFile(Request $request, $id)
+    {
+        $stPegawai = StPegawai::find($id);
+
+        if (!$stPegawai) {
+            return redirect()->back()->with('error', 'Record not found.');
+        }
+
+        if ($request->hasFile('file')) {
+            if ($stPegawai->file) {
+                Storage::delete('public/' . $stPegawai->file);
+            }
+
+            $file = $request->file('file');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('public', $filename);
+
+            $stPegawai->file = $filename;
+            $stPegawai->save();
+        }
+
+        return redirect()->back()->with('success', 'File uploaded successfully');
+    }
+
+    public function rincianPdf($id)
+    {
+        $atasanNama = Configurasi::valueOf('atasan.nama');
+        $atasanJabatan = Configurasi::valueOf('atasan.jabatan');
+        $atasanNip = Configurasi::valueOf('atasan.nip');
+        $atasanPangkat = Configurasi::valueOf('atasan.pangkat');
+        $atasanUnitkerja = Configurasi::valueOf('atasan.unitkerja');
+
+        $kpaNama = Configurasi::valueOf('kpa.nama');
+        $kpaJabatan = Configurasi::valueOf('kpa.jabatan');
+        $kpaNip = Configurasi::valueOf('kpa.nip');
+        $kpaPangkat = Configurasi::valueOf('kpa.pangkat');
+        $kpaUnitkerja = Configurasi::valueOf('kpa.unitkerja');
+
+        $pptkNama = Configurasi::valueOf('pptk.nama');
+        $pptkJabatan = Configurasi::valueOf('pptk.jabatan');
+        $pptkNip = Configurasi::valueOf('pptk.nip');
+        $pptkPangkat = Configurasi::valueOf('pptk.pangkat');
+        $pptkUnitkerja = Configurasi::valueOf('pptk.unitkerja');
+
+        $bpNama = Configurasi::valueOf('bp.nama');
+        $bpJabatan = Configurasi::valueOf('bp.jabatan');
+        $bpNip = Configurasi::valueOf('bp.nip');
+        $bpPangkat = Configurasi::valueOf('bp.pangkat');
+        $bpUnitkerja = Configurasi::valueOf('bp.unitkerja');
+
+        $stPegawai = StPegawai::with('pegawais')->find($id);
+        if (!$stPegawai) {
+            abort(404, 'Record not found');
+        }
+
+        $pdf = Pdf::loadView('st_pegawai.rincian_pdf', compact(
+            'stPegawai',
+            'atasanNama',
+            'atasanNip',
+            'atasanPangkat',
+            'atasanUnitkerja',
+            'atasanJabatan',
+            'kpaNama',
+            'kpaJabatan',
+            'kpaNip',
+            'kpaPangkat',
+            'kpaUnitkerja',
+            'pptkNama',
+            'pptkJabatan',
+            'pptkNip',
+            'pptkPangkat',
+            'pptkUnitkerja',
+            'bpNama',
+            'bpJabatan',
+            'bpNip',
+            'bpPangkat',
+            'bpUnitkerja'
+        ));
+
+        return $pdf->stream('rincian.pdf');
+    }
+
+    public function spbPdf($id)
+    {
+        $atasanNama = Configurasi::valueOf('atasan.nama');
+        $atasanJabatan = Configurasi::valueOf('atasan.jabatan');
+        $atasanNip = Configurasi::valueOf('atasan.nip');
+        $atasanPangkat = Configurasi::valueOf('atasan.pangkat');
+        $atasanUnitkerja = Configurasi::valueOf('atasan.unitkerja');
+
+        $kpaNama = Configurasi::valueOf('kpa.nama');
+        $kpaJabatan = Configurasi::valueOf('kpa.jabatan');
+        $kpaNip = Configurasi::valueOf('kpa.nip');
+        $kpaPangkat = Configurasi::valueOf('kpa.pangkat');
+        $kpaUnitkerja = Configurasi::valueOf('kpa.unitkerja');
+
+        $pptkNama = Configurasi::valueOf('pptk.nama');
+        $pptkJabatan = Configurasi::valueOf('pptk.jabatan');
+        $pptkNip = Configurasi::valueOf('pptk.nip');
+        $pptkPangkat = Configurasi::valueOf('pptk.pangkat');
+        $pptkUnitkerja = Configurasi::valueOf('pptk.unitkerja');
+
+        $bpNama = Configurasi::valueOf('bp.nama');
+        $bpJabatan = Configurasi::valueOf('bp.jabatan');
+        $bpNip = Configurasi::valueOf('bp.nip');
+        $bpPangkat = Configurasi::valueOf('bp.pangkat');
+        $bpUnitkerja = Configurasi::valueOf('bp.unitkerja');
+
+        $stPegawai = StPegawai::with('pegawais')->find($id);
+        if (!$stPegawai) {
+            abort(404, 'Record not found');
+        }
+
+        $pdf = Pdf::loadView('st_pegawai.spb_pdf', compact(
+            'stPegawai',
+            'atasanNama',
+            'atasanNip',
+            'atasanPangkat',
+            'atasanUnitkerja',
+            'atasanJabatan',
+            'kpaNama',
+            'kpaJabatan',
+            'kpaNip',
+            'kpaPangkat',
+            'kpaUnitkerja',
+            'pptkNama',
+            'pptkJabatan',
+            'pptkNip',
+            'pptkPangkat',
+            'pptkUnitkerja',
+            'bpNama',
+            'bpJabatan',
+            'bpNip',
+            'bpPangkat',
+            'bpUnitkerja'
+        ));
+
+        return $pdf->stream('spb.pdf');
+    }
+
+    public function kwitansiPdf($id)
+    {
+        $atasanNama = Configurasi::valueOf('atasan.nama');
+        $atasanJabatan = Configurasi::valueOf('atasan.jabatan');
+        $atasanNip = Configurasi::valueOf('atasan.nip');
+        $atasanPangkat = Configurasi::valueOf('atasan.pangkat');
+        $atasanUnitkerja = Configurasi::valueOf('atasan.unitkerja');
+
+        $kpaNama = Configurasi::valueOf('kpa.nama');
+        $kpaJabatan = Configurasi::valueOf('kpa.jabatan');
+        $kpaNip = Configurasi::valueOf('kpa.nip');
+        $kpaPangkat = Configurasi::valueOf('kpa.pangkat');
+        $kpaUnitkerja = Configurasi::valueOf('kpa.unitkerja');
+
+        $pptkNama = Configurasi::valueOf('pptk.nama');
+        $pptkJabatan = Configurasi::valueOf('pptk.jabatan');
+        $pptkNip = Configurasi::valueOf('pptk.nip');
+        $pptkPangkat = Configurasi::valueOf('pptk.pangkat');
+        $pptkUnitkerja = Configurasi::valueOf('pptk.unitkerja');
+
+        $bpNama = Configurasi::valueOf('bp.nama');
+        $bpJabatan = Configurasi::valueOf('bp.jabatan');
+        $bpNip = Configurasi::valueOf('bp.nip');
+        $bpPangkat = Configurasi::valueOf('bp.pangkat');
+        $bpUnitkerja = Configurasi::valueOf('bp.unitkerja');
+
+        $stPegawai = StPegawai::with('pegawais')->find($id);
+        if (!$stPegawai) {
+            abort(404, 'Record not found');
+        }
+
+        $pdf = Pdf::loadView('st_pegawai.kwitansi_pdf', compact(
+            'stPegawai',
+            'atasanNama',
+            'atasanNip',
+            'atasanPangkat',
+            'atasanUnitkerja',
+            'atasanJabatan',
+            'kpaNama',
+            'kpaJabatan',
+            'kpaNip',
+            'kpaPangkat',
+            'kpaUnitkerja',
+            'pptkNama',
+            'pptkJabatan',
+            'pptkNip',
+            'pptkPangkat',
+            'pptkUnitkerja',
+            'bpNama',
+            'bpJabatan',
+            'bpNip',
+            'bpPangkat',
+            'bpUnitkerja'
+        ))->setPaper('a4')->setOption('margin-top', 0)->setOption('margin-bottom', 0)->setOption('margin-left', 0)->setOption('margin-right', 0);
+
+        return $pdf->stream('kwitansi.pdf');
+    }
+    public function sppdPdf($id)
+    {
+        $atasanNama = Configurasi::valueOf('atasan.nama');
+        $atasanJabatan = Configurasi::valueOf('atasan.jabatan');
+        $atasanNip = Configurasi::valueOf('atasan.nip');
+        $atasanPangkat = Configurasi::valueOf('atasan.pangkat');
+        $atasanUnitkerja = Configurasi::valueOf('atasan.unitkerja');
+
+        $kpaNama = Configurasi::valueOf('kpa.nama');
+        $kpaJabatan = Configurasi::valueOf('kpa.jabatan');
+        $kpaNip = Configurasi::valueOf('kpa.nip');
+        $kpaPangkat = Configurasi::valueOf('kpa.pangkat');
+        $kpaUnitkerja = Configurasi::valueOf('kpa.unitkerja');
+
+        $pptkNama = Configurasi::valueOf('pptk.nama');
+        $pptkJabatan = Configurasi::valueOf('pptk.jabatan');
+        $pptkNip = Configurasi::valueOf('pptk.nip');
+        $pptkPangkat = Configurasi::valueOf('pptk.pangkat');
+        $pptkUnitkerja = Configurasi::valueOf('pptk.unitkerja');
+
+        $bpNama = Configurasi::valueOf('bp.nama');
+        $bpJabatan = Configurasi::valueOf('bp.jabatan');
+        $bpNip = Configurasi::valueOf('bp.nip');
+        $bpPangkat = Configurasi::valueOf('bp.pangkat');
+        $bpUnitkerja = Configurasi::valueOf('bp.unitkerja');
+
+        $stPegawai = StPegawai::with('pegawais')->find($id);
+        if (!$stPegawai) {
+            abort(404, 'Record not found');
+        }
+
+        $pdf = Pdf::loadView('st_pegawai.sppdPdf', compact(
+            'stPegawai',
+            'atasanNama',
+            'atasanNip',
+            'atasanPangkat',
+            'atasanUnitkerja',
+            'atasanJabatan',
+            'kpaNama',
+            'kpaJabatan',
+            'kpaNip',
+            'kpaPangkat',
+            'kpaUnitkerja',
+            'pptkNama',
+            'pptkJabatan',
+            'pptkNip',
+            'pptkPangkat',
+            'pptkUnitkerja',
+            'bpNama',
+            'bpJabatan',
+            'bpNip',
+            'bpPangkat',
+            'bpUnitkerja'
+        ))->setPaper([0, 0, 595, 935]); // F4 size in points (approx 210mm x 330mm)
+
+        return $pdf->stream('sppd.pdf');
+    }
+}
