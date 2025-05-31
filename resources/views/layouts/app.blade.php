@@ -80,7 +80,7 @@
         <a href="{{ route('bp.index') }}"><i class="bi bi-person-badge"></i> BP</a>
         <div class="dropdown position-relative">
             {{-- Dropdown for Dokumen --}}
-            <button type="button" id="dropdownDokumen" class="btn btn-link dropdown-toggle p-0 text-white" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none;">
+            <button type="button" id="dropdownDokumen" class="btn btn-link dropdown-toggle p-3 text-white" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none;">
                 <i class="bi bi-gear"></i> Dokumen
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownDokumen">
