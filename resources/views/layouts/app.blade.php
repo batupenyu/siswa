@@ -42,6 +42,22 @@
             background-color: #495057;
         }
 
+        /* Style dropdown toggle button to match sidebar links */
+        .sidebar .dropdown>button.dropdown-toggle {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 10px 15px;
+            width: 100%;
+            text-align: left;
+            background: none;
+            border: none;
+        }
+
+        .sidebar .dropdown>button.dropdown-toggle:hover {
+            background-color: #495057;
+        }
+
         .main-content {
             margin-left: 250px;
             /* Offset for the sidebar */
@@ -62,11 +78,12 @@
         <a href="{{ route('penilai.index') }}"><i class="bi bi-person-check"></i> Penilai</a>
         <a href="{{ route('kpa.index') }}"><i class="bi bi-people"></i> KPA</a>
         <a href="{{ route('bp.index') }}"><i class="bi bi-person-badge"></i> BP</a>
-        <div class="dropdown">
-            <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        <div class="dropdown position-relative">
+            {{-- Dropdown for Dokumen --}}
+            <button type="button" id="dropdownDokumen" class="btn btn-link dropdown-toggle p-0 text-white" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none;">
                 <i class="bi bi-gear"></i> Dokumen
-            </a>
-            <ul class="dropdown-menu">
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownDokumen">
                 <li><a class="dropdown-item" style="color: black;" href="{{ route('surat') }}">Surat tugas siswa</a></li>
                 <li><a class="dropdown-item" style="color: black;" href="{{ route('stPegawai.index') }}">Surat tugas pegawai</a></li>
                 <li><a class="dropdown-item" style="color: black;" href="{{ route('akKredit.index') }}">Angka kredit</a></li>
@@ -94,6 +111,29 @@
 
     <!-- Include Bootstrap JS and Popper.js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var dropdownToggle = document.getElementById('dropdownDokumen');
+            if (dropdownToggle) {
+                var dropdown = new bootstrap.Dropdown(dropdownToggle);
+
+                // Stop propagation on dropdown toggle click
+                dropdownToggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+
+                // Re-initialize dropdown on sidebar link clicks
+                var sidebarLinks = document.querySelectorAll('.sidebar a');
+                sidebarLinks.forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        dropdown.hide();
+                        dropdown.dispose();
+                        dropdown = new bootstrap.Dropdown(dropdownToggle);
+                    });
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>
