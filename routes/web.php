@@ -15,6 +15,9 @@ use App\Http\Controllers\GambarSuratController;
 use App\Http\Controllers\PhotoSuratController;
 use App\Http\Controllers\RincianController;
 use App\Http\Controllers\RincianSuratController;
+use App\Http\Controllers\PenilaiController;
+use App\Http\Controllers\KpaController;
+use App\Http\Controllers\BpController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +42,10 @@ Route::resource('kelas', KelasController::class);
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 // Route::get('/users', [UserController::class, 'index'])->name('users.index');
+
+Route::resource('penilai', PenilaiController::class);
+Route::resource('kpa', KpaController::class);
+Route::resource('bp', BpController::class);
 
 // Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
 

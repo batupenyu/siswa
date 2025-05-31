@@ -59,6 +59,9 @@
         <a href="{{ route('pegawais.index') }}"><i class="bi bi-gear"></i> Pegawai</a>
         <a href="{{ route('holidays.index') }}"><i class="bi bi-calendar-event"></i> Holidays</a>
         <a href="{{ route('sukets.index') }}"><i class="bi bi-file-text"></i> Suket</a>
+        <a href="{{ route('penilai.index') }}"><i class="bi bi-person-check"></i> Penilai</a>
+        <a href="{{ route('kpa.index') }}"><i class="bi bi-people"></i> KPA</a>
+        <a href="{{ route('bp.index') }}"><i class="bi bi-person-badge"></i> BP</a>
         <div class="dropdown">
             <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi bi-gear"></i> Dokumen
