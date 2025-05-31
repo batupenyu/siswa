@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +9,7 @@
 
     <!-- Select2 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <!-- Removed Bootstrap 4.6.2 CSS to avoid conflict with Bootstrap 5 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
     <!-- Include Bootstrap CSS -->
@@ -29,21 +30,26 @@
             color: white;
             padding-top: 20px;
         }
+
         .sidebar a {
             color: white;
             text-decoration: none;
             display: block;
             padding: 10px 15px;
         }
+
         .sidebar a:hover {
             background-color: #495057;
         }
+
         .main-content {
-            margin-left: 250px; /* Offset for the sidebar */
+            margin-left: 250px;
+            /* Offset for the sidebar */
             padding: 20px;
         }
     </style>
 </head>
+
 <body>
 
     <!-- Sidebar -->
@@ -58,14 +64,14 @@
                 <i class="bi bi-gear"></i> Dokumen
             </a>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" style="color: black;" href="{{ route('surat') }}">Surat tugas siswa</a></li> 
+                <li><a class="dropdown-item" style="color: black;" href="{{ route('surat') }}">Surat tugas siswa</a></li>
                 <li><a class="dropdown-item" style="color: black;" href="{{ route('stPegawai.index') }}">Surat tugas pegawai</a></li>
                 <li><a class="dropdown-item" style="color: black;" href="{{ route('akKredit.index') }}">Angka kredit</a></li>
                 <li><a class="dropdown-item" style="color: black;" href="{{ route('dispensasi.index') }}">Surat Dispensasi</a></li>
             </ul>
         </div>
         {{-- <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-            <i class="bi bi-box-arrow-right"></i> Logout
+        <i class="bi bi-box-arrow-right"></i> Logout
         </a>
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
             @csrf
@@ -79,14 +85,12 @@
 
     <!-- Include jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    
-    <!-- jQuery -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
     <!-- Select2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    
+    <!-- Removed Bootstrap 4.6.2 JS to avoid conflict with Bootstrap 5 -->
+
     <!-- Include Bootstrap JS and Popper.js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

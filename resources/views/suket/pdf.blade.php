@@ -1,16 +1,16 @@
 @php
-    $path = public_path('images/kopSekolah.png');
-    $type = pathinfo($path, PATHINFO_EXTENSION);
-    $data = file_get_contents($path);
-    $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+$path = public_path('images/kopSekolah.png');
+$type = pathinfo($path, PATHINFO_EXTENSION);
+$data = file_get_contents($path);
+$base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
 @endphp
 <div style="text-align: center;">
     <img src="{{ $base64 }}" style="display: block; margin: 0 auto; width: 100%; height: auto">
 </div>
 <h3 style="text-align: center"><u>SURAT KETERANGAN</u>
     <br>
-    Nomor: 421.5/   ....  /SMKl Kb/Dindik/2025 
-</h3> 
+    Nomor: 421.5/ .... /SMKl Kb/Dindik/2025
+</h3>
 
 
 <table border="0" style="width: 95%; padding-left: 1.2cm;">
@@ -53,29 +53,29 @@
     <tr>
         <td>Nama</td>
         <td style="width: 30px">:</td>
-        <td>{{ $siswa->name }}</td>
+        <td>{{ $siswa ? $siswa->name : '' }}</td>
     </tr>
     <tr>
         <td>NISN</td>
         <td style="width: 30px">:</td>
-        <td>{{ $siswa->nis }}</td>
+        <td>{{ $siswa ? $siswa->nis : '' }}</td>
     </tr>
-    <tr>
+    <!-- <tr>
         <td>NPSN</td>
         <td style="width: 30px">:</td>
-        <td>{{ $siswa->npsn }}</td>
-    </tr>
+        <td>{{ $siswa ? $siswa->npsn : '' }}</td>
+    </tr> -->
     <tr>
         <td>Kelas</td>
         <td style="width: 30px">:</td>
-        <td>{{ $siswa->kelas->name }}</td>
+        <td>{{ $siswa && $siswa->kelas ? $siswa->kelas->name : '' }}</td>
     </tr>
     <tr>
         <td colspan="3" style="padding-top:20px; padding-bottom:20px; text-align:justify">
             {{ $suket->description }}
         </td>
     </tr>
-    
+
     <tr>
         <td colspan="3" style="text-align: justify">
             Demikian Surat Keterangan ini dibuat dengan sebenarnya untuk dipergunakan sebagaimana mestinya.
@@ -89,5 +89,3 @@
     <u>{{ $atasanNama }}</u><br>
     NIP. {{ $atasanNip }}
 </p>
-
-   
