@@ -15,7 +15,7 @@
         .table-bordered td,
         .table-bordered th {
             border: 1px solid;
-            padding: 8px;
+            padding: 10px;
         }
 
         .table-borderless {
@@ -73,7 +73,7 @@
                 @php
                 $firstPegawai = $stPegawai->pegawais->first();
                 @endphp
-                {{ $firstPegawai->nama }} / NIP. {{ $firstPegawai->nip }}
+                {{ $firstPegawai->nama }} / {{ $firstPegawai->nip }}
                 @else
                 -
                 @endif
@@ -120,7 +120,7 @@
             <td>
                 a. Lamanya perjalanan dinas <br>
                 b. Tanggal Berangkat <br>
-                c. Tanggal harus kembali/tiba di tempat baru
+                c. Tanggal harus kembali/tiba di <br>&nbsp;&nbsp;&nbsp; tempat baru
             </td>
             <td>
                 a...... <br>
@@ -140,7 +140,7 @@
                 $pegawaisAfterFirst = $stPegawai->pegawais->skip(1);
                 @endphp
                 @foreach($pegawaisAfterFirst as $pegawai)
-                <b>{{ $loop->iteration }}. {{ $pegawai->nama }}</b> <br>
+                {{ $loop->iteration }}. {{ $pegawai->nama }} <br>
                 @endforeach
             </td>
             <td></td>
@@ -163,12 +163,13 @@
             <td>Nomor dan tanggal Surat Tugas</td>
         </tr>
     </table>
+    <p style="text-align: left;padding-left:470px; font-size: 11pt; margin-top: 20px;">
+        Dikeluarkan di : <br>
+        tanggal &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <br>
+
+    </p>
     <p style="text-align: center;padding-left:400px; font-size: 11pt; margin-top: 20px;">
-        {{-- ditetapkan di : <br>
-        pada tanggal : <br> --}}
-        {{-- Pejabat Pelaksana Teknis Kegiatan (PPTK) <br> --}}
-        Pejabat Pembuat Komitmen (PPK) <br>
-        {{-- {{$kpaJabatan}} <br> --}}
+        {{$penilai->jabatan}} <br>
         <br>
         <br>
         <br>
