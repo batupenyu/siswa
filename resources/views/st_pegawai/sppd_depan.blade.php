@@ -59,11 +59,21 @@
         </tr>
     </table>
     <br>
-    <table class="table-bordered" style="width: 100%;">
+    <h3 style="text-align: center;">SURAT PERINTAH PERJALANAN DINAS</h3>
+    <br>
+    <table class="table-bordered" style="width: 100%">
         <tr>
-            <td style="width: 30px; text-align:center">1</td>
+            <td style="width: 30px; text-align:center">1.</td>
             <td>Pejabat yang memberi perintah</td>
-            <td>{{$penilai->jabatan}}</td>
+            @php
+            $jabatanParts = explode(' ', $penilai->jabatan);
+            $firstJabatan = $jabatanParts[0];
+            @endphp
+            <td>
+                {{-- {{$penilai->jabatan}} --}}
+                {{$firstJabatan}}
+                {{$penilai->unitkerja}}
+            </td>
         </tr>
         <tr>
             <td style="vertical-align: top; text-align:center">2</td>
@@ -80,7 +90,7 @@
             </td>
         </tr>
         <tr>
-            <td style="vertical-align: top; text-align:center">3</td>
+            <td style="vertical-align: top; text-align:center">3.</td>
             <td>
                 a. Pangkat dan Golongan <br>
                 b. Jabatan/instansi <br>
@@ -88,22 +98,22 @@
             </td>
             <td>
                 a. {{ $firstPegawai->pangkat }} <br>
-                b. {{ $firstPegawai->jabatan }} <br>
+                b. {{ $firstPegawai->jabatan }}/{{ $penilai->unitkerja }} <br>
                 c. {{ $stPegawai->tingkat_biaya ?? '-' }}
             </td>
         </tr>
         <tr>
-            <td style="vertical-align: top; text-align:center">4</td>
+            <td style="vertical-align: top; text-align:center">4.</td>
             <td>Maksud Perjalanan Dinas</td>
             <td> ... </td>
         </tr>
         <tr>
-            <td style="vertical-align: top; text-align:center">5</td>
+            <td style="vertical-align: top; text-align:center">5.</td>
             <td>Alat angkutan yang dipergunakan</td>
             <td> ... </td>
         </tr>
         <tr>
-            <td style="vertical-align: top; text-align:center">6</td>
+            <td style="vertical-align: top; text-align:center">6.</td>
             <td>
                 a. Tempat kedudukan <br>
                 b. Tempat kedudukan lanjutan <br>
@@ -116,7 +126,7 @@
             </td>
         </tr>
         <tr>
-            <td style="vertical-align: top; text-align:center">7</td>
+            <td style="vertical-align: top; text-align:center">7.</td>
             <td>
                 a. Lamanya perjalanan dinas <br>
                 b. Tanggal Berangkat <br>
@@ -129,7 +139,7 @@
             </td>
         </tr>
         <tr>
-            <td style="vertical-align: top; text-align:center">8</td>
+            <td style="vertical-align: top; text-align:center">8.</td>
             <td>Pengikut : Nama</td>
             <td>Tanggal lahir &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Keterangan</td>
         </tr>
@@ -146,7 +156,7 @@
             <td></td>
         </tr>
         <tr>
-            <td style="vertical-align: top; text-align:center">9</td>
+            <td style="vertical-align: top; text-align:center">9.</td>
             <td>
                 Pembebanan Anggaran <br>
                 a. Instansi <br>
@@ -158,9 +168,12 @@
             </td>
         </tr>
         <tr>
-            <td style="vertical-align: top; text-align:center">10</td>
-            <td>Keterangan lain-lain</td>
-            <td>Nomor dan tanggal Surat Tugas</td>
+            <td style="vertical-align: top; text-align:center">10.</td>
+            <td style="vertical-align: top">Keterangan lain-lain</td>
+            <td>Surat Tugas Nomor : 094/........./SMKN 1
+                Kb/Dindik/{{Carbon\Carbon::Parse($stPegawai->tgl_kegiatan)->translatedFormat('Y')}}
+                tanggal {{Carbon\Carbon::Parse($stPegawai->tgl_kegiatan)->translatedFormat('d F Y')}}
+            </td>
         </tr>
     </table>
     <p style="text-align: left;padding-left:470px; font-size: 11pt; margin-top: 20px;">
@@ -169,7 +182,10 @@
 
     </p>
     <p style="text-align: center;padding-left:400px; font-size: 11pt; margin-top: 20px;">
-        {{$penilai->jabatan}} <br>
+        {{-- {{$penilai->jabatan}} --}}
+        {{$firstJabatan}}
+        {{$penilai->unitkerja}}
+        <br>
         <br>
         <br>
         <br>
