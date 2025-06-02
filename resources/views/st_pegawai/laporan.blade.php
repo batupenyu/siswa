@@ -209,7 +209,7 @@
 
         <table class="table table-borderless">
             <tr>
-                <td style="width: 20px;">I. </td>
+                <th style="width: 30px;">I. </th>
                 <th>Dasar Pelaksanaan</th>
             </tr>
             <tr>
@@ -217,7 +217,7 @@
                 <td style=" text-align: justify;" colspan="2">{{$stPegawaiItem->dasar_surat ?? '-'}}</td>
             </tr>
             <tr>
-                <td>II. </td>
+                <th>II. </th>
                 <th>Maksud dan Tujuan</th>
             </tr>
             <tr>
@@ -225,7 +225,7 @@
                 <td style=" text-align: justify;">{{$stPegawaiItem->maksud_tujuan ?? '-'}}</td>
             </tr>
             <tr>
-                <td>III. </td>
+                <th>III. </th>
                 <th>Waktu dan Tempat</th>
             </tr>
             <tr>
@@ -252,7 +252,7 @@
                 </td>
             </tr>
             <tr>
-                <td>IV. </td>
+                <th>IV. </th>
                 <th>Materi dan Narasumber (apabila ada)</th>
             </tr>
             <tr>
@@ -260,7 +260,7 @@
                 <td style=" text-align: justify;">{{$stPegawaiItem->materi_narsum ?? '-'}}</td>
             </tr>
             <tr>
-                <td>V. </td>
+                <th>V. </th>
                 <th>Hasil yang diperoleh</th>
             </tr>
             <tr>
@@ -268,7 +268,7 @@
                 <td style=" text-align: justify;">{{$stPegawaiItem->hasil ?? '-'}}</td>
             </tr>
             <tr>
-                <td>VI. </td>
+                <th>VI. </th>
                 <th>Kesimpulan dan saran</th>
             </tr>
             <tr>

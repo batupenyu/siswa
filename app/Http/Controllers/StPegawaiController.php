@@ -440,4 +440,36 @@ class StPegawaiController extends Controller
 
         return $pdf->stream('laporan_perjalanan_dinas.pdf');
     }
+
+    public function sppd_depan($id)
+    {
+        $st_pegawai = StPegawai::with('pegawais')->find($id);
+        $penilai = \App\Models\Penilai::first();
+        $kpa = \App\Models\Kpa::first();
+        $bp = \App\Models\Bp::first();
+
+        $atasanNama = Configurasi::valueOf('atasan.nama');
+        $atasanJabatan = Configurasi::valueOf('atasan.jabatan');
+        $atasanNip = Configurasi::valueOf('atasan.nip');
+        $atasanPangkat = Configurasi::valueOf('atasan.pangkat');
+        $atasanUnitkerja = Configurasi::valueOf('atasan.unitkerja');
+
+        if (!$st_pegawai) {
+            abort(404, 'Record not found');
+        }
+
+        $pdf = Pdf::loadView('st_pegawai.sppd_depan', [
+            'stPegawai' => $st_pegawai,
+            'penilai' => $penilai,
+            'kpa' => $kpa,
+            'bp' => $bp,
+            'atasanNama' => $atasanNama,
+            'atasanJabatan' => $atasanJabatan,
+            'atasanNip' => $atasanNip,
+            'atasanPangkat' => $atasanPangkat,
+            'atasanUnitkerja' => $atasanUnitkerja,
+        ])->setOption('margin-top', 0);
+
+        return $pdf->stream('laporan_perjalanan_dinas.pdf');
+    }
 }

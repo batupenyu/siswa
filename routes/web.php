@@ -79,6 +79,7 @@ Route::get('/st-pegawai/{id}/pdf', [StPegawaiController::class, 'pdf'])->name('s
 Route::get('/rincian/{id}/pdf', [StPegawaiController::class, 'rincianPdf'])->name('rincian_pdf');
 Route::get('/spb/{id}/pdf', [StPegawaiController::class, 'spbPdf'])->name('spb_pdf');
 Route::get('/sppd/{id}/pdf', [StPegawaiController::class, 'sppdPdf'])->name('sppd_pdf');
+Route::get('/sppd/{id}/depan', [StPegawaiController::class, 'sppd_depan'])->name('sppd_depan');
 Route::get('/kwitansi/{id}/pdf', [StPegawaiController::class, 'kwitansiPdf'])->name('kwitansi_pdf');
 Route::post('/surats/{id}/upload', [StPegawaiController::class, 'uploadFile'])->name('st-surat.upload'); // st_surat
 Route::get('/st-pegawai/laporan/{id}', [StPegawaiController::class, 'laporan'])->name('st-pegawai.laporan');

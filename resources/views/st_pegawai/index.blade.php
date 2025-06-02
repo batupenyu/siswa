@@ -105,7 +105,7 @@
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton{{ $item->id }}">
                                         <a href="{{ route('st-pegawai.pdf', $item->id) }}" class="dropdown-item"><i
-                                                class="bi-file-pdf"></i> Surat</a>
+                                                class="bi-file-pdf"></i> Spt</a>
                                         <a href="{{ route('st-pegawai.laporan', $item->id) }}" class="dropdown-item"><i
                                                 class="bi-file-pdf"></i> Laporan</a>
                                         <a href="{{ route('rincian_pdf', $item->id) }}" class="dropdown-item"><i
@@ -114,8 +114,10 @@
                                                 class="bi bi-list-check"></i> Spb</a>
                                         <a href="{{ route('kwitansi_pdf', $item->id) }}" class="dropdown-item"><i
                                                 class="bi bi-list-check"></i> Kwitansi</a>
+                                        <a href="{{ route('sppd_depan', $item->id) }}" class="dropdown-item"><i
+                                                class="bi bi-list-check"></i> Sppd_1</a>
                                         <a href="{{ route('sppd_pdf', $item->id) }}" class="dropdown-item"><i
-                                                class="bi bi-list-check"></i> Sppd</a>
+                                                class="bi bi-list-check"></i> Sppd_2</a>
                                         <a href="{{ route('photo_surat.index', $item->id) }}" class="dropdown-item"><i
                                                 class="bi bi-camera-fill"></i> Photo</a>
                                         <a href="{{ route('st-pegawai.edit', $item->id) }}" class="dropdown-item"><i
