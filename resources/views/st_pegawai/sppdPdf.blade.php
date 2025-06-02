@@ -504,5 +504,18 @@
         </td>
     </tr>
   </table>
+<p style="text-align: center;padding-left:400px; font-size: 11pt; margin-top: 20px;">
+  {{-- ditetapkan di : <br>
+  pada tanggal : <br> --}}
+  {{-- Pejabat Pelaksana Teknis Kegiatan (PPTK) <br> --}}
+  Pejabat Pembuat Komitmen (PPK) <br>
+  {{-- {{$kpaJabatan}} <br> --}}
+  <br>
+  <br>
+  <br>
+  <span style="text-transform: uppercase; font-weight: bold;">{{ $kpaNama }}</span>
+  <br>
+  NIP. {{ $kpaNip }}
+</p>
 </body>
 </html>

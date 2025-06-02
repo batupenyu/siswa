@@ -41,6 +41,10 @@ class StPegawaiController extends Controller
             'jam_kegiatan' => 'required|date_format:H:i',
             'tgl_ditetapkan' => 'required|date',
             'tempat_ditetapkan' => 'required|string',
+            'maksud_tujuan' => 'nullable|string',
+            'materi_narsum' => 'nullable|string',
+            'hasil' => 'nullable|string',
+            'kesimpulan' => 'nullable|string',
             'pegawai_id' => 'nullable|array',
             'biaya_transportasi' => 'nullable|string',
             'biaya_penginapan' => 'nullable|string',
@@ -74,12 +78,16 @@ class StPegawaiController extends Controller
     public function edit(StPegawai $stPegawai)
     {
         $pegawais = Pegawai::all();
+        $penilai = \App\Models\Penilai::first();
+        $kpa = \App\Models\Kpa::first();
+        $bp = \App\Models\Bp::first();
+
         if (!$stPegawai) {
             abort(404, 'StPegawai not found');
         }
 
         $selectedPegawaiIds = $stPegawai->pegawais()->pluck('id')->toArray();
-        return view('st_pegawai.edit', compact('stPegawai', 'pegawais', 'selectedPegawaiIds'));
+        return view('st_pegawai.edit', compact('stPegawai', 'pegawais', 'selectedPegawaiIds', 'penilai', 'kpa', 'bp'));
     }
 
 
@@ -97,6 +105,10 @@ class StPegawaiController extends Controller
             'jam_kegiatan' => 'required|date_format:H:i',
             'tgl_ditetapkan' => 'required|date',
             'tempat_ditetapkan' => 'required|string',
+            'maksud_tujuan' => 'nullable|string',
+            'materi_narsum' => 'nullable|string',
+            'hasil' => 'nullable|string',
+            'kesimpulan' => 'nullable|string',
             'pegawai_id' => 'nullable|array',
             'biaya_transportasi' => 'nullable|string',
             'biaya_penginapan' => 'nullable|string',
@@ -404,8 +416,28 @@ class StPegawaiController extends Controller
             'bpNip',
             'bpPangkat',
             'bpUnitkerja'
-        ))->setPaper([0, 0, 595, 935]); // F4 size in points (approx 210mm x 330mm)
+        ))->setPaper('legal');
 
         return $pdf->stream('sppd.pdf');
+    }
+
+    public function laporan($id)
+    {
+        $st_pegawai = StPegawai::with('pegawais')->find($id);
+        $penilai = \App\Models\Penilai::first();
+        $kpa = \App\Models\Kpa::first();
+        $bp = \App\Models\Bp::first();
+
+        if (!$st_pegawai) {
+            abort(404, 'Record not found');
+        }
+
+        // Wrap the single record in an array to be compatible with the blade expecting a collection
+        $st_pegawai_collection = collect([$st_pegawai]);
+
+        $pdf = Pdf::loadView('st_pegawai.laporan', ['stPegawai' => $st_pegawai_collection, 'penilai' => $penilai, 'kpa' => $kpa, 'bp' => $bp])
+            ->setOption('margin-top', 0);
+
+        return $pdf->stream('laporan_perjalanan_dinas.pdf');
     }
 }

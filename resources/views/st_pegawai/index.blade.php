@@ -80,13 +80,15 @@
                             <td>
                                 @if($item->file)
                                 <a href="{{ asset('storage/'.$item->file) }}" target="_blank">Dasar Surat</a>
-                                <form action="{{ route('st-surat.upload', $item->id) }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('st-surat.upload', $item->id) }}" method="POST"
+                                    enctype="multipart/form-data">
                                     @csrf
                                     <input type="file" name="file">
                                     <button type="submit" class="btn btn-primary btn-sm">Reupload File</button>
                                 </form>
                                 @else
-                                <form action="{{ route('surats.upload', $item->id) }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('st-surat.upload', $item->id) }}" method="POST"
+                                    enctype="multipart/form-data">
                                     @csrf
                                     <input type="file" name="file">
                                     <button type="submit" class="btn btn-primary btn-sm">Upload File</button>
@@ -96,21 +98,34 @@
                             <td>
 
                                 <div class="dropdown">
-                                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton{{ $item->id }}" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
+                                        id="dropdownMenuButton{{ $item->id }}" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
                                         <i class="bi-three-dots-vertical"></i>
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton{{ $item->id }}">
-                                        <a href="{{ route('st-pegawai.pdf', $item->id) }}" class="dropdown-item"><i class="bi-file-pdf"></i> Surat</a>
-                                        <a href="{{ route('rincian_pdf', $item->id) }}" class="dropdown-item"><i class="bi bi-list-check"></i> Rincian</a>
-                                        <a href="{{ route('spb_pdf', $item->id) }}" class="dropdown-item"><i class="bi bi-list-check"></i> Spb</a>
-                                        <a href="{{ route('kwitansi_pdf', $item->id) }}" class="dropdown-item"><i class="bi bi-list-check"></i> Kwitansi</a>
-                                        <a href="{{ route('sppd_pdf', $item->id) }}" class="dropdown-item"><i class="bi bi-list-check"></i> Sppd</a>
-                                        <a href="{{ route('photo_surat.index', $item->id) }}" class="dropdown-item"><i class="bi bi-camera-fill"></i> Photo</a>
-                                        <a href="{{ route('st-pegawai.edit', $item->id) }}" class="dropdown-item"><i class="bi-pen-fill"></i> Edit</a>
-                                        <form action="{{ route('st-pegawai.destroy', $item->id) }}" method="POST" style="display:inline;">
+                                        <a href="{{ route('st-pegawai.pdf', $item->id) }}" class="dropdown-item"><i
+                                                class="bi-file-pdf"></i> Surat</a>
+                                        <a href="{{ route('st-pegawai.laporan', $item->id) }}" class="dropdown-item"><i
+                                                class="bi-file-pdf"></i> Laporan</a>
+                                        <a href="{{ route('rincian_pdf', $item->id) }}" class="dropdown-item"><i
+                                                class="bi bi-list-check"></i> Rincian</a>
+                                        <a href="{{ route('spb_pdf', $item->id) }}" class="dropdown-item"><i
+                                                class="bi bi-list-check"></i> Spb</a>
+                                        <a href="{{ route('kwitansi_pdf', $item->id) }}" class="dropdown-item"><i
+                                                class="bi bi-list-check"></i> Kwitansi</a>
+                                        <a href="{{ route('sppd_pdf', $item->id) }}" class="dropdown-item"><i
+                                                class="bi bi-list-check"></i> Sppd</a>
+                                        <a href="{{ route('photo_surat.index', $item->id) }}" class="dropdown-item"><i
+                                                class="bi bi-camera-fill"></i> Photo</a>
+                                        <a href="{{ route('st-pegawai.edit', $item->id) }}" class="dropdown-item"><i
+                                                class="bi-pen-fill"></i> Edit</a>
+                                        <form action="{{ route('st-pegawai.destroy', $item->id) }}" method="POST"
+                                            style="display:inline;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="dropdown-item" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                            <button type="submit" class="dropdown-item"
+                                                onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
                                                 <i class="bi-trash"></i> Hapus
                                             </button>
                                         </form>

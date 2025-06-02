@@ -81,6 +81,7 @@ Route::get('/spb/{id}/pdf', [StPegawaiController::class, 'spbPdf'])->name('spb_p
 Route::get('/sppd/{id}/pdf', [StPegawaiController::class, 'sppdPdf'])->name('sppd_pdf');
 Route::get('/kwitansi/{id}/pdf', [StPegawaiController::class, 'kwitansiPdf'])->name('kwitansi_pdf');
 Route::post('/surats/{id}/upload', [StPegawaiController::class, 'uploadFile'])->name('st-surat.upload'); // st_surat
+Route::get('/st-pegawai/laporan/{id}', [StPegawaiController::class, 'laporan'])->name('st-pegawai.laporan');
 
 Route::resource('akKredits', AkKreditController::class);
 
