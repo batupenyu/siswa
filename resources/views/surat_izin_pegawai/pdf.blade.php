@@ -76,10 +76,41 @@
             font-size: 12px;
             text-align: center;
         }
+
+        /* Watermark styles */
+        .watermark-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: space-around;
+            opacity: 0.5;
+            overflow: hidden;
+        }
+
+        .watermark {
+            font-size: 10pt;
+            color: rgba(0, 0, 0, 0.3);
+            font-weight: 600;
+            transform: rotate(-30deg);
+            position: relative;
+            margin: 2rem 3rem;
+            user-select: none;
+            white-space: nowrap;
+        }
     </style>
 </head>
 
 <body>
+    <div class="watermark-container">
+        @for ($i = 0; $i < 30; $i++) <div class="watermark">{{ $suratIzinPegawai->pegawai->nip ?? '' }}</div>
+    @endfor
+    </div>
     <div class="header">
         @if($headerIconImage)
         <img src="{{ public_path('storage/header_icons/' . $headerIconImage->filename) }}" alt="Icon">
