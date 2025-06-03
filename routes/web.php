@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HeaderIconImageController;
+
+use App\Http\Controllers\SuratIzinPegawaiController;
+
 use App\Http\Controllers\SuketController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\SiswaController;
@@ -136,3 +140,8 @@ Route::get('surats/{id}/tabeldispensasi', [DispensasiController::class, 'tabeldi
 Route::resource('sukets', \App\Http\Controllers\SuketController::class);
 
 Route::get('sukets/{id}/pdf', [\App\Http\Controllers\SuketController::class, 'pdf'])->name('sukets.pdf');
+
+Route::resource('surat_izin_pegawai', SuratIzinPegawaiController::class);
+Route::get('surat_izin_pegawai/{id}/pdf', [SuratIzinPegawaiController::class, 'pdf'])->name('surat_izin_pegawai.pdf');
+
+Route::resource('header_icon_images', HeaderIconImageController::class);

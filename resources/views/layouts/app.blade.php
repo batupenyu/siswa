@@ -18,6 +18,11 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-papb+Y1+Y+6k+6Q5b+6Q5b+6Q5b+6Q5b+6Q5b+6Q5b+6Q5b+6Q5b+6Q5b+6Q5b+6Q5b+6Q5b+6Q5b+6Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <style>
         /* Custom styles for the sidebar */
         .sidebar {
@@ -78,20 +83,29 @@
         <a href="{{ route('penilai.index') }}"><i class="bi bi-person-check"></i> Penilai</a>
         <a href="{{ route('kpa.index') }}"><i class="bi bi-people"></i> KPA</a>
         <a href="{{ route('bp.index') }}"><i class="bi bi-person-badge"></i> BP</a>
+        <a href="{{ route('surat_izin_pegawai.index') }}"><i class="bi bi-person-badge"></i> Surat Izin Pegawai</a>
+        <a href="{{ route('header_icon_images.index') }}"><i class="bi bi-image"></i> Ganti Kop Surat</a>
         <div class="dropdown position-relative">
             {{-- Dropdown for Dokumen --}}
-            <button type="button" id="dropdownDokumen" class="btn btn-link dropdown-toggle p-3 text-white" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none;">
+            <button type="button" id="dropdownDokumen" class="btn btn-link dropdown-toggle p-3 text-white"
+                data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none;">
                 <i class="bi bi-gear"></i> Dokumen
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownDokumen">
-                <li><a class="dropdown-item" style="color: black;" href="{{ route('surat') }}">Surat tugas siswa</a></li>
-                <li><a class="dropdown-item" style="color: black;" href="{{ route('stPegawai.index') }}">Surat tugas pegawai</a></li>
-                <li><a class="dropdown-item" style="color: black;" href="{{ route('akKredit.index') }}">Angka kredit</a></li>
-                <li><a class="dropdown-item" style="color: black;" href="{{ route('dispensasi.index') }}">Surat Dispensasi</a></li>
+                <li><a class="dropdown-item" style="color: black;" href="{{ route('surat') }}">Surat tugas siswa</a>
+                </li>
+                <li><a class="dropdown-item" style="color: black;" href="{{ route('stPegawai.index') }}">Surat tugas
+                        pegawai</a></li>
+                <li><a class="dropdown-item" style="color: black;" href="{{ route('akKredit.index') }}">Angka kredit</a>
+                </li>
+                <li><a class="dropdown-item" style="color: black;" href="{{ route('dispensasi.index') }}">Surat
+                        Dispensasi</a></li>
+
             </ul>
         </div>
-        {{-- <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-        <i class="bi bi-box-arrow-right"></i> Logout
+        {{-- <a href="{{ route('logout') }}"
+            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            <i class="bi bi-box-arrow-right"></i> Logout
         </a>
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
             @csrf
