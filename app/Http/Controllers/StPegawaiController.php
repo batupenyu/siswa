@@ -389,12 +389,18 @@ class StPegawaiController extends Controller
         $bpPangkat = Configurasi::valueOf('bp.pangkat');
         $bpUnitkerja = Configurasi::valueOf('bp.unitkerja');
 
+        $st_pegawai = StPegawai::with('pegawais')->find($id);
+        $penilai = \App\Models\Penilai::first();
+        $kpa = \App\Models\Kpa::first();
+        $bp = \App\Models\Bp::first();
+
         $stPegawai = StPegawai::with('pegawais')->find($id);
         if (!$stPegawai) {
             abort(404, 'Record not found');
         }
 
         $pdf = Pdf::loadView('st_pegawai.sppdPdf', compact(
+            'penilai',
             'stPegawai',
             'atasanNama',
             'atasanNip',
