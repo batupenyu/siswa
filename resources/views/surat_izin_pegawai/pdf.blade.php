@@ -161,12 +161,12 @@
         </tr>
     </table>
 
-    <div>Demikian surat keterangan ini untuk dibuat untuk dapat dipergunakan dengan penuh rasa tanggung jawab.</div>
+    <div>Demikian surat keterangan ini dibuat, atas perhatian dan persetujuan Bapak/Ibu diucapkan terima kasih.</div>
 
     <div class="signature">
         <table class="signature-table">
             <tr>
-                <td>Mengetahui,<br>{{$penilai->jabatan}}</td>
+                <td>Mengetahui/Menyetujui,<br>{{$penilai->jabatan}}</td>
                 <td>Koba, {{ \Carbon\Carbon::parse($suratIzinPegawai->tanggal)->locale('id')->isoFormat('DD MMMM
                     YYYY') }}<br>Yang Bersangkutan,</td>
             </tr>
