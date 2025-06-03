@@ -55,7 +55,7 @@
 
         .table-detail td {
             padding: 5px;
-            border: 1px solid #000;
+            /* border: 1px solid #000; */
         }
 
         .signature {
@@ -103,7 +103,7 @@
 
     <div class="title">SURAT KETERANGAN<br>KETERLAMBATAN / MENINGGALKAN SEKOLAH PADA JAM KERJA</div>
     <br>
-    <div>&nbsp;yang bertanda tangan dibawah ini :</div>
+    <div>&nbsp;Yang bertanda tangan dibawah ini :</div>
     <br>
     <table class="table-info ">
         <tr>
@@ -141,7 +141,7 @@
         <tr>
             <td width="30%">Hari / Tanggal</td>
             <td width="5%">:</td>
-            <td>{{ \Carbon\Carbon::parse($suratIzinPegawai->tanggal)->locale('id')->isoFormat('dddd, D MMMM YYYY') }}
+            <td>{{ \Carbon\Carbon::parse($suratIzinPegawai->tanggal)->locale('id')->isoFormat('dddd, DD MMMM YYYY') }}
             </td>
         </tr>
         <tr>
@@ -161,17 +161,17 @@
         </tr>
     </table>
 
-    <div>Demikian surat keterangan ini disampaikan dengan rasa penuh tanggung jawab.</div>
+    <div>Demikian surat keterangan ini untuk dibuat untuk dapat dipergunakan dengan penuh rasa tanggung jawab.</div>
 
     <div class="signature">
         <table class="signature-table">
             <tr>
-                <td>Mengetahui<br>Kepala Sekolah,</td>
-                <td>Koba, {{ \Carbon\Carbon::parse($suratIzinPegawai->tanggal)->locale('id')->isoFormat('D MMMM
+                <td>Mengetahui,<br>{{$penilai->jabatan}}</td>
+                <td>Koba, {{ \Carbon\Carbon::parse($suratIzinPegawai->tanggal)->locale('id')->isoFormat('DD MMMM
                     YYYY') }}<br>Yang Bersangkutan,</td>
             </tr>
             <tr>
-                <td><br><br><br>Syahryanto, S.T.<br>NIP 19770826 200604 1 005</td>
+                <td><br><br><br>{{$penilai->nama}}<br>NIP.{{$penilai->nip}}</td>
                 <td><br><br><br>{{ $suratIzinPegawai->pegawai->nama ?? '-' }}<br>NIP.{{
                     $suratIzinPegawai->pegawai->nip ?? '-' }}</td>
             </tr>

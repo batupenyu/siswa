@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\SuratIzinPegawai;
 use App\Models\Pegawai;
 use App\Models\HeaderIconImage;
+use App\Models\Penilai;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -95,9 +96,10 @@ class SuratIzinPegawaiController extends Controller
 
     public function pdf($id)
     {
+        $penilai = Penilai::first();
         $suratIzinPegawai = SuratIzinPegawai::with('pegawai')->findOrFail($id);
         $headerIconImage = HeaderIconImage::latest()->first();
-        $pdf = PDF::loadView('surat_izin_pegawai.pdf', compact('suratIzinPegawai', 'headerIconImage'));
+        $pdf = PDF::loadView('surat_izin_pegawai.pdf', compact('penilai', 'suratIzinPegawai', 'headerIconImage'));
         return $pdf->stream('surat_izin_pegawai_' . $id . '.pdf');
     }
 }
