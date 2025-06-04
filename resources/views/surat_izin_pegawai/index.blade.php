@@ -40,7 +40,7 @@
     <table class="table table-sm table-bordered">
         <thead>
             <tr>
-                <th>ID</th>
+                <th>No.</th>
                 <th>Pegawai</th>
                 <th>Tanggal</th>
                 <th>Jam</th>
@@ -53,7 +53,7 @@
         <tbody>
             @foreach($suratIzinPegawais as $surat)
             <tr>
-                <td>{{ $surat->id }}</td>
+                <td style="text-align: center">{{ $loop->iteration }}.</td>
                 <td>{{ $surat->pegawai->nama ?? '-' }}</td>
                 <td>{{ \Carbon\Carbon::parse($surat->tanggal)->locale('id')->translatedFormat('d/m/Y') }}</td>
                 <td>{{ $surat->jam }}</td>

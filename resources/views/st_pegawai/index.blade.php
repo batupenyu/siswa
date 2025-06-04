@@ -35,7 +35,7 @@
                     <tbody>
                         @foreach ($stPegawaiList as $item)
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
+                            <td style="text-align: center">{{ $loop->iteration }}.</td>
                             <td>
                                 @if(isset($item->pegawais) && $item->pegawais->isNotEmpty())
                                 {{ $item->pegawais->pluck('nama')->implode(', ') }}
