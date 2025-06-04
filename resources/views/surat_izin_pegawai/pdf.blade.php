@@ -89,7 +89,7 @@
             display: flex;
             flex-wrap: wrap;
             align-content: space-around;
-            opacity: 0.5;
+            opacity: 0.0;
             overflow: hidden;
         }
 
@@ -150,7 +150,10 @@
         <tr>
             <td>Unit Kerja</td>
             <td>:</td>
-            <td>{{ $suratIzinPegawai->pegawai->unit_kerja ?? '-' }}</td>
+            <td>
+                {{-- {{ $suratIzinPegawai->pegawai->unit_kerja ?? '-' }} --}}
+                {{ $penilai->unitkerja ??'-'}}
+            </td>
         </tr>
         <tr>
             <td>Jabatan</td>
@@ -183,7 +186,12 @@
         <tr>
             <td>Keperluan</td>
             <td>:</td>
-            <td>{{ $suratIzinPegawai->keperluan }}</td>
+            <td>
+                @if($suratIzinPegawai->keperluan == 'Dinas')
+                Dinas/<del>Pribadi</del>
+                @else
+                <del>Dinas</del>/Pribadi @endif
+            </td>
         </tr>
         <tr>
             <td>Keterangan</td>

@@ -42,8 +42,11 @@
 
         <div class="form-group">
             <label for="keperluan">Keperluan</label>
-            <input type="text" name="keperluan" id="keperluan" class="form-control"
-                value="{{ $suratIzinPegawai->keperluan }}" required>
+            <select name="keperluan" id="keperluan" class="form-control" required>
+                <option value="Dinas" {{ $suratIzinPegawai->keperluan == 'Dinas' ? 'selected' : '' }}>Dinas</option>
+                <option value="Pribadi" {{ $suratIzinPegawai->keperluan == 'Pribadi' ? 'selected' : '' }}>Pribadi
+                </option>
+            </select>
         </div>
 
         <div class="form-group">

@@ -38,7 +38,10 @@
 
         <div class="form-group">
             <label for="keperluan">Keperluan</label>
-            <input type="text" name="keperluan" id="keperluan" class="form-control" required>
+            <select name="keperluan" id="keperluan" class="form-control" required>
+                <option value="Pribadi">Pribadi</option>
+                <option value="Dinas">Dinas</option>
+            </select>
         </div>
 
         <div class="form-group">

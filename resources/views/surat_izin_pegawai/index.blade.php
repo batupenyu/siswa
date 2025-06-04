@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <a href="{{ route('surat_izin_pegawai.create') }}" class="btn btn-success">Tambah Surat Izin</a>
+</div>
 <div class="container">
     <h1>Surat Izin Pegawai</h1>
     <form method="GET" action="{{ route('surat_izin_pegawai.index') }}" class="row g-3 mb-3">
@@ -34,7 +37,7 @@
     <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <table class="table table-bordered">
+    <table class="table table-sm table-bordered">
         <thead>
             <tr>
                 <th>ID</th>
@@ -52,7 +55,7 @@
             <tr>
                 <td>{{ $surat->id }}</td>
                 <td>{{ $surat->pegawai->nama ?? '-' }}</td>
-                <td>{{ $surat->tanggal }}</td>
+                <td>{{ \Carbon\Carbon::parse($surat->tanggal)->locale('id')->translatedFormat('d/m/Y') }}</td>
                 <td>{{ $surat->jam }}</td>
                 <td>{{ ucfirst($surat->status) }}</td>
                 <td>{{ $surat->keperluan }}</td>

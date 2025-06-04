@@ -29,6 +29,8 @@ class SuratIzinPegawaiController extends Controller
             $query->where('tanggal', '<=', $request->end_date);
         }
 
+        $query->orderBy('tanggal', 'asc');
+
         $suratIzinPegawais = $query->paginate(10)->appends($request->all());
 
         return view('surat_izin_pegawai.index', compact('suratIzinPegawais'));
@@ -36,7 +38,7 @@ class SuratIzinPegawaiController extends Controller
 
     public function create()
     {
-        $pegawais = Pegawai::all();
+        $pegawais = Pegawai::orderBy('nama', 'asc')->get();
         return view('surat_izin_pegawai.create', compact('pegawais'));
     }
 
@@ -47,7 +49,7 @@ class SuratIzinPegawaiController extends Controller
             'tanggal' => 'required|date',
             'jam' => 'required',
             'status' => 'required|in:keterlambatan,meninggalkan',
-            'keperluan' => 'required|string|max:255',
+            'keperluan' => 'required|in:Dinas,Pribadi',
             'keterangan' => 'nullable|string|max:255',
         ]);
 
@@ -65,7 +67,7 @@ class SuratIzinPegawaiController extends Controller
     public function edit($id)
     {
         $suratIzinPegawai = SuratIzinPegawai::findOrFail($id);
-        $pegawais = Pegawai::all();
+        $pegawais = Pegawai::orderBy('nama', 'asc')->get();
         return view('surat_izin_pegawai.edit', compact('suratIzinPegawai', 'pegawais'));
     }
 
@@ -76,7 +78,7 @@ class SuratIzinPegawaiController extends Controller
             'tanggal' => 'required|date',
             'jam' => 'required',
             'status' => 'required|in:keterlambatan,meninggalkan',
-            'keperluan' => 'required|string|max:255',
+            'keperluan' => 'required|in:Dinas,Pribadi',
             'keterangan' => 'nullable|string|max:255',
         ]);
 

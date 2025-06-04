@@ -19,7 +19,7 @@ class CreateSuratIzinPegawaiTable extends Migration
             $table->date('tanggal');
             $table->time('jam');
             $table->enum('status', ['keterlambatan', 'meninggalkan']);
-            $table->string('keperluan');
+            $table->enum('keperluan', ['Dinas', 'Pribadi']);
             $table->string('keterangan')->nullable();
             $table->timestamps();
 
