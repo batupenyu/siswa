@@ -130,7 +130,7 @@
             } elseif ($gol =='III/d') {
                 $lama = 100;
                 $koefisien = 25;
-                $pangkat = 100;
+                $pangkat = 200;
                 $jenjang = 200;
                 $nextPangkat = 'jenjang Ahli Madya Pangkat/Golongan ruang Pembina,IV/a';
                 $namaPangkat = 'Penata TK.I';
@@ -407,13 +407,14 @@
             </tr>
             <tr>
                 <td colspan="6" style="text-align: justify">
-                    @if ($akKredit->pegawai->pangkat = $gol && $hasilJenjang > 0)
-                    <b><i>Dapat</i>
-                        @else
-                        <b><i>Tidak dapat</i></b>
-                        @endif
-                        dipertimbangkan untuk kenaikan Pangkat/Jabatan setingkat lebih tinggi ke <i><b>{{
-                                $nextPangkat}}</b></i>
+                    {{-- @if ($akKredit->pegawai->pangkat = $gol && $hasilJenjang > 0) --}}
+                    @if (($lama+$baru+$integrasi-$lama)-$pangkat > 0)
+                    <b><i>Dapat</i></b>
+                    @else
+                    <b><i>Tidak dapat</i></b>
+                    @endif
+                    dipertimbangkan untuk kenaikan Pangkat/Jabatan setingkat lebih tinggi ke
+                    <b><i>{{$nextPangkat}}</i></b>
                 </td>
             </tr>
         </tbody>

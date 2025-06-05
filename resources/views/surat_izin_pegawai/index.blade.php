@@ -54,7 +54,9 @@
             @foreach($suratIzinPegawais as $surat)
             <tr>
                 <td style="text-align: center">{{ $loop->iteration }}.</td>
-                <td>{{ $surat->pegawai->nama ?? '-' }}</td>
+                <td>{{ $surat->pegawai->nama ?? '-' }}<a href="{{ route('pegawais.edit', $surat->pegawai->id ?? 0) }}">
+                        <i class="bi-pen-fill"></i></a>
+                </td>
                 <td>{{ \Carbon\Carbon::parse($surat->tanggal)->locale('id')->translatedFormat('d/m/Y') }}</td>
                 <td>{{ $surat->jam }}</td>
                 <td>{{ ucfirst($surat->status) }}</td>
