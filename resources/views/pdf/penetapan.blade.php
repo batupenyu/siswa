@@ -27,19 +27,19 @@
 
         th,
         td {
-            border: 1px solid rgb(143, 98, 98);
+            border: 1px solid black;
             padding: 2px;
             text-align: left;
         }
 
         th {
             /* background-color: #b4bab4; */
-            background-color: #838884;
-            color: white;
+            background-color: none;
+            color: rgb(10, 1, 1);
         }
 
         tr:nth-child(even) {
-            background-color: #f9f9f9;
+            background-color: none;
         }
 
         /* New styles for aligning labels */
@@ -193,7 +193,7 @@
     <table>
         <thead>
             <tr>
-                <th style="text-align: center">I</th>
+                <th style="text-align: center">I.</th>
                 <th colspan="2">KETERANGAN PERORANGAN</th>
             </tr>
         </thead>
@@ -268,7 +268,7 @@
                 </td>
             </tr>
             <tr>
-                <th style="text-align: center" colspan="3">HASIL PENILAIAN ANGKA KREDIT</th>
+                <th style="text-align: center; border-bottom: none;" colspan="3">HASIL PENILAIAN ANGKA KREDIT</th>
             </tr>
         </tbody>
     </table>
@@ -276,12 +276,12 @@
     <table>
         <thead>
             <tr>
-                <th style="text-align: center; width:20px">II</th>
-                <th>PENETAPAN ANGKA KREDIT</th>
-                <th>LAMA</th>
-                <th>BARU</th>
-                <th>JUMLAH</th>
-                <th>KETERANGAN</th>
+                <th style="text-align: center; width:20px; vertical-align: middle;">II.</th>
+                <th style="text-align: center; vertical-align: middle;">PENETAPAN ANGKA KREDIT</th>
+                <th style="text-align: center; vertical-align: middle;">LAMA</th>
+                <th style="text-align: center; vertical-align: middle;">BARU</th>
+                <th style="text-align: center; vertical-align: middle;">JUMLAH</th>
+                <th style="text-align: center; vertical-align: middle;">KETERANGAN</th>
             </tr>
             <tr>
                 <th style="text-align: center">1</th>

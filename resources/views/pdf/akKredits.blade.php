@@ -27,18 +27,22 @@
 
         th,
         td {
-            border: 1px solid #8a8585;
-            padding: 4px;
+            /* border: 1px solid #8a8585; */
+            border: solid 1px black;
+            /* Use solid border for better visibility */
+            padding: 5px;
             text-align: left;
         }
 
         th {
-            background-color: #999e99;
-            color: white;
+            background-color: none;
+            color: black;
+            /* color: white; */
         }
 
+
         tr:nth-child(even) {
-            background-color: #f9f9f9;
+            background-color: none;
         }
 
         /* New styles for aligning labels */
@@ -156,7 +160,7 @@
     <table>
         <thead>
             <tr>
-                <th>I</th>
+                <th style="text-align: center">I.</th>
                 <th colspan="2">KETERANGAN PERORANGAN</th>
             </tr>
         </thead>
@@ -239,7 +243,8 @@
                 </td>
             </tr>
             <tr>
-                <th style="text-align: center" colspan="3">KONVERSI PREDIKAT KINERJA KE ANGKA KREDIT</th>
+                <th style="text-align: center; border-bottom: none;" colspan="3">KONVERSI PREDIKAT KINERJA KE ANGKA
+                    KREDIT</th>
             </tr>
             @foreach ($akKredits as $akKredit)
             @endforeach

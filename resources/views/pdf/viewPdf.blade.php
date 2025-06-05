@@ -28,18 +28,9 @@
         }
 
         th {
-            background-color: #f4f4f4;
+            background-color: none;
         }
-    </style>
-</head>
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>konversi PDF</title>
-    <style>
         body {
             font-family: Arial, sans-serif;
             font-size: 10pt;
@@ -61,15 +52,17 @@
 
         th,
         td {
-            border: 1px solid rgb(143, 98, 98);
+            /* border: 1px solid rgb(143, 98, 98); */
+            border: 1px solid #0e0101;
+            /* Use a light gray border for better visibility */
             padding: 2px;
             text-align: left;
         }
 
         th {
             /* background-color: #b4bab4; */
-            background-color: #838884;
-            color: white;
+            background-color: none;
+            color: black;
         }
 
         tr:nth-child(even) {
@@ -212,7 +205,7 @@
     <table>
         <thead>
             <tr>
-                <th>I</th>
+                <th style="text-align: center">I.</th>
                 <th colspan="2">KETERANGAN PERORANGAN</th>
             </tr>
         </thead>
@@ -293,7 +286,8 @@
                 </td>
             </tr>
             <tr>
-                <th style="text-align: center" colspan="3">KONVERSI PREDIKAT KINERJA KE ANGKA KREDIT</th>
+                <th style="text-align: center; border-bottom: none;" colspan="3">KONVERSI PREDIKAT KINERJA KE ANGKA
+                    KREDIT</th>
         </tbody>
     </table>
 
