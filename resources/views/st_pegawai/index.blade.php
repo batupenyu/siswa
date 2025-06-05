@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <div class="container">
     <div class="row justify-content-center">
@@ -99,11 +98,11 @@
 
                                 <div class="dropdown">
                                     <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
-                                        id="dropdownMenuButton{{ $item->id }}" data-bs-toggle="dropdown"
+                                        id="dropdownMenuButton-{{ $item->id }}" data-bs-toggle="dropdown"
                                         aria-expanded="false">
                                         <i class="bi-three-dots-vertical"></i>
                                     </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton{{ $item->id }}">
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton-{{ $item->id }}">
                                         <a href="{{ route('st-pegawai.pdf', $item->id) }}" class="dropdown-item"><i
                                                 class="bi-file-pdf"></i> Spt</a>
                                         <a href="{{ route('st-pegawai.laporan', $item->id) }}" class="dropdown-item"><i

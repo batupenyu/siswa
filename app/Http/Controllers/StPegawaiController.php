@@ -142,6 +142,8 @@ class StPegawaiController extends Controller
 
     public function pdf($id)
     {
+        // fetch header_icon_image
+        $headerIconImage = Configurasi::valueOf('header_icon_image');
         $atasanNama = Configurasi::valueOf('atasan.nama');
         $atasanJabatan = Configurasi::valueOf('atasan.jabatan');
         $atasanNip = Configurasi::valueOf('atasan.nip');
@@ -156,7 +158,7 @@ class StPegawaiController extends Controller
 
         $stPegawai = StPegawai::find($id);
         $pegawai_first = StPegawai::with('pegawais')->first();
-        $pdf = Pdf::loadView('st_pegawai.pdf', compact('pegawai_first', 'stPegawai', 'atasanNama', 'atasanNip', 'atasanPangkat', 'atasanUnitkerja', 'atasanJabatan', 'kpaNama', 'kpaNip', 'kpaPangkat', 'kpaUnitkerja', 'kpaJabatan'))
+        $pdf = Pdf::loadView('st_pegawai.pdf', compact('headerIconImage', 'pegawai_first', 'stPegawai', 'atasanNama', 'atasanNip', 'atasanPangkat', 'atasanUnitkerja', 'atasanJabatan', 'kpaNama', 'kpaNip', 'kpaPangkat', 'kpaUnitkerja', 'kpaJabatan'))
             ->setOption('margin-top', 0);
 
         // ->setPaper('a4', 'landscape'); // Set the paper size and orientation

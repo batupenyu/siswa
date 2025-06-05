@@ -76,40 +76,28 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <h4 class="text-center mb-4">My App</h4>
-        <a href="{{ route('siswas.index') }}"><i class="bi bi-gear"></i> Siswa</a>
-        <a href="{{ route('pegawais.index') }}"><i class="bi bi-gear"></i> Pegawai</a>
+        <a href="{{ route('header_icon_images.index') }}"><i class="bi bi-image"></i> Ganti Kop Surat</a>
+        <a href="{{ route('siswas.index') }}"><i class="bi bi-people"></i> Siswa</a>
+        <a href="{{ route('pegawais.index') }}"><i class="bi bi-people"></i> Pegawai</a>
         <a href="{{ route('holidays.index') }}"><i class="bi bi-calendar-event"></i> Holidays</a>
         <a href="{{ route('sukets.index') }}"><i class="bi bi-file-text"></i> Suket</a>
         <a href="{{ route('penilai.index') }}"><i class="bi bi-person-check"></i> Penilai</a>
-        <a href="{{ route('kpa.index') }}"><i class="bi bi-people"></i> KPA</a>
+        <a href="{{ route('kpa.index') }}"><i class="bi bi-person-check"></i> KPA</a>
         <a href="{{ route('bp.index') }}"><i class="bi bi-person-badge"></i> BP</a>
         <a href="{{ route('surat_izin_pegawai.index') }}"><i class="bi bi-person-badge"></i> Surat Izin Pegawai</a>
-        <a href="{{ route('header_icon_images.index') }}"><i class="bi bi-image"></i> Ganti Kop Surat</a>
-        <div class="dropdown position-relative">
-            {{-- Dropdown for Dokumen --}}
-            <button type="button" id="dropdownDokumen" class="btn btn-link dropdown-toggle p-3 text-white"
-                data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none;">
-                <i class="bi bi-gear"></i> Dokumen
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownDokumen">
-                <li><a class="dropdown-item" style="color: black;" href="{{ route('surat') }}">Surat tugas siswa</a>
-                </li>
-                <li><a class="dropdown-item" style="color: black;" href="{{ route('stPegawai.index') }}">Surat tugas
-                        pegawai</a></li>
-                <li><a class="dropdown-item" style="color: black;" href="{{ route('akKredit.index') }}">Angka kredit</a>
-                </li>
-                <li><a class="dropdown-item" style="color: black;" href="{{ route('dispensasi.index') }}">Surat
-                        Dispensasi</a></li>
+        <a href="{{ route('surat') }}"><i class="bi bi-person-badge"></i> Surat tugas siswa</a>
+        <a href="{{ route('stPegawai.index') }}"><i class="bi bi-person-badge"></i> Surat tugas pegawai</a>
+        <a href="{{ route('akKredit.index') }}"><i class="bi bi-person-badge"></i> Angka kredit</a>
+        <a href="{{ route('dispensasi.index') }}"><i class="bi bi-person-badge"></i> Surat Dispensasi</a>
 
-            </ul>
-        </div>
-        {{-- <a href="{{ route('logout') }}"
-            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-            <i class="bi bi-box-arrow-right"></i> Logout
-        </a>
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-            @csrf
-        </form> --}}
+    </div>
+    {{-- <a href="{{ route('logout') }}"
+        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+        <i class="bi bi-box-arrow-right"></i> Logout
+    </a>
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        @csrf
+    </form> --}}
     </div>
 
     <!-- Main Content -->
@@ -125,62 +113,12 @@
     <!-- Include Bootstrap JS and Popper.js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var dropdownToggle = document.getElementById('dropdownDokumen');
-            if (dropdownToggle) {
-                var dropdown = new bootstrap.Dropdown(dropdownToggle);
-
-                // Stop propagation on dropdown toggle click
-                dropdownToggle.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                });
-
-                // Re-initialize dropdown on sidebar link clicks
-                var sidebarLinks = document.querySelectorAll('.sidebar a');
-                sidebarLinks.forEach(function(link) {
-                    link.addEventListener('click', function() {
-                        dropdown.hide();
-                        dropdown.dispose();
-                        dropdown = new bootstrap.Dropdown(dropdownToggle);
-                    });
-                });
-            }
-        });
-    </script>
+    <!-- Removed custom dropdown initialization script to avoid conflicts with Bootstrap dropdowns -->
 </body>
 
 </html>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<!-- Select2 JS -->
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<!-- Removed Bootstrap 4.6.2 JS to avoid conflict with Bootstrap 5 -->
+<!-- Removed duplicate jQuery, Select2, and Bootstrap JS includes and custom dropdown script -->
 
-<!-- Include Bootstrap JS and Popper.js -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var dropdownToggle = document.getElementById('dropdownDokumen');
-        if (dropdownToggle) {
-            var dropdown = new bootstrap.Dropdown(dropdownToggle);
-
-            // Stop propagation on dropdown toggle click
-            dropdownToggle.addEventListener('click', function(e) {
-                e.stopPropagation();
-            });
-
-            // Re-initialize dropdown on sidebar link clicks
-            var sidebarLinks = document.querySelectorAll('.sidebar a');
-            sidebarLinks.forEach(function(link) {
-                link.addEventListener('click', function() {
-                    dropdown.hide();
-                    dropdown.dispose();
-                    dropdown = new bootstrap.Dropdown(dropdownToggle);
-                });
-            });
-        }
-    });
-</script>
 </body>
 
 </html>

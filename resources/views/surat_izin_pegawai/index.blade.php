@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+<h3 style="text-align: center">SURAT IZIN PEGAWAI</h3>
 <div class="d-flex justify-content-between align-items-center mb-3">
     <a href="{{ route('surat_izin_pegawai.create') }}" class="btn btn-success">Tambah Surat Izin</a>
 </div>
 <div class="container">
-    <h1>Surat Izin Pegawai</h1>
     <form method="GET" action="{{ route('surat_izin_pegawai.index') }}" class="row g-3 mb-3">
         <div class="col-auto">
             <label for="nama" class="col-form-label">Nama</label>

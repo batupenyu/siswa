@@ -3,119 +3,128 @@
 
 <style>
     @media print {
-    body {
-        font-size: 12pt;
+        body {
+            font-size: 12pt;
+        }
+
+        .printable-image {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .print-page {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
     }
-    .printable-image {
-        max-width: 100%;
-        height: auto;
-    }
-    .print-page {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-}
 </style>
 
-    <h3>Data Surat Tugas</h3>
-    {{-- <button class="btn btn-secondary mb-3" onclick="printImages()">Print All Images</button> --}}
-    <a href="{{ route('surats.create') }}" class="btn btn-primary mb-3">Tambah Data</a>
+<h3>Data Surat Tugas</h3>
+{{-- <button class="btn btn-secondary mb-3" onclick="printImages()">Print All Images</button> --}}
+<a href="{{ route('surats.create') }}" class="btn btn-primary mb-3">Tambah Data</a>
 
 
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+@if ($errors->any())
+<div class="alert alert-danger">
+    <ul>
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
 
-    <table class="table" style="font-size: 10pt" id="suratTable">
-        <thead>
-            <tr style="vertical-align: top">
-                <th>#</th>
-                <th>Nama siswa</th>
-                <th>Jumlah <br> Peserta</th>
-                <th>Dasar Surat</th>
-                <th>Awal <br> Kegiatan</th>
-                <th>Akhir <br> Kegiatan</th>
-                <th>Lama <br> Kegiatan</th>
-                <th>Tempat <br> Kegiatan</th>
-                <th>Waktu <br> Kegiatan</th>
-                <th>Ditetapkan <br>Tanggal</th>
-                <th>Dasar Surat</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($surats as $surat)
-                <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>
-                        @if($surat->siswa->isNotEmpty())
-                            {{ $surat->siswa->pluck('name')->implode(', ') }}
-                        @endif
-                    </td>
-                    <td>
-                        <?php 
+<table class="table" style="font-size: 10pt" id="suratTable">
+    <thead>
+        <tr style="vertical-align: top">
+            <th>#</th>
+            <th>Nama siswa</th>
+            <th>Jumlah <br> Peserta</th>
+            <th>Dasar Surat</th>
+            <th>Awal <br> Kegiatan</th>
+            <th>Akhir <br> Kegiatan</th>
+            <th>Lama <br> Kegiatan</th>
+            <th>Tempat <br> Kegiatan</th>
+            <th>Waktu <br> Kegiatan</th>
+            <th>Ditetapkan <br>Tanggal</th>
+            <th>Dasar Surat</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($surats as $surat)
+        <tr>
+            <td>{{ $loop->iteration }}</td>
+            <td>
+                @if($surat->siswa->isNotEmpty())
+                {{ $surat->siswa->pluck('name')->implode(', ') }}
+                @endif
+            </td>
+            <td>
+                <?php 
                         echo (count($surat->siswa));
                         echo ' ('.\App\Helpers\NumberHelper::terbilang(count($surat->siswa)).') org';
                         ?>
-                    </td>
-                    <td>{{ $surat->dasar_surat }}</td>
-                    <td>{{ Carbon\Carbon::parse($surat->tgl_kegiatan)->format('d/m/Y') }}</td>
-                    <td>{{ Carbon\Carbon::parse($surat->tgl_akhir_kegiatan)->format('d/m/Y') }}</td>
-                    <td>{{ Carbon\Carbon::parse($surat->tgl_kegiatan)->diffInDays($surat->tgl_akhir_kegiatan) + 1 }} Hari</td>
-                    <td>{{ $surat->tempat_kegiatan }}</td>
-                    <td>{{ Carbon\Carbon::parse($surat->jam_kegiatan)->format('H:i') }}</td>
-                    <td>{{ Carbon\Carbon::parse($surat->tgl_ditetapkan)->format('d/m/Y') }}</td>
-                    
-                    <td>
-                        @if($surat->file)
-                            <a href="{{ asset('storage/'.$surat->file) }}" target="_blank">Dasar Surat</a>
-                            <form action="{{ route('surats.upload', $surat->id) }}" method="POST" enctype="multipart/form-data">
-                                @csrf
-                                <input type="file" name="file">
-                                <button type="submit" class="btn btn-primary btn-sm">Reupload File</button>
-                            </form>
-                        @else
-                            <form action="{{ route('surats.upload', $surat->id) }}" method="POST" enctype="multipart/form-data">
-                                @csrf
-                                <input type="file" name="file">
-                                <button type="submit" class="btn btn-primary btn-sm">Upload File</button>
-                            </form>
-                        @endif
-                    </td>
-                    <td>
-                        
-                        
-                        <div class="dropdown">
-                            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi-three-dots-vertical"></i>
+            </td>
+            <td>{{ $surat->dasar_surat }}</td>
+            <td>{{ Carbon\Carbon::parse($surat->tgl_kegiatan)->format('d/m/Y') }}</td>
+            <td>{{ Carbon\Carbon::parse($surat->tgl_akhir_kegiatan)->format('d/m/Y') }}</td>
+            <td>{{ Carbon\Carbon::parse($surat->tgl_kegiatan)->diffInDays($surat->tgl_akhir_kegiatan) + 1 }} Hari</td>
+            <td>{{ $surat->tempat_kegiatan }}</td>
+            <td>{{ Carbon\Carbon::parse($surat->jam_kegiatan)->format('H:i') }}</td>
+            <td>{{ Carbon\Carbon::parse($surat->tgl_ditetapkan)->format('d/m/Y') }}</td>
+
+            <td>
+                @if($surat->file)
+                <a href="{{ asset('storage/'.$surat->file) }}" target="_blank">Dasar Surat</a>
+                <form action="{{ route('surats.upload', $surat->id) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <input type="file" name="file">
+                    <button type="submit" class="btn btn-primary btn-sm">Reupload File</button>
+                </form>
+                @else
+                <form action="{{ route('surats.upload', $surat->id) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <input type="file" name="file">
+                    <button type="submit" class="btn btn-primary btn-sm">Upload File</button>
+                </form>
+                @endif
+            </td>
+            <td>
+                <div class="dropdown">
+                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
+                        id="dropdownMenuButton-{{ $surat->id }}" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi-three-dots-vertical"></i>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton-{{ $surat->id }}">
+                        <a href="{{ route('gambar_surat.index', $surat->id) }}" class="dropdown-item"><i
+                                class="bi-file-pdf"></i> Photo</a>
+                        <a href="{{ route('surats.pdf', $surat->id) }}" class="dropdown-item"><i
+                                class="bi-file-pdf"></i>
+                            Pdf</a>
+                        <a href="{{ route('surats.edit', $surat->id) }}" class="dropdown-item"><i
+                                class="bi bi-list-check"></i>
+                            Edit</a>
+                        <form action="{{ route('surats.destroy', $surat->id) }}" method="POST" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="dropdown-item"
+                                onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                <i class="bi-trash"></i> Hapus
                             </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a href="{{ route('gambar_surat.index', $surat->id) }}" class="btn btn-info btn-sm">Photo</a>
-                                <a href="{{ route('surats.pdf', $surat->id) }}" class="btn btn-primary btn-sm">Pdf</a>
-                                <a href="{{ route('surats.edit', $surat->id) }}" class="btn btn-warning btn-sm"><i class="bi-pen-fill"></i></a>
-                                <form action="{{ route('surats.destroy', $surat->id) }}" method="POST" style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"><i class="bi-trash"></i></button>
-                                </form>
-                            </div>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+                        </form>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
 
-    <!-- JavaScript for printing the table -->
-    <script>
-
-        function printImages(suratId) {
+<!-- JavaScript for printing the table -->
+<script>
+    function printImages(suratId) {
             const container = document.getElementById(`image-container-${suratId}`);
             if (!container) return alert('No images found');
 
@@ -246,25 +255,26 @@
                 printWindow.close();
             }, 1000);
         }
-    </script>
+</script>
 
-    <style>
-        .image-wrapper {
-            position: relative;
-            display: inline-block;
-            margin-right: 5px;
-            margin-bottom: 5px;
-        }
-        .image-wrapper button {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            width: 20px;
-            height: 20px;
-            padding: 0;
-            line-height: 1;
-            border-radius: 50%;
-            font-size: 12px;
-        }
-    </style>
+<style>
+    .image-wrapper {
+        position: relative;
+        display: inline-block;
+        margin-right: 5px;
+        margin-bottom: 5px;
+    }
+
+    .image-wrapper button {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        width: 20px;
+        height: 20px;
+        padding: 0;
+        line-height: 1;
+        border-radius: 50%;
+        font-size: 12px;
+    }
+</style>
 @endsection

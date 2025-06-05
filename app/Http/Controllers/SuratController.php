@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Configurasi;
+use App\Models\HeaderIconImage;
 use App\Models\Image;
 use App\Models\Siswa;
 use App\Models\Surat;
@@ -135,9 +136,10 @@ class SuratController extends Controller
         $atasanNip = Configurasi::valueOf('atasan.nip');
         $atasanPangkat = Configurasi::valueOf('atasan.pangkat');
         $atasanUnitkerja = Configurasi::valueOf('atasan.unitkerja');
+        $headerIconImage = HeaderIconImage::latest()->first();
 
         $surats = Surat::find($id);
-        $pdf = Pdf::loadView('surats.pdf', compact('surats', 'atasanNama', 'atasanNip', 'atasanPangkat', 'atasanUnitkerja', 'atasanJabatan'));
+        $pdf = Pdf::loadView('surats.pdf', compact('headerIconImage', 'surats', 'atasanNama', 'atasanNip', 'atasanPangkat', 'atasanUnitkerja', 'atasanJabatan'));
 
         return $pdf->stream('surats.pdf');
     }

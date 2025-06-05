@@ -22,6 +22,9 @@ class Configurasi extends Model
     public static function valueOf($code, $newValue = NULL)
     {
         $cfg = Configurasi::where('code', $code)->first();
+        if (!$cfg) {
+            return null;
+        }
         if (isset($newValue)) {
             $cfg->value = $newValue;
             $cfg->save();
