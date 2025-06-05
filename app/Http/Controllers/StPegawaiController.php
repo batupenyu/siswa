@@ -9,7 +9,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Helpers\NumberHelper; // Import kelas NumberHelper
-
+use App\Models\HeaderIconImage;
 
 class StPegawaiController extends Controller
 {
@@ -143,7 +143,7 @@ class StPegawaiController extends Controller
     public function pdf($id)
     {
         // fetch header_icon_image
-        $headerIconImage = Configurasi::valueOf('header_icon_image');
+        $headerIconImage = HeaderIconImage::latest()->first();
         $atasanNama = Configurasi::valueOf('atasan.nama');
         $atasanJabatan = Configurasi::valueOf('atasan.jabatan');
         $atasanNip = Configurasi::valueOf('atasan.nip');
@@ -435,6 +435,8 @@ class StPegawaiController extends Controller
         $penilai = \App\Models\Penilai::first();
         $kpa = \App\Models\Kpa::first();
         $bp = \App\Models\Bp::first();
+        $headerIconImage = HeaderIconImage::latest()->first();
+        // $headerIconImage = Configurasi::valueOf('header_icon_image');
 
         if (!$st_pegawai) {
             abort(404, 'Record not found');
@@ -443,7 +445,7 @@ class StPegawaiController extends Controller
         // Wrap the single record in an array to be compatible with the blade expecting a collection
         $st_pegawai_collection = collect([$st_pegawai]);
 
-        $pdf = Pdf::loadView('st_pegawai.laporan', ['stPegawai' => $st_pegawai_collection, 'penilai' => $penilai, 'kpa' => $kpa, 'bp' => $bp])
+        $pdf = Pdf::loadView('st_pegawai.laporan', ['headerIconImage' => $headerIconImage, 'stPegawai' => $st_pegawai_collection, 'penilai' => $penilai, 'kpa' => $kpa, 'bp' => $bp])
             ->setOption('margin-top', 0);
 
         return $pdf->stream('laporan_perjalanan_dinas.pdf');
@@ -455,6 +457,7 @@ class StPegawaiController extends Controller
         $penilai = \App\Models\Penilai::first();
         $kpa = \App\Models\Kpa::first();
         $bp = \App\Models\Bp::first();
+
 
         $atasanNama = Configurasi::valueOf('atasan.nama');
         $atasanJabatan = Configurasi::valueOf('atasan.jabatan');

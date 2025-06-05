@@ -24,14 +24,18 @@
                 <td>{{ $image->id }}</td>
                 <td>{{ $image->filename }}</td>
                 <td><img src="{{ Storage::url($image->path) }}" alt="Icon" style="height: 50px;"></td>
-                <td>
-                    <a href="{{ route('header_icon_images.edit', $image->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                <td style="text-align: center;">
+                    <a href="{{ route('header_icon_images.edit', $image->id) }}" class="btn btn-warning btn-sm">
+                        <i class="bi bi-pencil-fill"></i>
+                    </a>
                     <form action="{{ route('header_icon_images.destroy', $image->id) }}" method="POST"
                         style="display:inline-block;">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-sm"
-                            onclick="return confirm('Are you sure you want to delete this image?')">Delete</button>
+                            onclick="return confirm('Are you sure you want to delete this image?')">
+                            <i class="bi bi-trash-fill"></i>
+                        </button>
                     </form>
                 </td>
             </tr>

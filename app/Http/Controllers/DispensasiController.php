@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Configurasi;
 use App\Models\Dispensasi;
+use App\Models\HeaderIconImage;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -136,9 +137,11 @@ class DispensasiController extends Controller
         $atasanPangkat = Configurasi::valueOf('atasan.pangkat');
         $atasanUnitkerja = Configurasi::valueOf('atasan.unitkerja');
         $dispensasi = Dispensasi::with('siswa')->findOrFail($id);
+        $headerIconImage = HeaderIconImage::latest()->first();
+
 
         // Assuming you have a view 'dispensasi.pdf' for PDF layout
-        $pdf = Pdf::loadView('dispensasi.pdf', compact('dispensasi', 'atasanNama', 'atasanJabatan', 'atasanNip', 'atasanPangkat', 'atasanUnitkerja'));
+        $pdf = Pdf::loadView('dispensasi.pdf', compact('headerIconImage', 'dispensasi', 'atasanNama', 'atasanJabatan', 'atasanNip', 'atasanPangkat', 'atasanUnitkerja'));
 
         return $pdf->stream('dispensasi_' . $id . '.pdf');
     }

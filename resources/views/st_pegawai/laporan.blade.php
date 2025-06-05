@@ -152,11 +152,17 @@
 </head>
 
 <body>
-    <div class="header">
+    {{-- <div class="header">
         <div class="kop-opd">
-            {{-- <img src="{{ public_path('images/kopcabdin1.png') }}" alt=""> --}}
             <img src="{{ public_path('images/kopSekolah.png') }}" alt="">
         </div>
+    </div> --}}
+    <div class="header">
+        @if($headerIconImage)
+        <img src="{{ public_path('storage/header_icons/' . $headerIconImage->filename) }}" alt="Icon">
+        @else
+        <img src="{{ public_path('images/icon.png') }}" alt="Kop Surat">
+        @endif
     </div>
 
     <div class="content">
