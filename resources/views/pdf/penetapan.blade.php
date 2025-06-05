@@ -148,11 +148,11 @@
             $value = ($koefisien * $diffInMonths / 12) * $prosentase / 100;
             $totalAkKredit += $value; // Add to the total
             // $baru = number_format($totalAkKredit + $akKredits_first->pegawai->integrasi,2);
-            $baru = number_format($totalAkKredit,2);
+            $baru = number_format($totalAkKredit,3);
             // $lama = number_format($totalAkKredit + $akKredits_first->pegawai->integrasi - $akKredits_first->pegawai->integrasi,2);
             $integrasi = number_format($akKredits_first->pegawai->integrasi,3);
-            $hasilPangkat = number_format($baru-$pangkat,2);
-            $hasilJenjang = number_format($baru-$jenjang,2);
+            $hasilPangkat = number_format($baru-$pangkat,3);
+            $hasilJenjang = number_format($baru-$jenjang,3);
             ?>
 @endforeach
 
@@ -412,8 +412,8 @@
                         @else
                         <b><i>Tidak dapat</i></b>
                         @endif
-                        dipertimbangkan untuk kenaikan Pangkat/Jabatan setingkat lebih tinggi ke <i><b>{{ $nextPangkat
-                                }}</b></i>
+                        dipertimbangkan untuk kenaikan Pangkat/Jabatan setingkat lebih tinggi ke <i><b>{{
+                                $nextPangkat}}</b></i>
                 </td>
             </tr>
         </tbody>
