@@ -192,7 +192,7 @@
                         Carbon\carbon::parse($stPegawai->tgl_akhir)->translatedFormat('d-m-Y') }} <br> --}}
                         @else
                         tanggal
-                        {{Carbon\carbon::parse($stPegawai->tgl_akhir)->translatedFormat('d-m-Y') }} <br> @endif
+                        {{Carbon\carbon::parse($stPegawai->tgl_akhir)->translatedFormat('d F Y') }} <br> @endif
                     </td>
                 </tr>
             </table>
