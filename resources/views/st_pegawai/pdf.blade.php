@@ -64,7 +64,7 @@
     <img src="{{ public_path('images/kopcabdin1.png') }}" alt="">
     <h4 style="text-align: center">
         <u>SURAT TUGAS</u> <br>
-        Nomor : 421.5/........./CABDINDIK WIL I/{{
+        Nomor : 421.5/........./ST/CABDINDIK WIL I/{{
         Carbon\Carbon::Parse($stPegawai->tgl_kegiatan)->translatedFormat('Y')
         }}.
     </h4>
@@ -79,7 +79,7 @@
     {{-- <img src="{{ public_path('images/kopsekolah.png') }}" alt=""> --}}
     <h4 style="text-align: center">
         <u>SURAT TUGAS</u> <br>
-        Nomor : 094/........./SMKN 1 Kb/Dindik/{{
+        Nomor : 094/........./ST/SMKN 1 Kb/Dindik/{{
         Carbon\Carbon::Parse($stPegawai->tgl_kegiatan)->translatedFormat('Y')
         }}.
     </h4>
@@ -94,7 +94,7 @@
         <td>Dasar </td>
         <td>:</td>
         <td>
-            <ol>
+            <ol style="padding-left: 20px; padding-top: 0px; margin-top: 0px;">
                 <li>Undang-Undang Nomor 27 Tahun 2000 tentang Pembentukan
                     Provinsi Kepulauan Bangka. Belitung (Lembaran Negara
                     Republik Indonesia Tahun 2000 Nomor 217, Tambahan
@@ -138,12 +138,10 @@
         <td>:</td>
         <td>
             @if ($stPegawai->pegawais->count() <= 1) @include('st_pegawai.lampiran_2') @elseif ($stPegawai->
-                pegawais->count() >= 4)
+                pegawais->count() >= 2)
                 @include('st_pegawai.lampiran_3')
-
                 @else
                 @include('st_pegawai.lampiran_1')
-
                 @endif
         </td>
     </tr>
@@ -175,7 +173,10 @@
                 <tr>
                     <td style="vertical-align: top;width:133px">Tujuan Perjalanan</td>
                     <td style="vertical-align: top">:</td>
-                    <td style="vertical-align: top; padding-left:25px">{{$stPegawai->nama_kegiatan}}</td>
+                    <td style="vertical-align: top; padding-left:25px">{{$stPegawai->nama_kegiatan}}
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam ipsam magni a optio vitae officiis
+                        illum quibusdam eum repellendus maxime.
+                    </td>
                 </tr>
                 <tr>
                     <td style="vertical-align: top">Lama Perjalanan</td>
@@ -245,8 +246,11 @@
                     <td>
                         <ol style="padding-left: 20px; padding-top: 0px; margin-top: 0px;">
                             <li>Dalam rangka melaksanakan {{ $stPegawai->nama_kegiatan }}</li>
-                            <li>........................................................</li>
-                            <li>........................................................</li>
+                            <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi officiis
+                                necessitatibus dolore eius a inventore, dolores eum exercitationem! In nisi amet
+                                temporibus quibusdam beatae rem eum ipsam ullam accusantium harum? Incidunt illum, enim
+                                officiis iusto tempora error, quaerat aperiam ab dolores tempore eum? Odit ipsam dolorum
+                                cupiditate, numquam corporis mollitia?</li>
                             <li>Dilaksanakan dengan sebaik-baiknya dan penuh rasa tanggung jawab.</li>
                         </ol>
                     </td>
@@ -304,5 +308,3 @@ $lastName = isset($namaParts[1]) ? $namaParts[1] : '';
 @else
 -
 @endif
-
-</div>

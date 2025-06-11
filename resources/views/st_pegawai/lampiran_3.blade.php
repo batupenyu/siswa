@@ -9,19 +9,19 @@
         <td colspan="4">
             <hr>
         </td>
-    </tr>    
+    </tr>
     @foreach($stPegawai->pegawais as $pegawai)
     <tr style="vertical-align: top; font-size:10pt">
         <td style="padding-left: 10px">{{ $loop->iteration }}.</td>
-        <td style="padding-left: 20px">{{ $pegawai->nama }}
+        <td style="padding-left: 20px">{{ $pegawai->nama }}/{{ $pegawai->jabatan }}
             <br>
         </td>
         <td style="text-align: center">{{ $pegawai->nip }}</td>
         <td style="text-align: center">
             @if ($pegawai->pangkat == 'III/d')
-                Penata Tk. I, {{ $pegawai->pangkat }}
+            Penata Tk. I, {{ $pegawai->pangkat }}
             @elseif ($pegawai->pangkat == 'IV/a')
-                Pembina, {{ $pegawai->pangkat }}
+            Pembina, {{ $pegawai->pangkat }}
             @else
             @endif
         </td>
