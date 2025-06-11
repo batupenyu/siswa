@@ -2,9 +2,10 @@
 
 @section('content')
 <style>
-    label.form-label {
+    label.col-form-label {
         text-align: left !important;
         display: block;
+        font-weight: bold;
     }
 </style>
 <div class="container">
