@@ -71,7 +71,7 @@
                             <div class="col-md-6">
                                 <input id="tgl_awal" type="date"
                                     class="form-control @error('tgl_awal') is-invalid @enderror" name="tgl_awal"
-                                    value="{{ old('tgl_awal', $stPegawai->tgl_awal) }}" required
+                                    value="{{ old('tgl_awal', $stPegawai->tgl_awal) }}" required required
                                     autocomplete="tgl_awal">
                                 @error('tgl_awal')
                                 <span class="invalid-feedback" role="alert">
@@ -88,7 +88,7 @@
                             <div class="col-md-6">
                                 <input id="tgl_akhir" type="date"
                                     class="form-control @error('tgl_akhir') is-invalid @enderror" name="tgl_akhir"
-                                    value="{{ old('tgl_akhir', $stPegawai->tgl_akhir) }}" required
+                                    value="{{ old('tgl_akhir', $stPegawai->tgl_akhir) }}" required required
                                     autocomplete="tgl_akhir">
                                 @error('tgl_akhir')
                                 <span class="invalid-feedback" role="alert">
@@ -150,7 +150,7 @@
                             </div>
                         </div>
 
-                        <!-- Tanggal Ditetapkan Field -->
+                        <!-- Tempat Ditetapkan Field -->
                         <div class="form-group row">
                             <label for="tempat_kegiatan" class="col-md-4 col-form-label text-md-right">{{ __('Tempat
                                 Kegiatan') }}</label>
