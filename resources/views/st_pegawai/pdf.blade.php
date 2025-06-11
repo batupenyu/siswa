@@ -183,8 +183,13 @@
                     <td style="vertical-align: top">:</td>
                     <td style="vertical-align: top;padding-left:25px">{{$diffDay}} ({{ $diffDayTerbilang }}) hari,
                         @if ($stPegawai->tgl_awal != $stPegawai->tgl_akhir)
-                        dari tanggal {{Carbon\carbon::parse($stPegawai->tgl_awal)->translatedFormat('d-m-Y') }} s.d. {{
-                        Carbon\carbon::parse($stPegawai->tgl_akhir)->translatedFormat('d-m-Y') }} <br>
+                        dari tanggal
+                        {{Carbon\carbon::parse($stPegawai->tgl_awal)->translatedFormat('d ') }} s.d.
+                        {{Carbon\carbon::parse($stPegawai->tgl_akhir)->translatedFormat('d F') }}
+                        Tahun {{Carbon\carbon::parse($stPegawai->tgl_akhir)->translatedFormat('Y') }}
+                        <br>
+                        {{-- {{Carbon\carbon::parse($stPegawai->tgl_awal)->translatedFormat('d-m-Y') }} s.d. {{
+                        Carbon\carbon::parse($stPegawai->tgl_akhir)->translatedFormat('d-m-Y') }} <br> --}}
                         @else
                         tanggal
                         {{Carbon\carbon::parse($stPegawai->tgl_akhir)->translatedFormat('d-m-Y') }} <br> @endif
