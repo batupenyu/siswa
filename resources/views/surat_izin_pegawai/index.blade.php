@@ -1,4 +1,4 @@
-a@extends('layouts.app')
+@extends('layouts.app')
 
 @section('content')
 <h3 style="text-align: center">SURAT IZIN PEGAWAI</h3>
