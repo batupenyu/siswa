@@ -265,7 +265,7 @@
                 <td colspan="2">
                     <span class="label">Jabatan /TMT</span>
                     <span class="colon">:</span>
-                    <span class="value">{{
+                    <span class="value">{{$akKredit->pegawai->jabatan}}/{{
                         Carbon\Carbon::parse($akKredit->pegawai->tgl_tmt_jabatan)->translatedFormat('d F Y') }}</span>
                 </td>
             </tr>
@@ -325,14 +325,20 @@
     <br>
     <br>
     <p style="padding-left:450px">
-        Ditetapkan di Koba <br>
+        Ditetapkan di
+        {{ $penilai->nip == '197708262006041005' ? 'Pangkalpinang' : 'Koba' }} <br>
         {{-- {{Carbon\Carbon::parse($akKredit->endDate)->translatedFormat('d F Y')}} <br> --}}
         {{-- 2 Januari {{ \Carbon\Carbon::parse($akKredit->endDate)->format('Y')+1 }}<br> --}}
 
-        Pada tanggal, {{ $date->translatedFormat('d F Y') }}. <br>
+        Pada tanggal, {{ $date->translatedFormat('d F Y') }}. <br><br>
         Pejabat Penilai Kinerja <br><br><br><br>
-        {{ $atasanNama }} <br>
-        NIP. {{ $atasanNip}}
+        @if ($penilai->nip =='197708262006041005')
+        {{$kpa->nama}} <br>
+        NIP. {{$kpa->nip }}
+        @else
+        {{$penilai->nama}} <br>
+        NIP.{{ $penilai->nip }}`
+        @endif
     </p>
     <br><br>
     <p>

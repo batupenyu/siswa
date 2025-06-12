@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\AkKredit;
 use App\Models\Configurasi;
+use App\Models\Kpa;
 use App\Models\Pegawai;
+use App\Models\Penilai;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -177,6 +179,8 @@ class AkKreditController extends Controller
         $tgl_akhir = $request->tgl_akhir;
 
         // Fetch configuration data for the atasan
+        $penilai = Penilai::first();
+        $kpa = Kpa::first();
         $atasanNama = Configurasi::valueOf('atasan.nama');
         $atasanJabatan = Configurasi::valueOf('atasan.jabatan');
         $atasanNip = Configurasi::valueOf('atasan.nip');
@@ -226,6 +230,8 @@ class AkKreditController extends Controller
 
         // Pass the data to the view
         $pdf = Pdf::loadView('pdf.akKredits', compact(
+            'penilai',
+            'kpa',
             'akKredits',
             'akKredits_first',
             'atasanNama',
@@ -245,6 +251,8 @@ class AkKreditController extends Controller
     public function penetapan(Request $request)
     {
         // Retrieve input parameters
+        $penilai = Penilai::first();
+        $kpa = Kpa::first();
         $tgl_awal = $request->tgl_awal;
         $tgl_akhir = $request->tgl_akhir;
 
@@ -296,6 +304,8 @@ class AkKreditController extends Controller
 
         // Pass the data to the view
         $pdf = Pdf::loadView('pdf.penetapan', compact(
+            'penilai',
+            'kpa',
             'akKredits',
             'akKredits_first',
             'atasanNama',
@@ -316,6 +326,8 @@ class AkKreditController extends Controller
     {
 
         // Fetch configuration data for the atasan
+        $penilai = Penilai::first();
+        $kpa = Kpa::first();
         $atasanNama = Configurasi::valueOf('atasan.nama');
         $atasanJabatan = Configurasi::valueOf('atasan.jabatan');
         $atasanNip = Configurasi::valueOf('atasan.nip');
@@ -334,6 +346,8 @@ class AkKreditController extends Controller
         // Generate the PDF
         // $pdf = Pdf::loadView('pdf.viewPdf', $data);
         $pdf = Pdf::loadView('pdf.viewPdf', compact(
+            'penilai',
+            'kpa',
             'akKredit',
             'atasanNama',
             'atasanNip',
