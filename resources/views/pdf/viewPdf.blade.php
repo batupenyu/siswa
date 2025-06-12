@@ -326,18 +326,18 @@
     <br>
     <p style="padding-left:450px">
         Ditetapkan di
-        {{ $penilai->nip == '197708262006041005' ? 'Pangkalpinang' : 'Koba' }} <br>
+        {{$akKredit->pegawai->nip != '19770826 200604 1 005' ? 'Koba' : 'Pangkalpinang'}} <br>
         {{-- {{Carbon\Carbon::parse($akKredit->endDate)->translatedFormat('d F Y')}} <br> --}}
         {{-- 2 Januari {{ \Carbon\Carbon::parse($akKredit->endDate)->format('Y')+1 }}<br> --}}
 
         Pada tanggal, {{ $date->translatedFormat('d F Y') }}. <br><br>
         Pejabat Penilai Kinerja <br><br><br><br>
-        @if ($penilai->nip =='197708262006041005')
-        {{$kpa->nama}} <br>
-        NIP. {{$kpa->nip }}
-        @else
+        @if ($akKredit->pegawai->nip !='19770826 200604 1 005')
         {{$penilai->nama}} <br>
         NIP.{{ $penilai->nip }}`
+        @else
+        {{$kpa->nama}} <br>
+        NIP. {{$kpa->nip }}
         @endif
     </p>
     <br><br>
