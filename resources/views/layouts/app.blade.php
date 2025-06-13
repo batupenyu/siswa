@@ -76,15 +76,15 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <h4 class="text-center mb-4">My App</h4>
-        <a href="{{ route('header_icon_images.index') }}"><i class="bi bi-image"></i> Ganti Kop Surat</a>
+        <a href="{{ route('header_icon_images.index') }}"><i class="bi bi-image"></i> Ganti kop surat</a>
         <a href="{{ route('siswas.index') }}"><i class="bi bi-people"></i> Siswa</a>
         <a href="{{ route('pegawais.index') }}"><i class="bi bi-people"></i> Pegawai</a>
-        <a href="{{ route('holidays.index') }}"><i class="bi bi-calendar-event"></i> Holidays</a>
+        <a href="{{ route('holidays.index') }}"><i class="bi bi-calendar-event"></i> Libur</a>
         <a href="{{ route('sukets.index') }}"><i class="bi bi-file-text"></i> Suket</a>
         <a href="{{ route('penilai.index') }}"><i class="bi bi-person-check"></i> Penilai</a>
         <a href="{{ route('kpa.index') }}"><i class="bi bi-person-check"></i> KPA</a>
         <a href="{{ route('bp.index') }}"><i class="bi bi-person-badge"></i> BP</a>
-        <a href="{{ route('surat_izin_pegawai.index') }}"><i class="bi bi-person-badge"></i> Surat Izin Pegawai</a>
+        <a href="{{ route('surat_izin_pegawai.index') }}"><i class="bi bi-person-badge"></i> Surat izin pegawai</a>
         <a href="{{ route('surat') }}"><i class="bi bi-person-badge"></i> Surat tugas siswa</a>
         <a href="{{ route('stPegawai.index') }}"><i class="bi bi-person-badge"></i> Surat tugas pegawai</a>
         <a href="{{ route('akKredit.index') }}"><i class="bi bi-person-badge"></i> Angka kredit</a>
