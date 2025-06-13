@@ -434,13 +434,13 @@
             </td>
             <td style="border: none;">
                 Ditetapkan di
-                {{$akKredit->pegawai->nip != '19770826 200604 1 005' ? 'Koba' : 'Pangkalpinang'}} <br>
+                {{$akKredit->pegawai->nip != $penilai->nip ? 'Koba' : 'Pangkalpinang'}} <br>
                 {{-- {{Carbon\Carbon::parse($akKredits_first->endDate)->translatedFormat('d F Y')}} <br> --}}
                 {{-- 2 Januari {{ \Carbon\Carbon::parse($akKredit->endDate)->format('Y')+1 }}<br> --}}
 
                 Pada tanggal, {{ $date->translatedFormat('d F Y') }}. <br><br>
                 Pejabat Penilai Kinerja <br><br><br><br>
-                @if ($akKredit->pegawai->nip !='19770826 200604 1 005')
+                @if ($akKredit->pegawai->nip != $penilai->nip)
                 {{$penilai->nama}} <br>
                 NIP.{{ $penilai->nip }}`
                 @else
