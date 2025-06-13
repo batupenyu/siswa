@@ -1,7 +1,9 @@
 <!-- resources/views/pegawai/index.blade.php -->
 
 @extends('layouts.app')
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+</script>
 {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> --}}
 @section('content')
 <div class="container">
@@ -25,34 +27,41 @@
                 <th>Nama</th>
                 <th>NIP</th>
                 <th>Jabatan</th>
-                <th>Pangkat</th>
+                <th>Pangkat/Golongan</th>
                 <th style="text-align: center">Aksi</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($pegawais as $index => $pegawai)
             <tr>
-                <td style="text-align:center">{{ ($pegawais->currentPage()-1) * $pegawais->perPage() + $loop->index + 1 }}.</td>
+                <td style="text-align:center">{{ ($pegawais->currentPage()-1) * $pegawais->perPage() + $loop->index + 1
+                    }}.</td>
                 <td>{{ $pegawai->nama }}</td>
                 <td>{{ $pegawai->nip }}</td>
                 <td>{{ $pegawai->jabatan }}</td>
                 <td style="text-align: center">{{ $pegawai->pangkat}}</td>
                 <td style="text-align: center">
                     <div class="dropdown">
-                        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi-three-dots-vertical"></i>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a href="{{ route('pegawais.edit', $pegawai->id) }}" class="dropdown-item"><i class="bi-pen-fill"></i> Edit</a>
-                            <form action="{{ route('pegawais.destroy', $pegawai->id) }}" method="POST" style="display:inline;">
+                            <a href="{{ route('pegawais.edit', $pegawai->id) }}" class="dropdown-item"><i
+                                    class="bi-pen-fill"></i> Edit</a>
+                            <form action="{{ route('pegawais.destroy', $pegawai->id) }}" method="POST"
+                                style="display:inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="dropdown-item" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                <button type="submit" class="dropdown-item"
+                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
                                     <i class="bi-trash"></i> Delete
                                 </button>
                             </form>
-                            {{-- <a href="{{ route('pegawais.pdf', $pegawai->id) }}" class="dropdown-item"><i class="bi-file-pdf"></i> Laporan</a> --}}
-                            {{-- <a href="{{ route('pegawais.kredit', $pegawai->id) }}" class="dropdown-item"><i class="bi-file-pdf"></i> ak</a> --}}
+                            {{-- <a href="{{ route('pegawais.pdf', $pegawai->id) }}" class="dropdown-item"><i
+                                    class="bi-file-pdf"></i> Laporan</a> --}}
+                            {{-- <a href="{{ route('pegawais.kredit', $pegawai->id) }}" class="dropdown-item"><i
+                                    class="bi-file-pdf"></i> ak</a> --}}
                         </div>
                     </div>
                 </td>
@@ -60,7 +69,7 @@
             @endforeach
         </tbody>
     </table>
-{{ $pegawais->links() }}
+    {{ $pegawais->links() }}
 </div>
 
 <script>
