@@ -101,9 +101,11 @@
                                 <select name="jenis_kelamin" id="jenis_kelamin"
                                     class="form-select @error('jenis_kelamin') is-invalid @enderror">
                                     <option value="">-- Pilih Jenis Kelamin --</option>
-                                    <option value="L" {{ old('jenis_kelamin')=='L' ? 'selected' : '' }}>Laki-laki
+                                    <option value="Laki-laki" {{ old('jenis_kelamin')=='Laki-laki' ? 'selected' : '' }}>
+                                        Laki-laki
                                     </option>
-                                    <option value="P" {{ old('jenis_kelamin')=='P' ? 'selected' : '' }}>Perempuan
+                                    <option value="Perempuan" {{ old('jenis_kelamin')=='Perempuan' ? 'selected' : '' }}>
+                                        Perempuan
                                     </option>
                                 </select>
                                 @error('jenis_kelamin')

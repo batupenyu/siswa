@@ -99,11 +99,11 @@
         <td>:</td>
         <td>
             <ol style="padding-left: 20px; padding-top: 0px; margin-top: 0px;">
-                <li>Undang-Undang Nomor 27 Tahun 2000 tentang Pembentukan
+                {{-- <li>Undang-Undang Nomor 27 Tahun 2000 tentang Pembentukan
                     Provinsi Kepulauan Bangka. Belitung (Lembaran Negara
                     Republik Indonesia Tahun 2000 Nomor 217, Tambahan
                     Lembaran Negara Republik Indonesia Nomor 4033);
-                </li>
+                </li> --}}
                 {{-- <li>Peraturan Pemerintah Nomor 38 Tahun 2007 tentang
                     Pembagian Urusan Pemerintahan Antara Pemerintah, Pemerintah Daerah Provinsi, dan
                     Pemerintah Daerah Kabupaten/Kota (Lembaran Negara Republik Indonesia Tahun 2007 Nomor 82,
@@ -131,8 +131,21 @@
                     Bangka Belitung (Berita Daerah Provinsi Kepulauan Bangka Belitung Tahun 2020 Nomor 4);
                 </li> --}}
 
+                {{-- {{$stPegawai->dasar_surat =='-' ? '' : '<li>'.$stPegawai->dasar_surat.'</li>'}} --}}
+            </ol>
+            @if ($stPegawai->dasar_surat == '-')
+
+            @else
+            <ol style="padding-left: 20px; padding-top: 0px; margin-top: 0px;">
+                <li>Undang-Undang Nomor 27 Tahun 2000 tentang Pembentukan
+                    Provinsi Kepulauan Bangka. Belitung (Lembaran Negara
+                    Republik Indonesia Tahun 2000 Nomor 217, Tambahan
+                    Lembaran Negara Republik Indonesia Nomor 4033);
+                </li>
                 <li>{{ $stPegawai->dasar_surat }}</li>
             </ol>
+            @endif
+        </td>
     </tr>
     <tr>
         <td style="text-align: center;padding:20px" colspan="3"><b>MENUGASKAN</b> :</td>

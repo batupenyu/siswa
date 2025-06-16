@@ -19,7 +19,7 @@ class PegawaiController extends Controller
                 ->orWhere('nip', 'like', '%' . $search . '%')
                 ->paginate(10);
         } else {
-            $pegawais = Pegawai::orderBy('nama','ASC')->paginate(10);
+            $pegawais = Pegawai::orderBy('nama', 'ASC')->paginate(10);
         }
         return view('pegawai.index', compact('pegawais'));
     }
@@ -36,6 +36,7 @@ class PegawaiController extends Controller
             'nama' => 'required|string|max:255',
             'nip' => 'required|string|max:255|unique:pegawais,nip', // Ensure NIP is unique
             'jabatan' => 'nullable|string|max:255',
+            'pangkat' => 'nullable|string|max:255',
             'integrasi' => 'nullable|string|max:255',
             'no_karpeg' => 'nullable|string|max:255',
             'jenis_kelamin' => 'nullable|in:Laki-laki,Perempuan',
@@ -52,6 +53,7 @@ class PegawaiController extends Controller
         $pegawai->nama = $validatedData['nama'];
         $pegawai->nip = $validatedData['nip'];
         $pegawai->jabatan = $validatedData['jabatan'] ?? null;
+        $pegawai->pangkat = $validatedData['pangkat'] ?? null;
         $pegawai->integrasi = $validatedData['integrasi'] ?? null;
         $pegawai->no_karpeg = $validatedData['no_karpeg'] ?? null;
         $pegawai->jenis_kelamin = $validatedData['jenis_kelamin'] ?? null;
@@ -117,7 +119,7 @@ class PegawaiController extends Controller
         $atasanUnitkerja = Configurasi::valueOf('atasan.unitkerja');
 
         $pegawais = Pegawai::find($id);
-        $pdf = Pdf::loadView('pegawai.pdf', compact('pegawais','atasanNama','atasanNip','atasanPangkat','atasanUnitkerja','atasanJabatan'));
+        $pdf = Pdf::loadView('pegawai.pdf', compact('pegawais', 'atasanNama', 'atasanNip', 'atasanPangkat', 'atasanUnitkerja', 'atasanJabatan'));
         // ->setPaper('a4', 'landscape'); // Set the paper size and orientation
 
         return $pdf->stream('pegawai.pdf');
@@ -138,5 +140,4 @@ class PegawaiController extends Controller
 
         return view('pegawai.kredit', compact('pegawai', 'akKredits'));
     }
-
 }
