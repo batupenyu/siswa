@@ -80,6 +80,7 @@ class PhotoSuratController extends Controller
 
         $pdf = Pdf::loadView('photo_surat.print_pdf', compact('photo', 'st_surat_id', 'st_surat'));
         $formattedDate = \Carbon\Carbon::parse($st_surat->tgl_kegiatan)->format('d-m-Y');
-        return $pdf->stream("Foto Kegiatan {$st_surat->nama_kegiatan} {$formattedDate}.pdf");
+        $safeNamaKegiatan = str_replace(['/', '\\'], '-', $st_surat->nama_kegiatan);
+        return $pdf->stream("Foto Kegiatan {$safeNamaKegiatan} {$formattedDate}.pdf");
     }
 }

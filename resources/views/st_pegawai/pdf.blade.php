@@ -1,11 +1,4 @@
 <style>
-    .container {
-        margin: 0 20px 0 20px;
-        /* Top, Right, Bottom, Left */
-        margin-top: 0px;
-        /* Set top margin to zero */
-    }
-
     /* Add this style to set indent for Lorem span */
     .lorem-span {
         text-indent: 50px;
@@ -94,57 +87,59 @@
 </div>
 
 <table>
-    <tr style="vertical-align: top">
-        <td>Dasar </td>
-        <td>:</td>
+    <tr>
+        <td style="vertical-align:top">
+            Dasar
+        </td>
+        <td style="vertical-align:top">:</td>
         <td>
-            <ol style="padding-left: 20px; padding-top: 0px; margin-top: 0px;">
-                {{-- <li>Undang-Undang Nomor 27 Tahun 2000 tentang Pembentukan
-                    Provinsi Kepulauan Bangka. Belitung (Lembaran Negara
-                    Republik Indonesia Tahun 2000 Nomor 217, Tambahan
-                    Lembaran Negara Republik Indonesia Nomor 4033);
-                </li> --}}
-                {{-- <li>Peraturan Pemerintah Nomor 38 Tahun 2007 tentang
-                    Pembagian Urusan Pemerintahan Antara Pemerintah, Pemerintah Daerah Provinsi, dan
-                    Pemerintah Daerah Kabupaten/Kota (Lembaran Negara Republik Indonesia Tahun 2007 Nomor 82,
-                    Tambahan Lembaran Negara Republik Indonesia Nomor 4737);
-                </li>
-                <li>Peraturan Menteri Dalam Negeri Nomor 84 Tahun 2014
-                    tentang Pedoman Pengelolaan Keuangan Daerah (Berita Negara Republik Indonesia Tahun 2014 Nomor
-                    1944);
-                </li>
-                <li>Peraturan Menteri Pendidikan dan Kebudayaan Nomor
-                    6 Tahun 2018 tentang Organisasi dan Tata Kerja Sekolah Menengah Kejuruan (Berita Negara Republik
-                    Indonesia Tahun 2018 Nomor 194);
-                </li>
-                <li>Peraturan Gubernur Kepulauan Bangka Belitung Nomor
-                    2 Tahun 2020 tentang Organisasi Perangkat Daerah Provinsi Kepulauan Bangka Belitung (Berita
-                    Daerah Provinsi Kepulauan Bangka Belitung Tahun 2020 Nomor 2);
-                </li>
-                <li>Peraturan Gubernur Kepulauan Bangka Belitung Nomor
-                    3 Tahun 2020 tentang Kedudukan, Susunan Organisasi, Tugas dan Fungsi, serta Tata Kerja Dinas
-                    Pendidikan Provinsi Kepulauan Bangka Belitung (Berita Daerah Provinsi Kepulauan Bangka Belitung
-                    Tahun 2020 Nomor 3);
-                </li>
-                <li>Peraturan Gubernur Kepulauan Bangka Belitung Nomor
-                    4 Tahun 2020 tentang Organisasi dan Tata Kerja Sekolah Menengah Kejuruan Provinsi Kepulauan
-                    Bangka Belitung (Berita Daerah Provinsi Kepulauan Bangka Belitung Tahun 2020 Nomor 4);
-                </li> --}}
 
-                {{-- {{$stPegawai->dasar_surat =='-' ? '' : '<li>'.$stPegawai->dasar_surat.'</li>'}} --}}
-            </ol>
-            @if ($stPegawai->dasar_surat == '-')
+            <table>
+                <tr>
+                    <td>
+                        @if ($stPegawai->dasar_surat == '-')
+                        @else
+                        <ol style="padding-left: 20px; padding-top: 0px; margin-top: 0px;">
 
-            @else
-            <ol style="padding-left: 20px; padding-top: 0px; margin-top: 0px;">
-                <li>Undang-Undang Nomor 27 Tahun 2000 tentang Pembentukan
-                    Provinsi Kepulauan Bangka. Belitung (Lembaran Negara
-                    Republik Indonesia Tahun 2000 Nomor 217, Tambahan
-                    Lembaran Negara Republik Indonesia Nomor 4033);
-                </li>
-                <li>{{ $stPegawai->dasar_surat }}</li>
-            </ol>
-            @endif
+                            <li>Undang-Undang Nomor 27 Tahun 2000 tentang Pembentukan Provinsi Kepulauan Bangka Belitung
+                                (Lembaran Negara
+                                Republik Tahun 2000 Nomor 217, Tambahan Lembaran Negara Republik Indonesia Nomor 4033);
+                            </li>
+                            <li>Undang-Undang Nomor 17 Tahun 2003 tentang Keuangan Negara (Lembaran Negara Republik
+                                Indonesia Tahun 2003 Nomor
+                                47, Tambahan Lembaran Negara Republik Indonesia Nomor 4287);</li>
+                            <li>Undang-Undang Nomor 20 Tahun 2003 tentang Sistem Pendidikan Nasional (Lembaran Negara
+                                Republik Indonesia Tahun
+                                2003 Nomor 78, Tambahan Lembaran Negara Republik Indonesia Nomor 4301);</li>
+                            {{-- <li>Peraturan Menteri Pendidikan Nasional No. 34 Tahun 2006 tentang Pembinaan Prestasi
+                                Siswa
+                                yang Memiliki Potensi
+                                Kecerdasan dan/atau Bakat Istimewa;</li>
+                            <li>Peraturan Menteri Pendidikan dan Kebudayaan Nomor 62 Tahun 2014 Tentang Kegiatan
+                                Ekstrakurikuler Pada Pendidikan
+                                Dasar Dan Pendidikan Menengah;</li>
+                            <li>Peraturan Menteri Pendidikan dan Kebudayaan Nomor 23 Tahun 2015 tentang Penumbuhan Budi
+                                Pekerti;</li>
+                            <li>Peraturan Daerah Provinsi Kepulauan Bangka Belitung Nomor 1 Tahun 2022 tentang Anggaran
+                                Pendapatan dan Belanja
+                                Daerah Provinsi Kepulauan Bangka Belitung Tahun Anggaran 2022 (Lembaran Daerah Provinsi
+                                Kepulauan Bangka
+                                Belitung Tahun 2020 nomor 3 Seri A);</li>
+                            <li>Surat Keputusan Kepala Dinas Pendidikan Provinsi Kepulauan Bangka Belitung No:
+                                188.4//SK/DINDIK/2025 tanggal 13
+                                Juni tentang Panitia, Dewan Juri, Petugas Keamanan, Petugas Kesehatan dalam kegiatan
+                                Lomba Kompetensi Siswa
+                                (LKS), Job Fair, Job Matching, dan Gelar Produk Jenjang SMA/MA/SMK/MAK/Sederajat Tingkat
+                                Provinsi Kepulauan
+                                Bangka Belitung Tahun 2025.</li> --}}
+
+                            {{-- <li>{{ $stPegawai->dasar_surat }}</li> --}}
+                        </ol>
+                        @endif
+
+                    </td>
+                </tr>
+            </table>
         </td>
     </tr>
     <tr>

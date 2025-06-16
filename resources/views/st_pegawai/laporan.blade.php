@@ -179,38 +179,64 @@
                 <tr>
                     <td style="width: 100px">Kepada</td>
                     <td style="width: 20px">:</td>
+                    <td>Yth. {{$penilai->jabatan}} {{$penilai->unitkerja}}</td>
                 </tr>
+                @php
+                $firstPegawai = $stPegawaiItem->pegawais->first();
+                $namaParts = explode(' ', $firstPegawai->nama);
+                $jabatanParts = explode(' ', $firstPegawai->jabatan);
+                $nipParts = explode(' ', $firstPegawai->nip);
+                $unitParts = explode(' ', $firstPegawai->unitkerja);
+                $firstName = $namaParts[0];
+                $lastName1 = isset($namaParts[1]) ? $namaParts[1] : '';
+                $lastName2 = isset($namaParts[2]) ? $namaParts[2] : '';
+                @endphp
                 <tr>
                     <td>Dari</td>
                     <td>:</td>
+                    <td>{{$jabatanParts[0]}} {{$penilai->unitkerja}}</td>
                 </tr>
                 <tr>
                     <td>Tanggal</td>
                     <td>:</td>
+                    <td style="text-align: justify">
+                        @if($stPegawaiItem && $stPegawaiItem->tgl_ditetapkan)
+                        @php
+                        $date = \Carbon\Carbon::parse($stPegawaiItem->tgl_ditetapkan);
+                        $isWeekday = $date->isWeekday();
+                        $isHoliday = \App\Models\Holiday::whereDate('date', $date->toDateString())->exists();
+
+                        if ($isWeekday || $isHoliday) {
+                        $date->addDay();
+                        }
+                        @endphp
+                        {{ $date->translatedFormat('d F Y') }}
+                        @else
+                        -
+                        @endif
+                    </td>
                 </tr>
                 <tr>
                     <td>Nomor</td>
                     <td>:</td>
+                    <td>421.5/ ......... /SMKN Kb/Dindik/2025</td>
                 </tr>
                 <tr>
                     <td>Sifat</td>
                     <td>:</td>
+                    <td>Biasa</td>
                 </tr>
                 <tr>
                     <td>Hal</td>
                     <td>:</td>
-                    <td style="text-align: justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
-                        officiis, ipsum nam magni
-                        odit possimus expedita labore numquam dolor alias.</td>
+                    <td style="text-align: justify">{{$stPegawaiItem->nama_kegiatan}}.</td>
                 </tr>
             </table>
 
             <div class="custom-hr"></div>
 
-            <p style="text-align: justify">Bersama ini disampaikan laporan hasil perjalanan dinas dalam rangka .. Lorem
-                ipsum dolor sit amet
-                consectetur adipisicing elit. Dolores libero amet placeat qui minima et accusamus possimus quidem.
-                Culpa, reiciendis..... dengan rincian sebagai berikut :</p>
+            <p style="text-align: justify">Bersama ini disampaikan laporan hasil perjalanan dinas dalam rangka
+                {{$stPegawaiItem->nama_kegiatan}} dengan rincian sebagai berikut :</p>
         </div>
 
         <table class="table table-borderless">
@@ -220,7 +246,7 @@
             </tr>
             <tr>
                 <td></td>
-                <td style=" text-align: justify;" colspan="2">{{$stPegawaiItem->dasar_surat ?? '-'}}</td>
+                <td style=" text-align: justify;" colspan="2">{{$stPegawaiItem->dasar_surat ?? '-'}}.</td>
             </tr>
             <tr>
                 <th>II. </th>
@@ -228,7 +254,7 @@
             </tr>
             <tr>
                 <td></td>
-                <td style=" text-align: justify;">{{$stPegawaiItem->maksud_tujuan ?? '-'}}</td>
+                <td style=" text-align: justify;">{{$stPegawaiItem->maksud_tujuan ?? '-'}}.</td>
             </tr>
             <tr>
                 <th>III. </th>
@@ -239,14 +265,15 @@
                 <td>
                     Melaksanakan {{ $stPegawaiItem->nama_kegiatan }} yang akan dilaksanakan pada : <br>
                     Hari/Tanggal <span style="padding-left: 30px">:</span>
-                    @if ($stPegawaiItem->tgl_kegiatan != $stPegawaiItem->tgl_akhir_kegiatan)
-                    {{ Carbon\carbon::parse($stPegawaiItem->tgl_kegiatan)->translatedFormat('l') }} - {{
-                    Carbon\carbon::parse($stPegawaiItem->tgl_akhir_kegiatan)->translatedFormat('l') }}/ {{
-                    Carbon\carbon::parse($stPegawaiItem->tgl_kegiatan)->translatedFormat('d-m-Y') }} s.d. {{
-                    Carbon\carbon::parse($stPegawaiItem->tgl_akhir_kegiatan)->translatedFormat('d-m-Y') }}
+                    {{-- {{Carbon\Carbon::parse($stPegawaiItem->tgl_awal)->translatedFormat('d-m-Y') }} --}}
+                    @if ($stPegawaiItem->tgl_awal != $stPegawaiItem->tgl_akhir)
+                    {{ Carbon\carbon::parse($stPegawaiItem->tgl_awal)->translatedFormat('l') }} - {{
+                    Carbon\carbon::parse($stPegawaiItem->tgl_akhir)->translatedFormat('l') }}/ {{
+                    Carbon\carbon::parse($stPegawaiItem->tgl_awal)->translatedFormat('d-m-Y') }} s.d. {{
+                    Carbon\carbon::parse($stPegawaiItem->tgl_akhir)->translatedFormat('d-m-Y') }}
                     @else
-                    {{ Carbon\carbon::parse($stPegawaiItem->tgl_kegiatan)->translatedFormat('l') }}/ {{
-                    Carbon\carbon::parse($stPegawaiItem->tgl_akhir_kegiatan)->translatedFormat('d-m-Y') }}
+                    {{ Carbon\carbon::parse($stPegawaiItem->tgl_awal)->translatedFormat('l') }}/
+                    {{Carbon\carbon::parse($stPegawaiItem->tgl_akhir)->translatedFormat('d-m-Y') }}
                     @endif
                     <br>
                     Pukul <span style="padding-left: 82px">:</span>
@@ -307,12 +334,12 @@
                     $lastName1 = isset($namaParts[1]) ? $namaParts[1] : '';
                     $lastName2 = isset($namaParts[2]) ? $namaParts[2] : '';
                     @endphp
-                    {{-- {{ $jabatanParts[0] }},<br> --}}
                     <br>
                     <br>
                     <br>
                     {{ $firstName }} {{ $lastName1 }} {{ $lastName2 }}<br>
-                    NIP.{{ $nipParts[0] }} {{ isset($nipParts[1]) ? $nipParts[1] : '' }}
+                    NIP.{{ $nipParts[0] }}{{ $nipParts[1] }}{{ $nipParts[2] }}{{ isset($nipParts[3]) ? $nipParts[3] : ''
+                    }}
                     @else
                     - @endif
                 </td>
