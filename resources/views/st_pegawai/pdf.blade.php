@@ -70,10 +70,14 @@
     </h4>
     @else
     <div class="header">
+        @if ($stPegawai->pegawais->first()->nip == $penilai->nip)
+        <img src="{{ public_path('images/kopcabdin1.png') }}" alt="">
+        @else
         @if($headerIconImage)
         <img src="{{ public_path('storage/header_icons/' . $headerIconImage->filename) }}" alt="Icon">
         @else
         <img src="{{ public_path('images/icon.png') }}" alt="Kop Surat">
+        @endif
         @endif
     </div>
     {{-- <img src="{{ public_path('images/kopsekolah.png') }}" alt=""> --}}
@@ -174,8 +178,6 @@
                     <td style="vertical-align: top;width:133px">Tujuan Perjalanan</td>
                     <td style="vertical-align: top">:</td>
                     <td style="vertical-align: top; padding-left:25px">{{$stPegawai->nama_kegiatan}}
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam ipsam magni a optio vitae officiis
-                        illum quibusdam eum repellendus maxime.
                     </td>
                 </tr>
                 <tr>
@@ -251,11 +253,11 @@
                     <td>
                         <ol style="padding-left: 20px; padding-top: 0px; margin-top: 0px;">
                             <li>Dalam rangka melaksanakan {{ $stPegawai->nama_kegiatan }}</li>
-                            <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi officiis
+                            {{-- <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi officiis
                                 necessitatibus dolore eius a inventore, dolores eum exercitationem! In nisi amet
                                 temporibus quibusdam beatae rem eum ipsam ullam accusantium harum? Incidunt illum, enim
                                 officiis iusto tempora error, quaerat aperiam ab dolores tempore eum? Odit ipsam dolorum
-                                cupiditate, numquam corporis mollitia?</li>
+                                cupiditate, numquam corporis mollitia?</li> --}}
                             <li>Dilaksanakan dengan sebaik-baiknya dan penuh rasa tanggung jawab.</li>
                         </ol>
                     </td>
@@ -278,15 +280,13 @@ $namaParts = explode(' ', $firstPegawai->jabatan);
 $firstName = $namaParts[0];
 $lastName = isset($namaParts[1]) ? $namaParts[1] : '';
 @endphp
-<p style="text-align: left;padding-left:420px">
+{{-- <p style="text-align: left;padding-left:420px">
     Dikeluarkan di <span>:</span> {{ $stPegawai->tempat_ditetapkan }} <br>
     Pada tanggal <span style="padding-left: 14px">:</span> {{
     Carbon\Carbon::parse($stPegawai->tgl_ditetapkan)->translatedFormat('d F Y') }}
-<p>
-    @if ($firstName == 'Kepala')
+<p> --}}
+    {{-- @if ($firstName == 'Kepala')
 <p style="text-align: center;padding-left:300px">
-    {{-- {{ $stPegawai->tempat_ditetapkan }}, {{ Carbon\Carbon::parse($stPegawai->tgl_ditetapkan)->translatedFormat('d F
-    Y') }} --}}
     {{ $kpaJabatan }}
     <br>
     <br>
@@ -298,8 +298,6 @@ $lastName = isset($namaParts[1]) ? $namaParts[1] : '';
 </p>
 @else
 <p style="text-align: center;padding-left:300px">
-    {{-- {{ $stPegawai->tempat_ditetapkan }}, {{ Carbon\Carbon::parse($stPegawai->tgl_ditetapkan)->translatedFormat('d F
-    Y') }} --}}
     {{ $atasanJabatan }}
     <br>
     <br>
@@ -309,7 +307,22 @@ $lastName = isset($namaParts[1]) ? $namaParts[1] : '';
     <br>
     NIP. {{ $atasanNip }}
 </p>
-@endif
+@endif --}}
+<p style="padding-left:420px">
+    Ditetapkan di
+    {{$stPegawai->pegawais->first()->nip != $penilai->nip ? 'Koba' : 'Pangkalpinang'}} <br>
+    Pada tanggal, {{ Carbon\Carbon::parse($stPegawai->tgl_awal)->translatedFormat('d F Y') }}. <br><br>
+    @if ($stPegawai->pegawais->first()->nip != $penilai->nip)
+    {{-- @if ($stPegawai->nip == $penilai->nip) --}}
+    {{$penilai->jabatan}} <br><br><br><br>
+    {{$penilai->nama}} <br>
+    NIP.{{ $penilai->nip }}`
+    @else
+    {{$kpa->jabatan}} {{$kpa->unitkerja}} <br><br><br><br>
+    {{$kpa->nama}} <br>
+    NIP. {{$kpa->nip }}
+    @endif
+</p>
 @else
 -
 @endif
