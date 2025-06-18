@@ -158,13 +158,7 @@
             <img src="{{ public_path('images/kopSekolah.png') }}" alt="">
         </div>
     </div> --}}
-    <div class="header">
-        @if($headerIconImage)
-        <img src="{{ public_path('storage/header_icons/' . $headerIconImage->filename) }}" alt="Icon">
-        @else
-        <img src="{{ public_path('images/icon.png') }}" alt="Kop Surat">
-        @endif
-    </div>
+    @include('st_pegawai.header')
 
     <div class="content">
         @php
