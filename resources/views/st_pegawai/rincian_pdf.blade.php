@@ -72,7 +72,7 @@
                             {{ number_format($totalTransport = $stPegawai->biaya_transportasi *
                             $stPegawai->pegawais->count() *
                             (\Carbon\Carbon::parse($stPegawai->tgl_awal)->diffInDays($stPegawai->tgl_akhir) + 1), 0,
-                            ',', '.') }}
+                            ',', '.') }},-
                             @else
                             @endif
                             @endif
@@ -89,7 +89,7 @@
                             {{ number_format($totalTransport = $stPegawai->biaya_penginapan *
                             $stPegawai->pegawais->count() *
                             (\Carbon\Carbon::parse($stPegawai->tgl_awal)->diffInDays($stPegawai->tgl_akhir) + 1), 0,
-                            ',', '.') }}
+                            ',', '.') }},-
                             @else
                             @endif
                             @endif
@@ -105,7 +105,7 @@
                         @if ($stPegawai->biaya_tiket <=0) @else @if ($stPegawai->pegawais->count() !=0)
                             {{ number_format($totalTransport = $stPegawai->biaya_tiket * $stPegawai->pegawais->count() *
                             (\Carbon\Carbon::parse($stPegawai->tgl_awal)->diffInDays($stPegawai->tgl_akhir) + 1), 0,
-                            ',', '.') }}
+                            ',', '.') }},-
                             @else
                             @endif
                             @endif
@@ -125,7 +125,7 @@
                             {{ number_format($totalTransport = $stPegawai->transport_lokal *
                             $stPegawai->pegawais->count() *
                             (\Carbon\Carbon::parse($stPegawai->tgl_awal)->diffInDays($stPegawai->tgl_akhir) + 1), 0,
-                            ',', '.') }}
+                            ',', '.') }},-
                             @else
                             @endif
                             @endif
@@ -141,7 +141,7 @@
                         @if ($stPegawai->uang_makan <=0) @else @if ($stPegawai->pegawais->count() !=0)
                             {{ number_format($totalTransport = $stPegawai->uang_makan * $stPegawai->pegawais->count() *
                             (\Carbon\Carbon::parse($stPegawai->tgl_awal)->diffInDays($stPegawai->tgl_akhir) + 1), 0,
-                            ',', '.') }}
+                            ',', '.') }},-
                             @else
                             @endif
                             @endif
@@ -157,7 +157,7 @@
                         @if ($stPegawai->uang_saku <=0) @else @if ($stPegawai->pegawais->count() !=0)
                             {{ number_format($totalTransport = $stPegawai->uang_saku * $stPegawai->pegawais->count() *
                             (\Carbon\Carbon::parse($stPegawai->tgl_awal)->diffInDays($stPegawai->tgl_akhir) + 1), 0,
-                            ',', '.') }}
+                            ',', '.') }},-
                             @else
                             @endif
                             @endif
@@ -175,7 +175,7 @@
                             {{ number_format($totalTransport = $stPegawai->uang_representasi *
                             $stPegawai->pegawais->count() *
                             (\Carbon\Carbon::parse($stPegawai->tgl_awal)->diffInDays($stPegawai->tgl_akhir) + 1), 0,
-                            ',', '.') }}
+                            ',', '.') }},-
                             @else
                             @endif
                             @endif
@@ -193,7 +193,7 @@
                             {{ number_format($totalTransport = $stPegawai->uang_kediklatan *
                             $stPegawai->pegawais->count() *
                             (\Carbon\Carbon::parse($stPegawai->tgl_awal)->diffInDays($stPegawai->tgl_akhir) + 1), 0,
-                            ',', '.') }}
+                            ',', '.') }},-
                             @else
                             @endif
                             @endif
@@ -210,7 +210,7 @@
                             {{ number_format($totalTransport = $stPegawai->biaya_transportasi *
                             $stPegawai->pegawais->count() *
                             (\Carbon\Carbon::parse($stPegawai->tgl_awal)->diffInDays($stPegawai->tgl_akhir) + 1), 0,
-                            ',', '.') }}
+                            ',', '.') }},-
                             @else
                             @endif
                             @endif
@@ -223,7 +223,7 @@
                             {{ number_format($totalPenginapan = $stPegawai->biaya_penginapan *
                             $stPegawai->pegawais->count() *
                             (\Carbon\Carbon::parse($stPegawai->tgl_awal)->diffInDays($stPegawai->tgl_akhir) + 1), 0,
-                            ',', '.') }}
+                            ',', '.') }},-
                             @else
                             @endif
                             @endif
@@ -235,7 +235,7 @@
                         @if ($stPegawai->biaya_tiket <=0) @else @if ($stPegawai->pegawais->count() !=0)
                             {{ number_format($totalTiket = $stPegawai->biaya_tiket * $stPegawai->pegawais->count() *
                             (\Carbon\Carbon::parse($stPegawai->tgl_awal)->diffInDays($stPegawai->tgl_akhir) + 1), 0,
-                            ',', '.') }}
+                            ',', '.') }},-
                             @else
                             @endif
                             @endif
@@ -251,7 +251,7 @@
                         @if ($stPegawai->transport_lokal <=0) @else @if ($stPegawai->pegawais->count() !=0)
                             {{ number_format($totalTiket = $stPegawai->transport_lokal * $stPegawai->pegawais->count() *
                             (\Carbon\Carbon::parse($stPegawai->tgl_awal)->diffInDays($stPegawai->tgl_akhir) + 1), 0,
-                            ',', '.') }}
+                            ',', '.') }},-
                             @else
                             @endif
                             @endif
@@ -263,7 +263,7 @@
                         @if ($stPegawai->uang_makan <=0) @else @if ($stPegawai->pegawais->count() !=0)
                             {{ number_format($totalTiket = $stPegawai->uang_makan * $stPegawai->pegawais->count() *
                             (\Carbon\Carbon::parse($stPegawai->tgl_awal)->diffInDays($stPegawai->tgl_akhir) + 1), 0,
-                            ',', '.') }}
+                            ',', '.') }},-
                             @else
                             @endif
                             @endif
@@ -275,7 +275,7 @@
                         @if ($stPegawai->uang_saku <=0) @else @if ($stPegawai->pegawais->count() !=0)
                             {{ number_format($totalTiket = $stPegawai->uang_saku * $stPegawai->pegawais->count() *
                             (\Carbon\Carbon::parse($stPegawai->tgl_awal)->diffInDays($stPegawai->tgl_akhir) + 1), 0,
-                            ',', '.') }}
+                            ',', '.') }},-
                             @else
                             @endif
                             @endif
@@ -287,7 +287,7 @@
                         @if ($stPegawai->uang_representasi <=0) @else @if ($stPegawai->pegawais->count() !=0)
                             {{ number_format($totalTiket = $stPegawai->uang_representasi * $stPegawai->pegawais->count()
                             * (\Carbon\Carbon::parse($stPegawai->tgl_awal)->diffInDays($stPegawai->tgl_akhir) + 1), 0,
-                            ',', '.') }}
+                            ',', '.') }},-
                             @else
                             @endif
                             @endif
@@ -299,7 +299,7 @@
                         @if ($stPegawai->uang_kediklatan <=0) @else @if ($stPegawai->pegawais->count() !=0)
                             {{ number_format($totalTiket = $stPegawai->uang_kediklatan * $stPegawai->pegawais->count() *
                             (\Carbon\Carbon::parse($stPegawai->tgl_awal)->diffInDays($stPegawai->tgl_akhir) + 1), 0,
-                            ',', '.') }}
+                            ',', '.') }},-
                             @else
                             @endif
                             @endif
@@ -361,7 +361,7 @@
                         $stPegawai->uang_saku + $stPegawai->uang_representasi + $stPegawai->uang_kediklatan)*
                         $stPegawai->pegawais->count() *
                         (\Carbon\Carbon::parse($stPegawai->tgl_awal)->diffInDays($stPegawai->tgl_akhir) + 1), 0, ',',
-                        '.') , 0, ',', '.' }}
+                        '.') , 0, ',', '.' }},-
                     </td>
                 </tr>
             </table>
@@ -391,14 +391,14 @@
             $stPegawai->biaya_tiket + $stPegawai->transport_lokal + $stPegawai->uang_makan + $stPegawai->uang_saku +
             $stPegawai->uang_representasi + $stPegawai->uang_kediklatan)* $stPegawai->pegawais->count() *
             (\Carbon\Carbon::parse($stPegawai->tgl_awal)->diffInDays($stPegawai->tgl_akhir) + 1), 0, ',', '.') , 0, ',',
-            '.' }}
+            '.' }},-
         </td>
         <td style="width: 200px"></td>
         <td>Rp. {{ number_format($totalSeluruh = ($stPegawai->biaya_transportasi + $stPegawai->biaya_penginapan +
             $stPegawai->biaya_tiket + $stPegawai->transport_lokal + $stPegawai->uang_makan + $stPegawai->uang_saku +
             $stPegawai->uang_representasi + $stPegawai->uang_kediklatan)* $stPegawai->pegawais->count() *
             (\Carbon\Carbon::parse($stPegawai->tgl_awal)->diffInDays($stPegawai->tgl_akhir) + 1), 0, ',', '.') , 0, ',',
-            '.' }}
+            '.' }},-
         </td>
     </tr>
     <tr>
@@ -435,9 +435,11 @@
             $firstPegawai = $stPegawai->pegawais->first();
             $nipParts = explode(' ', $firstPegawai->nip);
             $firstNip = $nipParts[0];
-            $lastNip = isset($nipParts[1]) ? $nipParts[1] : '-';
+            $midNip = isset($nipParts[1]) ? $nipParts[1] : '-';
+            $lastNip = isset($nipParts[2]) ? $nipParts[2] : '-';
+            $endNip = isset($nipParts[3]) ? $nipParts[3] : '-';
             @endphp
-            {{ $firstNip }} {{ $lastNip }}
+            {{ $firstNip }} {{ $midNip }} {{ $lastNip }} {{ $endNip }}
             @else
             -
             @endif
@@ -464,7 +466,7 @@
             $stPegawai->uang_makan + $stPegawai->uang_saku + $stPegawai->uang_representasi +
             $stPegawai->uang_kediklatan)* $stPegawai->pegawais->count() *
             (\Carbon\Carbon::parse($stPegawai->tgl_awal)->diffInDays($stPegawai->tgl_akhir) + 1), 0, ',', '.') , 0, ',',
-            '.' }} </td>
+            '.' }},- </td>
     </tr>
     <tr>
         <td>Yang telah dibayarkan sejumlah</td>
@@ -475,7 +477,7 @@
             $stPegawai->uang_makan + $stPegawai->uang_saku + $stPegawai->uang_representasi +
             $stPegawai->uang_kediklatan)* $stPegawai->pegawais->count() *
             (\Carbon\Carbon::parse($stPegawai->tgl_awal)->diffInDays($stPegawai->tgl_akhir) + 1), 0, ',', '.') , 0, ',',
-            '.' }} </td>
+            '.' }},- </td>
     </tr>
     <tr>
         <td>Sisa kurang / lebih</td>
@@ -486,7 +488,7 @@
             $stPegawai->uang_makan + $stPegawai->uang_saku + $stPegawai->uang_representasi +
             $stPegawai->uang_kediklatan)* $stPegawai->pegawais->count() *
             (\Carbon\Carbon::parse($stPegawai->tgl_awal)->diffInDays($stPegawai->tgl_akhir) + 1), 0, ',', '.') , 0, ',',
-            '.' }} </td>
+            '.' }},- </td>
     </tr>
 </table>
 <table style="border: none;">
