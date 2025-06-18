@@ -214,7 +214,7 @@
                 <tr>
                     <td>Nomor</td>
                     <td>:</td>
-                    <td>421.5/ ......... /SMKN
+                    <td>421.5/ ......... /SMKN 1
                         Kb/Dindik/{{\Carbon\Carbon::parse($stPegawaiItem->tgl_ditetapkan)->translatedFormat('Y')}},
                         tanggal
                         {{\Carbon\Carbon::parse($stPegawaiItem->tgl_ditetapkan)->translatedFormat('d F Y')}}</td>
