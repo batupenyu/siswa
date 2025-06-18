@@ -19,13 +19,13 @@
     <tr>
         <td>SPPD No.</td>
         <td style="width: 20px">:</td>
-        <td>800/ ........... /SMKN 1 Kb/DINDIK/{{ Carbon\Carbon::parse($stPegawai->tgl_sppd)->translatedFormat('Y') }}
+        <td>800/ ........... /SMKN 1 Kb/DINDIK/{{ Carbon\Carbon::parse($stPegawai->tgl_awal)->translatedFormat('Y') }}
         </td>
     </tr>
     <tr>
         <td>Tgl. SPPD.</td>
         <td style="width: 20px">:</td>
-        <td>{{ Carbon\Carbon::parse($stPegawai->tgl_sppd)->translatedFormat('d F Y') }}</td>
+        <td>{{ Carbon\Carbon::parse($stPegawai->tgl_awal)->translatedFormat('d F Y') }}</td>
     </tr>
 </table>
 <table style="border: none;">
@@ -325,12 +325,12 @@
                 <tr>
                     <td>Dari Tgl</td>
                     <td>:</td>
-                    <td> {{ Carbon\Carbon::parse($stPegawai->tanggal_awal)->translatedFormat('d-m-Y') }}</td>
+                    <td> {{ Carbon\Carbon::parse($stPegawai->tgl_awal)->translatedFormat('d-m-Y') }}</td>
                 </tr>
                 <tr>
                     <td>s.d Tgl</td>
                     <td>:</td>
-                    <td> {{ Carbon\Carbon::parse($stPegawai->tanggal_akhir)->translatedFormat('d-m-Y') }}</td>
+                    <td> {{ Carbon\Carbon::parse($stPegawai->tgl_akhir)->translatedFormat('d-m-Y') }}</td>
                 </tr>
             </table>
             <br>
