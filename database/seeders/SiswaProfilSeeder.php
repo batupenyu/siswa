@@ -42,7 +42,7 @@ class SiswaProfilSeeder extends Seeder
             'diterima_di_sekolah_ini' => '2022-07-01',
             'di_kelas' => '10',
             'kelompok' => 'A',
-            'kompetensi_keahlian' => 'IPA',
+            'jurusan' => 'TBSM',
             'tanggal_diterima' => '2022-07-01',
             'kesenian_kegemaran_siswa' => 'Menyanyi',
             'olahraga_kegemaran_siswa' => 'Sepak bola',

@@ -23,14 +23,14 @@ return new class extends Migration
             $table->integer('jumlah_saudara_kandung')->nullable();
             $table->integer('jumlah_saudara_tiri')->nullable();
             $table->integer('jumlah_saudara_angkat')->nullable();
-            $table->enum('status_anak', ['yatim', 'piatu', 'yatim-piatu'])->nullable();
+            $table->enum('status_anak', ['yatim', 'piatu', 'yatim-piatu', '-'])->nullable();
             $table->string('bahasa_sehari_hari_di_rumah')->nullable();
             $table->text('alamat')->nullable();
             $table->string('nomor_telepon')->nullable();
             $table->enum('tinggal_dengan', ['orang_tua', 'saudara', 'di_asrama', 'kos'])->nullable();
             $table->float('jarak_tempat_tinggal_ke_sekolah')->nullable();
             $table->string('golongan_darah')->nullable();
-            $table->enum('penyakit_yang_pernah_diderita', ['tbc', 'cacar', 'malaria', 'dll'])->nullable();
+            $table->enum('penyakit_yang_pernah_diderita', ['tbc', 'cacar', 'malaria', 'dll', '-'])->nullable();
             $table->string('kelainan_jasmani')->nullable();
             $table->string('tinggi_dan_berat_badan')->nullable();
             $table->string('pendidikan_sebelumnya')->nullable();

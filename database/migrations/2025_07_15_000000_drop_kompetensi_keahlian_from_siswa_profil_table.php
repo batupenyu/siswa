@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('siswa_profil', function (Blueprint $table) {
-            $table->enum('jurusan', ['TBSM', 'TKR', 'TITL', 'TP', 'TKJ'])->nullable();
+            $table->dropColumn('kompetensi_keahlian');
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('siswa_profil', function (Blueprint $table) {
-            $table->dropColumn('jurusan');
+            $table->string('kompetensi_keahlian')->nullable()->after('kelompok');
         });
     }
 };

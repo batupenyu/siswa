@@ -26,8 +26,9 @@
                             <select name="siswa_id" class="form-control" required>
                                 <option value="">-- Select Siswa --</option>
                                 @foreach($siswas as $siswa)
-                                <option value="{{ $siswa->id }}" {{ old('siswa_id')==$siswa->id ? 'selected' : '' }}>
-                                    {{ $siswa->nama ?? 'Siswa ID: ' . $siswa->id }}
+                                <option value="{{ $siswa->id }}" {{ old('siswa->name')==$siswa->name ? 'selected' : ''
+                                    }}>
+                                    {{ $siswa->name ?? 'Siswa ID: ' . $siswa->name }}
                                 </option>
                                 @endforeach
                             </select>
@@ -137,6 +138,7 @@
                         <div class="col-sm-8">
                             <select name="status_anak" class="form-control">
                                 <option value="">-- Select --</option>
+                                <option value="-" {{ old('status_anak')=='-' ? 'selected' : '' }}>-</option>
                                 <option value="yatim" {{ old('status_anak')=='yatim' ? 'selected' : '' }}>Yatim</option>
                                 <option value="piatu" {{ old('status_anak')=='piatu' ? 'selected' : '' }}>Piatu</option>
                                 <option value="yatim-piatu" {{ old('status_anak')=='yatim-piatu' ? 'selected' : '' }}>
@@ -216,6 +218,8 @@
                                 </option>
                                 <option value="dll" {{ old('penyakit_yang_pernah_diderita')=='dll' ? 'selected' : '' }}>
                                     DLL</option>
+                                <option value="-" {{ old('penyakit_yang_pernah_diderita')=='-' ? 'selected' : '' }}>
+                                    -</option>
                             </select>
                         </div>
                     </div>
@@ -313,14 +317,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group row align-items-center">
-                        <label for="kompetensi_keahlian" class="col-sm-4 col-form-label text-end">Kompetensi
-                            Keahlian</label>
-                        <div class="col-sm-8">
-                            <input type="text" name="kompetensi_keahlian" class="form-control"
-                                value="{{ old('kompetensi_keahlian') }}">
-                        </div>
-                    </div>
+
 
                     <div class="form-group row align-items-center">
                         <label for="tanggal_diterima" class="col-sm-4 col-form-label text-end">Tanggal Diterima</label>

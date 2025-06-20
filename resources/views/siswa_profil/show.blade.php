@@ -21,6 +21,7 @@
             text-decoration: underline;
         }
 
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -45,14 +46,14 @@
 
 <body>
     <div class="container">
-        <h2>FORMULIR PENDAFTARAN<br>SMK NEGERI 1 KOBA TAHUN PELAJARAN 2025/2026</h2>
+        <h2>FORMULIR PENDAFTARAN<br><u>SMK NEGERI 1 KOBA TAHUN PELAJARAN 2025/2026</u></h2>
         <br>
         <br>
         <h3>A. KETERANGAN PRIBADI</h3>
         <table>
             <tr>
                 <td>1. Nama Lengkap (sesuai STTB SD/SMP)</td>
-                <td style="width: 350px">: {{ $siswaProfil->siswa->nama ?? '' }}</td>
+                <td style="width: 350px">: {{ $siswaProfil->siswa->name ?? '' }}</td>
             </tr>
             <tr>
                 <td>2. Tempat dan Tanggal Lahir</td>
@@ -130,7 +131,7 @@
             </tr>
             <tr>
                 <td>*Program Keahlian yang Dipilih: </td>
-                <td>: {{ $siswaProfil->kompetensi_keahlian ?? '' }}</td>
+                <td>: {{ $siswaProfil->jurusan ?? '' }}</td>
             </tr>
         </table>
 
@@ -165,8 +166,8 @@
             <tr>
                 <td>Nama Calon Siswa</td>
                 <td>:
-                    {{-- {{ $siswaProfil->siswa->nama ?? '' }} --}}
-                    {{ $siswaProfil->nama_panggilan ?? '' }}
+                    {{ $siswaProfil->siswa->name ?? '' }}
+                    {{-- {{ $siswaProfil->nama_panggilan ?? '' }} --}}
                 </td>
             </tr>
             <tr>
