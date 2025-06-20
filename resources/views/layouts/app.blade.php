@@ -78,6 +78,7 @@
         <h4 class="text-center mb-4">My App</h4>
         <a href="{{ route('header_icon_images.index') }}"><i class="bi bi-image"></i> Ganti kop surat</a>
         <a href="{{ route('siswas.index') }}"><i class="bi bi-people"></i> Siswa</a>
+        <a href="{{ route('mutasi.index') }}"><i class="bi bi-arrow-left-right"></i> Mutasi</a>
         <a href="{{ route('pegawais.index') }}"><i class="bi bi-people"></i> Pegawai</a>
         <a href="{{ route('holidays.index') }}"><i class="bi bi-calendar-event"></i> Libur</a>
         <a href="{{ route('sukets.index') }}"><i class="bi bi-file-text"></i> Suket</a>
@@ -89,7 +90,7 @@
         <a href="{{ route('stPegawai.index') }}"><i class="bi bi-person-badge"></i> Surat tugas pegawai</a>
         <a href="{{ route('akKredit.index') }}"><i class="bi bi-person-badge"></i> Angka kredit</a>
         <a href="{{ route('dispensasi.index') }}"><i class="bi bi-person-badge"></i> Surat Dispensasi</a>
-
+        <a href="{{ route('siswa-profil.index') }}"><i class="bi bi-person-badge"></i> Siswa Profil</a>
     </div>
     {{-- <a href="{{ route('logout') }}"
         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
