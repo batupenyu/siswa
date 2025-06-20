@@ -29,6 +29,7 @@
                 <td>{{ $profil->agama }}</td>
                 <td>{{ $profil->kewarganegaraan }}</td>
                 <td>
+                    <a href="{{ url('/siswa-profil/' . $profil->id) }}" class="btn btn-sm btn-info">Show</a>
                     <a href="{{ url('/siswa-profil/' . $profil->id . '/edit') }}"
                         class="btn btn-sm btn-warning">Edit</a>
                     <form action="{{ url('/siswa-profil/' . $profil->id) }}" method="POST" style="display:inline;">
