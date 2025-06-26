@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ config('app.name', 'Laravel') }}</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    
+    @stack('styles')
+    
+    <style>
+        .sidebar {
+            min-height: 100vh;
+            background-color: #f8f9fa;
+            border-right: 1px solid #dee2e6;
+        }
+        .sidebar .nav-link {
+            color: #333;
+            /* padding: 0.5rem 1rem; */
+            border-radius: 0.25rem;
+            margin-bottom: 0.25rem;
+        }
+        .sidebar .nav-link:hover {
+            background-color: #e9ecef;
+        }
+        .sidebar .nav-link i {
+            /* margin-right: 0.5rem; */
+            width: 20px;
+            text-align: center;
+        }
+        .main-content {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 d-md-block sidebar bg-light collapse show">
+                <div class="position-sticky pt-3">
+                    <h4 class="text-center mb-4">My App</h4>
+                    <div class="d-flex flex-column px-3">
+                        <a href="{{ route('header_icon_images.index') }}" class="nav-link"><i class="bi bi-image"></i> Ganti kop surat</a>
+                        <a href="{{ route('siswas.index') }}" class="nav-link"><i class="bi bi-people"></i> Siswa</a>
+                        <a href="{{ route('mutasi.index') }}" class="nav-link"><i class="bi bi-arrow-left-right"></i> Mutasi</a>
+                        <a href="{{ route('pegawais.index') }}" class="nav-link"><i class="bi bi-people"></i> Pegawai</a>
+                        <a href="{{ route('holidays.index') }}" class="nav-link"><i class="bi bi-calendar-event"></i> Libur</a>
+                        <a href="{{ route('sukets.index') }}" class="nav-link"><i class="bi bi-file-text"></i> Suket</a>
+                        <a href="{{ route('penilai.index') }}" class="nav-link"><i class="bi bi-person-check"></i> Penilai</a>
+                        <a href="{{ route('kpa.index') }}" class="nav-link"><i class="bi bi-person-check"></i> KPA</a>
+                        <a href="{{ route('bp.index') }}" class="nav-link"><i class="bi bi-person-badge"></i> BP</a>
+                        <a href="{{ route('surat_izin_pegawai.index') }}" class="nav-link"><i class="bi bi-person-badge"></i> Surat izin pegawai</a>
+                        <a href="{{ route('surat') }}" class="nav-link"><i class="bi bi-person-badge"></i> Surat tugas siswa</a>
+                        <a href="{{ route('stPegawai.index') }}" class="nav-link"><i class="bi bi-person-badge"></i> Surat tugas pegawai</a>
+                        <a href="{{ route('akKredit.index') }}" class="nav-link"><i class="bi bi-person-badge"></i> Angka kredit</a>
+                        <a href="{{ route('dispensasi.index') }}" class="nav-link"><i class="bi bi-person-badge"></i> Surat Dispensasi</a>
+                        <a href="{{ route('siswa-profil.index') }}" class="nav-link"><i class="bi bi-person-badge"></i> Siswa Profil</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
+                @yield('content')
+            </main>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    @stack('scripts')
+</body>
+</html>
