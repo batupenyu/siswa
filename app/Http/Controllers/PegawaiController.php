@@ -30,7 +30,7 @@ class PegawaiController extends Controller
             $query->where('pangkat', $pangkat);
         }
 
-        $pegawais = $query->orderBy('pangkat', 'ASC')->paginate(10);
+        $pegawais = $query->orderBy('pangkat', 'ASC')->paginate(20);
 
         return view('pegawai.index', compact('pegawais'));
     }
@@ -157,13 +157,13 @@ class PegawaiController extends Controller
         // Get the same filters as the index method
         $search = $request->input('search');
         $pangkat = $request->input('pangkat');
-        
+
         // Create filename with current date
         $filename = 'data-pegawai-' . now()->format('Y-m-d') . '.xlsx';
-        
+
         // Export using PegawaiExport with filters
         return Excel::download(
-            new PegawaiExport($search, $pangkat), 
+            new PegawaiExport($search, $pangkat),
             $filename
         );
     }
