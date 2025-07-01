@@ -9,18 +9,40 @@
 <div class="container">
     <h2 class="mb-4">Daftar Pegawai</h2>
     <a href="{{ route('pegawais.create') }}" class="btn btn-primary mb-3">Tambah Pegawai</a>
+    <a href="{{ route('pegawais.exportExcel') }}" class="btn btn-success mb-3 ms-2">Export Excel</a>
     <!-- Search Form -->
     <div class="mb-3">
         <form action="{{ route('pegawais.index') }}" method="GET">
             @csrf
-            <div class="input-group">
+            <div class="input-group mb-2">
                 <input type="text" name="search" class="form-control" placeholder="Cari pegawai...">
+                <select name="pangkat" class="form-select" aria-label="Filter by Pangkat/Golongan">
+                    <option value="">Semua Pangkat/Golongan</option>
+                    <option value="-">-</option>
+                    <option value="I/a">I/a</option>
+                    <option value="I/b">I/b</option>
+                    <option value="I/c">I/c</option>
+                    <option value="I/d">I/d</option>
+                    <option value="II/a">II/a</option>
+                    <option value="II/b">II/b</option>
+                    <option value="II/c">II/c</option>
+                    <option value="II/d">II/d</option>
+                    <option value="III/a">III/a</option>
+                    <option value="III/b">III/b</option>
+                    <option value="III/c">III/c</option>
+                    <option value="III/d">III/d</option>
+                    <option value="IV/a">IV/a</option>
+                    <option value="IV/b">IV/b</option>
+                    <option value="IV/c">IV/c</option>
+                    <option value="IV/d">IV/d</option>
+                    <option value="IV/e">IV/e</option>
+                </select>
                 <button type="submit" class="btn btn-primary">Cari</button>
             </div>
         </form>
     </div>
+    
     <table class="table table-sm table-bordered table-striped" style="font-size: 10pt">
-
         <thead>
             <tr style="height: 40px;vertical-align:middle;text-align:center">
                 <th>No</th>

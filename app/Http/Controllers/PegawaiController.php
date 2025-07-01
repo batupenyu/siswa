@@ -7,20 +7,31 @@ use App\Models\Configurasi;
 use App\Models\Pegawai;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use App\Exports\PegawaiExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PegawaiController extends Controller
 {
     public function index(Request $request)
     {
         $search = $request->input('search');
+        $pangkat = $request->input('pangkat');
+
+        $query = Pegawai::query();
 
         if ($search) {
-            $pegawais = Pegawai::where('nama', 'like', '%' . $search . '%')
-                ->orWhere('nip', 'like', '%' . $search . '%')
-                ->paginate(10);
-        } else {
-            $pegawais = Pegawai::orderBy('nama', 'ASC')->paginate(10);
+            $query->where(function ($q) use ($search) {
+                $q->where('nama', 'like', '%' . $search . '%')
+                    ->orWhere('nip', 'like', '%' . $search . '%');
+            });
         }
+
+        if ($pangkat && $pangkat !== '') {
+            $query->where('pangkat', $pangkat);
+        }
+
+        $pegawais = $query->orderBy('pangkat', 'ASC')->paginate(10);
+
         return view('pegawai.index', compact('pegawais'));
     }
 
@@ -139,5 +150,21 @@ class PegawaiController extends Controller
         }
 
         return view('pegawai.kredit', compact('pegawai', 'akKredits'));
+    }
+
+    public function exportExcel(Request $request)
+    {
+        // Get the same filters as the index method
+        $search = $request->input('search');
+        $pangkat = $request->input('pangkat');
+        
+        // Create filename with current date
+        $filename = 'data-pegawai-' . now()->format('Y-m-d') . '.xlsx';
+        
+        // Export using PegawaiExport with filters
+        return Excel::download(
+            new PegawaiExport($search, $pangkat), 
+            $filename
+        );
     }
 }

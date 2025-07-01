@@ -15,27 +15,42 @@
     @stack('styles')
     
     <style>
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
         .sidebar {
             min-height: 100vh;
-            background-color: #f8f9fa;
-            border-right: 1px solid #dee2e6;
+            background-color: #212529;
+            border-right: 1px solid #343a40;
         }
         .sidebar .nav-link {
-            color: #333;
-            /* padding: 0.5rem 1rem; */
+            color: #e0e0e0;
             border-radius: 0.25rem;
             margin-bottom: 0.25rem;
         }
         .sidebar .nav-link:hover {
-            background-color: #e9ecef;
+            background-color: #343a40;
+            color: #ffffff;
+        }
+        .sidebar .nav-link.active {
+            background-color: #495057;
+            color: #ffffff;
         }
         .sidebar .nav-link i {
-            /* margin-right: 0.5rem; */
             width: 20px;
             text-align: center;
         }
         .main-content {
             padding: 20px;
+            background-color: #121212;
+            min-height: 100vh;
+        }
+        a {
+            color: #66b2ff;
+        }
+        a:hover {
+            color: #99ccff;
         }
     </style>
 </head>
@@ -43,7 +58,7 @@
     <div class="container-fluid">
         <div class="row">
             <!-- Sidebar -->
-            <div class="col-md-3 col-lg-2 d-md-block sidebar bg-light collapse show">
+            <div class="col-md-3 col-lg-2 d-md-block sidebar collapse show">
                 <div class="position-sticky pt-3">
                     <h4 class="text-center mb-4">My App</h4>
                     <div class="d-flex flex-column px-3">

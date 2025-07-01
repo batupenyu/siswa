@@ -1,15 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\HeaderIconImageController;
-
 use App\Http\Controllers\SuratIzinPegawaiController;
+
+Route::get('/pegawais/exportExcel', [PegawaiController::class, 'exportExcel'])->name('pegawais.exportExcel');
 
 use App\Http\Controllers\SuketController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\SuratController;
 use App\Http\Controllers\StPegawaiController;
 use App\Http\Controllers\AkKreditController;
