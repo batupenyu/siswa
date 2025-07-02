@@ -39,14 +39,19 @@
                 <td>{{ $profil->agama }}</td>
                 <td>{{ \Illuminate\Support\Str::title($profil->kewarganegaraan) }}</td>
                 <td>
-                    <a href="{{ url('/siswa-profil/' . $profil->id) }}" class="btn btn-sm btn-info">Show</a>
-                    <a href="{{ url('/siswa-profil/' . $profil->id . '/edit') }}"
-                        class="btn btn-sm btn-warning">Edit</a>
+                    <a href="{{ url('/siswa-profil/' . $profil->id) }}" class="btn btn-sm btn-info" title="Show">
+                        <i class="bi bi-eye"></i>
+                    </a>
+                    <a href="{{ url('/siswa-profil/' . $profil->id . '/edit') }}" class="btn btn-sm btn-warning" title="Edit">
+                        <i class="bi bi-pencil"></i>
+                    </a>
                     <form action="{{ url('/siswa-profil/' . $profil->id) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger"
-                            onclick="return confirm('Are you sure you want to delete this profile?')">Delete</button>
+                        <button type="submit" class="btn btn-sm btn-danger" title="Delete"
+                            onclick="return confirm('Are you sure you want to delete this profile?')">
+                            <i class="bi bi-trash"></i>
+                        </button>
                     </form>
                 </td>
             </tr>
