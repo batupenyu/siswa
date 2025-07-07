@@ -1,4 +1,3 @@
-// resources/views/siswa/show.blade.php
 {{-- <img src="{{ asset('images/kopSekolah.PNG') }}" alt=""> --}}
 
 <h1>{{ $siswa->name }}</h1>

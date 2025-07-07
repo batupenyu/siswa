@@ -12,7 +12,7 @@
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>ID</th>
+                {{-- <th>ID</th> --}}
                 <th>Filename</th>
                 <th>Preview</th>
                 <th>Actions</th>
@@ -21,7 +21,7 @@
         <tbody>
             @foreach($images as $image)
             <tr>
-                <td>{{ $image->id }}</td>
+                {{-- <td>{{ $image->id }}</td> --}}
                 <td>{{ $image->filename }}</td>
                 <td><img src="{{ Storage::url($image->path) }}" alt="Icon" style="height: 50px;"></td>
                 <td style="text-align: center;">
