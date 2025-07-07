@@ -15,7 +15,7 @@
                 <th>ID</th>
                 <th>Siswa</th>
                 <th>Alasan Pindah</th>
-                <th>Actions</th>
+                <th style="text-align: center">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -24,18 +24,24 @@
                 <td>{{ $mutasi->id }}</td>
                 <td>{{ $mutasi->siswa->name ?? 'N/A' }}</td>
                 <td>{{ $mutasi->alasan_pindah }}</td>
-                <td>
+                <td style="text-align: center">
                     {{-- <a href="{{ route('mutasi.show', $mutasi->id) }}" class="btn btn-info btn-sm">View</a> --}}
-                    <a href="{{ route('mutasi.edit', $mutasi->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="{{ route('mutasi.edit', $mutasi->id) }}" class="btn btn-warning btn-sm">
+                        <i class="bi bi-pencil-square"></i>
+                    </a>
                     <form action="{{ route('mutasi.destroy', $mutasi->id) }}" method="POST"
                         style="display:inline-block;">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-sm"
-                            onclick="return confirm('Are you sure?')">Delete</button>
+                            onclick="return confirm('Are you sure?')">
+                            <i class="bi bi-trash"></i>
+                        </button>
                     </form>
                     <a href="{{ route('mutasi.pdf', $mutasi->id) }}" class="btn btn-secondary btn-sm"
-                        target="_blank">Cetak</a>
+                        target="_blank">
+                        <i class="bi bi-printer"></i>
+                    </a>
                 </td>
             </tr>
             @endforeach

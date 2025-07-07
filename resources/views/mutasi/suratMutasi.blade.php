@@ -14,7 +14,7 @@
         <tr>
             <th colspan="3" style="padding: 8px; text-align: center; font-weight: bold;">
                 <u>SURAT KETERANGAN PINDAH/MUTASI KELUAR</u> <br>
-                Nomor: 421.5/ .... /SMKl Kb/Dindik/2025
+                Nomor: 421.5/ .... /SMKl Kb/Dindik/{{\Carbon\Carbon::parse(date('Y-m-d'))->locale('id')->isoFormat(' YYYY') }} 
                 <br>
                 <br>
             </th>
