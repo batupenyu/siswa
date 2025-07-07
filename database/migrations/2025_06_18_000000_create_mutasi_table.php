@@ -14,7 +14,7 @@ class CreateMutasiTable extends Migration
     public function up()
     {
         Schema::create('mutasi', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('siswas_id');
             $table->text('alasan_pindah');
             $table->timestamps();

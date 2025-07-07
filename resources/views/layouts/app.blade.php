@@ -64,13 +64,13 @@
                     <div class="d-flex flex-column px-3">
                         <a href="{{ route('header_icon_images.index') }}" class="nav-link"><i class="bi bi-image"></i> Ganti kop surat</a>
                         <a href="{{ route('siswas.index') }}" class="nav-link"><i class="bi bi-people"></i> Siswa</a>
-                        <a href="{{ route('mutasi.index') }}" class="nav-link"><i class="bi bi-arrow-left-right"></i> Mutasi</a>
                         <a href="{{ route('pegawais.index') }}" class="nav-link"><i class="bi bi-people"></i> Pegawai</a>
                         <a href="{{ route('holidays.index') }}" class="nav-link"><i class="bi bi-calendar-event"></i> Libur</a>
                         <a href="{{ route('penilai.index') }}" class="nav-link"><i class="bi bi-person-check"></i> Penilai</a>
                         <a href="{{ route('kpa.index') }}" class="nav-link"><i class="bi bi-person-check"></i> KPA</a>
                         <a href="{{ route('bp.index') }}" class="nav-link"><i class="bi bi-person-badge"></i> BP</a>
                         <a href="{{ route('surat_izin_pegawai.index') }}" class="nav-link"><i class="bi bi-person-badge"></i> Surat izin pegawai</a>
+                        <a href="{{ route('mutasi.index') }}" class="nav-link"><i class="bi bi-arrow-left-right"></i> Surat mutasi siswa</a>
                         <a href="{{ route('sukets.index') }}" class="nav-link"><i class="bi bi-file-text"></i> Surat ket. siswa</a>
                         <a href="{{ route('surat') }}" class="nav-link"><i class="bi bi-person-badge"></i> Surat tugas siswa</a>
                         <a href="{{ route('stPegawai.index') }}" class="nav-link"><i class="bi bi-person-badge"></i> Surat tugas pegawai</a>

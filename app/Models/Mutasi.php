@@ -14,6 +14,8 @@ class Mutasi extends Model
     protected $fillable = [
         'siswas_id',
         'alasan_pindah',
+        'created_at',
+        'updated_at',
     ];
 
     public function siswa()

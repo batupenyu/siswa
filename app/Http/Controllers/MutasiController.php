@@ -26,11 +26,16 @@ class MutasiController extends Controller
         $request->validate([
             'siswas_id' => 'required|exists:siswas,id',
             'alasan_pindah' => 'required|string',
+            'created_at' => 'nullable|date',
+            'updated_at' => 'nullable|date',
         ]);
 
-        Mutasi::create($request->all());
-
-        return redirect()->route('mutasi.index')->with('success', 'Mutasi created successfully.');
+        try {
+            Mutasi::create($request->all());
+            return redirect()->route('mutasi.index')->with('success', 'Mutasi created successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->withErrors(['error' => 'Failed to create Mutasi: ' . $e->getMessage()]);
+        }
     }
 
     public function show(Mutasi $mutasi)
