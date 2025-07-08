@@ -69,14 +69,21 @@
                         <a href="{{ route('penilai.index') }}" class="nav-link"><i class="bi bi-person-check"></i> Penilai</a>
                         <a href="{{ route('kpa.index') }}" class="nav-link"><i class="bi bi-person-check"></i> KPA</a>
                         <a href="{{ route('bp.index') }}" class="nav-link"><i class="bi bi-person-badge"></i> BP</a>
-                        <a href="{{ route('surat_izin_pegawai.index') }}" class="nav-link"><i class="bi bi-person-badge"></i> Surat izin pegawai</a>
-                        <a href="{{ route('mutasi.index') }}" class="nav-link"><i class="bi bi-arrow-left-right"></i> Surat mutasi siswa</a>
-                        <a href="{{ route('sukets.index') }}" class="nav-link"><i class="bi bi-file-text"></i> Surat ket. siswa</a>
-                        <a href="{{ route('surat') }}" class="nav-link"><i class="bi bi-person-badge"></i> Surat tugas siswa</a>
-                        <a href="{{ route('stPegawai.index') }}" class="nav-link"><i class="bi bi-person-badge"></i> Surat tugas pegawai</a>
-                        <a href="{{ route('akKredit.index') }}" class="nav-link"><i class="bi bi-person-badge"></i> Angka kredit</a>
-                        <a href="{{ route('dispensasi.index') }}" class="nav-link"><i class="bi bi-person-badge"></i> Surat Dispensasi</a>
-                        <a href="{{ route('siswa-profil.index') }}" class="nav-link"><i class="bi bi-person-badge"></i> Siswa Profil</a>
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="suratDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-folder"></i> Surat
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="suratDropdown">
+                                <li><a class="dropdown-item" href="{{ route('surat_izin_pegawai.index') }}"><i class="bi bi-person-badge"></i> Surat izin pegawai</a></li>
+                                <li><a class="dropdown-item" href="{{ route('mutasi.index') }}"><i class="bi bi-arrow-left-right"></i> Surat mutasi siswa</a></li>
+                                <li><a class="dropdown-item" href="{{ route('sukets.index') }}"><i class="bi bi-file-text"></i> Surat ket. siswa</a></li>
+                                <li><a class="dropdown-item" href="{{ route('surat') }}"><i class="bi bi-person-badge"></i> Surat tugas siswa</a></li>
+                                <li><a class="dropdown-item" href="{{ route('dispensasi.index') }}"><i class="bi bi-person-badge"></i> Surat dispen siswa</a></li>
+                                <li><a class="dropdown-item" href="{{ route('siswa-profil.index') }}"><i class="bi bi-person-badge"></i> Siswa Profil</a></li>
+                                <li><a class="dropdown-item" href="{{ route('stPegawai.index') }}"><i class="bi bi-person-badge"></i> Surat tugas pegawai</a></li>
+                                <li><a class="dropdown-item" href="{{ route('akKredit.index') }}"><i class="bi bi-person-badge"></i> Angka kredit</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
