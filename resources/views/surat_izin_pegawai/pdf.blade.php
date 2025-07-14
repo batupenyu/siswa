@@ -205,12 +205,12 @@
     <div class="signature">
         <table class="signature-table">
             <tr>
-                <td>Mengetahui/Menyetujui,<br>{{$penilai->jabatan}}</td>
+                <td>Mengetahui/Menyetujui,<br>{{$penilai->jabatan ?? ''}}</td>
                 <td>Koba, {{ \Carbon\Carbon::parse($suratIzinPegawai->tanggal)->locale('id')->isoFormat('DD MMMM
                     YYYY') }}<br>Yang Bersangkutan,</td>
             </tr>
             <tr>
-                <td><br><br><br>{{$penilai->nama}}<br>NIP.{{$penilai->nip}}</td>
+                <td><br><br><br>{{$penilai->nama ?? ''}}<br>NIP.{{$penilai->nip ?? ''}}</td>
                 <td><br><br><br>{{ $suratIzinPegawai->pegawai->nama ?? '-' }}<br>NIP.{{
                     $suratIzinPegawai->pegawai->nip ?? '-' }}</td>
             </tr>

@@ -42,7 +42,7 @@
                         <div class="mb-3 row align-items-center">
                             <label for="jabatan" class="col-md-4 col-form-label">Jabatan</label>
                             <div class="col-md-8">
-                                <input type="text" name="jabatan" id="jabatan"
+                                <input type="text" name="jabatan" id="jabatan" required
                                     class="form-control @error('jabatan') is-invalid @enderror"
                                     value="{{ old('jabatan') }}">
                                 @error('jabatan')

@@ -46,7 +46,7 @@ class PegawaiController extends Controller
         $validatedData = $request->validate([
             'nama' => 'required|string|max:255',
             'nip' => 'required|string|max:255|unique:pegawais,nip', // Ensure NIP is unique
-            'jabatan' => 'nullable|string|max:255',
+            'jabatan' => 'required|string|max:255',
             'pangkat' => 'nullable|string|max:255',
             'integrasi' => 'nullable|string|max:255',
             'no_karpeg' => 'nullable|string|max:255',
