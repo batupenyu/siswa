@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            margin: 0.5cm 20px 20px 20px;
         }
         .header {
             text-align: center;
