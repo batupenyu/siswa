@@ -36,4 +36,9 @@ class Pegawai extends Model
     {
         return $this->hasMany(Anak::class, 'pegawais_id');
     }
+
+    public function pasangan()
+    {
+        return $this->hasOne(Pasangan::class, 'pegawais_id');
+    }
 }

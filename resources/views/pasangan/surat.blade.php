@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>form kp4</title>
+    <title>Surat Keterangan Pasangan</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
+            color: #000;
+            background-color: #fff;
         }
         .header {
             text-align: center;
@@ -26,12 +28,7 @@
             margin-bottom: 20px;
         }
         .info-table td {
-            /* padding: 5px; */
             vertical-align: top;
-            font-size: 10pt;
-        }
-        p {
-            font-size: 10pt;
         }
         .family-table {
             width: 100%;
@@ -49,7 +46,7 @@
         .footer {
             display: flex;
             justify-content: space-between;
-            margin-top: 20px;
+            margin-top: 50px;
         }
         .signature {
             text-align: center;
@@ -58,22 +55,14 @@
         .signature p {
             margin-top: 60px;
         }
-        .family-table tr:nth-child(2) th {
-            width: 10%;
-        }
     </style>
 </head>
 <body>
-    <div style="margin-bottom: 20px; text-align: right;font-size: 10pt;">
-        <button type="button" onclick="window.scrollTo({ top: 0, behavior: 'smooth' });">FORM.KP4</button>
-    </div>
-    
-    <div class="header" id="top">
-        <h4>SURAT KETERANGAN <br>
-            UNTUK MENDAPATKAN PEMBAYARAN TUNJANGAN KELUARGA</h4>
+    <div class="header">
+        <h3>SURAT KETERANGAN <br>
+            PASANGAN</h3>
         <div class="divider"></div>
     </div>
-
 
     <p>Saya yang bertanda tangan dibawah ini:</p>
 
@@ -142,67 +131,45 @@
 
     <p style="text-align: justify;">menerangkan dengan sesungguhnya bahwa saya mempunyai susunan keluarga sebagai berikut:</p>
 
-    
     <table class="family-table">
         <tr>
-            <th rowspan="2" style="width: 20px;">NO</th>
-            <th rowspan="2">NAMA</th>
-            <th rowspan="2">TEMPAT LAHIR</th>
-            <th colspan="2">TANGGAL</th>
-            <th rowspan="2">PEKERJAAN</th>
-            <th rowspan="2">KETERANGAN</th>
-            <th rowspan="2">MENDAPATKAN TUNJANGAN</th>
+            <th>NO</th>
+            <th>NAMA</th>
+            <th>TEMPAT LAHIR</th>
+            <th>TANGGAL LAHIR</th>
+            <th>TANGGAL PERKAWINAN</th>
+            <th>PEKERJAAN</th>
+            <th>STATUS PERNIKAHAN</th>
+            <th>STATUS TUNJANGAN</th>
         </tr>
+        @foreach($pegawai->pasangan as $index => $item)
         <tr>
-            <th>LAHIR</th>
-            <th>PERKAWINAN</th>
-        </tr>
-            @if($pegawai->pasangan)
-                <tr>
-                    <td>1</td>
-                    <td>{{ $pegawai->pasangan->nama }}</td>
-                    <td>{{ $pegawai->pasangan->tempat_lahir }}</td>
-                    <td>{{ \Carbon\Carbon::parse($pegawai->pasangan->tgl_lahir)->translatedFormat('d-m-Y') }}</td>
-                    <td>{{ \Carbon\Carbon::parse($pegawai->pasangan->tgl_perkawinan)->translatedFormat('d-m-Y') }}</td>
-                    <td>{{ $pegawai->pasangan->pekerjaan }}</td>
-                    <td>{{ str($pegawai->pasangan->status_pernikahan)->title() }}</td>
-                    <td>{{ str($pegawai->pasangan->status_tunjangan)->title() }}</td>
-                </tr>
-            @endif
-            @foreach($pegawai->anak as $index => $item)
-            <tr>
-            <td>{{ (int)$index + 2 }}</td>
+            <td>{{ $index + 1 }}</td>
             <td>{{ $item->nama }}</td>
             <td>{{ $item->tempat_lahir }}</td>
             <td>{{ \Carbon\Carbon::parse($item->tgl_lahir)->translatedFormat('d-m-Y') }}</td>
-            <td>{{ $item->status_pernikahan == 'menikah' ? \Carbon\Carbon::parse($item->tgl_pernikahan ?? now())->translatedFormat('d-m-Y') : '' }}</td>
-            <td>{{ str($item->status_pekerjaan)->title() }}</td>
-            <td>{{ str($item->keterangan ?? '')->title() }}</td>
-            <td>
-                @php
-                    $age = \Carbon\Carbon::parse($item->tgl_lahir)->age;
-                @endphp
-                {{ $age <= 21 ? 'Ya' : 'Tidak' }}
-            </td>
+            <td>{{ \Carbon\Carbon::parse($item->tgl_perkawinan)->translatedFormat('d-m-Y') }}</td>
+            <td>{{ $item->pekerjaan }}</td>
+            <td>{{ $item->status_pernikahan }}</td>
+            <td>{{ $item->status_tunjangan }}</td>
         </tr>
         @endforeach
     </table>
 
     <p style="text-align: justify;">Keterangan ini saya buat dengan sesungguhnya dan apabila keterangan ini ternyata tidak benar (palsu), saya bersedia dituntut dimuka pengadilan berdasarkan Undang-undang yang berlaku, dan bersedia mengembalikan semua penghasilan yang telah saya terima yang seharusnya bukan menjadi hak saya.</p>
-    <div class="footer" style="display: inline-block; width: 100%; text-align: center;">
-        <div class="signature" style="display: inline-block; width: 45%; margin-right: 5%;">
+    <div class="footer" style="display: flex; justify-content: space-between; margin-top: 50px;">
+        <div class="signature" style="text-align: center; width: 45%;">
             <p>Mengetahui: <br>
                 {{ $penilai->jabatan ?? '-' }}: <br><br><br><br>
                 {{ $penilai->nama ?? '-' }} <br>
                 NIP. {{ $penilai->nip ?? '-' }}
             </p>
         </div>
-        <div class="signature" style="display: inline-block; width: 45%;">
-            <p>Pangkalpinang, {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }} <br>
-                <br><br><br><br>
+        <div class="signature" style="text-align: center; width: 45%;">
+            <p>Pangkalpinang, {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }} <br><br><br><br>
                 {{ $pegawai->nama ?? '' }} <br>
                 NIP. {{ $pegawai->nip ?? '' }}</p>
         </div>
     </div>
 </body>
-
+</html>

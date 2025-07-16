@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Anak;
+use App\Models\Pasangan;
 use Illuminate\Http\Request;
 use PDF;
 
@@ -86,6 +87,7 @@ class AnakController extends Controller
         $pegawai = \App\Models\Pegawai::with('anak')->findOrFail($id);
         $anak = $pegawai->anak;
         $penilai = \App\Models\Penilai::first();
+        $pasangan = \App\Models\Pasangan::first();
         if (!$anak) {
             return redirect()->route('anak.index')->with('error', 'Data anak tidak ditemukan.');
         }
@@ -98,6 +100,7 @@ class AnakController extends Controller
     {
         $pegawai = \App\Models\Pegawai::with('anak')->findOrFail($id);
         $anak = $pegawai->anak;
+        $pasangan = \App\Models\Pasangan::first();
         $penilai = \App\Models\Penilai::first();
         if (!$anak) {
             return redirect()->route('anak.index')->with('error', 'Data anak tidak ditemukan.');

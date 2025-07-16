@@ -2,11 +2,20 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AnakController;
+use App\Http\Controllers\PasanganController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\HeaderIconImageController;
 use App\Http\Controllers\SuratIzinPegawaiController;
 
 Route::get('/pegawais/exportExcel', [PegawaiController::class, 'exportExcel'])->name('pegawais.exportExcel');
+
+Route::get('/pasangan', [PasanganController::class, 'viewIndex'])->name('pasangan.index');
+Route::get('/pasangan/create', [PasanganController::class, 'viewCreate'])->name('pasangan.create');
+Route::post('/pasangan', [PasanganController::class, 'store'])->name('pasangan.store');
+Route::get('/pasangan/{id}', [PasanganController::class, 'viewShowWeb'])->name('pasangan.show');
+Route::get('/pasangan/{id}/edit', [PasanganController::class, 'viewEdit'])->name('pasangan.edit');
+Route::put('/pasangan/{id}', [PasanganController::class, 'updateWeb'])->name('pasangan.update');
+Route::delete('/pasangan/{id}', [PasanganController::class, 'destroy'])->name('pasangan.destroy');
 
 use App\Http\Controllers\SuketController;
 use App\Http\Controllers\KelasController;
