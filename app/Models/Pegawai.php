@@ -31,4 +31,9 @@ class Pegawai extends Model
     {
         return $this->hasMany(AkKredit::class, 'pegawais_id');
     }
+
+    public function anak()
+    {
+        return $this->hasMany(Anak::class, 'pegawais_id');
+    }
 }

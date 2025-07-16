@@ -23,7 +23,6 @@
             <tr>
                 {{-- <td>{{ $image->id }}</td> --}}
                 <td>{{ $image->filename }}</td>
-                <td><img src="{{ Storage::url($image->path) }}" alt="Icon" style="height: 50px;"></td>
                 <td style="text-align: center;">
                     <a href="{{ route('header_icon_images.edit', $image->id) }}" class="btn btn-warning btn-sm">
                         <i class="bi bi-pencil-fill"></i>

@@ -84,6 +84,7 @@
                                 <li><a class="dropdown-item" href="{{ route('akKredit.index') }}"><i class="bi bi-person-badge"></i> Angka kredit</a></li>
                             </ul>
                         </div>
+                        <a href="{{ route('anak.index') }}" class="nav-link"><i class="bi bi-people"></i> Anak</a>
                     </div>
                 </div>
             </div>

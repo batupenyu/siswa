@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AnakController;
+
 use App\Http\Controllers\SiswaProfilController;
 
 
@@ -21,3 +23,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('siswa-profil', SiswaProfilController::class);
+Route::apiResource('anak', AnakController::class);

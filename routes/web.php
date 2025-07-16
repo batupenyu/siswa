@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AnakController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\HeaderIconImageController;
 use App\Http\Controllers\SuratIzinPegawaiController;
@@ -152,3 +153,10 @@ Route::resource('surat_izin_pegawai', SuratIzinPegawaiController::class);
 Route::get('surat_izin_pegawai/{id}/pdf', [SuratIzinPegawaiController::class, 'pdf'])->name('surat_izin_pegawai.pdf');
 
 Route::resource('header_icon_images', HeaderIconImageController::class);
+
+Route::get('/anak', [AnakController::class, 'viewIndex'])->name('anak.index');
+Route::get('/anak/create', [AnakController::class, 'viewCreate'])->name('anak.create');
+Route::get('/anak/{id}', [AnakController::class, 'viewShowWeb'])->name('anak.show');
+Route::get('/anak/{id}/pdf', [AnakController::class, 'pdf'])->name('anak.pdf');
+Route::get('/anak/{id}/edit', [AnakController::class, 'viewEdit'])->name('anak.edit');
+Route::put('/anak/{id}', [AnakController::class, 'updateWeb'])->name('anak.updateWeb');
