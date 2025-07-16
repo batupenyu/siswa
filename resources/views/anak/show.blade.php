@@ -126,7 +126,14 @@
         <tr>
             <td>10. Masa kerja golongan</td>
             <td>:</td>
-            <td>{{ $pegawai->masa_kerja_golongan ?? '' }}</td>
+            <td>
+                @if($pegawai->tgl_tmt_jabatan)
+                    {{ \Carbon\Carbon::parse($pegawai->tgl_tmt_jabatan)->diffInYears(\Carbon\Carbon::now()) }} Tahun 
+                    {{ \Carbon\Carbon::parse($pegawai->tgl_tmt_jabatan)->diffInMonths(\Carbon\Carbon::now()) % 12 }} Bulan
+                @else
+                    ''
+                @endif
+            </td>
         </tr>
         <tr>
             <td>11. Digaji menurut</td>
