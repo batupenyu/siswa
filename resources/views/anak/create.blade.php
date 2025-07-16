@@ -73,6 +73,16 @@
         </div>
 
         <div class="mb-3 row">
+            <label for="status_tanggungan" class="col-sm-2 col-form-label">Status Tanggungan:</label>
+            <div class="col-sm-10">
+                <select class="form-select" id="status_tanggungan" name="status_tanggungan" required>
+                    <option value="ya" {{ old('status_tanggungan') == 'ya' ? 'selected' : '' }}>Ya</option>
+                    <option value="tidak" {{ old('status_tanggungan') == 'tidak' ? 'selected' : '' }}>Tidak</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="mb-3 row">
             <label for="pendidikan" class="col-sm-2 col-form-label">Pendidikan:</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" id="pendidikan" name="pendidikan" value="{{ old('pendidikan') }}" required>

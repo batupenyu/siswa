@@ -16,6 +16,7 @@ class CreateAnakTable extends Migration
             $table->string('tempat_lahir');
             $table->enum('status_pekerjaan', ['bekerja', 'belum bekerja']);
             $table->enum('status_pernikahan', ['menikah', 'belum menikah']);
+            $table->enum('status_tanggungan', ['ya', 'tidak']);
             $table->string('pendidikan');
             $table->string('nama_sekolah');
             $table->timestamps();

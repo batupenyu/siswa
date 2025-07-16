@@ -34,6 +34,7 @@ class AnakController extends Controller
             'tempat_lahir' => 'required|string|max:255',
             'status_pekerjaan' => 'required|in:bekerja,belum bekerja',
             'status_pernikahan' => 'required|in:menikah,belum menikah',
+            'status_tanggungan' => 'required|in:ya,tidak',
             'pendidikan' => 'required|string|max:255',
             'nama_sekolah' => 'required|string|max:255',
         ]);
@@ -56,6 +57,7 @@ class AnakController extends Controller
             'tempat_lahir' => 'sometimes|required|string|max:255',
             'status_pekerjaan' => 'sometimes|required|in:bekerja,belum bekerja',
             'status_pernikahan' => 'sometimes|required|in:menikah,belum menikah',
+            'status_tanggungan' => 'sometimes|required|in:ya,tidak',
             'pendidikan' => 'sometimes|required|string|max:255',
             'nama_sekolah' => 'sometimes|required|string|max:255',
         ]);
@@ -126,6 +128,7 @@ class AnakController extends Controller
             'tempat_lahir' => 'required|string|max:255',
             'status_pekerjaan' => 'required|in:bekerja,belum bekerja',
             'status_pernikahan' => 'required|in:menikah,belum menikah',
+            'status_tanggungan' => 'required|in:ya,tidak',
             'pendidikan' => 'required|string|max:255',
             'nama_sekolah' => 'required|string|max:255',
         ]);
