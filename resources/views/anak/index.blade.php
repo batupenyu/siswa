@@ -2,8 +2,14 @@
 @section('content')
 <div class="container mt-4">
     <h1>Daftar Anak</h1>
+    <form method="GET" action="{{ route('anak.index') }}" class="mb-3">
+        <div class="input-group">
+            <input type="text" name="search" class="form-control" placeholder="Cari nama anak..." value="{{ request('search') }}">
+            <button class="btn btn-outline-secondary" type="submit">Cari</button>
+        </div>
+    </form>
     <a href="{{ route('anak.create') }}" class="btn btn-primary mb-3">Tambah Anak</a>
-    <table class="table table-sm table-striped" style="font-size: 8pt;">
+    <table class="table table-sm table-striped" style="font-size: 12pt;">
         <thead>
             <tr>
                 <th>ID</th>

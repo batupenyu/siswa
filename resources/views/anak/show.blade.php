@@ -106,7 +106,7 @@
         <tr>
             <td>6. Status Kepegawaian</td>
             <td>:</td>
-            <td>{{ $pegawai->status_kepegawaian ?? '' }}</td>
+            <td>{{ $pegawai->status_kepegawaian ?? '' }} Daerah Provinsi Kepulauan Bangka Belitung</td>
         </tr>
         <tr>
             <td>7. Jabatan</td>

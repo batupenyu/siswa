@@ -3,7 +3,7 @@
 <div class="container mt-4">
     <h1>Daftar Pasangan</h1>
     <a href="{{ route('pasangan.create') }}" class="btn btn-primary mb-3">Tambah Pasangan</a>
-    <table class="table table-sm table-striped" style="font-size: 8pt;">
+    <table class="table table-sm table-striped" style="font-size: 12pt;">
         <thead>
             <tr>
                 <th>ID</th>
@@ -59,7 +59,7 @@
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <table class="table table-sm table-borderless" style="font-size: 8pt;">
+                    <table class="table table-sm table-borderless" style="font-size: 12pt;">
                         <tr>
                             <th>Nama Pasangan</th>
                             <td id="modalNama"></td>

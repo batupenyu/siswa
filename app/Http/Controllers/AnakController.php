@@ -78,9 +78,12 @@ class AnakController extends Controller
     }
 
     // Web view methods
-    public function viewIndex()
+    public function viewIndex(Request $request)
     {
-        $anakList = Anak::paginate(5);
+        $query = $request->input('search');
+        $anakList = Anak::when($query, function ($q) use ($query) {
+            return $q->where('nama', 'like', '%' . $query . '%');
+        })->paginate(5)->appends(['search' => $query]);
         return view('anak.index', compact('anakList'));
     }
 
