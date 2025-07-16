@@ -20,6 +20,7 @@ class Anak extends Model
         'status_pernikahan',
         'pendidikan',
         'nama_sekolah',
+        'status_tanggungan',
     ];
 
     public function pegawai()

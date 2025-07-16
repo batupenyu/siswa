@@ -48,6 +48,8 @@ class PegawaiController extends Controller
             'nip' => 'required|string|max:255|unique:pegawais,nip', // Ensure NIP is unique
             'jabatan' => 'required|string|max:255',
             'pangkat' => 'nullable|string|max:255',
+            'status_kepegawaian' => 'nullable|string|max:255',
+            'digaji_menurut' => 'nullable|integer|exists:pp_gajis,id',
             'integrasi' => 'nullable|string|max:255',
             'no_karpeg' => 'nullable|string|max:255',
             'jenis_kelamin' => 'nullable|in:Laki-laki,Perempuan',
@@ -55,26 +57,13 @@ class PegawaiController extends Controller
             'tempat_lahir' => 'nullable|string|max:255',
             'tgl_tmt_jabatan' => 'nullable|date',
             'tgl_tmt_pangkat' => 'nullable|date',
+            'agama' => 'nullable|string|max:255',
+            'alamat' => 'nullable|string|max:255',
+            'tgl_tmt_cpns' => 'nullable|date',
         ]);
 
-        // Create a new Pegawai instance
-        $pegawai = new Pegawai();
-
-        // Assign values from the validated request data
-        $pegawai->nama = $validatedData['nama'];
-        $pegawai->nip = $validatedData['nip'];
-        $pegawai->jabatan = $validatedData['jabatan'] ?? null;
-        $pegawai->pangkat = $validatedData['pangkat'] ?? null;
-        $pegawai->integrasi = $validatedData['integrasi'] ?? null;
-        $pegawai->no_karpeg = $validatedData['no_karpeg'] ?? null;
-        $pegawai->jenis_kelamin = $validatedData['jenis_kelamin'] ?? null;
-        $pegawai->tgl_lahir = $validatedData['tgl_lahir'] ?? null;
-        $pegawai->tempat_lahir = $validatedData['tempat_lahir'] ?? null;
-        $pegawai->tgl_tmt_jabatan = $validatedData['tgl_tmt_jabatan'] ?? null;
-        $pegawai->tgl_tmt_pangkat = $validatedData['tgl_tmt_pangkat'] ?? null;
-
-        // Save the Pegawai record to the database
-        $pegawai->save();
+        // Use mass assignment to create Pegawai
+        $pegawai = Pegawai::create($validatedData);
 
         // Redirect to the index page with a success message
         return redirect()->route('pegawais.index')->with('success', 'Pegawai berhasil ditambahkan.');
@@ -82,13 +71,13 @@ class PegawaiController extends Controller
 
     public function show($id)
     {
-        $pegawai = Pegawai::find($id);
+        $pegawai = Pegawai::with(['stPegawai', 'akKredits', 'anak', 'pasangan', 'ppGaji'])->find($id);
         return view('pegawai.show', compact('pegawai'));
     }
 
     public function edit($id)
     {
-        $pegawai = Pegawai::findOrFail($id);
+        $pegawai = Pegawai::with(['stPegawai', 'akKredits', 'anak', 'pasangan', 'ppGaji'])->findOrFail($id);
         return view('pegawai.edit', compact('pegawai'));
     }
 
@@ -100,6 +89,8 @@ class PegawaiController extends Controller
             'nip' => 'required|string|max:255',
             'jabatan' => 'required|string|max:255',
             'pangkat' => 'required|string|max:255',
+            'status_kepegawaian' => 'nullable|string|max:255',
+            'digaji_menurut' => 'nullable|integer|exists:pp_gajis,id',
             'integrasi' => 'nullable|string|max:255',
             'no_karpeg' => 'nullable|string|max:255',
             'jenis_kelamin' => 'nullable|in:Laki-laki,Perempuan',
@@ -107,6 +98,9 @@ class PegawaiController extends Controller
             'tempat_lahir' => 'nullable|string|max:255',
             'tgl_tmt_jabatan' => 'nullable|date',
             'tgl_tmt_pangkat' => 'nullable|date',
+            'agama' => 'nullable|string|max:255',
+            'alamat' => 'nullable|string|max:255',
+            'tgl_tmt_cpns' => 'nullable|date',
         ]);
 
         $pegawai->update($validatedData);
@@ -144,8 +138,8 @@ class PegawaiController extends Controller
             return redirect()->back()->with('error', 'Pegawai not found.');
         }
 
-        $akKredits = AkKredit::first();
-        if (!$akKredits) {
+        $akKredits = $pegawai->akKredits;
+        if ($akKredits->isEmpty()) {
             return redirect()->back()->with('error', 'No AkKredit records found.');
         }
 

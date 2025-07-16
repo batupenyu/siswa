@@ -88,6 +88,21 @@
                             </div>
                         </div>
                         <div class="mb-3 row align-items-center">
+                            <label for="status_kepegawaian" class="col-md-4 col-form-label">Status Kepegawaian</label>
+                            <div class="col-md-8">
+                                <select name="status_kepegawaian" id="status_kepegawaian" class="form-select @error('status_kepegawaian') is-invalid @enderror">
+                                    <option value="">-- Pilih Status Kepegawaian --</option>
+                                    <option value="PNS" {{ old('status_kepegawaian', $pegawai->status_kepegawaian) == 'PNS' ? 'selected' : '' }}>PNS</option>
+                                    <option value="PPPK" {{ old('status_kepegawaian', $pegawai->status_kepegawaian) == 'PPPK' ? 'selected' : '' }}>PPPK</option>
+                                    <option value="Honor" {{ old('status_kepegawaian', $pegawai->status_kepegawaian) == 'Honor' ? 'selected' : '' }}>Honor</option>
+                                    <option value="-" {{ old('status_kepegawaian', $pegawai->status_kepegawaian) == '-' ? 'selected' : '' }}>-</option>
+                                </select>
+                                @error('status_kepegawaian')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="mb-3 row align-items-center">
                             <label for="integrasi" class="col-md-4 col-form-label">Ak Integrasi</label>
                             <div class="col-md-8">
                                 <input type="text" name="integrasi" id="integrasi"
@@ -105,6 +120,15 @@
                                     class="form-control @error('no_karpeg') is-invalid @enderror"
                                     value="{{ old('no_karpeg', $pegawai->no_karpeg) }}">
                                 @error('no_karpeg')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                          <div class="mb-3 row align-items-center">
+                            <label for="alamat" class="col-md-4 col-form-label">Alamat</label>
+                            <div class="col-md-8">
+                                <textarea name="alamat" id="alamat" rows="3" class="form-control @error('alamat') is-invalid @enderror">{{ old('alamat', $pegawai->alamat) }}</textarea>
+                                @error('alamat')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -173,7 +197,35 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="mb-3 row align-items-center">
+                            <label for="agama" class="col-md-4 col-form-label">Agama</label>
+                            <div class="col-md-8">
+                                <select name="agama" id="agama" class="form-select @error('agama') is-invalid @enderror">
+                                    <option value="">-- Pilih Agama --</option>
+                                    <option value="islam" {{ old('agama', $pegawai->agama) == 'islam' ? 'selected' : '' }}>Islam</option>
+                                    <option value="kristen" {{ old('agama', $pegawai->agama) == 'kristen' ? 'selected' : '' }}>Kristen</option>
+                                    <option value="protestan" {{ old('agama', $pegawai->agama) == 'protestan' ? 'selected' : '' }}>Protestan</option>
+                                    <option value="hindu" {{ old('agama', $pegawai->agama) == 'hindu' ? 'selected' : '' }}>Hindu</option>
+                                    <option value="budha" {{ old('agama', $pegawai->agama) == 'budha' ? 'selected' : '' }}>Budha</option>
+                                    <option value="konghucu" {{ old('agama', $pegawai->agama) == 'konghucu' ? 'selected' : '' }}>Konghucu</option>
+                                </select>
+                                @error('agama')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                      
+                        <div class="mb-3 row align-items-center">
+                            <label for="tgl_tmt_cpns" class="col-md-4 col-form-label">TMT CPNS</label>
+                            <div class="col-md-8">
+                                <input type="date" name="tgl_tmt_cpns" id="tgl_tmt_cpns" class="form-control @error('tgl_tmt_cpns') is-invalid @enderror" value="{{ old('tgl_tmt_cpns', $pegawai->tgl_tmt_cpns) }}">
+                                @error('tgl_tmt_cpns')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
                     </div>
+
                 </div>
                 <div class="d-flex justify-content-end">
                     <button type="submit" class="btn btn-primary me-2">Simpan Perubahan</button>

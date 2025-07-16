@@ -1,7 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PPGajiController;
+
 use App\Http\Controllers\AnakController;
+
+Route::resource('pp_gaji', PPGajiController::class);
 use App\Http\Controllers\PasanganController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\HeaderIconImageController;

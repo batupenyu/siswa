@@ -86,6 +86,7 @@
                         </div>
                         <a href="{{ route('anak.index') }}" class="nav-link"><i class="bi bi-people"></i> Anak & KP4</a>
                         <a href="{{ route('pasangan.index') }}" class="nav-link"><i class="bi bi-people"></i> Pasangan</a>
+                        <a href="{{ route('pp_gaji.index') }}" class="nav-link"><i class="bi bi-cash-stack"></i> PP Gaji</a>
                     </div>
                 </div>
             </div>

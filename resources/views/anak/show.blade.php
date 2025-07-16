@@ -101,7 +101,7 @@
         <tr>
             <td>5. Agama</td>
             <td>:</td>
-            <td>{{ $pegawai->agama ?? '' }}</td>
+            <td>{{ str($pegawai->agama)->title() ?? '' }}</td>
         </tr>
         <tr>
             <td>6. Status Kepegawaian</td>
@@ -121,7 +121,7 @@
         <tr>
             <td>9. Pada Unit Kerja</td>
             <td>:</td>
-            <td>{{ $pegawai->unit_kerja ?? '' }}</td>
+            <td>{{ $penilai->unitkerja ?? '' }}</td>
         </tr>
         <tr>
             <td>10. Masa kerja golongan</td>
@@ -131,7 +131,9 @@
         <tr>
             <td>11. Digaji menurut</td>
             <td>:</td>
-            <td>{{ $pegawai->digaji_menurut ?? '' }}</td>
+            <td style="text-align: justify;">
+                {{$ppgaji->description ?? ''}}
+            </td>
         </tr>
         <tr>
             <td>12. Alamat/tempat tinggal</td>
@@ -178,12 +180,7 @@
             <td>{{ $item->status_pernikahan == 'menikah' ? \Carbon\Carbon::parse($item->tgl_pernikahan ?? now())->translatedFormat('d-m-Y') : '' }}</td>
             <td>{{ str($item->status_pekerjaan)->title() }}</td>
             <td>{{ str($item->keterangan ?? '')->title() }}</td>
-            <td>
-                @php
-                    $age = \Carbon\Carbon::parse($item->tgl_lahir)->age;
-                @endphp
-                {{ $age <= 21 ? 'Ya' : 'Tidak' }}
-            </td>
+            <td>{{ str($item->status_tanggungan)->title() }}</td>
         </tr>
         @endforeach
     </table>

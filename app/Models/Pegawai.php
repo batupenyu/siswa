@@ -13,6 +13,7 @@ class Pegawai extends Model
         'nip',
         'jabatan',
         'pangkat',
+        'status_kepegawaian',
         'integrasi',
         'no_karpeg'  ,
         'jenis_kelamin',
@@ -20,6 +21,9 @@ class Pegawai extends Model
         'tempat_lahir',
         'tgl_tmt_jabatan',
         'tgl_tmt_pangkat',
+        'agama',
+        'alamat',
+        'tgl_tmt_cpns',
     ];
 
     public function stPegawai()
@@ -40,5 +44,10 @@ class Pegawai extends Model
     public function pasangan()
     {
         return $this->hasOne(Pasangan::class, 'pegawais_id');
+    }
+
+    public function ppGaji()
+    {
+        return $this->belongsTo(PP_Gaji::class, 'digaji_menurut');
     }
 }

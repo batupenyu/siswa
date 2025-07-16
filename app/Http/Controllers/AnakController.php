@@ -86,14 +86,16 @@ class AnakController extends Controller
 
     public function viewShowWeb($id)
     {
-        $pegawai = \App\Models\Pegawai::with('anak')->findOrFail($id);
+        $pegawai = \App\Models\Pegawai::with(['anak', 'ppGaji'])->findOrFail($id);
         $anak = $pegawai->anak;
         $penilai = \App\Models\Penilai::first();
         $pasangan = \App\Models\Pasangan::first();
+        $ppgaji = \App\Models\PP_Gaji::first();
+
         if (!$anak) {
             return redirect()->route('anak.index')->with('error', 'Data anak tidak ditemukan.');
         }
-        return view('anak.show', compact('pegawai', 'anak', 'penilai'));
+        return view('anak.show', compact('pegawai', 'anak', 'penilai','ppgaji', 'pasangan'));
     }
 
     // Removed duplicate viewShow method to fix redeclaration error
@@ -104,11 +106,13 @@ class AnakController extends Controller
         $anak = $pegawai->anak;
         $pasangan = \App\Models\Pasangan::first();
         $penilai = \App\Models\Penilai::first();
+        $ppgaji = \App\Models\PP_Gaji::first();
+
         if (!$anak) {
             return redirect()->route('anak.index')->with('error', 'Data anak tidak ditemukan.');
         }
-        $pdf = PDF::loadView('anak.show', compact('pegawai', 'anak','penilai'));
-        return $pdf->stream('anak_'.$id.'.pdf');
+        $pdf = PDF::loadView('anak.show', compact('pegawai', 'anak','penilai','ppgaji', 'pasangan'));
+        return $pdf->stream($pegawai->nama.'.pdf');
     }
 
     public function viewEdit($id)
