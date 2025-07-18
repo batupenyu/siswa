@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,65 +10,82 @@
             font-family: Arial, sans-serif;
             margin: 0.5cm 20px 20px 20px;
         }
+
         .header {
             text-align: center;
             margin-bottom: 20px;
         }
+
         .header h2 {
             margin-bottom: 5px;
         }
+
         .divider {
             border-top: 2px solid black;
             margin: 10px 0;
         }
+
         .info-table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
         }
+
         .info-table td {
             /* padding: 5px; */
             vertical-align: top;
             font-size: 10pt;
         }
+
         p {
             font-size: 10pt;
         }
+
         .family-table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
         }
-        .family-table, .family-table th, .family-table td {
+
+        .family-table,
+        .family-table th,
+        .family-table td {
             border: 1px solid black;
         }
-        .family-table th, .family-table td {
+
+        .family-table th,
+        .family-table td {
             padding: 4px;
             font-size: 10px;
             text-align: center;
         }
+
         .footer {
             display: flex;
             justify-content: space-between;
             margin-top: 20px;
         }
+
         .signature {
             text-align: center;
             width: 45%;
         }
+
         .signature p {
             margin-top: 60px;
         }
+
         .family-table tr:nth-child(2) th {
             width: 10%;
         }
     </style>
 </head>
+
 <body>
     <div style="margin-bottom: 20px; text-align: right;font-size: 10pt;">
         <button type="button" onclick="window.scrollTo({ top: 0, behavior: 'smooth' });">FORM.KP4</button>
     </div>
-    
+
     <div class="header" id="top">
         <h4>SURAT KETERANGAN <br>
             UNTUK MENDAPATKAN PEMBAYARAN TUNJANGAN KELUARGA</h4>
@@ -128,10 +146,10 @@
             <td>:</td>
             <td>
                 @if($pegawai->tgl_tmt_jabatan)
-                    {{ \Carbon\Carbon::parse($pegawai->tgl_tmt_jabatan)->diffInYears(\Carbon\Carbon::now()) }} Tahun 
-                    {{ \Carbon\Carbon::parse($pegawai->tgl_tmt_jabatan)->diffInMonths(\Carbon\Carbon::now()) % 12 }} Bulan
+                {{ \Carbon\Carbon::parse($pegawai->tgl_tmt_jabatan)->diffInYears(\Carbon\Carbon::now()) }} Tahun
+                {{ \Carbon\Carbon::parse($pegawai->tgl_tmt_jabatan)->diffInMonths(\Carbon\Carbon::now()) % 12 }} Bulan
                 @else
-                    ''
+                ''
                 @endif
             </td>
         </tr>
@@ -151,7 +169,7 @@
 
     <p style="text-align: justify;">menerangkan dengan sesungguhnya bahwa saya mempunyai susunan keluarga sebagai berikut:</p>
 
-    
+
     <table class="family-table">
         <tr>
             <th rowspan="2" style="width: 20px;">NO</th>
@@ -166,28 +184,116 @@
             <th>LAHIR</th>
             <th>PERKAWINAN</th>
         </tr>
-            @if($pegawai->pasangan)
-                <tr>
-                    <td>1</td>
-                    <td>{{ $pegawai->pasangan->nama }}</td>
-                    <td>{{ $pegawai->pasangan->tempat_lahir }}</td>
-                    <td>{{ \Carbon\Carbon::parse($pegawai->pasangan->tgl_lahir)->translatedFormat('d-m-Y') }}</td>
-                    <td>{{ \Carbon\Carbon::parse($pegawai->pasangan->tgl_perkawinan)->translatedFormat('d-m-Y') }}</td>
-                    <td>{{ $pegawai->pasangan->pekerjaan }}</td>
-                    <td>{{ str($pegawai->pasangan->status_pernikahan)->title() }}</td>
-                    <td>{{ str($pegawai->pasangan->status_tunjangan)->title() }}</td>
-                </tr>
-            @endif
-            @foreach($pegawai->anak as $index => $item)
-            <tr>
+        @if($pegawai->pasangan)
+        <tr>
+            <td>1</td>
+            <td>
+                @if($pegawai->pasangan->nama == '')
+                -
+                @else
+                {{ $pegawai->pasangan->nama }}
+                @endif
+            </td>
+            <td>
+                @if(empty($pegawai->pasangan->tempat_lahir) || $pegawai->pasangan->tempat_lahir == '')
+                -
+                @else
+                {{ $pegawai->pasangan->tempat_lahir }}
+                @endif
+            </td>
+            <td>
+                @if(empty($pegawai->pasangan->tgl_lahir) || $pegawai->pasangan->tgl_lahir == '')
+                -
+                @else
+                {{ \Carbon\Carbon::parse($pegawai->pasangan->tgl_lahir)->translatedFormat('d-m-Y') }}
+                @endif
+            </td>
+            <td>
+                @if(empty($pegawai->pasangan->tgl_perkawinan) || $pegawai->pasangan->tgl_perkawinan == '')
+                -
+                @else
+                {{ \Carbon\Carbon::parse($pegawai->pasangan->tgl_perkawinan)->translatedFormat('d-m-Y') }}
+                @endif
+            </td>
+            <td>
+                @if(empty($pegawai->pasangan->pekerjaan) || $pegawai->pasangan->pekerjaan == '')
+                -
+                @else
+                {{ $pegawai->pasangan->pekerjaan }}
+                @endif
+            </td>
+            <td>
+                @if(empty($pegawai->pasangan->status_pernikahan) || $pegawai->pasangan->status_pernikahan == '')
+                -
+                @else
+                {{ str($pegawai->pasangan->status_pernikahan)->title() }}
+                @endif
+            </td>
+            <td>
+                @if(empty($pegawai->pasangan->status_tunjangan) || $pegawai->pasangan->status_tunjangan == '')
+                -
+                @else
+                {{ str($pegawai->pasangan->status_tunjangan)->title() }}
+                @endif
+            </td>
+        </tr>
+        @endif
+        @foreach($pegawai->anak as $index => $item)
+        <tr>
             <td>{{ (int)$index + 2 }}</td>
-            <td>{{ $item->nama }}</td>
-            <td>{{ $item->tempat_lahir }}</td>
-            <td>{{ \Carbon\Carbon::parse($item->tgl_lahir)->translatedFormat('d-m-Y') }}</td>
-            <td>{{ $item->status_pernikahan == 'menikah' ? \Carbon\Carbon::parse($item->tgl_pernikahan ?? now())->translatedFormat('d-m-Y') : '' }}</td>
-            <td>{{ str($item->status_pekerjaan)->title() }}</td>
-            <td>{{ str($item->keterangan ?? '')->title() }}</td>
-            <td>{{ str($item->status_tanggungan)->title() }}</td>
+            <td>
+                @if(empty($item->nama) || $item->nama == '')
+                -
+                @else
+                {{ $item->nama }}
+                @endif
+            </td>
+            <td>
+                @if(empty($item->tempat_lahir) || $item->tempat_lahir == '')
+                -
+                @else
+                {{ $item->tempat_lahir }}
+                @endif
+            </td>
+            <td>
+                @if(empty($item->tgl_lahir) || $item->tgl_lahir == '')
+                -
+                @else
+                {{ \Carbon\Carbon::parse($item->tgl_lahir)->translatedFormat('d-m-Y') }}
+                @endif
+            </td>
+            <td>
+                @if($item->status_pernikahan == 'menikah')
+                @if(empty($item->tgl_pernikahan) || $item->tgl_pernikahan == '')
+                -
+                @else
+                {{ \Carbon\Carbon::parse($item->tgl_pernikahan)->translatedFormat('d-m-Y') }}
+                @endif
+                @else
+                -
+                @endif
+            </td>
+            <td>
+                @if(empty($item->status_pekerjaan) || $item->status_pekerjaan == '')
+                -
+                @else
+                {{ str($item->status_pekerjaan)->title() }}
+                @endif
+            </td>
+            <td>
+                @if(empty($item->keterangan) || $item->keterangan == '')
+                -
+                @else
+                {{ str($item->keterangan)->title() }}
+                @endif
+            </td>
+            <td>
+                @if(empty($item->status_tanggungan) || $item->status_tanggungan == '')
+                -
+                @else
+                {{ str($item->status_tanggungan)->title() }}
+                @endif
+            </td>
         </tr>
         @endforeach
     </table>
@@ -205,8 +311,8 @@
             <p>Pangkalpinang, {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }} <br>
                 <br><br><br><br>
                 {{ $pegawai->nama ?? '' }} <br>
-                NIP. {{ $pegawai->nip ?? '' }}</p>
+                NIP. {{ $pegawai->nip ?? '' }}
+            </p>
         </div>
     </div>
 </body>
-
