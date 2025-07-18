@@ -5,13 +5,13 @@
     <h1>Edit Data Anak</h1>
 
     @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
     @endif
 
     <form action="{{ route('anak.updateWeb', $anak->id) }}" method="POST">
@@ -19,9 +19,16 @@
         @method('PUT')
 
         <div class="mb-3 row">
-            <label for="pegawais_id" class="col-sm-2 col-form-label">Pegawai ID:</label>
+            <label for="pegawais_id" class="col-sm-2 col-form-label">Pegawai</label>
             <div class="col-sm-10">
-                <input type="number" class="form-control" id="pegawais_id" name="pegawais_id" value="{{ old('pegawais_id', $anak->pegawais_id) }}" required>
+                <select name="pegawais_id" id="pegawais_id" class="form-control" required>
+                    <option value="">Pilih Pegawai</option>
+                    @foreach($pegawais as $pegawai)
+                    <option value="{{ $pegawai->id }}" {{ old('pegawais_id', $anak->pegawais_id) == $pegawai->id ? 'selected' : '' }}>
+                        {{ $pegawai->nama }}
+                    </option>
+                    @endforeach
+                </select>
             </div>
         </div>
 

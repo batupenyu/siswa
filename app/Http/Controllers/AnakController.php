@@ -98,7 +98,7 @@ class AnakController extends Controller
         if (!$anak) {
             return redirect()->route('anak.index')->with('error', 'Data anak tidak ditemukan.');
         }
-        return view('anak.show', compact('pegawai', 'anak', 'penilai','ppgaji', 'pasangan'));
+        return view('anak.show', compact('pegawai', 'anak', 'penilai', 'ppgaji', 'pasangan'));
     }
 
     // Removed duplicate viewShow method to fix redeclaration error
@@ -114,14 +114,15 @@ class AnakController extends Controller
         if (!$anak) {
             return redirect()->route('anak.index')->with('error', 'Data anak tidak ditemukan.');
         }
-        $pdf = PDF::loadView('anak.show', compact('pegawai', 'anak','penilai','ppgaji', 'pasangan'));
-        return $pdf->stream($pegawai->nama.'.pdf');
+        $pdf = PDF::loadView('anak.show', compact('pegawai', 'anak', 'penilai', 'ppgaji', 'pasangan'));
+        return $pdf->stream($pegawai->nama . '.pdf');
     }
 
     public function viewEdit($id)
     {
         $anak = Anak::findOrFail($id);
-        return view('anak.edit', compact('anak'));
+        $pegawais = \App\Models\Pegawai::all();
+        return view('anak.edit', compact('anak', 'pegawais'));
     }
 
     public function updateWeb(Request $request, $id)
