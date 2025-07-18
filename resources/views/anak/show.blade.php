@@ -169,7 +169,7 @@
 
     <p style="text-align: justify;">menerangkan dengan sesungguhnya bahwa saya mempunyai susunan keluarga sebagai berikut:</p>
 
-    @if(isset($pasangan) && $pasangan->count() == 0)
+    @if(isset($pasangan) && $pasangan->get()->whereNotNull('nama')->isNotEmpty())
     @include('anak.tabel_isi')
     @else
     @include('anak.tabel_kosong')
