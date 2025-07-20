@@ -49,6 +49,7 @@ class IppController extends Controller
             'siswa_id' => 'required|exists:siswas,id',
             'bulan' => 'required|array',
             'bulan.*' => 'string',
+            'nominal' => 'required|numeric',
         ]);
 
         $bulanString = implode(',', $request->bulan);
@@ -56,6 +57,7 @@ class IppController extends Controller
         Ipp::create([
             'siswa_id' => $request->siswa_id,
             'bulan' => $bulanString,
+            'nominal' => $request->nominal,
         ]);
 
         return redirect()->route('ipps.index')->with('success', 'IPP created successfully.');
@@ -101,6 +103,7 @@ class IppController extends Controller
             'siswa_id' => 'required|exists:siswas,id',
             'bulan' => 'required|array',
             'bulan.*' => 'string',
+            'nominal' => 'required|numeric',
         ]);
 
         $bulanString = implode(',', $request->bulan);
@@ -108,6 +111,7 @@ class IppController extends Controller
         $ipp->update([
             'siswa_id' => $request->siswa_id,
             'bulan' => $bulanString,
+            'nominal' => $request->nominal,
         ]);
 
         return redirect()->route('ipps.index')->with('success', 'IPP updated successfully.');

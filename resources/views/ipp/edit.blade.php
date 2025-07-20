@@ -80,6 +80,11 @@
             });
         </script>
 
+        <div class="form-group mt-3">
+            <label for="nominal">Nominal</label>
+            <input type="number" name="nominal" id="nominal" class="form-control" value="{{ old('nominal', $ipp->nominal) }}" required step="0.01" min="0" />
+        </div>
+
         <button type="submit" class="btn btn-primary mt-3">Update</button>
         <a href="{{ route('ipps.index') }}" class="btn btn-secondary mt-3">Cancel</a>
     </form>

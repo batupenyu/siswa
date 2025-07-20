@@ -2,8 +2,8 @@
 
 @section('content')
 <div class="container">
-    <h1>IPP List</h1>
-    <a href="{{ route('ipps.create') }}" class="btn btn-primary mb-3">Add New IPP</a>
+    <h1>Donasi List</h1>
+    <a href="{{ route('ipps.create') }}" class="btn btn-primary mb-3">Add New Donasi</a>
 
     @if(session('success'))
     <div class="alert alert-success">{{ session('success') }}</div>
@@ -15,7 +15,7 @@
                 <th>ID</th>
                 <th>Siswa</th>
                 <th>Bulan</th>
-                <th>Actions</th>
+                <th style="text-align: center;">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -24,7 +24,7 @@
                 <td>{{ $ipp->id }}</td>
                 <td>{{ $ipp->siswa->name ?? 'N/A' }}</td>
                 <td>{{ $ipp->bulan }}</td>
-                <td>
+                <td style="text-align: center;">
                     <a href="{{ route('ipps.show', $ipp->id) }}" class="btn btn-info btn-sm">View</a>
                     <a href="{{ route('ipps.edit', $ipp->id) }}" class="btn btn-warning btn-sm">Edit</a>
                     <form action="{{ route('ipps.destroy', $ipp->id) }}" method="POST" style="display:inline-block;">

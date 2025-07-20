@@ -12,6 +12,7 @@ class Ipp extends Model
     protected $fillable = [
         'siswa_id',
         'bulan',
+        'nominal',
     ];
 
     public function siswa()

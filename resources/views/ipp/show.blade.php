@@ -8,7 +8,7 @@
     }
 </style>
 <div class="container">
-    <h1>IPP Details</h1>
+    <h1>Donasi Details</h1>
 
     <div class="card">
         <div class="card-body">
@@ -25,6 +25,7 @@
                         @foreach($allMonths as $month)
                         <th>{{ $month }}</th>
                         @endforeach
+                        <th>Jumlah</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -38,14 +39,19 @@
                             @endif
                         </td>
                         @endforeach
+                        <td class="text-center">{{ count($selectedMonths) }}</td>
                     </tr>
                 </tbody>
             </table>
+
 
         </div>
     </div>
 
     <a href="{{ route('ipps.index') }}" class="btn btn-secondary mt-3">Back to List</a>
     <a href="{{ route('ipps.edit', $ipp->id) }}" class="btn btn-primary mt-3">Edit</a>
+
+    <p class="mt-3"><strong>Nominal:</strong> {{ number_format($ipp->nominal, 2, ',', '.') }}</p>
+    <p><strong>Terbilang:</strong> <em>{{ ucfirst(\App\Helpers\NumberHelper::terbilang($ipp->nominal)) }} rupiah</em></p>
 </div>
 @endsection
