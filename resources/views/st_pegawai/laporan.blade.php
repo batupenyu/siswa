@@ -153,12 +153,12 @@
 </head>
 
 <body>
-    {{-- <div class="header">
+    <div class="header">
         <div class="kop-opd">
             <img src="{{ public_path('images/kopSekolah.png') }}" alt="">
         </div>
-    </div> --}}
-    @include('st_pegawai.header')
+    </div>
+    <!-- @include('st_pegawai.header') -->
 
     <div class="content">
         @php
@@ -217,7 +217,8 @@
                     <td>421.5/ ......... /SMKN 1
                         Kb/Dindik/{{\Carbon\Carbon::parse($stPegawaiItem->tgl_ditetapkan)->translatedFormat('Y')}},
                         tanggal
-                        {{\Carbon\Carbon::parse($stPegawaiItem->tgl_ditetapkan)->translatedFormat('d F Y')}}</td>
+                        {{\Carbon\Carbon::parse($stPegawaiItem->tgl_ditetapkan)->translatedFormat('d F Y')}}
+                    </td>
                 </tr>
                 <tr>
                     <td>Sifat</td>
@@ -234,7 +235,8 @@
             <div class="custom-hr"></div>
 
             <p style="text-align: justify">Bersama ini disampaikan laporan hasil perjalanan dinas dalam rangka
-                {{$stPegawaiItem->nama_kegiatan}} dengan rincian sebagai berikut :</p>
+                {{$stPegawaiItem->nama_kegiatan}} dengan rincian sebagai berikut :
+            </p>
         </div>
 
         <table class="table table-borderless">
@@ -336,8 +338,7 @@
                     <br>
                     <br>
                     {{ $firstName }} {{ $lastName1 }} {{ $lastName2 }}<br>
-                    NIP.{{ $nipParts[0] }}{{ $nipParts[1] }}{{ $nipParts[2] }}{{ isset($nipParts[3]) ? $nipParts[3] : ''
-                    }}
+                    NIP.{{ isset($nipParts[0]) ? $nipParts[0] : '' }}{{ isset($nipParts[1]) ? $nipParts[1] : '' }}{{ isset($nipParts[2]) ? $nipParts[2] : '' }}{{ isset($nipParts[3]) ? $nipParts[3] : '' }}
                     @else
                     - @endif
                 </td>
