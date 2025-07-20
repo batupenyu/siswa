@@ -21,7 +21,7 @@
         <tbody>
             @foreach($kelas as $k)
             <tr>
-                <td style="text-align: center;">{{ $k->id }}.</td>
+                <td style="text-align: center;">{{ $loop->index+1 }}.</td>
                 <td>{{ $k->name }}</td>
                 <td style="text-align: center;">
                     <a href="{{ route('kelas.edit', $k->id) }}" class="btn btn-warning btn-sm" title="Edit">

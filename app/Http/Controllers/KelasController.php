@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Http\Controllers;
 
@@ -9,7 +9,7 @@ class KelasController extends Controller
 {
     public function index()
     {
-        $kelas = Kelas::with('siswas')->get();
+        $kelas = Kelas::orderBy('name', 'asc')->get();
         return view('kelas.index', compact('kelas'));
     }
 
