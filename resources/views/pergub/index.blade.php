@@ -4,9 +4,11 @@
 <div class="container">
     <h1>Pergub List</h1>
 
-    <a href="{{ route('pergub.create') }}" class="btn btn-primary mb-3" title="Add New Pergub">
+    <!-- <a href="{{ route('pergub.create') }}" class="btn btn-primary mb-3" title="Add New Pergub">
         <i class="bi bi-plus"></i>
-    </a>
+    </a> -->
+    <a href="{{ route('perda.create') }}" class="btn btn-primary mb-3">Create New Pergub</a>
+
 
     <form method="GET" action="{{ route('pergub.index') }}" class="mb-3">
         <input type="text" name="search" value="{{ request('search') }}" placeholder="Search description" class="form-control" />
@@ -17,7 +19,7 @@
     @endif
 
     @if($pergubList->count())
-    <table class="table table-bordered">
+    <table class="table table-bordered text-center">
         <thead>
             <tr>
                 <th>ID</th>

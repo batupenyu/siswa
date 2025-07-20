@@ -10,7 +10,7 @@
     @endif
 
     @if($perdas->count())
-    <table class="table table-bordered">
+    <table class="table table-bordered text-center">
         <thead>
             <tr>
                 <th>ID</th>
@@ -24,12 +24,12 @@
                 <td>{{ $perda->id }}</td>
                 <td>{{ $perda->description }}</td>
                 <td>
-                    <a href="{{ route('perda.show', $perda->id) }}" class="btn btn-info btn-sm">View</a>
-                    <a href="{{ route('perda.edit', $perda->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="{{ route('perda.show', $perda->id) }}" class="btn btn-info btn-sm"><i class="bi bi-eye"></i></a>
+                    <a href="{{ route('perda.edit', $perda->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-pencil"></i></a>
                     <form action="{{ route('perda.destroy', $perda->id) }}" method="POST" style="display:inline-block;">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this perda?')">Delete</button>
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this perda?')"><i class="bi bi-trash"></i></button>
                     </form>
                 </td>
             </tr>
