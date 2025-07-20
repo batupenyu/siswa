@@ -35,9 +35,11 @@
                 <td>
                     {{ \Carbon\Carbon::parse($anak->tgl_lahir)->age }}
                     @if(\Carbon\Carbon::parse($anak->tgl_lahir)->age > 21)
-                        <i class="bi bi-x-circle-fill text-danger" title="Age > 21"></i>
+                    th
+                    <i class="bi bi-x-circle-fill text-danger" title="Age =< 21"></i>
                     @else
-                        <i class="bi bi-check-circle-fill text-success" title="Age <= 21"></i>
+                    th
+                    <i class="bi bi-check-circle-fill text-success" title="Age > 21"></i>
                     @endif
                 </td>
                 <td>{{ $anak->tempat_lahir }}</td>
