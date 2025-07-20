@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BendController;
+
 use App\Http\Controllers\PPGajiController;
 
 use App\Http\Controllers\AnakController;
@@ -86,6 +88,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 Route::resource('penilai', PenilaiController::class);
 Route::resource('kpa', KpaController::class);
 Route::resource('bp', BpController::class);
+Route::resource('bends', BendController::class);
 
 Route::resource('mutasi', MutasiController::class);
 Route::get('mutasi/{mutasi}/pdf', [MutasiController::class, 'viewPdf'])->name('mutasi.pdf');
