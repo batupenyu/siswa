@@ -95,6 +95,7 @@ Route::get('mutasi/{mutasi}/pdf', [MutasiController::class, 'viewPdf'])->name('m
 // Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
 Route::resource('siswas', SiswaController::class);
+Route::resource('ipps', \App\Http\Controllers\IppController::class);
 Route::resource('siswa-profil', SiswaProfilController::class);
 Route::post('/siswas', [SiswaController::class, 'store'])->name('siswa.store');
 Route::get('/', [SiswaController::class, 'index'])->name('siswas.index');

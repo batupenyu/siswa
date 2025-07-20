@@ -103,6 +103,7 @@
                         <a href="{{ route('pp_gaji.index') }}" class="nav-link"><i class="bi bi-cash-stack"></i> PP Gaji</a>
                         <a href="{{ route('pergub.index') }}" class="nav-link"><i class="bi bi-file-earmark-text"></i> Pergub</a>
                         <a href="{{ route('perda.index') }}" class="nav-link"><i class="bi bi-file-earmark-text"></i> Perda</a>
+                        <a href="{{ route('ipps.index') }}" class="nav-link"><i class="bi bi-list-check"></i> IPP</a>
                     </div>
                 </div>
             </div>

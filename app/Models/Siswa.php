@@ -35,4 +35,9 @@ class Siswa extends Model
     {
         return $this->hasMany(Suket::class, 'siswas_id');
     }
+
+    public function ipps()
+    {
+        return $this->hasMany(Ipp::class, 'siswa_id');
+    }
 }
