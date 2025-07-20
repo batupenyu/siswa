@@ -5,9 +5,11 @@
     <form method="GET" action="{{ route('anak.index') }}" class="mb-3">
         <div class="input-group">
             <input type="text" name="search" class="form-control" placeholder="Cari nama anak..." value="{{ request('search') }}">
+            <input type="text" name="pegawai_nama" class="form-control" placeholder="Cari nama pegawai..." value="{{ request('pegawai_nama') }}">
             <button class="btn btn-outline-secondary" type="submit">Cari</button>
         </div>
     </form>
+
     <a href="{{ route('anak.create') }}" class="btn btn-primary mb-3">Tambah Anak</a>
     <table class="table table-sm table-striped" style="font-size: 12pt;">
         <thead>

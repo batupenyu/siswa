@@ -81,9 +81,14 @@ class AnakController extends Controller
     public function viewIndex(Request $request)
     {
         $query = $request->input('search');
+        $pegawaiNama = $request->input('pegawai_nama');
         $anakList = Anak::when($query, function ($q) use ($query) {
             return $q->where('nama', 'like', '%' . $query . '%');
-        })->paginate(5)->appends(['search' => $query]);
+        })->when($pegawaiNama, function ($q) use ($pegawaiNama) {
+            return $q->whereHas('pegawai', function ($q2) use ($pegawaiNama) {
+                $q2->where('nama', 'like', '%' . $pegawaiNama . '%');
+            });
+        })->paginate(5)->appends(['search' => $query, 'pegawai_nama' => $pegawaiNama]);
         return view('anak.index', compact('anakList'));
     }
 
