@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Suket;
 use App\Models\Siswa;
+use App\Models\Penilai;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -23,9 +24,10 @@ class SuketController extends Controller
             $sukets = Suket::with('siswa')->paginate(5);
         }
 
+        $penilais = Penilai::all();
         $siswas = Siswa::all();
 
-        return view('suket.index', compact('sukets', 'siswas'));
+        return view('suket.index', compact('penilais', 'sukets', 'siswas'));
     }
 
     public function create()
@@ -89,8 +91,9 @@ class SuketController extends Controller
 
         $suket = Suket::with('siswa.kelas')->findOrFail($id);
         $siswa = $suket->siswa;
+        $penilai = Penilai::first();
 
-        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('suket.pdf', compact('suket', 'siswa', 'atasanNama', 'atasanJabatan', 'atasanNip', 'atasanPangkat', 'atasanUnitkerja'))
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('suket.pdf', compact('suket', 'siswa', 'atasanNama', 'atasanJabatan', 'atasanNip', 'atasanPangkat', 'atasanUnitkerja', 'penilai'))
             ->setPaper('a4')
             ->setOptions(['margin-left' => 30]);
 

@@ -85,7 +85,7 @@ $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
 
 <p style="text-align: left; padding-left: 400px; padding-top: 20px">
     {{ $suket->tempat_ditetapkan }},<span style="padding-left: 30px"> {{ \Carbon\Carbon::parse($suket->tgl_ditetapkan)->translatedFormat('d F Y') }} </span><br>
-    {{ $atasanJabatan }} <br><br><br><br>
-    <u>{{ $atasanNama }}</u><br>
-    NIP. {{ $atasanNip }}
+    {{ $penilai->jabatan }} <br><br><br><br>
+    <u>{{ $penilai->nama }}</u><br>
+    NIP. {{ $penilai->nip }}
 </p>

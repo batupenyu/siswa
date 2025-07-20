@@ -77,7 +77,7 @@ use App\Http\Controllers\SiswaProfilController;
 Route::resource('holidays', \App\Http\Controllers\HolidayController::class);
 
 
-Route::resource('kelas', KelasController::class);
+Route::resource('kelas', KelasController::class)->parameters(['kelas' => 'kelas']);
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
