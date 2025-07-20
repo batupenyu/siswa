@@ -108,74 +108,75 @@
 <?php $totalAkKredit = 0; ?>
 <!-- Initialize total -->
 @foreach ($akKredits as $akKredit)
-<?php 
-            $startDate = Carbon\Carbon::parse($akKredit->startDate);
-            $endDate = Carbon\Carbon::parse($akKredit->endDate);
-            $diffInMonths = $startDate->diffInMonths($endDate)+1;
-            $gol = $akKredit->pegawai->pangkat;
+<?php
+$startDate = Carbon\Carbon::parse($akKredit->startDate);
+$endDate = Carbon\Carbon::parse($akKredit->endDate);
+$diffInMonths = $startDate->diffInMonths($endDate) + 1;
+$gol = $akKredit->pegawai->pangkat;
 
-            if ($akKredit->predikat =='Sangat Baik') {
-                $prosentase = 150;
-            } else {
-                $prosentase = 100;
-            }
+if ($akKredit->predikat == 'Sangat Baik') {
+    $prosentase = 150;
+} else {
+    $prosentase = 100;
+}
 
-            if ($gol =='IV/a') {
-                $lama = 200;
-                $koefisien = 37.5;
-                $pangkat = 150;
-                $jenjang = 450;
-                $nextPangkat = 'jenjang Ahli Madya Pangkat/Golongan ruang Pembina TK.I,IV/b';
-                $namaPangkat = 'Pembina';
-            } elseif ($gol =='III/d') {
-                $lama = 100;
-                $koefisien = 25;
-                $pangkat = 200;
-                $jenjang = 200;
-                $nextPangkat = 'jenjang Ahli Madya Pangkat/Golongan ruang Pembina,IV/a';
-                $namaPangkat = 'Penata TK.I';
-            } elseif ($gol =='III/c') {
-                $lama = 50;
-                $koefisien = 12.5;
-                $pangkat = 50;
-                $jenjang = 100;
-                $nextPangkat = 'jenjang Ahli Muda Pangkat/Golongan ruang Penata TK.I,III/d';
-                $namaPangkat = 'Pembina IV/a';
-            } else {
-                null;
-            }
+if ($gol == 'IV/a') {
+    $lama = 200;
+    $koefisien = 37.5;
+    $pangkat = 150;
+    $jenjang = 450;
+    $nextPangkat = 'jenjang Ahli Madya Pangkat/Golongan ruang Pembina TK.I,IV/b';
+    $namaPangkat = 'Pembina';
+} elseif ($gol == 'III/d') {
+    $lama = 100;
+    $koefisien = 25;
+    $pangkat = 200;
+    $jenjang = 200;
+    $nextPangkat = 'jenjang Ahli Madya Pangkat/Golongan ruang Pembina,IV/a';
+    $namaPangkat = 'Penata TK.I';
+} elseif ($gol == 'III/c') {
+    $lama = 50;
+    $koefisien = 12.5;
+    $pangkat = 50;
+    $jenjang = 100;
+    $nextPangkat = 'jenjang Ahli Muda Pangkat/Golongan ruang Penata TK.I,III/d';
+    $namaPangkat = 'Pembina IV/a';
+} else {
+    null;
+}
 
-            $value = ($koefisien * $diffInMonths / 12) * $prosentase / 100;
-            $totalAkKredit += $value; // Add to the total
-            // $baru = number_format($totalAkKredit + $akKredits_first->pegawai->integrasi,2);
-            $baru = number_format($totalAkKredit,3);
-            // $lama = number_format($totalAkKredit + $akKredits_first->pegawai->integrasi - $akKredits_first->pegawai->integrasi,2);
-            $integrasi = number_format($akKredits_first->pegawai->integrasi,3);
-            $hasilPangkat = number_format($baru-$pangkat,3);
-            $hasilJenjang = number_format($baru-$jenjang,3);
-            ?>
+$value = ($koefisien * $diffInMonths / 12) * $prosentase / 100;
+$totalAkKredit += $value; // Add to the total
+// $baru = number_format($totalAkKredit + $akKredits_first->pegawai->integrasi,2);
+$baru = number_format($totalAkKredit, 3);
+// $lama = number_format($totalAkKredit + $akKredits_first->pegawai->integrasi - $akKredits_first->pegawai->integrasi,2);
+$integrasi = number_format($akKredits_first->pegawai->integrasi, 3);
+$hasilPangkat = number_format($baru - $pangkat, 3);
+$hasilJenjang = number_format($baru - $jenjang, 3);
+?>
 @endforeach
 
 <body>
     <?php
-            use App\Models\Holiday;
 
-            $date = \Carbon\Carbon::parse($akKredit->endDate)->addDay();
+    use App\Models\Holiday;
 
-            // Fetch holiday dates from the database
-            $holidays = Holiday::pluck('date')->map(function($d) {
-                return \Carbon\Carbon::parse($d)->format('Y-m-d');
-            })->toArray();
+    $date = \Carbon\Carbon::parse($akKredit->endDate)->addDay();
 
-            // If weekend or holiday, add days until weekday and not holiday
-            while ($date->isWeekend() || in_array($date->format('Y-m-d'), $holidays)) {
-                $date->addDay();
-            }
-        ?>
+    // Fetch holiday dates from the database
+    $holidays = Holiday::pluck('date')->map(function ($d) {
+        return \Carbon\Carbon::parse($d)->format('Y-m-d');
+    })->toArray();
+
+    // If weekend or holiday, add days until weekday and not holiday
+    while ($date->isWeekend() || in_array($date->format('Y-m-d'), $holidays)) {
+        $date->addDay();
+    }
+    ?>
     <p style="text-align: center; margin: 0; padding: 0;">
         <b>
             PENETAPAN ANGKA KREDIT<br>
-            NOMOR : 800/ ...... /SMKN1 Kb/Dindik/{{ $date->translatedFormat('Y') }}/PAK
+            NOMOR : 800/ ...... /......../Dindik/{{ $date->translatedFormat('Y') }}/PAK
         </b>
     </p>
     <br>
@@ -264,7 +265,7 @@
                 <td colspan="2">
                     <span class="label">Unit Kerja</span>
                     <span class="colon">:</span>
-                    <span class="value">{{ $atasanUnitkerja }}</span>
+                    <span class="value">{{ $penilai->unitkerja }}</span>
                 </td>
             </tr>
             <tr>

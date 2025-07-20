@@ -134,60 +134,60 @@
 </head>
 <?php $totalAkKredit = 0; ?>
 <!-- Initialize total -->
-<?php 
-        $startDate = Carbon\Carbon::parse($akKredit->startDate);
-        $endDate = Carbon\Carbon::parse($akKredit->endDate);
-        $diffInMonths = $startDate->diffInMonths($endDate)+1;
+<?php
+$startDate = Carbon\Carbon::parse($akKredit->startDate);
+$endDate = Carbon\Carbon::parse($akKredit->endDate);
+$diffInMonths = $startDate->diffInMonths($endDate) + 1;
 
-        if ($akKredit->predikat =='Sangat Baik') {
-            $prosentase = 150;
-        } else {
-            $prosentase = 100;
-        }
+if ($akKredit->predikat == 'Sangat Baik') {
+    $prosentase = 150;
+} else {
+    $prosentase = 100;
+}
 
-        if ($akKredit->pegawai->pangkat =='IV/a') {
-            $koefisien = 37.5;
-            $pangkat = 150;
-            $jenjang = 450;
-            $namaPangkat = 'Pembina';
-        } elseif ($akKredit->pegawai->pangkat =='III/d') {
-            $koefisien = 25;
-            $pangkat = 100;
-            $jenjang = 200;
-            $namaPangkat = 'Penata TK. I';
-        } else {
-            $koefisien = 0;
-            $pangkat = 0;
-            $jenjang = 0;
-            $namaPangkat = '-';
+if ($akKredit->pegawai->pangkat == 'IV/a') {
+    $koefisien = 37.5;
+    $pangkat = 150;
+    $jenjang = 450;
+    $namaPangkat = 'Pembina';
+} elseif ($akKredit->pegawai->pangkat == 'III/d') {
+    $koefisien = 25;
+    $pangkat = 100;
+    $jenjang = 200;
+    $namaPangkat = 'Penata TK. I';
+} else {
+    $koefisien = 0;
+    $pangkat = 0;
+    $jenjang = 0;
+    $namaPangkat = '-';
+}
 
-        }
+$value = ($koefisien * $diffInMonths / 12) * $prosentase / 100;
+$totalAkKredit += $value; // Add to the total
 
-        $value = ($koefisien * $diffInMonths / 12) * $prosentase / 100;
-        $totalAkKredit += $value; // Add to the total
-        
-        ?>
+?>
 
 <body>
     <?php
-            use App\Models\Holiday;
 
-            $date = \Carbon\Carbon::parse($akKredit->endDate)->addDay();
+    use App\Models\Holiday;
 
-            // Fetch holiday dates from the database
-            $holidays = Holiday::pluck('date')->map(function($d) {
-                return \Carbon\Carbon::parse($d)->format('Y-m-d');
-            })->toArray();
+    $date = \Carbon\Carbon::parse($akKredit->endDate)->addDay();
 
-            // If weekend or holiday, add days until weekday and not holiday
-            while ($date->isWeekend() || in_array($date->format('Y-m-d'), $holidays)) {
-                $date->addDay();
-            }
-        ?>
+    // Fetch holiday dates from the database
+    $holidays = Holiday::pluck('date')->map(function ($d) {
+        return \Carbon\Carbon::parse($d)->format('Y-m-d');
+    })->toArray();
+
+    // If weekend or holiday, add days until weekday and not holiday
+    while ($date->isWeekend() || in_array($date->format('Y-m-d'), $holidays)) {
+        $date->addDay();
+    }
+    ?>
     <p style="text-align: center; margin: 0; padding: 0;">
         <b>
             KONVERSI PREDIKAT KINERJA KE ANGKA KREDIT<br>
-            NOMOR : 800/ ...... /SMKN1 Kb/Dindik/{{ $date->translatedFormat('Y') }}/PAK
+            NOMOR : 800/ ...... / ...... /Dindik/{{ $date->translatedFormat('Y') }}/PAK
         </b>
     </p>
     <br>
@@ -274,7 +274,7 @@
                 <td colspan="2">
                     <span class="label">Unit Kerja</span>
                     <span class="colon">:</span>
-                    <span class="value">{{ $atasanUnitkerja }}</span>
+                    <span class="value">{{ $penilai->unitkerja }}</span>
                 </td>
             </tr>
             <tr>
@@ -282,7 +282,7 @@
                 <td colspan="2">
                     <span class="label">Instansi</span>
                     <span class="colon">:</span>
-                    <span class="value">{{ $atasanInstansi }}</span>
+                    <span class="value">{{ $penilai->instansi }}</span>
                 </td>
             </tr>
             <tr>
