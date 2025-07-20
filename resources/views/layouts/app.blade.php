@@ -78,9 +78,8 @@
                         <a href="{{ route('header_icon_images.index') }}" class="nav-link"><i class="bi bi-image"></i> Ganti kop</a>
                         <a href="{{ route('siswas.index') }}" class="nav-link"><i class="bi bi-people"></i> Siswa</a>
                         <a href="{{ route('kelas.index') }}" class="nav-link"><i class="bi bi-building"></i> Kelas</a>
-                        <a href="{{ route('siswas.index') }}" class="nav-link"><i class="bi bi-people"></i> Siswa</a>
                         <a href="{{ route('holidays.index') }}" class="nav-link"><i class="bi bi-calendar-event"></i> Libur</a>
-                        <a href="{{ route('pegawais.index') }}" class="nav-link"><i class="bi bi-person"></i> Pegawai</a>
+                        <a href="{{ route('pegawais.index') }}" class="nav-link"><i class="bi bi-people"></i> Pegawai</a>
                         <a href="{{ route('penilai.index') }}" class="nav-link"><i class="bi bi-person-check"></i> Penilai</a>
                         <a href="{{ route('kpa.index') }}" class="nav-link"><i class="bi bi-person-check"></i> KPA</a>
                         <a href="{{ route('bp.index') }}" class="nav-link"><i class="bi bi-person-badge"></i> BP</a>
