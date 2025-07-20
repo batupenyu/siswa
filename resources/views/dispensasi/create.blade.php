@@ -18,7 +18,7 @@
         </div>
         <div class="card-body">
             @if(session('success'))
-                <div class="alert alert-success">{{ session('success') }}</div>
+            <div class="alert alert-success">{{ session('success') }}</div>
             @endif
 
             <form action="{{ route('dispensasi.store') }}" method="POST">
@@ -29,18 +29,18 @@
                     <div class="col-6" style="width: 50%;">
                         <select name="siswas_id[]" id="siswas_id" class="form-control select2" multiple="multiple" style="width: 100%;">
                             @foreach(App\Models\Siswa::all() as $siswa)
-                                <option value="{{ $siswa->id }}" {{ (collect(old('siswas_id'))->contains($siswa->id)) ? 'selected' : '' }}>{{ $siswa->name ?? $siswa->id }}</option>
+                            <option value="{{ $siswa->id }}" {{ (collect(old('siswas_id'))->contains($siswa->id)) ? 'selected' : '' }}>{{ $siswa->name ?? $siswa->id }}</option>
                             @endforeach
                         </select>
                         @error('siswas_id')
-                            <small class="text-danger">{{ $message }}</small>
+                        <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                 </div>
 
 
                 <script>
-                    $(document).ready(function () {
+                    $(document).ready(function() {
                         $('#siswas_id').select2({
                             placeholder: "Select Siswa", // Placeholder text
                             allowClear: true, // Allow clearing the selection
@@ -51,9 +51,9 @@
                 <div class="form-group row mb-3">
                     <label for="nama_kegiatan" class="col-form-label col-6" style="width: 50%;">Nama Kegiatan</label>
                     <div class="col-6" style="width: 50%;">
-                        <input type="text" name="nama_kegiatan" id="nama_kegiatan" class="form-control" value="{{ old('nama_kegiatan') }}">
+                        <textarea name="nama_kegiatan" id="nama_kegiatan" class="form-control">{{ old('nama_kegiatan') }}</textarea>
                         @error('nama_kegiatan')
-                            <small class="text-danger">{{ $message }}</small>
+                        <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                 </div>
@@ -63,7 +63,7 @@
                     <div class="col-6" style="width: 50%;">
                         <input type="date" name="tgl_kegiatan" id="tgl_kegiatan" class="form-control" value="{{ old('tgl_kegiatan') }}">
                         @error('tgl_kegiatan')
-                            <small class="text-danger">{{ $message }}</small>
+                        <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                 </div>
@@ -73,7 +73,7 @@
                     <div class="col-6" style="width: 50%;">
                         <input type="time" name="waktu_kegiatan" id="waktu_kegiatan" class="form-control" value="{{ old('waktu_kegiatan') }}">
                         @error('waktu_kegiatan')
-                            <small class="text-danger">{{ $message }}</small>
+                        <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                 </div>
@@ -83,7 +83,7 @@
                     <div class="col-6" style="width: 50%;">
                         <input type="date" name="tgl_ditetapkan" id="tgl_ditetapkan" class="form-control" value="{{ old('tgl_ditetapkan') }}">
                         @error('tgl_ditetapkan')
-                            <small class="text-danger">{{ $message }}</small>
+                        <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                 </div>
