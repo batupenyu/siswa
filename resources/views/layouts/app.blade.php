@@ -1,59 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ config('app.name', 'Laravel') }}</title>
-    
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-    
+
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-papb+Q+6XQ6X+6XQ6X+6XQ6X+6XQ6X+6XQ6X+6XQ6X+6XQ6X+6XQ6X+6XQ6X+6XQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     @stack('styles')
-    
+
     <style>
         body {
             background-color: #121212;
             color: #e0e0e0;
         }
+
         .sidebar {
             min-height: 100vh;
             background-color: #212529;
             border-right: 1px solid #343a40;
         }
+
         .sidebar .nav-link {
             color: #e0e0e0;
             border-radius: 0.25rem;
             margin-bottom: 0.25rem;
         }
+
         .sidebar .nav-link:hover {
             background-color: #343a40;
             color: #ffffff;
         }
+
         .sidebar .nav-link.active {
             background-color: #495057;
             color: #ffffff;
         }
+
         .sidebar .nav-link i {
             width: 20px;
             text-align: center;
         }
+
         .main-content {
             padding: 20px;
             background-color: #121212;
             min-height: 100vh;
         }
+
         a {
             color: #66b2ff;
         }
+
         a:hover {
             color: #99ccff;
         }
     </style>
 </head>
+
 <body>
     <div class="container-fluid">
         <div class="row">
@@ -62,7 +75,7 @@
                 <div class="position-sticky pt-3">
                     <h4 class="text-center mb-4">My App</h4>
                     <div class="d-flex flex-column px-3">
-                        <a href="{{ route('header_icon_images.index') }}" class="nav-link"><i class="bi bi-image"></i> Ganti kop surat</a>
+                        <a href="{{ route('header_icon_images.index') }}" class="nav-link"><i class="bi bi-image"></i> Ganti kop</a>
                         <a href="{{ route('siswas.index') }}" class="nav-link"><i class="bi bi-people"></i> Siswa</a>
                         <a href="{{ route('pegawais.index') }}" class="nav-link"><i class="bi bi-people"></i> Pegawai</a>
                         <a href="{{ route('holidays.index') }}" class="nav-link"><i class="bi bi-calendar-event"></i> Libur</a>
@@ -87,6 +100,8 @@
                         <a href="{{ route('anak.index') }}" class="nav-link"><i class="bi bi-people"></i> Anak & KP4</a>
                         <a href="{{ route('pasangan.index') }}" class="nav-link"><i class="bi bi-people"></i> Pasangan</a>
                         <a href="{{ route('pp_gaji.index') }}" class="nav-link"><i class="bi bi-cash-stack"></i> PP Gaji</a>
+                        <a href="{{ route('pergub.index') }}" class="nav-link"><i class="bi bi-file-earmark-text"></i> Pergub</a>
+                        <a href="{{ route('perda.index') }}" class="nav-link"><i class="bi bi-file-earmark-text"></i> Perda</a>
                     </div>
                 </div>
             </div>
@@ -100,7 +115,8 @@
 
     <!-- Bootstrap JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
+
     @stack('scripts')
 </body>
+
 </html>

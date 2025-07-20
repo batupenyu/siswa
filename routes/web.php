@@ -4,8 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PPGajiController;
 
 use App\Http\Controllers\AnakController;
+use App\Http\Controllers\PergubController;
+use App\Http\Controllers\PerdaController;
 
 Route::resource('pp_gaji', PPGajiController::class);
+
 use App\Http\Controllers\PasanganController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\HeaderIconImageController;
@@ -20,6 +23,22 @@ Route::get('/pasangan/{id}', [PasanganController::class, 'viewShowWeb'])->name('
 Route::get('/pasangan/{id}/edit', [PasanganController::class, 'viewEdit'])->name('pasangan.edit');
 Route::put('/pasangan/{id}', [PasanganController::class, 'updateWeb'])->name('pasangan.update');
 Route::delete('/pasangan/{id}', [PasanganController::class, 'destroy'])->name('pasangan.destroy');
+
+Route::get('/perda', [PerdaController::class, 'viewIndex'])->name('perda.index');
+Route::get('/perda/create', [PerdaController::class, 'viewCreate'])->name('perda.create');
+Route::post('/perda', [PerdaController::class, 'store'])->name('perda.store');
+Route::get('/perda/{id}', [PerdaController::class, 'viewShowWeb'])->name('perda.show');
+Route::get('/perda/{id}/edit', [PerdaController::class, 'viewEdit'])->name('perda.edit');
+Route::put('/perda/{id}', [PerdaController::class, 'updateWeb'])->name('perda.update');
+Route::delete('/perda/{id}', [PerdaController::class, 'destroy'])->name('perda.destroy');
+
+Route::get('/pergub', [PergubController::class, 'viewIndex'])->name('pergub.index');
+Route::get('/pergub/create', [PergubController::class, 'viewCreate'])->name('pergub.create');
+Route::post('/pergub', [PergubController::class, 'store'])->name('pergub.store');
+Route::get('/pergub/{id}', [PergubController::class, 'viewShowWeb'])->name('pergub.show');
+Route::get('/pergub/{id}/edit', [PergubController::class, 'viewEdit'])->name('pergub.edit');
+Route::put('/pergub/{id}', [PergubController::class, 'updateWeb'])->name('pergub.update');
+Route::delete('/pergub/{id}', [PergubController::class, 'destroy'])->name('pergub.destroy');
 
 use App\Http\Controllers\SuketController;
 use App\Http\Controllers\KelasController;
