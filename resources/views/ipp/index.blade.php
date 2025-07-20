@@ -27,6 +27,7 @@
                 <td style="text-align: center;">
                     <a href="{{ route('ipps.show', $ipp->id) }}" class="btn btn-info btn-sm">View</a>
                     <a href="{{ route('ipps.edit', $ipp->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="{{ route('ipps.kwitansi', $ipp->id) }}" class="btn btn-success btn-sm" target="_blank">Kwitansi</a>
                     <form action="{{ route('ipps.destroy', $ipp->id) }}" method="POST" style="display:inline-block;">
                         @csrf
                         @method('DELETE')

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Ipp;
 use App\Models\Siswa;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class IppController extends Controller
 {
@@ -125,5 +126,53 @@ class IppController extends Controller
         $ipp->delete();
 
         return redirect()->route('ipps.index')->with('success', 'IPP deleted successfully.');
+    }
+
+    /**
+     * Display the kwitansi (receipt) for the specified IPP.
+     */
+    public function kwitansi($id)
+    {
+        $ipp = Ipp::with('siswa')->findOrFail($id);
+
+        // Prepare payments array based on months and nominal
+        $bulanArray = explode(',', $ipp->bulan);
+        $payments = [];
+        $amountPerMonth = $ipp->nominal / count($bulanArray);
+        foreach ($bulanArray as $bulan) {
+            $payments[] = [
+                'description' => "Biaya Penyelenggaraan Pendidikan - " . strtoupper(substr($bulan, 0, 3)),
+                'amount' => $amountPerMonth,
+            ];
+        }
+        // Add Daftar Ulang as last payment with remaining amount if any
+        $totalPayments = $amountPerMonth * count($bulanArray);
+        $daftarUlangAmount = $ipp->nominal - $totalPayments;
+        if ($daftarUlangAmount > 0) {
+            $payments[] = [
+                'description' => 'Daftar Ulang',
+                'amount' => $daftarUlangAmount,
+            ];
+        }
+
+        // Use NumberHelper to convert nominal to terbilang
+        $terbilang = \App\Helpers\NumberHelper::terbilang($ipp->nominal);
+
+        $kwitansiData = [
+            'no_trans' => $ipp->id, // or use a specific transaction number if available
+            'tanggal' => $ipp->created_at->format('d/m/Y'),
+            'jam_cetak' => now()->format('H:i:s'),
+            'nis' => $ipp->siswa->nis ?? '',
+            'nama_siswa' => $ipp->siswa->name ?? '',
+            'kelas' => $ipp->siswa->kelas->name ?? '',
+            'payments' => $payments,
+            'grand_total' => $ipp->nominal,
+            'terbilang' => ucfirst($terbilang) . ' Rupiah',
+            'tanggal_terbilang' => $ipp->created_at->format('d F Y'),
+            'receiver_name' => '...................................',
+        ];
+
+        $pdf = Pdf::loadView('ipp.kwitansi', ['kwitansi' => (object) $kwitansiData]);
+        return $pdf->stream('kwitansi.pdf');
     }
 }
