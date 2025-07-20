@@ -7,6 +7,7 @@
             <input type="text" name="search" class="form-control" placeholder="Cari nama anak..." value="{{ request('search') }}">
             <input type="text" name="pegawai_nama" class="form-control" placeholder="Cari nama pegawai..." value="{{ request('pegawai_nama') }}">
             <button class="btn btn-outline-secondary" type="submit">Cari</button>
+            <a href="{{ route('anak.index') }}" class="btn btn-outline-danger ms-2">Clear</a>
         </div>
     </form>
 
