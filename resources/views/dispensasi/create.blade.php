@@ -51,7 +51,7 @@
                 <div class="form-group row mb-3">
                     <label for="nama_kegiatan" class="col-form-label col-6" style="width: 50%;">Nama Kegiatan</label>
                     <div class="col-6" style="width: 50%;">
-                        <textarea name="nama_kegiatan" id="nama_kegiatan" class="form-control">{{ old('nama_kegiatan') }}</textarea>
+                        <textarea name="nama_kegiatan" id="nama_kegiatan" class="form-control" style="height: 100px;">{{ old('nama_kegiatan') }}</textarea>
                         @error('nama_kegiatan')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
