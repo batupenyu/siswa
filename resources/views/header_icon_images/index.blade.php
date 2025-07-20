@@ -21,8 +21,10 @@
         <tbody>
             @foreach($images as $image)
             <tr>
-                {{-- <td>{{ $image->id }}</td> --}}
                 <td>{{ $image->filename }}</td>
+                <td style="text-align: center;">
+                    <img src="{{ asset('storage/header_icons/' . rawurlencode($image->filename)) }}" alt="{{ $image->filename }}" style="max-height: 50px;">
+                </td>
                 <td style="text-align: center;">
                     <a href="{{ route('header_icon_images.edit', $image->id) }}" class="btn btn-warning btn-sm">
                         <i class="bi bi-pencil-fill"></i>

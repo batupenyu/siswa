@@ -23,7 +23,7 @@
             <tr>
                 <td>{{ $perda->id }}</td>
                 <td>{{ $perda->description }}</td>
-                <td>
+                <td style="text-align: center;">
                     <a href="{{ route('perda.show', $perda->id) }}" class="btn btn-info btn-sm"><i class="bi bi-eye"></i></a>
                     <a href="{{ route('perda.edit', $perda->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-pencil"></i></a>
                     <form action="{{ route('perda.destroy', $perda->id) }}" method="POST" style="display:inline-block;">
