@@ -119,7 +119,7 @@
         /* margin-top: 25px; */
         font-size: 10px;
         text-align: left;
-        margin-bottom: 75px;
+        margin-bottom: 80px;
     }
 
     .footer .notes {
@@ -160,6 +160,12 @@
             <td>: {{ $kwitansi->tanggal ?? '' }}</td>
             <td class="label">NAMA SISWA</td>
             <td>: {{ $kwitansi->nama_siswa ? str($kwitansi->nama_siswa) : 'Nama siswa tidak tersedia' }}</td>
+        </tr>
+        <tr>
+            <td class="label">TGL DITETAPKAN</td>
+            <td>: {{ $kwitansi->tgl_ditetapkan ?? '-' }}</td>
+            <td class="label">TEMPAT DITETAPKAN</td>
+            <td>: {{ $kwitansi->tempat_ditetapkan ?? '-' }}</td>
         </tr>
         <tr>
             <td class="label">JAM CETAK</td>
@@ -207,7 +213,7 @@
             <div>- Uang yang sudah dibayarkan tidak dapat diminta kembali.</div>
         </div>
         <div class="signature" style="width: 45%;">
-            <div>Karanganyar, {{ $kwitansi->tanggal_terbilang ?? '' }}</div>
+            <div>{{ $kwitansi->tempat_ditetapkan ?? '-' }}, {{ \Carbon\Carbon::parse($kwitansi->tgl_ditetapkan)->translatedFormat('d F Y') ?? '-' }}</div>
             <div>Yang Menerima,</div>
             <br><br><br>
             <!-- <div><strong>{{ $kwitansi->receiver_name ?? '..........................' }}</strong></div> -->

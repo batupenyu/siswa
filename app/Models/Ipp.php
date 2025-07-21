@@ -13,6 +13,8 @@ class Ipp extends Model
         'siswa_id',
         'bulan',
         'nominal',
+        'tgl_ditetapkan',
+        'tempat_ditetapkan',
     ];
 
     public function siswa()

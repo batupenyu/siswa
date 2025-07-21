@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Bend;
 use App\Models\Ipp;
 use App\Models\Siswa;
@@ -51,6 +52,8 @@ class IppController extends Controller
             'bulan' => 'required|array',
             'bulan.*' => 'string',
             'nominal' => 'required|numeric',
+            'tgl_ditetapkan' => 'nullable|date',
+            'tempat_ditetapkan' => 'nullable|string|max:255',
         ]);
 
         $bulanString = implode(',', $request->bulan);
@@ -59,6 +62,8 @@ class IppController extends Controller
             'siswa_id' => $request->siswa_id,
             'bulan' => $bulanString,
             'nominal' => $request->nominal,
+            'tgl_ditetapkan' => $request->tgl_ditetapkan,
+            'tempat_ditetapkan' => $request->tempat_ditetapkan,
         ]);
 
         return redirect()->route('ipps.index')->with('success', 'IPP created successfully.');
@@ -105,6 +110,8 @@ class IppController extends Controller
             'bulan' => 'required|array',
             'bulan.*' => 'string',
             'nominal' => 'required|numeric',
+            'tgl_ditetapkan' => 'nullable|date',
+            'tempat_ditetapkan' => 'nullable|string|max:255',
         ]);
 
         $bulanString = implode(',', $request->bulan);
@@ -113,6 +120,8 @@ class IppController extends Controller
             'siswa_id' => $request->siswa_id,
             'bulan' => $bulanString,
             'nominal' => $request->nominal,
+            'tgl_ditetapkan' => $request->tgl_ditetapkan,
+            'tempat_ditetapkan' => $request->tempat_ditetapkan,
         ]);
 
         return redirect()->route('ipps.index')->with('success', 'IPP updated successfully.');
@@ -173,7 +182,8 @@ class IppController extends Controller
             'grand_total' => $ipp->nominal,
             'terbilang' => ucfirst($terbilang) . ' Rupiah',
             'tanggal_terbilang' => $ipp->created_at->format('d F Y'),
-            'receiver_name' => '...................................',
+            'tgl_ditetapkan' => $ipp->tgl_ditetapkan,
+            'tempat_ditetapkan' => $ipp->tempat_ditetapkan,
         ];
 
         $pdf = Pdf::loadView('ipp.kwitansi', ['kwitansi' => (object) $kwitansiData]);

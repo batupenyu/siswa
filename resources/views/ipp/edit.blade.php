@@ -85,6 +85,16 @@
             <input type="number" name="nominal" id="nominal" class="form-control" value="{{ old('nominal', $ipp->nominal) }}" required step="0.01" min="0" />
         </div>
 
+
+        <div class="form-group mt-3">
+            <label for="tgl_ditetapkan">Tanggal Ditetapkan</label>
+            <input type="date" name="tgl_ditetapkan" id="tgl_ditetapkan" class="form-control" value="{{ old('tgl_ditetapkan', $ipp->tgl_ditetapkan) }}" />
+        </div>
+
+        <div class="form-group mt-3">
+            <label for="tempat_ditetapkan">Tempat Ditetapkan</label>
+            <input type="text" name="tempat_ditetapkan" id="tempat_ditetapkan" class="form-control" value="{{ old('tempat_ditetapkan', $ipp->tempat_ditetapkan) }}" />
+        </div>
         <button type="submit" class="btn btn-primary mt-3">Update</button>
         <a href="{{ route('ipps.index') }}" class="btn btn-secondary mt-3">Cancel</a>
     </form>
