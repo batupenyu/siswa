@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Bend;
 use App\Models\Ipp;
 use App\Models\Siswa;
 use Illuminate\Http\Request;
@@ -128,12 +128,15 @@ class IppController extends Controller
         return redirect()->route('ipps.index')->with('success', 'IPP deleted successfully.');
     }
 
+
     /**
      * Display the kwitansi (receipt) for the specified IPP.
      */
     public function kwitansi($id)
     {
         $ipp = Ipp::with('siswa')->findOrFail($id);
+
+        $bends = Bend::with('pegawai')->where('bendahara', 'ipp')->get();
 
         // Prepare payments array based on months and nominal
         $bulanArray = explode(',', $ipp->bulan);
@@ -166,6 +169,7 @@ class IppController extends Controller
             'nama_siswa' => $ipp->siswa->name ?? '',
             'kelas' => $ipp->siswa->kelas->name ?? '',
             'payments' => $payments,
+            'bends' => $bends,
             'grand_total' => $ipp->nominal,
             'terbilang' => ucfirst($terbilang) . ' Rupiah',
             'tanggal_terbilang' => $ipp->created_at->format('d F Y'),

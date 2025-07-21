@@ -119,7 +119,7 @@
         /* margin-top: 25px; */
         font-size: 10px;
         text-align: left;
-        margin-bottom: 70px;
+        margin-bottom: 75px;
     }
 
     .footer .notes {
@@ -159,7 +159,7 @@
             <td class="label">TANGGAL</td>
             <td>: {{ $kwitansi->tanggal ?? '' }}</td>
             <td class="label">NAMA SISWA</td>
-            <td>: {{ $kwitansi->nama_siswa ?? '' }}</td>
+            <td>: {{ $kwitansi->nama_siswa ? str($kwitansi->nama_siswa) : 'Nama siswa tidak tersedia' }}</td>
         </tr>
         <tr>
             <td class="label">JAM CETAK</td>
@@ -210,7 +210,16 @@
             <div>Karanganyar, {{ $kwitansi->tanggal_terbilang ?? '' }}</div>
             <div>Yang Menerima,</div>
             <br><br><br>
-            <div><strong>{{ $kwitansi->receiver_name ?? '..........................' }}</strong></div>
+            <!-- <div><strong>{{ $kwitansi->receiver_name ?? '..........................' }}</strong></div> -->
+
+            @if(!empty($kwitansi->bends) && count($kwitansi->bends) > 0)
+            <div>
+                @foreach($kwitansi->bends as $bend)
+                {{ $bend->pegawai->nama ?? 'Nama Pegawai tidak tersedia' }} <br>
+                NIP.{{$bend->pegawai->nip}}
+                @endforeach
+            </div>
+            @endif
         </div>
     </div>
 </div>
