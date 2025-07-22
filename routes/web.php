@@ -90,6 +90,8 @@ Route::resource('kpa', KpaController::class);
 Route::resource('bp', BpController::class);
 Route::resource('bends', BendController::class);
 
+Route::resource('cuti', \App\Http\Controllers\CutiController::class);
+
 Route::resource('mutasi', MutasiController::class);
 Route::get('mutasi/{mutasi}/pdf', [MutasiController::class, 'viewPdf'])->name('mutasi.pdf');
 

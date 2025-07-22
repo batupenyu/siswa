@@ -1,8 +1,11 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+
+use Carbon\Carbon;
 
 class Pegawai extends Model
 {
@@ -15,7 +18,7 @@ class Pegawai extends Model
         'pangkat',
         'status_kepegawaian',
         'integrasi',
-        'no_karpeg'  ,
+        'no_karpeg',
         'jenis_kelamin',
         'tgl_lahir',
         'tempat_lahir',
@@ -49,5 +52,26 @@ class Pegawai extends Model
     public function ppGaji()
     {
         return $this->belongsTo(PP_Gaji::class, 'digaji_menurut');
+    }
+
+    public function getMasaKerjaAttribute()
+    {
+        if (!$this->tgl_tmt_cpns) {
+            return '-';
+        }
+        $start = Carbon::parse($this->tgl_tmt_cpns);
+        $now = Carbon::now();
+
+        $years = $start->diffInYears($now);
+        $months = $start->copy()->addYears($years)->diffInMonths($now);
+
+        $result = '';
+        if ($years > 0) {
+            $result .= $years . ' tahun ';
+        }
+        if ($months > 0) {
+            $result .= $months . ' bulan';
+        }
+        return trim($result);
     }
 }
