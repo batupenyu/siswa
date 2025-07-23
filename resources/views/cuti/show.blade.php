@@ -108,7 +108,7 @@
         <tr>
             <td>Nama</td>
             <td>{{ $cuti->pegawai->nama ?? '-' }}</td>
-            <td>NIP / GOL</td>
+            <td>NIP / Gol.</td>
             <td colspan="2">{{ $cuti->pegawai->nip ?? '-' }} / {{ $cuti->pegawai->pangkat ?? '-' }}</td>
         </tr>
         <tr>
