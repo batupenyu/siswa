@@ -41,7 +41,7 @@
 </head>
 
 <body style=" margin-right: 1.5cm;">
-  <table class="table-bordered" style="font-size: 10.5pt">
+  <table class="table-bordered" style="font-size: 11pt">
     <tr>
       <td></td>
       <td>
