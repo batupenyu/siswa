@@ -143,18 +143,21 @@
             <td>Pengikut : Nama</td>
             <td>Tanggal lahir &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Keterangan</td>
         </tr>
+
+        @php
+        $pegawaisAfterFirst = $stPegawai->pegawais->skip(1);
+        @endphp
+        @if($pegawaisAfterFirst->isNotEmpty())
         <tr>
             <td></td>
             <td>
-                @php
-                $pegawaisAfterFirst = $stPegawai->pegawais->skip(1);
-                @endphp
                 @foreach($pegawaisAfterFirst as $pegawai)
                 {{ $loop->iteration }}. {{ $pegawai->nama }} <br>
                 @endforeach
             </td>
             <td></td>
         </tr>
+        @endif
         <tr>
             <td style="vertical-align: top; text-align:center">9.</td>
             <td>
@@ -177,8 +180,8 @@
         </tr>
     </table>
     <p style="text-align: left;padding-left:470px; font-size: 11pt; margin-top: 20px;">
-        Dikeluarkan di : <br>
-        tanggal &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <br>
+        Dikeluarkan di : {{$stPegawai->tempat_ditetapkan}} <br>
+        tanggal &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {{Carbon\Carbon::Parse($stPegawai->tgl_ditetapkan)->translatedFormat('d F Y')}} <br>
 
     </p>
     <p style="text-align: center;padding-left:400px; font-size: 11pt; margin-top: 20px;">

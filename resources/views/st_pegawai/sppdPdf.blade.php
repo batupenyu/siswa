@@ -98,12 +98,15 @@
               @else
               {{ $penilai->nama}}
               <br>
-              NIP.{{ $penilai->nip }}
               @endif
               @else
               -
               @endif
             </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td colspan="3">NIP.{{$penilai->nip}}</td>
           </tr>
         </table>
       </td>
@@ -516,6 +519,7 @@
       </td>
     </tr>
   </table>
+  <!-- <div style="page-break-before: always;"> -->
   <p style="text-align: center;padding-left:400px; font-size: 10pt; margin-top: 20px;">
     Pejabat Pembuat Komitmen <br>
     {{$kpa->jabatan}} {{$kpa->unitkerja}} <br>
@@ -527,6 +531,10 @@
     {{$kpa->pangkat}} <br>
     NIP.{{$kpa->nip}} <br>
   </p>
+  </div>
+
+
+
 </body>
 
 </html>
