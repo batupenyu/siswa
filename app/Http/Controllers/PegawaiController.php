@@ -30,7 +30,7 @@ class PegawaiController extends Controller
             $query->where('pangkat', $pangkat);
         }
 
-        $pegawais = $query->orderBy('pangkat', 'ASC')->paginate(20);
+        $pegawais = $query->orderBy('pangkat', 'ASC')->paginate(10);
 
         return view('pegawai.index', compact('pegawais'));
     }
