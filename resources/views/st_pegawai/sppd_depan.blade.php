@@ -181,7 +181,7 @@
     </table>
     <p style="text-align: left;padding-left:470px; font-size: 11pt; margin-top: 20px;">
         Dikeluarkan di : {{$stPegawai->tempat_ditetapkan}} <br>
-        tanggal &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {{Carbon\Carbon::Parse($stPegawai->tgl_ditetapkan)->translatedFormat('d F Y')}} <br>
+        Tanggal &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {{Carbon\Carbon::Parse($stPegawai->tgl_ditetapkan)->translatedFormat('d F Y')}} <br>
 
     </p>
     <p style="text-align: center;padding-left:400px; font-size: 11pt; margin-top: 20px;">
