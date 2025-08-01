@@ -40,7 +40,7 @@
   </style>
 </head>
 
-<body style=" margin-right: 1.5cm;">
+<body style=" margin-right: 1cm;">
   <table class="table-bordered" style="font-size: 10.5pt">
     <tr>
       <td></td>

@@ -64,7 +64,7 @@
     <table class="table-bordered" style="width: 100%">
         <tr>
             <td style="width: 30px; text-align:center">1.</td>
-            <td>Pejabat yang memberi perintah</td>
+            <td style="width: 300px;">Pejabat yang memberi perintah</td>
             @php
             $jabatanParts = explode(' ', $penilai->jabatan);
             $firstJabatan = $jabatanParts[0];
@@ -104,13 +104,13 @@
         </tr>
         <tr>
             <td style="vertical-align: top; text-align:center">4.</td>
-            <td>Maksud Perjalanan Dinas</td>
-            <td> ... </td>
+            <td style="vertical-align: top;">Maksud Perjalanan Dinas</td>
+            <td style="text-align: justify;"> {{$stPegawai->nama_kegiatan}} </td>
         </tr>
         <tr>
             <td style="vertical-align: top; text-align:center">5.</td>
             <td>Alat angkutan yang dipergunakan</td>
-            <td> ... </td>
+            <td></td>
         </tr>
         <tr>
             <td style="vertical-align: top; text-align:center">6.</td>
@@ -120,9 +120,9 @@
                 c. Tempat tujuan
             </td>
             <td>
-                a...... <br>
-                b...... <br>
-                c......
+                a. <br>
+                b. <br>
+                c.
             </td>
         </tr>
         <tr>
@@ -132,10 +132,10 @@
                 b. Tanggal Berangkat <br>
                 c. Tanggal harus kembali/tiba di <br>&nbsp;&nbsp;&nbsp; tempat baru
             </td>
-            <td>
-                a...... <br>
-                b...... <br>
-                c......
+            <td style="vertical-align:top">
+                a. {{ \Carbon\Carbon::parse($stPegawai->tgl_awal)->diffInDays(\Carbon\Carbon::parse($stPegawai->tgl_akhir)) + 1 }} ({{ \Riskihajar\Terbilang\Facades\Terbilang::make(\Carbon\Carbon::parse($stPegawai->tgl_awal)->diffInDays(\Carbon\Carbon::parse($stPegawai->tgl_akhir)) + 1) }}) hari<br>
+                b. {{Carbon\Carbon::Parse($stPegawai->tgl_awal)->translatedFormat('d F Y')}} <br>
+                c.
             </td>
         </tr>
         <tr>
@@ -166,8 +166,8 @@
                 b. Akun
             </td>
             <td>
-                a... <br>
-                b... <br>
+                a. {{ $penilai->unitkerja }} <br>
+                b. {{$stPegawai->korek}} <br>
             </td>
         </tr>
         <tr>
