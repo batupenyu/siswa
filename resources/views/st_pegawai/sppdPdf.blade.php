@@ -41,7 +41,7 @@
 </head>
 
 <body style="margin-top: 1.5cm;">
-  <table class="table-bordered" style="font-size: 11pt">
+  <table class="table-bordered" style="font-size: 10.5pt">
     <tr>
       <td style="width: 325px"></td>
       <td style="width: 325px">
@@ -74,7 +74,7 @@
             <td></td>
             <td>kepala</td>
             <td>:</td>
-            <td>....................</td>
+            <td> {{$penilai->unitkerja}} </td>
           </tr>
           <br>
           <br>
@@ -96,9 +96,9 @@
               <br>
               NIP.{{ $kpaNip }}
               @else
-              {{ $atasanNama}}
+              {{ $penilai->nama}}
               <br>
-              NIP.{{ $atasanNip }}
+              NIP.{{ $penilai->nip }}
               @endif
               @else
               -
@@ -455,7 +455,7 @@
             <td></td>
             <td>kepala</td>
             <td>:</td>
-            <td>....................</td>
+            <td>{{$penilai->unitkerja}}</td>
           </tr>
           <br>
           <br>
@@ -477,9 +477,9 @@
               <br>
               NIP.{{ $kpaNip }}
               @else
-              {{ $atasanNama}}
+              {{ $penilai->nama}}
               <br>
-              NIP.{{ $atasanNip }}
+              NIP.{{ $penilai->nip }}
               @endif
               @else
               -
@@ -516,28 +516,16 @@
       </td>
     </tr>
   </table>
-  <p style="text-align: center;padding-left:400px; font-size: 11pt; margin-top: 20px;">
-    {{-- ditetapkan di : <br>
-    pada tanggal : <br> --}}
-    {{-- Pejabat Pelaksana Teknis Kegiatan (PPTK) <br> --}}
-    {{-- Pejabat Pembuat Komitmen (PPK) <br> --}}
-    {{-- {{$kpaJabatan}} <br> --}}
-    @php
-    $jabatanParts = explode(' ', $penilai->jabatan);
-    $firstJabatan = $jabatanParts[0];
-    @endphp
-    {{-- {{$penilai->jabatan}} --}}
-    {{$firstJabatan}}
-    {{$penilai->unitkerja}}
+  <p style="text-align: center;padding-left:400px; font-size: 10pt; margin-top: 20px;">
+    Pejabat Pembuat Komitmen <br>
+    {{$kpa->jabatan}} {{$kpa->unitkerja}} <br>
+    {{$kpa->instansi}} <br>
     <br>
     <br>
     <br>
-    <br>
-    {{-- <span style="text-transform: uppercase; font-weight: bold;">{{ $kpaNama }}</span> --}}
-    <span style="text-transform: uppercase; font-weight: bold;">{{ $penilai->nama }}</span>
-    <br>
-    {{-- NIP. {{ $kpaNip }} --}}
-    NIP. {{ $penilai->nip }}
+    {{$kpa->nama}} <br>
+    {{$kpa->pangkat}} <br>
+    NIP.{{$kpa->nip}} <br>
   </p>
 </body>
 

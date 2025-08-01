@@ -41,11 +41,11 @@
 </head>
 
 <body>
-    <table class="table-borderless" style="width: 30%; margin-left: 490px;">
+    <table class="table-borderless" style="width: 30%; margin-left: 400px;">
         <tr>
             <td>Lembar ke </td>
-            <td>:</td>
-            <td style="width: 100px"></td>
+            <td style="width: 300px;">:</td>
+            <td style="width: 200px"></td>
         </tr>
         <tr>
             <td>Kode</td>
@@ -54,7 +54,7 @@
         </tr>
         <tr>
             <td>Nomor</td>
-            <td>:</td>
+            <td>: 800/...... /SMKN1 Kb/Dindik/2025</td>
             <td></td>
         </tr>
     </table>
@@ -170,7 +170,7 @@
         <tr>
             <td style="vertical-align: top; text-align:center">10.</td>
             <td style="vertical-align: top">Keterangan lain-lain</td>
-            <td>Surat Tugas Nomor : 094/........./SMKN 1
+            <td>Surat Tugas Nomor : 800/........./SMKN 1
                 Kb/Dindik/{{Carbon\Carbon::Parse($stPegawai->tgl_kegiatan)->translatedFormat('Y')}}
                 tanggal {{Carbon\Carbon::Parse($stPegawai->tgl_kegiatan)->translatedFormat('d F Y')}}
             </td>

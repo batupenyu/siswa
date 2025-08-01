@@ -60,6 +60,9 @@
                                 <select name="pangkat" id="pangkat"
                                     class="form-select @error('pangkat') is-invalid @enderror">
                                     <option value="">-- Pilih Pangkat --</option>
+                                    <option value="IX" {{ old('pangkat', $pegawai->pangkat) == 'IX' ? 'selected' :
+                                        ''
+                                        }}>IX</option>
                                     <option value="III/a" {{ old('pangkat', $pegawai->pangkat) == 'III/a' ? 'selected' :
                                         ''
                                         }}>III/a</option>
@@ -124,7 +127,7 @@
                                 @enderror
                             </div>
                         </div>
-                          <div class="mb-3 row align-items-center">
+                        <div class="mb-3 row align-items-center">
                             <label for="alamat" class="col-md-4 col-form-label">Alamat</label>
                             <div class="col-md-8">
                                 <textarea name="alamat" id="alamat" rows="3" class="form-control @error('alamat') is-invalid @enderror">{{ old('alamat', $pegawai->alamat) }}</textarea>
@@ -214,7 +217,7 @@
                                 @enderror
                             </div>
                         </div>
-                      
+
                         <div class="mb-3 row align-items-center">
                             <label for="tgl_tmt_cpns" class="col-md-4 col-form-label">TMT CPNS</label>
                             <div class="col-md-8">

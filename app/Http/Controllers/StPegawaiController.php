@@ -412,6 +412,7 @@ class StPegawaiController extends Controller
             'atasanPangkat',
             'atasanUnitkerja',
             'atasanJabatan',
+            'kpa',
             'kpaNama',
             'kpaJabatan',
             'kpaNip',

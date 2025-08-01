@@ -56,6 +56,7 @@
                                 <select name="pangkat" id="pangkat"
                                     class="form-select @error('pangkat') is-invalid @enderror">
                                     <option value="">-- Pilih Pangkat --</option>
+                                    <option value="IX" {{ old('pangkat')=='IX' ? 'selected' : '' }}>IX</option>
                                     <option value="III/a" {{ old('pangkat')=='III/a' ? 'selected' : '' }}>III/a</option>
                                     <option value="III/b" {{ old('pangkat')=='III/b' ? 'selected' : '' }}>III/b</option>
                                     <option value="III/c" {{ old('pangkat')=='III/c' ? 'selected' : '' }}>III/c</option>
@@ -115,7 +116,7 @@
                                 @enderror
                             </div>
                         </div>
-                        
+
                     </div>
 
                     <!-- Right Column -->
@@ -208,7 +209,7 @@
                                 @enderror
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
                 <div class="d-flex justify-content-end">
