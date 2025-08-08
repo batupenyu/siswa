@@ -118,7 +118,7 @@
 
         <p style="text-align: justify;">berdasarkan {{ $spmt->dasar_surat ?? 'Keputusan Gubernur Kepulauan Bangka Belitung Nomor: .......... tanggal ...........' }}, terhitung mulai {{ $spmt->tgl_surat ? \Carbon\Carbon::parse($spmt->tgl_surat)->format('d F Y') : 'tanggal ...........' }} telah nyata menjalankan tugas sebagai {{ $spmt->keterangan ?? 'jabatan baru' }} pada {{ $penilai->unitkerja ?? 'tempat penugasan' }}</p>
 
-        <p style="text-align: justify;">Demikian surat pernyataan melaksanakan tugas ini saya buat dengan sesungguhnya dengan mengingat sumpah jabatan/Pegawai Negeri Sipil dan apabila dikemudian hari isi surat pernyataan ini ternyata tidak benar yang berakibat kerugian bagi Negara, maka saya bersedia menanggung kerugian tersebut.' </p>
+        <p style="text-align: justify;">Demikian surat pernyataan melaksanakan tugas ini saya buat dengan sesungguhnya dengan mengingat sumpah jabatan/Pegawai Negeri Sipil dan apabila dikemudian hari isi surat pernyataan ini ternyata tidak benar yang berakibat kerugian bagi Negara, maka saya bersedia menanggung kerugian tersebut. </p>
     </div>
 
     <div class="signature">
