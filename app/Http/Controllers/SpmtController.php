@@ -51,8 +51,10 @@ class SpmtController extends Controller
      * Display the specified resource.
      */
     public function show(Spmt $spmt)
+
     {
-        $pdf = \PDF::loadView('spmts.pdf', compact('spmt'));
+        $penilai = \App\Models\Penilai::first();
+        $pdf = \PDF::loadView('spmts.pdf', compact('spmt', 'penilai'));
         return $pdf->stream('spmt.pdf');
     }
 

@@ -42,48 +42,48 @@
     {{-- <div class="header">
         @if($headerIconImage)
         <img src="{{ public_path('storage/header_icons/' . $headerIconImage->filename) }}" alt="Icon">
-        @else
-        <img src="{{ public_path('images/icon.png') }}" alt="Kop Surat">
-        @endif
-    </div> --}}
-    @if($stPegawai->pegawais->isNotEmpty())
-    @php
-    $firstPegawai = $stPegawai->pegawais->first();
-    $namaParts = explode(' ', $firstPegawai->jabatan);
-    $firstName = $namaParts[0];
-    $lastName = isset($namaParts[1]) ? $namaParts[1] : '';
-    @endphp
-    @if ($firstName == 'Kepala')
+    @else
+    <img src="{{ public_path('images/icon.png') }}" alt="Kop Surat">
+    @endif
+</div> --}}
+@if($stPegawai->pegawais->isNotEmpty())
+@php
+$firstPegawai = $stPegawai->pegawais->first();
+$namaParts = explode(' ', $firstPegawai->jabatan);
+$firstName = $namaParts[0];
+$lastName = isset($namaParts[1]) ? $namaParts[1] : '';
+@endphp
+@if ($firstName == 'Kepala')
+<img src="{{ public_path('images/kopcabdin1.png') }}" alt="">
+<h4 style="text-align: center">
+    <u>SURAT TUGAS</u> <br>
+    Nomor : 421.5/........./ST/CABDINDIK WIL I/{{
+        Carbon\Carbon::Parse($stPegawai->tgl_kegiatan)->translatedFormat('Y')
+        }}.
+</h4>
+@else
+<div class="header">
+    @if ($stPegawai->pegawais->first()->nip == $penilai->nip)
     <img src="{{ public_path('images/kopcabdin1.png') }}" alt="">
-    <h4 style="text-align: center">
-        <u>SURAT TUGAS</u> <br>
-        Nomor : 421.5/........./ST/CABDINDIK WIL I/{{
+    @else
+    @if($headerIconImage)
+    <img src="{{ public_path('storage/header_icons/' . $headerIconImage->filename) }}" alt="Icon">
+    @else
+    <img src="{{ public_path('images/icon.png') }}" alt="Kop Surat">
+    @endif
+    @endif
+</div>
+{{-- <img src="{{ public_path('images/kopsekolah.png') }}" alt=""> --}}
+<h4 style="text-align: center">
+    <u>SURAT TUGAS</u> <br>
+    Nomor : 094/........./ST/SMKN 1 Kb/Dindik/{{
         Carbon\Carbon::Parse($stPegawai->tgl_kegiatan)->translatedFormat('Y')
         }}.
-    </h4>
-    @else
-    <div class="header">
-        @if ($stPegawai->pegawais->first()->nip == $penilai->nip)
-        <img src="{{ public_path('images/kopcabdin1.png') }}" alt="">
-        @else
-        @if($headerIconImage)
-        <img src="{{ public_path('storage/header_icons/' . $headerIconImage->filename) }}" alt="Icon">
-        @else
-        <img src="{{ public_path('images/icon.png') }}" alt="Kop Surat">
-        @endif
-        @endif
-    </div>
-    {{-- <img src="{{ public_path('images/kopsekolah.png') }}" alt=""> --}}
-    <h4 style="text-align: center">
-        <u>SURAT TUGAS</u> <br>
-        Nomor : 094/........./ST/SMKN 1 Kb/Dindik/{{
-        Carbon\Carbon::Parse($stPegawai->tgl_kegiatan)->translatedFormat('Y')
-        }}.
-    </h4>
-    @endif
-    @else
-    -
-    @endif
+</h4>
+@endif
+@else
+-
+@endif
 </div>
 
 <table>
@@ -168,17 +168,17 @@
         @endphp
         {{-- <td>Tujuan perjalanan <span style="padding-left: 21px">: </span><span
                 style="padding-left: 23px">{{$stPegawai->nama_kegiatan}}
-            </span><br>
-            Lama perjalanan <span style="padding-left: 30px">: </span><span style="padding-left: 20px">
-                {{$diffDay}} ({{ $diffDayTerbilang }}) hari,
-                @if ($stPegawai->tgl_awal != $stPegawai->tgl_akhir)
-                dari tanggal {{Carbon\carbon::parse($stPegawai->tgl_awal)->translatedFormat('d-m-Y') }} s.d. {{
+        </span><br>
+        Lama perjalanan <span style="padding-left: 30px">: </span><span style="padding-left: 20px">
+            {{$diffDay}} ({{ $diffDayTerbilang }}) hari,
+            @if ($stPegawai->tgl_awal != $stPegawai->tgl_akhir)
+            dari tanggal {{Carbon\carbon::parse($stPegawai->tgl_awal)->translatedFormat('d-m-Y') }} s.d. {{
                 Carbon\carbon::parse($stPegawai->tgl_akhir)->translatedFormat('d-m-Y') }} <br>
-                @else
-                tanggal
-                {{Carbon\carbon::parse($stPegawai->tgl_akhir)->translatedFormat('d-m-Y') }} <br>
-                @endif
-            </span>
+            @else
+            tanggal
+            {{Carbon\carbon::parse($stPegawai->tgl_akhir)->translatedFormat('d-m-Y') }} <br>
+            @endif
+        </span>
         </td> --}}
         <td>
             <table>
@@ -214,22 +214,22 @@
         <td>:</td>
         <td>
             Dalam rangka melaksanakan {{ $stPegawai->nama_kegiatan }} yang akan dilaksanakan pada :<br><br>
-            Hari/tanggal <span>:</span>
-            @if ($stPegawai->tgl_kegiatan != $stPegawai->tgl_akhir_kegiatan)
-            {{ Carbon\carbon::parse($stPegawai->tgl_kegiatan)->translatedFormat('l') }} - {{
+    Hari/tanggal <span>:</span>
+    @if ($stPegawai->tgl_kegiatan != $stPegawai->tgl_akhir_kegiatan)
+    {{ Carbon\carbon::parse($stPegawai->tgl_kegiatan)->translatedFormat('l') }} - {{
             Carbon\carbon::parse($stPegawai->tgl_akhir_kegiatan)->translatedFormat('l') }}/ {{
             Carbon\carbon::parse($stPegawai->tgl_kegiatan)->translatedFormat('d-m-Y') }} s.d. {{
             Carbon\carbon::parse($stPegawai->tgl_akhir_kegiatan)->translatedFormat('d-m-Y') }} <br>
-            @else
-            {{ Carbon\carbon::parse($stPegawai->tgl_kegiatan)->translatedFormat('l') }}/ {{
+    @else
+    {{ Carbon\carbon::parse($stPegawai->tgl_kegiatan)->translatedFormat('l') }}/ {{
             Carbon\carbon::parse($stPegawai->tgl_akhir_kegiatan)->translatedFormat('d-m-Y') }} <br>
-            @endif
+    @endif
 
-            Pukul <span style="padding-left: 43px">:</span> {{ Carbon\Carbon::parse($stPegawai->jam_kegiatan
+    Pukul <span style="padding-left: 43px">:</span> {{ Carbon\Carbon::parse($stPegawai->jam_kegiatan
             )->format('H:i')}} WIB s.d Selesai
-            <br>
-            Tempat <span style="padding-left: 32px">:</span> {{ $stPegawai->tempat_kegiatan }}
-        </td>
+    <br>
+    Tempat <span style="padding-left: 32px">:</span> {{ $stPegawai->tempat_kegiatan }}
+    </td>
     </tr> --}}
     <tr>
         <td style="text-align: justify; vertical-align:top">Untuk</td>
@@ -239,47 +239,47 @@
                 {{-- <tr>
                     <td style="vertical-align: top">
                         1. Dalam rangka melaksanakan {{ $stPegawai->nama_kegiatan }}
-                    </td>
-                </tr>
-                <tr>
-                <tr>
-                    <td style="vertical-align: top">
-                        2. ................................................
-                    </td>
-                </tr>
-                <tr>
-                    <td style="vertical-align: top">
-                        3. ................................................
-                    </td>
-                </tr>
-                <tr>
-                    <td style="vertical-align: top">
-                        4. Dilaksanakan dengan sebaik-baiknya dan penuh rasa tanggung jawab.
-                    </td>
-                </tr> --}}
-                <tr>
-                    <td>
-                        <ol style="padding-left: 20px; padding-top: 0px; margin-top: 0px;">
-                            <li>Dalam rangka melaksanakan {{ $stPegawai->nama_kegiatan }}</li>
-                            {{-- <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi officiis
+        </td>
+    </tr>
+    <tr>
+    <tr>
+        <td style="vertical-align: top">
+            2. ................................................
+        </td>
+    </tr>
+    <tr>
+        <td style="vertical-align: top">
+            3. ................................................
+        </td>
+    </tr>
+    <tr>
+        <td style="vertical-align: top">
+            4. Dilaksanakan dengan sebaik-baiknya dan penuh rasa tanggung jawab.
+        </td>
+    </tr> --}}
+    <tr>
+        <td>
+            <ol style="padding-left: 20px; padding-top: 0px; margin-top: 0px;">
+                <li>Dalam rangka melaksanakan {{ $stPegawai->nama_kegiatan }}</li>
+                {{-- <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi officiis
                                 necessitatibus dolore eius a inventore, dolores eum exercitationem! In nisi amet
                                 temporibus quibusdam beatae rem eum ipsam ullam accusantium harum? Incidunt illum, enim
                                 officiis iusto tempora error, quaerat aperiam ab dolores tempore eum? Odit ipsam dolorum
                                 cupiditate, numquam corporis mollitia?</li> --}}
-                            <li>Dilaksanakan dengan sebaik-baiknya dan penuh rasa tanggung jawab.</li>
-                        </ol>
-                    </td>
-                </tr>
-            </table>
+                <li>Dilaksanakan dengan sebaik-baiknya dan penuh rasa tanggung jawab.</li>
+            </ol>
         </td>
-        {{-- <td style="text-align: justify; vertical-align:top" colspan="3">
-            <ol style="padding-left: 20px; text-align">
+    </tr>
+</table>
+</td>
+{{-- <td style="text-align: justify; vertical-align:top" colspan="3">
+            <ol style="padding-left: 20px; ">
                 <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt, magnam?</li>
                 <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium, quam ipsa?</li>
                 <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis similique dolore sed!</li>
             </ol>
         </td> --}}
-    </tr>
+</tr>
 </table>
 @if($stPegawai->pegawais->isNotEmpty())
 @php
@@ -288,9 +288,9 @@ $namaParts = explode(' ', $firstPegawai->jabatan);
 $firstName = $namaParts[0];
 $lastName = isset($namaParts[1]) ? $namaParts[1] : '';
 @endphp
-{{-- <p style="text-align: left;padding-left:420px">
+{{-- <p style="text-align: left; padding-left:420px">
     Dikeluarkan di <span>:</span> {{ $stPegawai->tempat_ditetapkan }} <br>
-    Pada tanggal <span style="padding-left: 14px">:</span> {{
+Pada tanggal <span style="padding-left: 14px">:</span> {{
     Carbon\Carbon::parse($stPegawai->tgl_ditetapkan)->translatedFormat('d F Y') }}
 <p> --}}
     {{-- @if ($firstName == 'Kepala')
