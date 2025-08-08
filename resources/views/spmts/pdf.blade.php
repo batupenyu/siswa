@@ -7,8 +7,8 @@
         body {
             font-family: Arial, sans-serif;
             /* font-size: small; */
-            margin-left: 1cm;
-            margin-right: 1cm;
+            /* margin-left: 1cm; */
+            /* margin-right: 1cm; */
             /* line-height: 1.6; */
         }
 
@@ -45,7 +45,7 @@
         }
 
         .signature {
-            margin-left: 300px;
+            margin-left: 400px;
         }
 
         .tembusan {
@@ -62,7 +62,9 @@
 </head>
 
 <div style="text-align: center;">
-    <img src="{{ public_path('images/kopSekolah.PNG') }}" alt="Kop Sekolah" style="width: 100%; height: auto; display: inline-block;">
+    <!-- <img src="{{ public_path('images/kopSekolah.PNG') }}" alt="Kop Sekolah" style="width: 100%; height: auto; display: inline-block;"> -->
+    <img src="{{ public_path('images/kopSekolah.PNG') }}" alt="Kop Sekolah" style="width: 100%; height: auto; max-width: 1000px; display: inline-block;">
+    <!-- <img src="{{ public_path('images/kopSekolah.PNG') }}" alt="Kop Sekolah" style="width: 100%; height: auto; display: inline-block;"> -->
 </div>
 <br>
 
@@ -116,14 +118,14 @@
             </tr>
         </table>
 
-        <p style="text-align: justify;">berdasarkan {{ $spmt->dasar_surat ?? 'Keputusan Gubernur Kepulauan Bangka Belitung Nomor: .......... tanggal ...........' }}, terhitung mulai {{ $spmt->tgl_surat ? \Carbon\Carbon::parse($spmt->tgl_surat)->format('d F Y') : 'tanggal ...........' }} telah nyata menjalankan tugas sebagai {{ $spmt->keterangan ?? 'jabatan baru' }} pada {{ $penilai->unitkerja ?? 'tempat penugasan' }}</p>
+        <p style="text-align: justify;">berdasarkan {{ $spmt->dasar_surat ?? 'Keputusan Gubernur Kepulauan Bangka Belitung Nomor: .......... tanggal ...........' }}, terhitung mulai {{ $spmt->tgl_surat ? \Carbon\Carbon::parse($spmt->tgl_surat)->isoFormat('D MMMM YYYY') : 'tanggal ...........' }} telah nyata menjalankan tugas sebagai {{ $spmt->keterangan ?? 'jabatan baru' }} pada {{ $penilai->unitkerja ?? 'tempat penugasan' }}</p>
 
         <p style="text-align: justify;">Demikian surat pernyataan melaksanakan tugas ini saya buat dengan sesungguhnya dengan mengingat sumpah jabatan/Pegawai Negeri Sipil dan apabila dikemudian hari isi surat pernyataan ini ternyata tidak benar yang berakibat kerugian bagi Negara, maka saya bersedia menanggung kerugian tersebut. </p>
     </div>
 
     <div class="signature">
         <p>Ditetapkan di {{ $spmt->tempat_ditetapkan ?? '............' }}<br>
-            pada tanggal {{ $spmt->tgl_ditetapkan ? \Carbon\Carbon::parse($spmt->tgl_ditetapkan)->format('d F Y') : '...............' }}
+            pada tanggal {{ $spmt->tgl_ditetapkan ? \Carbon\Carbon::parse($spmt->tgl_ditetapkan)->isoFormat('D MMMM YYYY') : '...............' }}
 
             <br><br>
 
