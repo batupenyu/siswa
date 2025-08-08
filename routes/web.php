@@ -60,6 +60,7 @@ use App\Http\Controllers\KpaController;
 use App\Http\Controllers\BpController;
 use App\Http\Controllers\MutasiController;
 use App\Http\Controllers\SiswaProfilController;
+use App\Http\Controllers\SpmtController;
 
 /*
 |--------------------------------------------------------------------------
@@ -199,3 +200,4 @@ Route::get('/anak/{id}', [AnakController::class, 'viewShowWeb'])->name('anak.sho
 Route::get('/anak/{id}/pdf', [AnakController::class, 'pdf'])->name('anak.pdf');
 Route::get('/anak/{id}/edit', [AnakController::class, 'viewEdit'])->name('anak.edit');
 Route::put('/anak/{id}', [AnakController::class, 'updateWeb'])->name('anak.updateWeb');
+Route::resource('spmts', SpmtController::class);

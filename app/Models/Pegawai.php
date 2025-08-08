@@ -54,6 +54,11 @@ class Pegawai extends Model
         return $this->belongsTo(PP_Gaji::class, 'digaji_menurut');
     }
 
+    public function spmts()
+    {
+        return $this->hasMany(Spmt::class);
+    }
+
     public function getMasaKerjaAttribute()
     {
         if (!$this->tgl_tmt_cpns) {
