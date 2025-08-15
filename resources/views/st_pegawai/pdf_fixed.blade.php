@@ -77,9 +77,9 @@
 @else
 <table>
     <tr>
-        <td style="vertical-align:top" width="100">Dasar</td>
+        <td style="vertical-align:top" width="50px">Dasar</td>
         <td style="vertical-align:top">:</td>
-        <td>
+        <td style="vertical-align:top">
             <ol style="padding-left: 20px; padding-top: 0px; margin-top: 0px; text-align:justify">
                 <li>Undang-Undang Nomor 27 Tahun 2000 tentang Pembentukan Provinsi Kepulauan Bangka Belitung</li>
                 <li>Undang-Undang Nomor 17 Tahun 2003 tentang Keuangan Negara</li>
@@ -115,7 +115,7 @@
     <tr>
         <td style="text-align: justify; vertical-align:top">Untuk</td>
         <td style="text-align: justify; vertical-align:top">:</td>
-        <td>
+        <td style="vertical-align: top;">
             <ol style="padding-left: 20px;">
                 <li>Dalam rangka melaksanakan {{ $stPegawai->nama_kegiatan }}</li>
                 <li>Dilaksanakan dengan sebaik-baiknya dan penuh rasa tanggung jawab.</li>
