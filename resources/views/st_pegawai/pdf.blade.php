@@ -85,9 +85,24 @@ $lastName = isset($namaParts[1]) ? $namaParts[1] : '';
 -
 @endif
 </div>
-
+<br>
+@if ($stPegawai->dasar_surat == '-')
+<div> Yang bertanda tangan dibawah ini :</div>
+<br>
+<table>
+    <tbody>
+        <tr style="vertical-align: top">
+            <td style="width:100px"></td>
+            <td style="width: 50px;"></td>
+            <td>
+                @include('st_pegawai.lampiran_4')
+            </td>
+        </tr>
+    </tbody>
+</table>
 <table>
     <tr>
+        @else
         <td style="vertical-align:top">
             Dasar
         </td>
@@ -97,8 +112,6 @@ $lastName = isset($namaParts[1]) ? $namaParts[1] : '';
             <table>
                 <tr>
                     <td>
-                        @if ($stPegawai->dasar_surat == '-')
-                        @else
                         <ol style="padding-left: 20px; padding-top: 0px; margin-top: 0px;">
 
                             <li>Undang-Undang Nomor 27 Tahun 2000 tentang Pembentukan Provinsi Kepulauan Bangka Belitung
@@ -111,6 +124,9 @@ $lastName = isset($namaParts[1]) ? $namaParts[1] : '';
                             <li>Undang-Undang Nomor 20 Tahun 2003 tentang Sistem Pendidikan Nasional (Lembaran Negara
                                 Republik Indonesia Tahun
                                 2003 Nomor 78, Tambahan Lembaran Negara Republik Indonesia Nomor 4301);</li>
+                            <li>
+                                {{ $stPegawai }}
+                            </li>
                             {{-- <li>Peraturan Menteri Pendidikan Nasional No. 34 Tahun 2006 tentang Pembinaan Prestasi
                                 Siswa
                                 yang Memiliki Potensi
@@ -135,12 +151,12 @@ $lastName = isset($namaParts[1]) ? $namaParts[1] : '';
 
                             {{-- <li>{{ $stPegawai->dasar_surat }}</li> --}}
                         </ol>
-                        @endif
 
                     </td>
                 </tr>
             </table>
         </td>
+        @endif
     </tr>
     <tr>
         <td style="text-align: center;padding:20px" colspan="3"><b>MENUGASKAN</b> :</td>
