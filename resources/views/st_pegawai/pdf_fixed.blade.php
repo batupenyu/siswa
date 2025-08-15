@@ -58,6 +58,7 @@
     @endif
 </div>
 <br>
+<br>
 
 @if ($stPegawai->dasar_surat == '-')
 <div> Yang bertanda tangan dibawah ini :</div>
@@ -65,7 +66,7 @@
 <table>
     <tbody>
         <tr style="vertical-align: top">
-            <td style="width:100px"></td>
+            <td style="width:50px"></td>
             <td style="width: 50px;"></td>
             <td>
                 @include('st_pegawai.lampiran_4')
@@ -95,7 +96,7 @@
         <td style="text-align: center;padding:20px" colspan="3"><b>MENUGASKAN</b> :</td>
     </tr>
     <tr style="vertical-align: top">
-        <td style="width:100px">Kepada</td>
+        <td style="width:50px">Kepada</td>
         <td>:</td>
         <td>
             @if ($stPegawai->pegawais->count() <= 1)
