@@ -1,7 +1,7 @@
-<table>
+<table border="0" style="width: 500px;">
     <tbody>
         <tr>
-            <td style="width: 66px">Nama</td>
+            <td style="width: 135px">Nama</td>
             <td style="width: 30px">:</td>
             <td>{{ $penilai->nama }}</td>
         </tr>

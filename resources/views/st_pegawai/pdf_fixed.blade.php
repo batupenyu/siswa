@@ -74,7 +74,7 @@
 @if ($stPegawai->dasar_surat == '-')
 <div> Yang bertanda tangan dibawah ini :</div>
 <br>
-<table>
+<table border="0" style="width: 300px;">
     <tbody>
         <tr style="vertical-align: top">
             <td style="width:50px"></td>
@@ -86,10 +86,10 @@
     </tbody>
 </table>
 @else
-<table>
+<table border="0" style="width: 675px;">
     <tr>
         <td style="vertical-align:top" width="50px">Dasar</td>
-        <td style="vertical-align:top">:</td>
+        <td style="vertical-align:top; width:50px">:</td>
         <td style="vertical-align:top">
             <ol style="padding-left: 20px; padding-top: 0px; margin-top: 0px; text-align:justify">
                 <li>Undang-Undang Nomor 27 Tahun 2000 tentang Pembentukan Provinsi Kepulauan Bangka Belitung</li>
@@ -101,8 +101,7 @@
     </tr>
 </table>
 @endif
-
-<table>
+<table border="0" style="width: 675px;">
     <tr>
         <td style="text-align: center;padding:20px" colspan="3"><b>MENUGASKAN</b> :</td>
     </tr>
@@ -127,7 +126,7 @@
 
     <tr>
         <td style="text-align: justify; vertical-align:auto">Untuk</td>
-        <td style="text-align: justify; vertical-align:auto">:</td>
+        <td style="text-align: justify; vertical-align:auto;width:50px">:</td>
         <td style="vertical-align:top">
             <ol style="padding-left: 20px; padding-top: 0px; margin-top: 0px; text-align:justify">
                 <li>Dalam rangka melaksanakan {{ $stPegawai->nama_kegiatan }}</li>
