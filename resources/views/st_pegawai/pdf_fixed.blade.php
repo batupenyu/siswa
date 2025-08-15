@@ -122,7 +122,9 @@
     $diffDay = \Carbon\Carbon::parse($stPegawai->tgl_awal)->diffInDays(\Carbon\Carbon::parse($stPegawai->tgl_akhir)) + 1;
     $diffDayTerbilang = \App\Helpers\NumberHelper::terbilang($diffDay);
     @endphp
-
+    <tr>
+        <td>.</td>
+    </tr>
 
     <tr>
         <td style="text-align: justify; vertical-align:auto">Untuk</td>
