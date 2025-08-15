@@ -4,11 +4,17 @@
     }
 
     .container p {
-        margin-right: 50px;
+        margin-right: 37.8px;
+        /* 1cm = 37.8px */
     }
 
     ol li {
         text-align: justify;
+        vertical-align: top;
+    }
+
+    ol {
+        vertical-align: top;
     }
 
     .header {
@@ -19,6 +25,11 @@
     .header img {
         width: 100%;
         height: auto;
+    }
+
+    .container {
+        margin-right: 37.8px;
+        /* 1cm = 37.8px */
     }
 </style>
 
@@ -112,16 +123,19 @@
     $diffDay = \Carbon\Carbon::parse($stPegawai->tgl_awal)->diffInDays(\Carbon\Carbon::parse($stPegawai->tgl_akhir)) + 1;
     $diffDayTerbilang = \App\Helpers\NumberHelper::terbilang($diffDay);
     @endphp
+
+
     <tr>
-        <td style="text-align: justify; vertical-align:top">Untuk</td>
-        <td style="text-align: justify; vertical-align:top">:</td>
-        <td style="vertical-align: top;">
-            <ol style="padding-left: 20px;">
+        <td style="text-align: justify; vertical-align:auto">Untuk</td>
+        <td style="text-align: justify; vertical-align:auto">:</td>
+        <td style="vertical-align:top">
+            <ol style="padding-left: 20px; padding-top: 0px; margin-top: 0px; text-align:justify">
                 <li>Dalam rangka melaksanakan {{ $stPegawai->nama_kegiatan }}</li>
                 <li>Dilaksanakan dengan sebaik-baiknya dan penuh rasa tanggung jawab.</li>
             </ol>
         </td>
     </tr>
+
 </table>
 
 @if($stPegawai->pegawais->isNotEmpty())
