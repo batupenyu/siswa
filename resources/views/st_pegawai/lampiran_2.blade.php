@@ -19,7 +19,10 @@
                 Penata Tk. I, {{ $pegawai->pangkat }}
                 @elseif ($pegawai->pangkat == 'IV/a')
                 Pembina, {{ $pegawai->pangkat }}
+                @elseif ($pegawai->pangkat == 'III/b')
+                Penata Muda, Tk.I, {{ $pegawai->pangkat }}
                 @else
+                IX
                 @endif
             </td>
         </tr>
