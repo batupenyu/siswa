@@ -1,0 +1,113 @@
+@extends('layouts.app')
+
+
+<!-- In the <head> section of your layout file -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+<!-- Before the closing </body> tag -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<style>
+    .select2-multiple {
+        padding: 10px;
+        border: 1px solid #0c6cccff;
+        border-radius: 5px;
+    }
+
+    .select2-multiple .form-check {
+        margin-bottom: 10px;
+    }
+
+    .select2-multiple .form-check-label {
+        font-weight: normal;
+    }
+
+    /* Set font color to black for bulan select2 */
+    #bulan+.select2-container--default .select2-selection--multiple {
+        color: black !important;
+    }
+</style>
+@section('content')
+<div class="container">
+    <h1>Edit IPP</h1>
+
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
+    <form action="{{ route('ipps.update', $ipp->id) }}" method="POST">
+        @csrf
+        @method('PUT')
+        <div class="form-group">
+            <label for="siswa_id">Siswa</label>
+            <select name="siswa_id" id="siswa_id" class="form-control select2" required>
+                <option value="">Select Siswa</option>
+                @foreach($siswas as $siswa)
+                <option value="{{ $siswa->id }}" {{ (old('siswa_id', $ipp->siswa_id) == $siswa->id) ? 'selected' : '' }}>
+                    {{ $siswa->name }}
+                </option>
+                @endforeach
+            </select>
+        </div>
+
+        <div class="form-group mt-3">
+            <label for="bulan">Bulan</label>
+            <select name="bulan[]" id="bulan" class="form-control select2" multiple required>
+                @php
+                $selectedBulan = old('bulan', explode(',', $ipp->bulan));
+                @endphp
+                @foreach($bulanOptions as $bulan)
+                <option value="{{ $bulan }}" {{ (is_array($selectedBulan) && in_array($bulan, $selectedBulan)) ? 'selected' : '' }}>
+                    {{ $bulan }}
+                </option>
+                @endforeach
+            </select>
+        </div>
+
+        <script>
+            $(document).ready(function() {
+                $('#bulan').select2({
+                    placeholder: "Select bulan", // Placeholder text
+                    allowClear: true, // Allow clearing the selection
+                });
+            });
+        </script>
+
+        <div class="form-group mt-3">
+            <label for="nominal">Nominal</label>
+            <input type="number" name="nominal" id="nominal" class="form-control" value="{{ old('nominal', $ipp->nominal) }}" required step="0.01" min="0" />
+        </div>
+
+
+        <div class="form-group mt-3">
+            <label for="tgl_ditetapkan">Tanggal Ditetapkan</label>
+            <input type="date" name="tgl_ditetapkan" id="tgl_ditetapkan" class="form-control" value="{{ old('tgl_ditetapkan', $ipp->tgl_ditetapkan) }}" />
+        </div>
+
+        <div class="form-group mt-3">
+            <label for="tempat_ditetapkan">Tempat Ditetapkan</label>
+            <input type="text" name="tempat_ditetapkan" id="tempat_ditetapkan" class="form-control" value="{{ old('tempat_ditetapkan', $ipp->tempat_ditetapkan) }}" />
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Update</button>
+        <a href="{{ route('ipps.index') }}" class="btn btn-secondary mt-3">Cancel</a>
+    </form>
+</div>
+
+@endsection
+
+<!-- @section('scripts')
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.select2').select2();
+    });
+</script>
+@endsection -->
