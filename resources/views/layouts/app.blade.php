@@ -73,7 +73,7 @@
             <!-- Sidebar -->
             <div class="col-md-3 col-lg-2 d-md-block sidebar collapse show">
                 <div class="position-sticky pt-3">
-                    <h4 class="text-center mb-4">My App</h4>
+                    <h4 class="text-center mb-4">My Admin</h4>
                     <div class="d-flex flex-column px-3">
                         <a href="{{ route('header_icon_images.index') }}" class="nav-link"><i class="bi bi-image"></i> Ganti kop</a>
                         <a href="{{ route('siswas.index') }}" class="nav-link"><i class="bi bi-people"></i> Siswa</a>
