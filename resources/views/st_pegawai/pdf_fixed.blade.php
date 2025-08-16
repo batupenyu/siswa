@@ -49,7 +49,7 @@
     </h4>
     @else
     <div class="header">
-        @if ($stPegawai->pegawais->first()->nip == $penilai->nip)
+        @if (isset($penilai) && isset($penilai->nip) && $stPegawai->pegawais->first()->nip == $penilai->nip)
         <img src="{{ public_path('images/kopcabdin1.png') }}" alt="">
         @else
         @if($headerIconImage)
@@ -141,16 +141,16 @@
 
 @if($stPegawai->pegawais->isNotEmpty())
 <p style="padding-left:420px">
-    Ditetapkan di {{$stPegawai->pegawais->first()->nip != $penilai->nip ? 'Koba' : 'Pangkalpinang'}} <br>
+    Ditetapkan di {{(!isset($penilai) || !isset($penilai->nip) || $penilai->nip == '' || $stPegawai->pegawais->first()->nip != $penilai->nip) ? 'Koba' : 'Pangkalpinang'}} <br>
     Pada tanggal, {{ Carbon\Carbon::parse($stPegawai->tgl_awal)->translatedFormat('d F Y') }}. <br><br>
-    @if ($stPegawai->pegawais->first()->nip != $penilai->nip)
-    {{$penilai->jabatan}} <br><br><br><br>
-    {{$penilai->nama}} <br>
-    NIP.{{ $penilai->nip }}
+    @if (!isset($penilai) || !isset($penilai->nip) || $stPegawai->pegawais->first()->nip != $penilai->nip)
+    {{$penilai->jabatan ?? ''}} <br><br><br><br>
+    {{$penilai->nama ?? ''}} <br>
+    NIP.{{ $penilai->nip ?? '' }}
     @else
-    {{$kpa->jabatan}} {{$kpa->unitkerja}} <br><br><br><br>
-    {{$kpa->nama}} <br>
-    NIP. {{$kpa->nip }}
+    {{$kpa->jabatan ?? ''}} {{$kpa->unitkerja ?? ''}} <br><br><br><br>
+    {{$kpa->nama ?? ''}} <br>
+    NIP. {{$kpa->nip ?? ''}}
     @endif
 </p>
 @endif
