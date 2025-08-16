@@ -66,13 +66,13 @@
             <td style="width: 30px; text-align:center">1.</td>
             <td style="width: 300px;">Pejabat yang memberi perintah</td>
             @php
-            $jabatanParts = explode(' ', $penilai->jabatan);
-            $firstJabatan = $jabatanParts[0];
+            $jabatanParts = explode(' ', $penilai->jabatan ?? '');
+            $firstJabatan = $jabatanParts[0] ?? '';
             @endphp
             <td>
                 {{-- {{$penilai->jabatan}} --}}
                 {{$firstJabatan}}
-                {{$penilai->unitkerja}}
+                {{$penilai->unitkerja ?? ''}}
             </td>
         </tr>
         <tr>
@@ -98,7 +98,7 @@
             </td>
             <td>
                 a. {{ $firstPegawai->pangkat }} <br>
-                b. {{ $firstPegawai->jabatan }}/{{ $penilai->unitkerja }} <br>
+                b. {{ $firstPegawai->jabatan }}/{{ $penilai->unitkerja ?? ''}} <br>
                 c. {{ $stPegawai->tingkat_biaya ?? '-' }}
             </td>
         </tr>
@@ -166,7 +166,7 @@
                 b. Akun
             </td>
             <td>
-                a. {{ $penilai->unitkerja }} <br>
+                a. {{$penilai->unitkerja ?? '' }} <br>
                 b. {{$stPegawai->korek}} <br>
             </td>
         </tr>
@@ -187,14 +187,14 @@
     <p style="text-align: center;padding-left:400px; font-size: 11pt; margin-top: 20px;">
         {{-- {{$penilai->jabatan}} --}}
         {{$firstJabatan}}
-        {{$penilai->unitkerja}}
+        {{$penilai->unitkerja ?? ''}}
         <br>
         <br>
         <br>
         <br>
-        <span style="text-transform: uppercase; font-weight: bold;">{{ $penilai->nama }}</span>
+        <span style="text-transform: uppercase; font-weight: bold;">{{ $penilai->nama ?? '' }}</span>
         <br>
-        NIP. {{ $penilai->nip }}
+        NIP. {{ $penilai->nip ?? '' }}
     </p>
 </body>
 

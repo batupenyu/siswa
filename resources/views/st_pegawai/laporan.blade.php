@@ -174,7 +174,7 @@
                 <tr>
                     <td style="width: 100px">Kepada</td>
                     <td style="width: 20px">:</td>
-                    <td>Yth. {{$penilai->jabatan}} {{$penilai->unitkerja}}</td>
+                    <td>Yth. {{$penilai->jabatan ?? ''}} {{$penilai->unitkerja ?? ''}}</td>
                 </tr>
                 @php
                 $firstPegawai = $stPegawaiItem->pegawais->first();
@@ -189,7 +189,7 @@
                 <tr>
                     <td>Dari</td>
                     <td>:</td>
-                    <td>{{$jabatanParts[0]}} {{$penilai->unitkerja}}</td>
+                    <td>{{$jabatanParts[0] ?? ''}} {{$penilai->unitkerja ?? ''}}</td>
                 </tr>
                 <tr>
                     <td>Tanggal</td>
@@ -316,11 +316,11 @@
             <tr>
                 <td class="center">
                     Mengetahui,<br>
-                    {{$penilai->jabatan }},<br>
+                    {{$penilai->jabatan ?? ''}},<br>
                     <br>
                     <br>
-                    {{$penilai->nama}}<br>
-                    NIP.{{$penilai->nip}}
+                    {{$penilai->nama ?? ''}}<br>
+                    NIP.{{$penilai->nip ?? ''}}
                 </td>
                 <td class="center">
                     Yang melaporkan,<br>
