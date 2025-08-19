@@ -18,9 +18,10 @@
                     <thead>
                         <tr style="vertical-align: top">
                             <th>No</th>
+                            <th>No Surat</th>
                             <th>Nama Pegawai</th>
-                            <th>Jlh. Peserta</th>
-                            <th>Lama <br> kegiatan</th>
+                            <th>Jlh_Peserta/ <br>Jlh_hari</th>
+                            <!-- <th>Lama <br> kegiatan</th> -->
                             <th>Tanggal Awal</th>
                             <th>Tanggal Akhir</th>
                             <th>Nama Kegiatan</th>
@@ -35,41 +36,43 @@
                         @foreach ($stPegawaiList as $item)
                         <tr>
                             <td style="text-align: center">{{ $loop->iteration }}.</td>
+                            <td>{{ $item->no_surat }}</td>
                             <td>
                                 @if(isset($item->pegawais) && $item->pegawais->isNotEmpty())
                                 {{ $item->pegawais->pluck('nama')->implode(', ') }}
                                 @endif
                             </td>
-                            <td>
-                                {{ count($item->pegawais) }}
-                                ({{ \Riskihajar\Terbilang\Facades\Terbilang::make(count($item->pegawais)) }} org)
-                            </td>
-                            <td>
-                                <?php
-                                // Ensure $item->tgl_awal and $item->tgl_akhir are valid date strings
-                                if (!empty($item->tgl_awal) && !empty($item->tgl_akhir)) {
-                                    try {
-                                        // Convert the date strings to DateTime objects
-                                        $dateAwal = new DateTime($item->tgl_awal);
-                                        $dateAkhir = new DateTime($item->tgl_akhir);
+                            <?php
+                            // Ensure $item->tgl_awal and $item->tgl_akhir are valid date strings
+                            if (!empty($item->tgl_awal) && !empty($item->tgl_akhir)) {
+                                try {
+                                    // Convert the date strings to DateTime objects
+                                    $dateAwal = new DateTime($item->tgl_awal);
+                                    $dateAkhir = new DateTime($item->tgl_akhir);
 
-                                        // Calculate the difference
-                                        $diff = $dateAwal->diff($dateAkhir);
+                                    // Calculate the difference
+                                    $diff = $dateAwal->diff($dateAkhir);
 
-                                        // Output the difference in days
-                                        // echo $diff->days+1 ." hari";
-                                    } catch (Exception $e) {
-                                        // Handle invalid date format or other errors
-                                        echo "Invalid date format";
-                                    }
-                                } else {
-                                    // Handle missing dates
-                                    echo "Dates are missing";
+                                    // Output the difference in days
+                                    // echo $diff->days+1 ." hari";
+                                } catch (Exception $e) {
+                                    // Handle invalid date format or other errors
+                                    echo "Invalid date format";
                                 }
-                                ?>
+                            } else {
+                                // Handle missing dates
+                                echo "Dates are missing";
+                            }
+                            ?>
+                            <td style="text-align: center;">
+                                {{ count($item->pegawais) }}/
+                                {{ $diff->days+1 }}
+                                <!-- ({{ \Riskihajar\Terbilang\Facades\Terbilang::make(count($item->pegawais)) }} org) -->
+                            </td>
+                            <!-- <td>
                                 {{ $diff->days+1 }}
                                 ({{ \Riskihajar\Terbilang\Facades\Terbilang::make($diff->days+1) }} hari)
-                            </td>
+                            </td> -->
                             <td>{{ \Carbon\Carbon::parse($item->tgl_awal)->format('d-m-Y') }}</td>
                             <td>{{ \Carbon\Carbon::parse($item->tgl_akhir)->format('d-m-Y') }}</td>
                             <td>{{ $item->nama_kegiatan }}</td>

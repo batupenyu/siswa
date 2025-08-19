@@ -19,7 +19,7 @@
     <tr>
         <td>SPPD No.</td>
         <td style="width: 20px">:</td>
-        <td>800/ ........... /SMKN 1 Kb/DINDIK/{{ Carbon\Carbon::parse($stPegawai->tgl_awal)->translatedFormat('Y') }}
+        <td>{{ $stPegawai->no_surat }}{{ Carbon\Carbon::parse($stPegawai->tgl_awal)->translatedFormat('Y') }}
         </td>
     </tr>
     <tr>

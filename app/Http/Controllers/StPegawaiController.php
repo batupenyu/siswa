@@ -32,6 +32,7 @@ class StPegawaiController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
+            'no_surat' => 'nullable|string',
             'dasar_surat' => 'required|string',
             'tempat_kegiatan' => 'required|string',
             'tgl_awal' => 'required|date',
@@ -56,6 +57,10 @@ class StPegawaiController extends Controller
             'uang_kediklatan' => 'nullable|string',
             'korek' => 'nullable|string',
         ]);
+
+        if (empty($validatedData['no_surat'])) {
+            $validatedData['no_surat'] = '421.5/ ........... /SMKN1 Kb/Dindik/';
+        }
 
         $stPegawai = StPegawai::create($validatedData);
 
@@ -96,6 +101,7 @@ class StPegawaiController extends Controller
     public function update(Request $request, StPegawai $stPegawai)
     {
         $validatedData = $request->validate([
+            'no_surat' => 'nullable|string',
             'dasar_surat' => 'required|string',
             'tempat_kegiatan' => 'required|string',
             'tgl_awal' => 'required|date',
@@ -120,6 +126,10 @@ class StPegawaiController extends Controller
             'uang_kediklatan' => 'nullable|string',
             'korek' => 'nullable|string',
         ]);
+
+        if (empty($validatedData['no_surat'])) {
+            $validatedData['no_surat'] = '421.5/ ........... /SMKN1 Kb/Dindik/';
+        }
 
         $stPegawai->update($validatedData);
 

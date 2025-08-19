@@ -54,7 +54,7 @@
         </tr>
         <tr>
             <td>Nomor</td>
-            <td>: 800/...... /SMKN1 Kb/Dindik/2025</td>
+            <td>: {{ $stPegawai->no_surat }}{{Carbon\Carbon::Parse($stPegawai->tgl_ditetapkan)->translatedFormat('Y')}}</td>
             <td></td>
         </tr>
     </table>
@@ -173,8 +173,7 @@
         <tr>
             <td style="vertical-align: top; text-align:center">10.</td>
             <td style="vertical-align: top">Keterangan lain-lain</td>
-            <td>Surat Tugas Nomor : 800/........./SMKN 1
-                Kb/Dindik/{{Carbon\Carbon::Parse($stPegawai->tgl_kegiatan)->translatedFormat('Y')}}
+            <td>Surat Tugas Nomor : {{ $stPegawai->no_surat }}{{Carbon\Carbon::Parse($stPegawai->tgl_kegiatan)->translatedFormat('Y')}}
                 tanggal {{Carbon\Carbon::Parse($stPegawai->tgl_kegiatan)->translatedFormat('d F Y')}}
             </td>
         </tr>

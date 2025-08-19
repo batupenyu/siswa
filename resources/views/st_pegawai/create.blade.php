@@ -60,6 +60,22 @@
                             </div>
                         </div>
 
+                        <!-- No Surat Field -->
+                        <div class="form-group row">
+                            <label for="no_surat" class="col-md-4 col-form-label text-md-right">{{ __('No. Surat')
+                                }}</label>
+                            <div class="col-md-6">
+                                <input id="no_surat" type="text"
+                                    class="form-control @error('no_surat') is-invalid @enderror" name="no_surat"
+                                    value="{{ old('no_surat') }}" required autocomplete="no_surat" autofocus>
+                                @error('no_surat')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
                         <!-- Siswa Field -->
 
                         <script>

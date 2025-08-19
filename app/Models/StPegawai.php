@@ -8,6 +8,7 @@ class StPegawai extends Model
 {
     protected $table = 'st_pegawai';
     protected $fillable = [
+        'no_surat',
         'dasar_surat',
         'tgl_awal',
         'tgl_akhir',

@@ -57,7 +57,7 @@ $lastName = isset($namaParts[1]) ? $namaParts[1] : '';
 <img src="{{ public_path('images/kopcabdin1.png') }}" alt="">
 <h4 style="text-align: center">
     <u>SURAT TUGAS</u> <br>
-    Nomor : 421.5/........./ST/CABDINDIK WIL I/{{
+    Nomor : {{ $stPegawai->no_surat }}/ST/CABDINDIK WIL I/{{
         Carbon\Carbon::Parse($stPegawai->tgl_kegiatan)->translatedFormat('Y')
         }}.
 </h4>
@@ -76,7 +76,7 @@ $lastName = isset($namaParts[1]) ? $namaParts[1] : '';
 {{-- <img src="{{ public_path('images/kopsekolah.png') }}" alt=""> --}}
 <h4 style="text-align: center">
     <u>SURAT TUGAS</u> <br>
-    Nomor : 094/........./ST/SMKN 1 Kb/Dindik/{{
+    Nomor : {{ $stPegawai->no_surat }}/ST/SMKN 1 Kb/Dindik/{{
         Carbon\Carbon::Parse($stPegawai->tgl_kegiatan)->translatedFormat('Y')
         }}.
 </h4>
