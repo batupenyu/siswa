@@ -254,7 +254,7 @@
             </tr>
             <tr>
                 <td></td>
-                <td style=" text-align: justify;">{{$stPegawaiItem->maksud_tujuan ?? '-'}}.</td>
+                <td colspan="2" style=" text-align: justify;">{{$stPegawaiItem->maksud_tujuan ?? '-'}}.</td>
             </tr>
             <tr>
                 <th>III. </th>
@@ -262,8 +262,8 @@
             </tr>
             <tr>
                 <td></td>
-                <td>
-                    Melaksanakan {{ $stPegawaiItem->nama_kegiatan }} yang akan dilaksanakan pada : <br>
+                <td colspan="2" style="text-align: justify;">
+                    <!-- Melaksanakan {{ $stPegawaiItem->nama_kegiatan }} yang akan dilaksanakan pada : <br> -->
                     Hari/Tanggal <span style="padding-left: 30px">:</span>
                     {{-- {{Carbon\Carbon::parse($stPegawaiItem->tgl_awal)->translatedFormat('d-m-Y') }} --}}
                     @if ($stPegawaiItem->tgl_awal != $stPegawaiItem->tgl_akhir)
@@ -290,7 +290,9 @@
             </tr>
             <tr>
                 <td></td>
-                <td style=" text-align: justify;">{{$stPegawaiItem->materi_narsum ?? '-'}}</td>
+                <td colspan="2" style="text-align: justify;">
+                    {{$stPegawaiItem->materi_narsum ?? '-'}}
+                </td>
             </tr>
             <tr>
                 <th>V. </th>
@@ -298,7 +300,9 @@
             </tr>
             <tr>
                 <td></td>
-                <td style=" text-align: justify;">{{$stPegawaiItem->hasil ?? '-'}}</td>
+                <td colspan="2" style="text-align: justify;">
+                    {{$stPegawaiItem->hasil ?? '-'}}
+                </td>
             </tr>
             <tr>
                 <th>VI. </th>
@@ -306,7 +310,9 @@
             </tr>
             <tr>
                 <td></td>
-                <td style=" text-align: justify;">{{$stPegawaiItem->kesimpulan ?? '-'}}</td>
+                <td colspan="2" style="text-align: justify;">
+                    {{$stPegawaiItem->kesimpulan ?? '-'}}
+                </td>
             </tr>
         </table>
 
