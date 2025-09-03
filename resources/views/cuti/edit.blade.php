@@ -64,6 +64,21 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="sisa_cuti_n">Sisa Cuti Tahun n</label>
+                    <input type="number" name="sisa_cuti_n" id="sisa_cuti_n" class="form-control" value="{{ old('sisa_cuti_n', $cuti->sisa_cuti_n) }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="sisa_cuti_n_1">Sisa Cuti Tahun n-1</label>
+                    <input type="number" name="sisa_cuti_n_1" id="sisa_cuti_n_1" class="form-control" value="{{ old('sisa_cuti_n_1', $cuti->sisa_cuti_n_1) }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="sisa_cuti_n_2">Sisa Cuti Tahun n-2</label>
+                    <input type="number" name="sisa_cuti_n_2" id="sisa_cuti_n_2" class="form-control" value="{{ old('sisa_cuti_n_2', $cuti->sisa_cuti_n_2) }}">
+                </div>
+
+                <div class="form-group">
                     <label for="status_penilai">Status Penilai</label>
                     <select name="status_penilai" id="status_penilai" class="form-control">
                         <option value="">Pilih Status Penilai</option>

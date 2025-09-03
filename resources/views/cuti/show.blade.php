@@ -254,7 +254,7 @@
             <tr>
                 <td style="text-align: center; padding-left:355px" colspan="4" class="approver-info">
                     Kepala Cabang Dinas Pendidikan Wilayah I<br><br><br><br>
-                    Nama : {{ $cuti->penilai->nama ?? '-' }}<br>
+                    {{ $cuti->penilai->nama ?? '-' }}<br>
                     NIP. {{ $cuti->penilai->nip ?? '-' }}
                 </td>
             </tr>
@@ -278,7 +278,7 @@
             <tr>
                 <td style="text-align: center; padding-left:355px" colspan="4" class="approver-info">
                     Kepala cabang Wilayah 1 Dinas Pendidikan <br> Provinsi Kep. Bangka Belitung<br><br><br><br>
-                    Nama : {{ $cuti->kpa->nama ?? '-' }}<br>
+                    {{ $cuti->kpa->nama ?? '-' }}<br>
                     NIP. {{ $cuti->kpa->nip ?? '-' }}
                 </td>
             </tr>

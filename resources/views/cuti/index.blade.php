@@ -5,6 +5,13 @@
     <h1>Daftar Cuti</h1>
     <a href="{{ route('cuti.create') }}" class="btn btn-primary mb-3">Tambah Cuti</a>
 
+    <form action="{{ route('cuti.index') }}" method="GET" class="mb-3">
+        <div class="input-group">
+            <input type="text" name="search" class="form-control" placeholder="Cari berdasarkan nama pegawai..." value="{{ request('search') }}">
+            <button class="btn btn-outline-secondary" type="submit">Cari</button>
+        </div>
+    </form>
+
     @if(session('success'))
     <div class="alert alert-success">{{ session('success') }}</div>
     @endif
@@ -37,6 +44,9 @@
                 <td>
                     <a href="{{ route('cuti.show', $item->id) }}" class="btn btn-info btn-sm" title="Lihat">
                         <i class="bi bi-eye"></i>
+                    </a>
+                    <a href="{{ route('cuti.rekap_pegawai', $item->pegawais_id) }}" class="btn btn-secondary btn-sm" title="Rekap Cuti Pegawai">
+                        <i class="bi bi-file-pdf"></i>
                     </a>
                     <a href="{{ route('cuti.edit', $item->id) }}" class="btn btn-warning btn-sm" title="Edit">
                         <i class="bi bi-pencil"></i>

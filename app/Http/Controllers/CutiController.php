@@ -11,10 +11,19 @@ class CutiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $cuti = Cuti::all();
-        return view('cuti.index', compact('cuti'));
+        $search = $request->input('search');
+
+        $cuti = Cuti::with('pegawai')
+            ->when($search, function ($query, $search) {
+                return $query->whereHas('pegawai', function ($q) use ($search) {
+                    $q->where('nama', 'like', '%' . $search . '%');
+                });
+            })
+            ->get();
+
+        return view('cuti.index', compact('cuti', 'search'));
     }
 
     /**
@@ -91,6 +100,9 @@ class CutiController extends Controller
             'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
             'telepon' => 'required|string',
             'alamat_selama_cuti' => 'required|string',
+            'sisa_cuti_n' => 'nullable|integer',
+            'sisa_cuti_n_1' => 'nullable|integer',
+            'sisa_cuti_n_2' => 'nullable|integer',
         ]);
 
         $cuti->update($request->all());
@@ -106,5 +118,16 @@ class CutiController extends Controller
         $cuti->delete();
 
         return redirect()->route('cuti.index')->with('success', 'Cuti deleted successfully.');
+    }
+
+    public function rekapPegawai($pegawai_id)
+    {
+        $cuti = Cuti::where('pegawais_id', $pegawai_id)->with('pegawai')->get();
+        $cutiFirst = Cuti::where('pegawais_id', $pegawai_id)->with('pegawai')->first();
+        $pegawai = \App\Models\Pegawai::find($pegawai_id);
+        $penilai = \App\Models\Penilai::first();
+        $pdf = Pdf::loadView('cuti.rekap', compact('cuti', 'pegawai', 'penilai', 'cutiFirst'));
+        $pdf->setPaper('a4', 'landscape');
+        return $pdf->stream('rekap-cuti-' . optional($pegawai)->nama . '.pdf');
     }
 }

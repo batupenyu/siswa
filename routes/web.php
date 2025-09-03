@@ -92,6 +92,7 @@ Route::resource('bp', BpController::class);
 Route::resource('bends', BendController::class);
 
 Route::resource('cuti', \App\Http\Controllers\CutiController::class);
+Route::get('cuti/rekap/{pegawai_id}', [\App\Http\Controllers\CutiController::class, 'rekapPegawai'])->name('cuti.rekap_pegawai');
 
 Route::resource('mutasi', MutasiController::class);
 Route::get('mutasi/{mutasi}/pdf', [MutasiController::class, 'viewPdf'])->name('mutasi.pdf');

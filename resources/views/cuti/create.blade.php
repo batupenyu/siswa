@@ -62,6 +62,21 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="sisa_cuti_n">Sisa Cuti Tahun n</label>
+                    <input type="number" name="sisa_cuti_n" id="sisa_cuti_n" class="form-control" value="{{ old('sisa_cuti_n') }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="sisa_cuti_n_1">Sisa Cuti Tahun n-1</label>
+                    <input type="number" name="sisa_cuti_n_1" id="sisa_cuti_n_1" class="form-control" value="{{ old('sisa_cuti_n_1') }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="sisa_cuti_n_2">Sisa Cuti Tahun n-2</label>
+                    <input type="number" name="sisa_cuti_n_2" id="sisa_cuti_n_2" class="form-control" value="{{ old('sisa_cuti_n_2') }}">
+                </div>
+
+                <div class="form-group">
                     <label for="status_penilai">Status Penilai</label>
                     <select name="status_penilai" id="status_penilai" class="form-control">
                         <option value="">Pilih Status Penilai</option>
@@ -71,6 +86,9 @@
                         <option value="tidak_disetujui" {{ old('status_penilai') == 'tidak_disetujui' ? 'selected' : '' }}>Tidak Disetujui</option>
                     </select>
                 </div>
+            </div>
+
+            <div class="col-md-6">
                 <div class="form-group">
                     <label for="status_kpa">Status KPA</label>
                     <select name="status_kpa" id="status_kpa" class="form-control">
@@ -81,9 +99,6 @@
                         <option value="tidak_disetujui" {{ old('status_kpa') == 'tidak_disetujui' ? 'selected' : '' }}>Tidak Disetujui</option>
                     </select>
                 </div>
-            </div>
-
-            <div class="col-md-6">
 
                 <div class="form-group">
                     <label for="alasan">Alasan</label>
@@ -117,8 +132,8 @@
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary">Simpan</button>
-        <a href="{{ route('cuti.index') }}" class="btn btn-secondary">Batal</a>
+        <button type="submit" class="btn btn-primary mt-3">Simpan</button>
+        <a href="{{ route('cuti.index') }}" class="btn btn-secondary mt-3">Batal</a>
     </form>
 </div>
 @endsection
