@@ -88,6 +88,9 @@
                         <option value="tidak_disetujui" {{ old('status_penilai', $cuti->status_penilai) == 'tidak_disetujui' ? 'selected' : '' }}>Tidak Disetujui</option>
                     </select>
                 </div>
+            </div>
+
+            <div class="col-md-6">
                 <div class="form-group">
                     <label for="status_kpa">Status KPA</label>
                     <select name="status_kpa" id="status_kpa" class="form-control">
@@ -98,9 +101,6 @@
                         <option value="tidak_disetujui" {{ old('status_kpa', $cuti->status_kpa) == 'tidak_disetujui' ? 'selected' : '' }}>Tidak Disetujui</option>
                     </select>
                 </div>
-            </div>
-
-            <div class="col-md-6">
 
                 <div class="form-group">
                     <label for="alasan">Alasan</label>
@@ -134,8 +134,8 @@
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary">Update</button>
-        <a href="{{ route('cuti.index') }}" class="btn btn-secondary">Batal</a>
+        <button type="submit" class="btn btn-primary mt-3">Update</button>
+        <a href="{{ route('cuti.index') }}" class="btn btn-secondary mt-3">Batal</a>
     </form>
 </div>
 @endsection

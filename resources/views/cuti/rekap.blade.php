@@ -7,6 +7,7 @@
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
+            font-size: 10pt;
         }
 
         .container {
@@ -37,7 +38,7 @@
         }
 
         .info-pegawai table td {
-            padding: 2px 0;
+            padding: 0px 0;
         }
 
         table.data-cuti {
@@ -49,7 +50,7 @@
         table.data-cuti th,
         table.data-cuti td {
             border: 1px solid black;
-            padding: 8px;
+            padding: 2px;
             text-align: center;
             vertical-align: middle;
         }
@@ -112,7 +113,45 @@
                 </tr>
                 <tr>
                     <td>Pangkat / Gol</td>
-                    <td>: {{ $pegawai->pangkat ?? '' }}</td>
+                    <?php
+                    $case = ($pegawai->pangkat); // Replace with your actual variable
+                    $title = '';
+
+                    switch ($case) {
+                        case 'III/a':
+                            $title = 'Penata Muda';
+                            break;
+                        case 'III/b':
+                            $title = 'Penata Muda Tingkat I';
+                            break;
+                        case 'III/c':
+                            $title = 'Penata';
+                            break;
+                        case 'III/d':
+                            $title = 'Penata Tingkat I';
+                            break;
+                        case 'IV/a':
+                            $title = 'Pembina';
+                            break;
+                        case 'IV/b':
+                            $title = 'Pembina Tingkat I';
+                            break;
+                        case 'IV/c':
+                            $title = 'Pembina Utama Muda';
+                            break;
+                        case 'IV/d':
+                            $title = 'Pembina Utama Madya';
+                            break;
+                        case 'IV/e':
+                            $title = 'Pembina Utama';
+                            break;
+                        default:
+                            $title = 'Penata Muda';
+                    }
+
+                    echo $title;
+                    ?>
+                    <td>: {{ $title }}, {{ $pegawai->pangkat ?? '' }}</td>
                 </tr>
                 <tr>
                     <td>Jabatan</td>
@@ -146,15 +185,28 @@
                 </tr>
             </thead>
             <tbody>
-                @php
-                $sisa = $cutiFirst->sisa_cuti_n;
-                @endphp
-                <td></td>
-                <td colspan="6"><i><b>{{ date('Y') }}</b></i></td>
-                <td colspan="3">{{ $sisa }}</td>
+                <!-- Baris untuk menampilkan sisa cuti di tahun berjalan -->
+                <tr class="current-year">
+                    <td></td>
+                    <td colspan="6"><i><b>{{ date('Y') }}</b></i></td>
+                    <td colspan="3" class="sisa-cuti">{{ $cutiFirst->sisa_cuti_n ?? 0 }} </td>
                 </tr>
 
+                <!-- Inisialisasi variabel sisa cuti -->
+                @php
+                $sisa = $cutiFirst->sisa_cuti_n ?? 0;
+                $currentYear = date('Y');
+                @endphp
+
+                <!-- Loop data cuti -->
                 @foreach($cuti as $item)
+                @php
+                $sisa_sebelumnya = $sisa;
+                $lama = $item->lama_cuti;
+                $sisa -= $lama;
+                $hasil = $sisa;
+                @endphp
+
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td></td>
@@ -162,17 +214,14 @@
                     <td>{{ \Carbon\Carbon::parse($item->tanggal_mulai)->translatedFormat('d-m-Y') }}</td>
                     <td>{{ \Carbon\Carbon::parse($item->tanggal_selesai)->translatedFormat('d-m-Y') }}</td>
                     <td>{{ $item->jenis_cuti }}</td>
-                    @php
-                    $sisa_sebelumnya = $sisa;
-                    $sisa -= $item->lama_cuti;
-                    @endphp
-                    <!-- <td>{{ $sisa_sebelumnya }}</td> -->
                     <td></td>
-                    <td>{{ $sisa }}</td>
-                    <td>{{ $item->lama_cuti }}</td>
-                    <td>{{ $sisa }}</td>
+                    <td>{{ $sisa_sebelumnya }} </td>
+                    <td class="{{ $sisa < 0 ? 'negative-balance' : '' }}">{{ $lama }} </td>
+                    <td>{{ $sisa }} </td>
+
                 </tr>
                 @endforeach
+
             </tbody>
         </table>
 
@@ -186,6 +235,7 @@
             <div class="right" style="text-align: center;">
                 <p>Kepala {{$penilai->unitkerja}}</p>
                 <!-- <div class="signature-line"></div> -->
+                <br>
                 <br>
                 <br>
                 <p>
