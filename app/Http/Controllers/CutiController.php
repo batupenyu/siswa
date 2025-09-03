@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cuti;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Helpers\DateHelper;
 
 class CutiController extends Controller
 {
@@ -50,14 +51,16 @@ class CutiController extends Controller
             'status_penilai' => 'nullable|in:disetujui,perubahan,ditangguhkan,tidak_disetujui',
             'status_kpa' => 'nullable|in:disetujui,perubahan,ditangguhkan,tidak_disetujui',
             'alasan' => 'required|string',
-            'lama_cuti' => 'required|integer',
             'tanggal_mulai' => 'required|date',
             'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
             'telepon' => 'required|string',
             'alamat_selama_cuti' => 'required|string',
         ]);
 
-        Cuti::create($request->all());
+        $data = $request->all();
+        $data['lama_cuti'] = DateHelper::calculateWorkingDays($request->tanggal_mulai, $request->tanggal_selesai);
+
+        Cuti::create($data);
 
         return redirect()->route('cuti.index')->with('success', 'Cuti created successfully.');
     }
@@ -95,7 +98,6 @@ class CutiController extends Controller
             'status_penilai' => 'nullable|in:disetujui,perubahan,ditangguhkan,tidak_disetujui',
             'status_kpa' => 'nullable|in:disetujui,perubahan,ditangguhkan,tidak_disetujui',
             'alasan' => 'required|string',
-            'lama_cuti' => 'required|integer',
             'tanggal_mulai' => 'required|date',
             'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
             'telepon' => 'required|string',
@@ -105,7 +107,10 @@ class CutiController extends Controller
             'sisa_cuti_n_2' => 'nullable|integer',
         ]);
 
-        $cuti->update($request->all());
+        $data = $request->all();
+        $data['lama_cuti'] = DateHelper::calculateWorkingDays($request->tanggal_mulai, $request->tanggal_selesai);
+
+        $cuti->update($data);
 
         return redirect()->route('cuti.index')->with('success', 'Cuti updated successfully.');
     }
@@ -126,6 +131,13 @@ class CutiController extends Controller
         $cutiFirst = Cuti::where('pegawais_id', $pegawai_id)->with('pegawai')->first();
         $pegawai = \App\Models\Pegawai::find($pegawai_id);
         $penilai = \App\Models\Penilai::first();
+
+        // Calculate working days for each cuti record
+        $cuti->transform(function ($item) {
+            $item->lama_cuti_working = DateHelper::calculateWorkingDays($item->tanggal_mulai, $item->tanggal_selesai);
+            return $item;
+        });
+
         $pdf = Pdf::loadView('cuti.rekap', compact('cuti', 'pegawai', 'penilai', 'cutiFirst'));
         $pdf->setPaper('a4', 'landscape');
         return $pdf->stream('rekap-cuti-' . optional($pegawai)->nama . '.pdf');

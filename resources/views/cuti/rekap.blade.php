@@ -202,7 +202,7 @@
                 @foreach($cuti as $item)
                 @php
                 $sisa_sebelumnya = $sisa;
-                $lama = \Carbon\Carbon::parse($item->tanggal_mulai)->diffInDays(\Carbon\Carbon::parse($item->tanggal_selesai)) + 1;
+                $lama = $item->lama_cuti_working;
                 $sisa -= $lama;
                 $hasil = $sisa;
                 @endphp
