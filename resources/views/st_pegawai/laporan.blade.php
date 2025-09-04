@@ -240,31 +240,34 @@
         </div>
 
         <table class="table table-borderless">
+            <!-- <table border="1"> -->
             <tr>
                 <th style="width: 30px;">I. </th>
-                <th>Dasar Pelaksanaan</th>
+                <th colspan="3">Dasar Pelaksanaan</th>
             </tr>
             <tr>
                 <td></td>
-                <td style=" text-align: justify;" colspan="2">{{$stPegawaiItem->dasar_surat ?? '-'}}.</td>
+                <td style=" text-align: justify;" colspan="3">{{$stPegawaiItem->dasar_surat ?? '-'}}.</td>
             </tr>
             <tr>
                 <th>II. </th>
-                <th>Maksud dan Tujuan</th>
+                <th colspan="3">Maksud dan Tujuan</th>
             </tr>
             <tr>
                 <td></td>
-                <td colspan="2" style=" text-align: justify;">{{$stPegawaiItem->maksud_tujuan ?? '-'}}.</td>
+                <td colspan="3" style=" text-align: justify;">{{$stPegawaiItem->maksud_tujuan ?? '-'}}.</td>
             </tr>
             <tr>
                 <th>III. </th>
-                <th>Waktu dan Tempat</th>
+                <th colspan="3">Waktu dan Tempat</th>
             </tr>
             <tr>
                 <td></td>
-                <td colspan="2" style="text-align: justify;">
-                    <!-- Melaksanakan {{ $stPegawaiItem->nama_kegiatan }} yang akan dilaksanakan pada : <br> -->
-                    Hari/Tanggal <span style="padding-left: 30px">:</span>
+                <td style="width: 100px;">
+                    Hari/Tanggal
+                </td>
+                <td style="width: 20px;">:</td>
+                <td>
                     {{-- {{Carbon\Carbon::parse($stPegawaiItem->tgl_awal)->translatedFormat('d-m-Y') }} --}}
                     @if ($stPegawaiItem->tgl_awal != $stPegawaiItem->tgl_akhir)
                     {{ Carbon\carbon::parse($stPegawaiItem->tgl_awal)->translatedFormat('l') }} - {{
@@ -275,42 +278,50 @@
                     {{ Carbon\carbon::parse($stPegawaiItem->tgl_awal)->translatedFormat('l') }}/
                     {{Carbon\carbon::parse($stPegawaiItem->tgl_akhir)->translatedFormat('d-m-Y') }}
                     @endif
-                    <br>
-                    Pukul <span style="padding-left: 82px">:</span>
-                    {{ Carbon\Carbon::parse($stPegawaiItem->jam_kegiatan)->format('H:i')}} WIB s.d Selesai
-                    <br>
-                    Tempat <span style="padding-left: 68px">:</span>
-                    {{ $stPegawaiItem->tempat_kegiatan }}
+                </td>
+            </tr>
 
+            <tr>
+                <td></td>
+                <td style="width: 100px;">Tempat </td>
+                <td>:</td>
+                <td style="text-align: justify;">{{ $stPegawaiItem->tempat_kegiatan }}
                 </td>
             </tr>
             <tr>
+                <td></td>
+                <td style="width: 100px;">Pukul</td>
+                <td>:</td>
+                <td style="text-align: justify;">{{ Carbon\Carbon::parse($stPegawaiItem->jam_kegiatan)->format('H:i')}} WIB s.d Selesai</td>
+            </tr>
+
+            <tr>
                 <th>IV. </th>
-                <th>Materi dan Narasumber (apabila ada)</th>
+                <th colspan="3">Materi dan Narasumber (apabila ada)</th>
             </tr>
             <tr>
                 <td></td>
-                <td colspan="2" style="text-align: justify;">
+                <td colspan="3" style="text-align: justify;">
                     {{$stPegawaiItem->materi_narsum ?? '-'}}
                 </td>
             </tr>
             <tr>
                 <th>V. </th>
-                <th>Hasil yang diperoleh</th>
+                <th colspan="3">Hasil yang diperoleh</th>
             </tr>
             <tr>
                 <td></td>
-                <td colspan="2" style="text-align: justify;">
+                <td colspan="3" style="text-align: justify;">
                     {{$stPegawaiItem->hasil ?? '-'}}
                 </td>
             </tr>
             <tr>
                 <th>VI. </th>
-                <th>Kesimpulan dan saran</th>
+                <th colspan="3">Kesimpulan dan saran</th>
             </tr>
             <tr>
                 <td></td>
-                <td colspan="2" style="text-align: justify;">
+                <td colspan="3" style="text-align: justify;">
                     {{$stPegawaiItem->kesimpulan ?? '-'}}
                 </td>
             </tr>
