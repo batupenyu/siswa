@@ -88,11 +88,6 @@
             min-width: 200px;
             margin-top: 30px;
         }
-
-        .negative-balance {
-            color: red;
-            font-weight: bold;
-        }
     </style>
 </head>
 
@@ -190,127 +185,41 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Tahun Berjalan (N) -->
-                <tr style="background-color: #a1a6a8ff;" class="current-year">
+                <!-- Baris untuk menampilkan sisa cuti di tahun berjalan -->
+                <tr class="current-year">
                     <td></td>
                     <td colspan="6"><i><b>{{ date('Y') }}</b></i></td>
-                    <td colspan="3" class="sisa-cuti">Sisa {{ $cutiFirst->sisa_cuti_n ?? 0 }} hari </td>
+                    <td colspan="3" class="sisa-cuti">{{ $cutiFirst->sisa_cuti_n ?? 0 }} </td>
                 </tr>
 
+                <!-- Inisialisasi variabel sisa cuti -->
                 @php
-                $sisa_n = $cutiFirst->sisa_cuti_n ?? 0;
+                $sisa = $cutiFirst->sisa_cuti_n ?? 0;
                 $currentYear = date('Y');
-                $counter_n = 1;
                 @endphp
 
+                <!-- Loop data cuti -->
                 @foreach($cuti as $item)
                 @php
-                $tahunCuti = date('Y', strtotime($item->tanggal_mulai));
-                @endphp
-
-                @if($tahunCuti == $currentYear)
-                @php
-                $sisa_sebelumnya = $sisa_n;
+                $sisa_sebelumnya = $sisa;
                 $lama = $item->lama_cuti_working;
-                $sisa_n -= $lama;
-                $hasil = $sisa_n;
+                $sisa -= $lama;
+                $hasil = $sisa;
                 @endphp
 
                 <tr>
-                    <td>{{ $counter_n++ }}</td>
-                    <td>{{ $item->no_surat ?? '' }}</td>
-                    <td>{{ $item->tgl_surat ? \Carbon\Carbon::parse($item->tgl_surat)->translatedFormat('d-m-Y') : '' }}</td>
+                    <td>{{ $loop->iteration }}</td>
+                    <td></td>
+                    <td></td>
                     <td>{{ \Carbon\Carbon::parse($item->tanggal_mulai)->translatedFormat('d-m-Y') }}</td>
                     <td>{{ \Carbon\Carbon::parse($item->tanggal_selesai)->translatedFormat('d-m-Y') }}</td>
                     <td>{{ $item->jenis_cuti }}</td>
                     <td></td>
                     <td>{{ $sisa_sebelumnya }} </td>
-                    <td class="{{ $sisa_n < 0 ? 'negative-balance' : '' }}">{{ $lama }} </td>
-                    <td>{{ $sisa_n }} </td>
+                    <td class="{{ $sisa < 0 ? 'negative-balance' : '' }}">{{ $lama }} </td>
+                    <td>{{ $sisa }} </td>
+
                 </tr>
-                @endif
-                @endforeach
-
-                <!-- Tahun Sebelumnya (N-1) -->
-                <tr style="background-color: #a1a6a8ff;" class="current-year">
-                    <td></td>
-                    <td colspan="6"><i><b>{{ date('Y') - 1 }}</b></i></td>
-                    <td colspan="3" class="sisa-cuti">Sisa {{ $cutiFirst->sisa_cuti_n_1 ?? 0 }} hari </td>
-                </tr>
-
-                @php
-                $sisa_n1 = $cutiFirst->sisa_cuti_n_1 ?? 0;
-                $prevYear = date('Y') - 1;
-                $counter_n1 = 1;
-                @endphp
-
-                @foreach($cuti as $item)
-                @php
-                $tahunCuti = date('Y', strtotime($item->tanggal_mulai));
-                @endphp
-
-                @if($tahunCuti == $prevYear)
-                @php
-                $sisa_sebelumnya = $sisa_n1;
-                $lama = $item->lama_cuti_working;
-                $sisa_n1 -= $lama;
-                $hasil = $sisa_n1;
-                @endphp
-
-                <tr>
-                    <td>{{ $counter_n1++ }}</td>
-                    <td>{{ $item->no_surat ?? '' }}</td>
-                    <td>{{ $item->tgl_surat ? \Carbon\Carbon::parse($item->tgl_surat)->translatedFormat('d-m-Y') : '' }}</td>
-                    <td>{{ \Carbon\Carbon::parse($item->tanggal_mulai)->translatedFormat('d-m-Y') }}</td>
-                    <td>{{ \Carbon\Carbon::parse($item->tanggal_selesai)->translatedFormat('d-m-Y') }}</td>
-                    <td>{{ $item->jenis_cuti }}</td>
-                    <td></td>
-                    <td>{{ $sisa_sebelumnya }} </td>
-                    <td class="{{ $sisa_n1 < 0 ? 'negative-balance' : '' }}">{{ $lama }} </td>
-                    <td>{{ $sisa_n1 }} </td>
-                </tr>
-                @endif
-                @endforeach
-
-                <!-- Dua Tahun Sebelumnya (N-2) -->
-                <tr style="background-color:  #a1a6a8ff;" class="current-year">
-                    <td></td>
-                    <td colspan="6"><i><b>{{ date('Y') - 2 }}</b></i></td>
-                    <td colspan="3" class="sisa-cuti">Sisa {{ $cutiFirst->sisa_cuti_n_2 ?? 0 }} hari </td>
-                </tr>
-
-                @php
-                $sisa_n2 = $cutiFirst->sisa_cuti_n_2 ?? 0;
-                $twoYearsAgo = date('Y') - 2;
-                $counter_n2 = 1;
-                @endphp
-
-                @foreach($cuti as $item)
-                @php
-                $tahunCuti = date('Y', strtotime($item->tanggal_mulai));
-                @endphp
-
-                @if($tahunCuti == $twoYearsAgo)
-                @php
-                $sisa_sebelumnya = $sisa_n2;
-                $lama = $item->lama_cuti_working;
-                $sisa_n2 -= $lama;
-                $hasil = $sisa_n2;
-                @endphp
-
-                <tr>
-                    <td>{{ $counter_n2++ }}</td>
-                    <td>{{ $item->no_surat ?? '' }}</td>
-                    <td>{{ $item->tgl_surat ? \Carbon\Carbon::parse($item->tgl_surat)->translatedFormat('d-m-Y') : '' }}</td>
-                    <td>{{ \Carbon\Carbon::parse($item->tanggal_mulai)->translatedFormat('d-m-Y') }}</td>
-                    <td>{{ \Carbon\Carbon::parse($item->tanggal_selesai)->translatedFormat('d-m-Y') }}</td>
-                    <td>{{ $item->jenis_cuti }}</td>
-                    <td></td>
-                    <td>{{ $sisa_sebelumnya }} </td>
-                    <td class="{{ $sisa_n2 < 0 ? 'negative-balance' : '' }}">{{ $lama }} </td>
-                    <td>{{ $sisa_n2 }} </td>
-                </tr>
-                @endif
                 @endforeach
 
             </tbody>
