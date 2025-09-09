@@ -59,6 +59,11 @@ class Pegawai extends Model
         return $this->hasMany(Spmt::class);
     }
 
+    public function sisaCuti()
+    {
+        return $this->hasOne(SisaCuti::class, 'pegawais_id');
+    }
+
     public function getMasaKerjaAttribute()
     {
         if (!$this->tgl_tmt_cpns) {

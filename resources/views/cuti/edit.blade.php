@@ -30,7 +30,7 @@
                     </select>
                 </div>
 
-                
+
 
                 <div class="form-group">
                     <label for="jenis_cuti">Jenis Cuti</label>
@@ -45,20 +45,27 @@
                     </select>
                 </div>
 
-                <div class="form-group">
-                    <label for="sisa_cuti_n">Sisa Cuti Tahun n</label>
-                    <input type="number" name="sisa_cuti_n" id="sisa_cuti_n" class="form-control" value="{{ old('sisa_cuti_n', $cuti->sisa_cuti_n) }}">
+                <!-- Removed sisa_cuti fields -->
+                <!-- <div class="form-group row">
+                    <label for="sisa_cuti_n" class="col-md-4 col-form-label">Sisa Cuti Tahun n</label>
+                    <div class="col-md-8">
+                        <input type="number" name="sisa_cuti_n" id="sisa_cuti_n" class="form-control" value="{{ old('sisa_cuti_n', $cuti->sisa_cuti_n) }}" readonly>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="sisa_cuti_n_1">Sisa Cuti Tahun n-1</label>
-                    <input type="number" name="sisa_cuti_n_1" id="sisa_cuti_n_1" class="form-control" value="{{ old('sisa_cuti_n_1', $cuti->sisa_cuti_n_1) }}">
+                <div class="form-group row">
+                    <label for="sisa_cuti_n_1" class="col-md-4 col-form-label">Sisa Cuti Tahun n-1</label>
+                    <div class="col-md-8">
+                        <input type="number" name="sisa_cuti_n_1" id="sisa_cuti_n_1" class="form-control" value="{{ old('sisa_cuti_n_1', $cuti->sisa_cuti_n_1) }}" readonly>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="sisa_cuti_n_2">Sisa Cuti Tahun n-2</label>
-                    <input type="number" name="sisa_cuti_n_2" id="sisa_cuti_n_2" class="form-control" value="{{ old('sisa_cuti_n_2', $cuti->sisa_cuti_n_2) }}">
-                </div>
+                <div class="form-group row">
+                    <label for="sisa_cuti_n_2" class="col-md-4 col-form-label">Sisa Cuti Tahun n-2</label>
+                    <div class="col-md-8">
+                        <input type="number" name="sisa_cuti_n_2" id="sisa_cuti_n_2" class="form-control" value="{{ old('sisa_cuti_n_2', $cuti->sisa_cuti_n_2) }}" readonly>
+                    </div>
+                </div> -->
 
                 <div class="form-group">
                     <label for="status_penilai">Status Penilai</label>

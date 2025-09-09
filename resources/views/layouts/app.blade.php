@@ -106,6 +106,7 @@
                         <a href="{{ route('bends.index') }}" class="nav-link"><i class="bi bi-list-check"></i> Bend</a>
                         <a href="{{ route('ipps.index') }}" class="nav-link"><i class="bi bi-list-check"></i> Donasi</a>
                         <a href="{{ route('cuti.index') }}" class="nav-link"><i class="bi bi-calendar-check"></i> Cuti</a>
+                        <a href="{{ route('sisa_cuti.index') }}" class="nav-link"><i class="bi bi-calendar-check"></i> Sisa Cuti</a>
                         <a href="{{ route('spmts.index') }}" class="nav-link"><i class="bi bi-file-earmark-text"></i> SPMT</a>
                     </div>
                 </div>

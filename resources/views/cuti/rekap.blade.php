@@ -194,11 +194,11 @@
                 <tr style="background-color: #a1a6a8ff;" class="current-year">
                     <td></td>
                     <td colspan="6"><i><b>{{ date('Y') }}</b></i></td>
-                    <td colspan="3" class="sisa-cuti">Sisa {{ $cutiFirst->sisa_cuti_n ?? 0 }} hari </td>
+                    <td colspan="3" class="sisa-cuti">Sisa {{ $cutiFirst->sisaCuti->sisa_tahun_n ?? 0 }} hari </td>
                 </tr>
 
                 @php
-                $sisa_n = $cutiFirst->sisa_cuti_n ?? 0;
+                $sisa_n = $cutiFirst->sisaCuti->sisa_tahun_n ?? 0;
                 $currentYear = date('Y');
                 $counter_n = 1;
                 @endphp
@@ -235,11 +235,11 @@
                 <tr style="background-color: #a1a6a8ff;" class="current-year">
                     <td></td>
                     <td colspan="6"><i><b>{{ date('Y') - 1 }}</b></i></td>
-                    <td colspan="3" class="sisa-cuti">Sisa {{ $cutiFirst->sisa_cuti_n_1 ?? 0 }} hari </td>
+                    <td colspan="3" class="sisa-cuti">Sisa {{ $cutiFirst->sisaCuti->sisa_tahun_n_1 ?? 0 }} hari </td>
                 </tr>
 
                 @php
-                $sisa_n1 = $cutiFirst->sisa_cuti_n_1 ?? 0;
+                $sisa_n1 = $cutiFirst->sisaCuti->sisa_tahun_n_1 ?? 0;
                 $prevYear = date('Y') - 1;
                 $counter_n1 = 1;
                 @endphp
@@ -276,11 +276,11 @@
                 <tr style="background-color:  #a1a6a8ff;" class="current-year">
                     <td></td>
                     <td colspan="6"><i><b>{{ date('Y') - 2 }}</b></i></td>
-                    <td colspan="3" class="sisa-cuti">Sisa {{ $cutiFirst->sisa_cuti_n_2 ?? 0 }} hari </td>
+                    <td colspan="3" class="sisa-cuti">Sisa {{ $cutiFirst->sisaCuti->sisa_tahun_n_2 ?? 0 }} hari </td>
                 </tr>
 
                 @php
-                $sisa_n2 = $cutiFirst->sisa_cuti_n_2 ?? 0;
+                $sisa_n2 = $cutiFirst->sisaCuti->sisa_tahun_n_2 ?? 0;
                 $twoYearsAgo = date('Y') - 2;
                 $counter_n2 = 1;
                 @endphp

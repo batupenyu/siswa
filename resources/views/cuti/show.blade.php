@@ -190,21 +190,21 @@
         </tr>
         <tr>
             <td>N-2</td>
-            <td></td>
+            <td>{{ $cuti->sisaCuti->sisa_tahun_n_2 ?? 0 }}</td>
             <td>Sisa:</td>
             <td>4. CUTI MELAHIRKAN</td>
             <td>{{ $cuti->jenis_cuti == 'melahirkan' ? 'Ya' : '-' }}</td>
         </tr>
         <tr>
             <td>N-1</td>
-            <td></td>
+            <td>{{ $cuti->sisaCuti->sisa_tahun_n_1 ?? 0 }}</td>
             <td>Sisa:</td>
             <td>5. CUTI KARENA ALASAN PENTING</td>
             <td>{{ $cuti->jenis_cuti == 'alasan_penting' ? 'Ya' : '-' }}</td>
         </tr>
         <tr>
             <td>N</td>
-            <td></td>
+            <td>{{ $cuti->sisaCuti->sisa_tahun_n ?? 0 }}</td>
             <td>Sisa:</td>
             <td>6. CUTI DILUAR TANGGUNGAN NEGARA</td>
             <td>{{ $cuti->jenis_cuti == 'luar_tanggungan' ? 'Ya' : '-' }}</td>

@@ -22,6 +22,10 @@
                 <th>ID</th>
                 <th>Pegawai</th>
                 <th>Jenis Cuti</th>
+                <!-- Removed Sisa Cuti N columns -->
+                <!-- <th>Sisa Cuti N</th>
+            <th>Sisa Cuti N-1</th>
+            <th>Sisa Cuti N-2</th> -->
                 <th>Status Penilai</th>
                 <th>Status KPA</th>
                 <th>Lama Cuti</th>
@@ -36,6 +40,10 @@
                 <td>{{ $item->id }}</td>
                 <td>{{ $item->pegawai->nama ?? 'N/A' }}</td>
                 <td>{{ $item->jenis_cuti }}</td>
+                <!-- Removed sisa_cuti_n data -->
+                <!-- <td>{{ $item->sisa_cuti_n ?? '-' }}</td>
+                <td>{{ $item->sisa_cuti_n_1 ?? '-' }}</td>
+                <td>{{ $item->sisa_cuti_n_2 ?? '-' }}</td> -->
                 <td>{{ $item->status_penilai ?? '-' }}</td>
                 <td>{{ $item->status_kpa ?? '-' }}</td>
                 <td>{{ $item->lama_cuti }}</td>

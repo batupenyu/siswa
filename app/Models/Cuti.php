@@ -22,13 +22,15 @@ class Cuti extends Model
         'tanggal_selesai',
         'telepon',
         'alamat_selama_cuti',
-        'sisa_cuti_n',
-        'sisa_cuti_n_1',
-        'sisa_cuti_n_2',
     ];
 
     public function pegawai()
     {
         return $this->belongsTo(Pegawai::class, 'pegawais_id');
+    }
+
+    public function sisaCuti()
+    {
+        return $this->belongsTo(SisaCuti::class, 'pegawais_id', 'pegawais_id');
     }
 }

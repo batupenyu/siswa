@@ -16,7 +16,7 @@ class CutiController extends Controller
     {
         $search = $request->input('search');
 
-        $cuti = Cuti::with('pegawai')
+        $cuti = Cuti::with('pegawai.sisaCuti', 'sisaCuti')
             ->when($search, function ($query, $search) {
                 return $query->whereHas('pegawai', function ($q) use ($search) {
                     $q->where('nama', 'like', '%' . $search . '%');
@@ -51,6 +51,9 @@ class CutiController extends Controller
             'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
             'telepon' => 'required|string',
             'alamat_selama_cuti' => 'required|string',
+            'sisa_cuti_n' => 'nullable|integer',
+            'sisa_cuti_n_1' => 'nullable|integer',
+            'sisa_cuti_n_2' => 'nullable|integer',
         ]);
 
         $data = $request->all();
@@ -66,6 +69,7 @@ class CutiController extends Controller
      */
     public function show(Cuti $cuti)
     {
+        $cuti->load('sisaCuti');
         $pdf = Pdf::loadView('cuti.show', compact('cuti'));
         return $pdf->stream('cuti.pdf');
     }
@@ -119,8 +123,8 @@ class CutiController extends Controller
 
     public function rekapPegawai($pegawai_id)
     {
-        $cuti = Cuti::where('pegawais_id', $pegawai_id)->with('pegawai')->get();
-        $cutiFirst = Cuti::where('pegawais_id', $pegawai_id)->with('pegawai')->first();
+        $cuti = Cuti::where('pegawais_id', $pegawai_id)->with('pegawai', 'sisaCuti')->get();
+        $cutiFirst = Cuti::where('pegawais_id', $pegawai_id)->with('pegawai', 'sisaCuti')->first();
         $pegawai = \App\Models\Pegawai::find($pegawai_id);
 
         // Calculate working days for each cuti record

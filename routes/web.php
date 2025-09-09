@@ -202,3 +202,5 @@ Route::get('/anak/{id}/pdf', [AnakController::class, 'pdf'])->name('anak.pdf');
 Route::get('/anak/{id}/edit', [AnakController::class, 'viewEdit'])->name('anak.edit');
 Route::put('/anak/{id}', [AnakController::class, 'updateWeb'])->name('anak.updateWeb');
 Route::resource('spmts', SpmtController::class);
+
+Route::resource('sisa_cuti', \App\Http\Controllers\SisaCutiController::class);
