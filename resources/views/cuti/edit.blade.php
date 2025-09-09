@@ -30,25 +30,7 @@
                     </select>
                 </div>
 
-                <div class="form-group">
-                    <label for="penilai_id">Penilai</label>
-                    <select name="penilai_id" id="penilai_id" class="form-control" required>
-                        <option value="">Pilih Penilai</option>
-                        @foreach($penilais as $penilai)
-                        <option value="{{ $penilai->id }}" {{ old('penilai_id', $cuti->penilai_id) == $penilai->id ? 'selected' : '' }}>{{ $penilai->nama }}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="kpa_id">KPA</label>
-                    <select name="kpa_id" id="kpa_id" class="form-control" required>
-                        <option value="">Pilih KPA</option>
-                        @foreach($kpas as $kpa)
-                        <option value="{{ $kpa->id }}" {{ old('kpa_id', $cuti->kpa_id) == $kpa->id ? 'selected' : '' }}>{{ $kpa->nama }}</option>
-                        @endforeach
-                    </select>
-                </div>
+                
 
                 <div class="form-group">
                     <label for="jenis_cuti">Jenis Cuti</label>

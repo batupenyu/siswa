@@ -13,8 +13,6 @@ class Cuti extends Model
 
     protected $fillable = [
         'pegawais_id',
-        'penilai_id',
-        'kpa_id',
         'jenis_cuti',
         'status_penilai',
         'status_kpa',
@@ -32,15 +30,5 @@ class Cuti extends Model
     public function pegawai()
     {
         return $this->belongsTo(Pegawai::class, 'pegawais_id');
-    }
-
-    public function penilai()
-    {
-        return $this->belongsTo(Penilai::class, 'penilai_id');
-    }
-
-    public function kpa()
-    {
-        return $this->belongsTo(Kpa::class, 'kpa_id');
     }
 }

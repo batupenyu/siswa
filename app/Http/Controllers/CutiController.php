@@ -33,9 +33,7 @@ class CutiController extends Controller
     public function create()
     {
         $pegawais = \App\Models\Pegawai::all();
-        $penilais = \App\Models\Penilai::all();
-        $kpas = \App\Models\Kpa::all();
-        return view('cuti.create', compact('pegawais', 'penilais', 'kpas'));
+        return view('cuti.create', compact('pegawais'));
     }
 
     /**
@@ -45,8 +43,6 @@ class CutiController extends Controller
     {
         $request->validate([
             'pegawais_id' => 'required|exists:pegawais,id',
-            'penilai_id' => 'required|exists:penilai,id',
-            'kpa_id' => 'required|exists:kpa,id',
             'jenis_cuti' => 'required|in:tahunan,besar,sakit,melahirkan,alasan_penting,luar_tanggungan',
             'status_penilai' => 'nullable|in:disetujui,perubahan,ditangguhkan,tidak_disetujui',
             'status_kpa' => 'nullable|in:disetujui,perubahan,ditangguhkan,tidak_disetujui',
@@ -80,9 +76,7 @@ class CutiController extends Controller
     public function edit(Cuti $cuti)
     {
         $pegawais = \App\Models\Pegawai::all();
-        $penilais = \App\Models\Penilai::all();
-        $kpas = \App\Models\Kpa::all();
-        return view('cuti.edit', compact('cuti', 'pegawais', 'penilais', 'kpas'));
+        return view('cuti.edit', compact('cuti', 'pegawais'));
     }
 
     /**
@@ -92,8 +86,6 @@ class CutiController extends Controller
     {
         $request->validate([
             'pegawais_id' => 'required|exists:pegawais,id',
-            'penilai_id' => 'required|exists:penilai,id',
-            'kpa_id' => 'required|exists:kpa,id',
             'jenis_cuti' => 'required|in:tahunan,besar,sakit,melahirkan,alasan_penting,luar_tanggungan',
             'status_penilai' => 'nullable|in:disetujui,perubahan,ditangguhkan,tidak_disetujui',
             'status_kpa' => 'nullable|in:disetujui,perubahan,ditangguhkan,tidak_disetujui',
@@ -130,7 +122,6 @@ class CutiController extends Controller
         $cuti = Cuti::where('pegawais_id', $pegawai_id)->with('pegawai')->get();
         $cutiFirst = Cuti::where('pegawais_id', $pegawai_id)->with('pegawai')->first();
         $pegawai = \App\Models\Pegawai::find($pegawai_id);
-        $penilai = \App\Models\Penilai::first();
 
         // Calculate working days for each cuti record
         $cuti->transform(function ($item) {
@@ -138,7 +129,7 @@ class CutiController extends Controller
             return $item;
         });
 
-        $pdf = Pdf::loadView('cuti.rekap', compact('cuti', 'pegawai', 'penilai', 'cutiFirst'));
+        $pdf = Pdf::loadView('cuti.rekap', compact('cuti', 'pegawai', 'cutiFirst'));
         $pdf->setPaper('a4', 'landscape');
         return $pdf->stream('rekap-cuti-' . optional($pegawai)->nama . '.pdf');
     }
