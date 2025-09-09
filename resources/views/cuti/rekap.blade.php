@@ -101,7 +101,7 @@
     <div class="container">
         <div class="header">
             <p>KARTU KENDALI CUTI PEGAWAI NEGERI SIPIL</p>
-            <p style="text-transform:uppercase;">{{$penilai->unitkerja}}</p>
+            <p style="text-transform:uppercase;">{{$penilai->unitkerja ?? 'N/A'}}</p>
             <p>CABANG DINAS PENDIDIKAN WILAYAH I</p>
             <p>DINAS PENDIDIKAN PROVINSI KEPULAUAN BANGKA BELITUNG</p>
         </div>
@@ -164,7 +164,7 @@
                 </tr>
                 <tr>
                     <td>Unit kerja</td>
-                    <td>: {{$penilai->unitkerja}}</td>
+                    <td>: {{$penilai->unitkerja ?? ''}}</td>
                 </tr>
             </table>
         </div>
@@ -324,14 +324,14 @@
                     STB : Sisa Cuti Tahun Berjalan</p>
             </div>
             <div class="right" style="text-align: center;">
-                <p>Kepala {{$penilai->unitkerja}}</p>
+                <p>Kepala {{$penilai->unitkerja ?? ''}}</p>
                 <!-- <div class="signature-line"></div> -->
                 <br>
                 <br>
                 <br>
                 <p>
-                    {{$penilai->nama}} <br>
-                    NIP : {{$penilai->nip}}
+                    {{$penilai->nama ?? ''}} <br>
+                    NIP : {{$penilai->nip ?? ''}}
                 </p>
             </div>
         </div>

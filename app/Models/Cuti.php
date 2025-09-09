@@ -33,4 +33,9 @@ class Cuti extends Model
     {
         return $this->belongsTo(SisaCuti::class, 'pegawais_id', 'pegawais_id');
     }
+
+    public function penilai()
+    {
+        return $this->belongsTo(Penilai::class, 'penilai_id');
+    }
 }

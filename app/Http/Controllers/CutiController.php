@@ -123,9 +123,10 @@ class CutiController extends Controller
 
     public function rekapPegawai($pegawai_id)
     {
-        $cuti = Cuti::where('pegawais_id', $pegawai_id)->with('pegawai', 'sisaCuti')->get();
-        $cutiFirst = Cuti::where('pegawais_id', $pegawai_id)->with('pegawai', 'sisaCuti')->first();
+        $cuti = Cuti::where('pegawais_id', $pegawai_id)->with('pegawai', 'sisaCuti', 'penilai')->get();
+        $cutiFirst = Cuti::where('pegawais_id', $pegawai_id)->with('pegawai', 'sisaCuti', 'penilai')->first();
         $pegawai = \App\Models\Pegawai::find($pegawai_id);
+        $penilai = \App\Models\Penilai::first();
 
         // Calculate working days for each cuti record
         $cuti->transform(function ($item) {
@@ -133,7 +134,7 @@ class CutiController extends Controller
             return $item;
         });
 
-        $pdf = Pdf::loadView('cuti.rekap', compact('cuti', 'pegawai', 'cutiFirst'));
+        $pdf = Pdf::loadView('cuti.rekap', compact('cuti', 'pegawai', 'cutiFirst', 'penilai'));
         $pdf->setPaper('a4', 'landscape');
         return $pdf->stream('rekap-cuti-' . optional($pegawai)->nama . '.pdf');
     }
