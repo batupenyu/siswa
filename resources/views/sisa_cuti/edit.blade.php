@@ -9,12 +9,12 @@
         @method('PUT')
 
         <div class="form-group row">
-            <label for="pegawai_id" class="col-md-2 col-form-label">Pegawai</label>
+            <label for="pegawais_id" class="col-md-2 col-form-label">Pegawai</label>
             <div class="col-md-10">
-                <select name="pegawai_id" id="pegawai_id" class="form-control" required>
+                <select name="pegawais_id" id="pegawais_id" class="form-control" required>
                     <option value="">Pilih Pegawai</option>
                     @foreach ($pegawais as $pegawai)
-                    <option value="{{ $pegawai->id }}" {{ $sisaCuti->pegawai_id == $pegawai->id ? 'selected' : '' }}>{{ $pegawai->nama }}</option>
+                    <option value="{{ $pegawai->id }}" {{ $sisaCuti->pegawais_id == $pegawai->id ? 'selected' : '' }}>{{ $pegawai->nama }}</option>
                     @endforeach
                 </select>
             </div>
