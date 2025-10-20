@@ -124,9 +124,9 @@ $lastName = isset($namaParts[1]) ? $namaParts[1] : '';
                             <li>Undang-Undang Nomor 20 Tahun 2003 tentang Sistem Pendidikan Nasional (Lembaran Negara
                                 Republik Indonesia Tahun
                                 2003 Nomor 78, Tambahan Lembaran Negara Republik Indonesia Nomor 4301);</li>
-                            <li>
+                            <!-- <li>
                                 {{ $stPegawai }}
-                            </li>
+                            </li> -->
                             {{-- <li>Peraturan Menteri Pendidikan Nasional No. 34 Tahun 2006 tentang Pembinaan Prestasi
                                 Siswa
                                 yang Memiliki Potensi
