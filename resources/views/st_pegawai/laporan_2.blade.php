@@ -332,8 +332,6 @@
         <table class="table table-sm table-borderless">
             <tr>
                 <td class="center">
-                    <br>
-                    <br>
                     Mengetahui,<br>
                     {{$penilai->jabatan }},<br>
                     <br>
@@ -341,39 +339,25 @@
                     {{$penilai->nama}}<br>
                     NIP.{{$penilai->nip}}
                 </td>
-
-                <td style="width:70px"> </td>
-
-                <td style="vertical-align: top; padding-right: 20px;">
-                    Yang melaporkan,<br> <br>
+                <td class="center">
+                    Yang melaporkan,<br>
                     @if($stPegawaiItem && $stPegawaiItem->pegawais->isNotEmpty())
-                    @foreach($stPegawaiItem->pegawais as $pegawai)
                     @php
-                    $namaParts = explode(' ', $pegawai->nama);
-                    $firstName = $namaParts[0] ?? '';
-                    $lastName1 = $namaParts[1] ?? '';
-                    $lastName2 = $namaParts[2] ?? '';
-                    $namaLengkap = trim($firstName . ' ' . $lastName1 . ' ' . $lastName2);
+                    $firstPegawai = $stPegawaiItem->pegawais->first();
+                    $namaParts = explode(' ', $firstPegawai->nama);
+                    $jabatanParts = explode(' ', $firstPegawai->jabatan);
+                    $nipParts = explode(' ', $firstPegawai->nip);
+                    $firstName = $namaParts[0];
+                    $lastName1 = isset($namaParts[1]) ? $namaParts[1] : '';
+                    $lastName2 = isset($namaParts[2]) ? $namaParts[2] : '';
                     @endphp
-
-                    {{ $namaLengkap }}<br>
-                    NIP. {{ $pegawai->nip }}<br>
-                    {{ $pegawai->jabatan ?? '-' }}<br><br>
-                    @endforeach
+                    <br>
+                    <br>
+                    <br>
+                    {{ $firstName }} {{ $lastName1 }} {{ $lastName2 }}<br>
+                    NIP.{{ isset($nipParts[0]) ? $nipParts[0] : '' }}{{ isset($nipParts[1]) ? $nipParts[1] : '' }}{{ isset($nipParts[2]) ? $nipParts[2] : '' }}{{ isset($nipParts[3]) ? $nipParts[3] : '' }}
                     @else
-                    -
-                    @endif
-                </td>
-
-                <td class="center" style="vertical-align: top;">
-                    <br><br><br><br>
-                    @if($stPegawaiItem && $stPegawaiItem->pegawais->isNotEmpty())
-                    @foreach($stPegawaiItem->pegawais as $pegawai)
-                    ................<br><br><br><br>
-                    @endforeach
-                    @else
-                    -
-                    @endif
+                    - @endif
                 </td>
             </tr>
         </table>
