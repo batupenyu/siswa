@@ -228,7 +228,7 @@
                 <tr>
                     <td>Hal</td>
                     <td>:</td>
-                    <td style="text-align: justify">{{$stPegawaiItem->nama_kegiatan}}.</td>
+                    <td style="text-align: justify">Laporan {{$stPegawaiItem->nama_kegiatan}}.</td>
                 </tr>
             </table>
 
