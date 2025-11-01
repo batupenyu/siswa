@@ -145,19 +145,18 @@
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veritatis libero quidem ipsam quaerat nisi quos nesciunt, tempore voluptatem autem ducimus inventore maiores expedita hic quasi velit vel sint in dignissimos placeat, alias nemo dolorum. Nesciunt adipisci eligendi excepturi cumque consequuntur velit harum quibusdam rerum voluptatibus provident? Eum harum nesciunt ex?
             @endif
         </td>
-    </tr>
-    </table>
+        </table>
 
-    <p style="text-align: center;padding-left:300px">
-        Koba, {{ Carbon\Carbon::parse($dispensasi->tgl_ditetapkan)->translatedFormat('d F Y') }}
-        <br>
-        {{ $atasanJabatan }}
-        <br>
-        <br>
-        <br>
-        <br>
-        {{ $atasanNama}}
-        <br>
-        NIP. {{ $atasanNip }}
-    </p>
+        <p style="text-align: center;padding-left:300px">
+            Koba, {{ Carbon\Carbon::parse($dispensasi->tgl_ditetapkan)->translatedFormat('d F Y') }}
+            <br>
+            {{ $atasanJabatan }}
+            <br>
+            <br>
+            <br>
+            <br>
+            {{ $atasanNama}}
+            <br>
+            NIP. {{ $atasanNip }}
+        </p>
 </div>

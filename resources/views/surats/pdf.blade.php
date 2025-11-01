@@ -1,4 +1,8 @@
 <style>
+    @page {
+        margin-top: 0.5cm;
+    }
+
     .container {
         margin: 0 20px 0 20px;
         /* Top, Right, Bottom, Left */
@@ -37,10 +41,17 @@
 <!-- Section content -->
 <div class="header">
     {{-- <img src="{{ public_path('images/kopSekolah.png') }}" alt=""> --}}
-    @if($headerIconImage)
-    <img src="{{ public_path('storage/header_icons/' . $headerIconImage->filename) }}" alt="Icon">
-    @else
-    <img src="{{ public_path('images/icon.png') }}" alt="Kop Surat">
+    @php
+    if($headerIconImage) {
+    $path = storage_path('app/public/header_icons/' . $headerIconImage->filename);
+    } else {
+    $path = public_path('images/icon.png');
+    }
+    $type = pathinfo($path, PATHINFO_EXTENSION);
+    $data = file_get_contents($path);
+    $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+    @endphp
+    <img src="{{ $base64 }}" alt="Kop Surat" style="width: 100%; max-width: 500px;">
 </div>
 <div class="container">
     @endif
@@ -53,14 +64,7 @@
         <tr style="vertical-align: top">
             <td>Dasar </td>
             <td>:</td>
-            <td style="text-align: justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod nulla
-                distinctio molestias nisi. Molestias voluptatem iure fuga officiis animi quas, fugiat explicabo nesciunt
-                recusandae incidunt laboriosam quia repellendus aliquam ad suscipit provident omnis consequuntur
-                blanditiis rem. Velit, quo facere ullam atque cum maiores tempore, itaque nostrum debitis repellendus
-                iure dicta explicabo similique non asperiores, numquam soluta quisquam! Fugiat sapiente libero corrupti
-                debitis quisquam fuga, beatae sequi. Vitae, tempora nesciunt vel necessitatibus consectetur quod impedit
-                omnis ex minus eaque, adipisci repellendus, facilis aspernatur totam quis minima quam rerum laudantium
-                harum repudiandae magnam culpa dolorum neque? Odio libero beatae repellendus tempora a.</td>
+            <td style="text-align: justify">{{$surats->dasar_surat}}</td>
         </tr>
         <tr style="vertical-align: top">
             <td style="width:100px">Kepada</td>
@@ -126,13 +130,13 @@
     <p style="text-align: center;padding-left:300px">
         {{ $surats->ditetapkan_di }}, {{ Carbon\Carbon::parse($surats->tgl_ditetapkan)->translatedFormat('d F Y') }}
         <br>
-        {{ $atasanJabatan }}
+        {{ $penilai->jabatan }}
         <br>
         <br>
         <br>
         <br>
-        {{ $atasanNama}}
+        {{ $penilai->name }}
         <br>
-        NIP. {{ $atasanNip }}
+        NIP. {{ $penilai->nip }}
     </p>
 </div>

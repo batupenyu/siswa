@@ -137,9 +137,10 @@ class SuratController extends Controller
         $atasanPangkat = Configurasi::valueOf('atasan.pangkat');
         $atasanUnitkerja = Configurasi::valueOf('atasan.unitkerja');
         $headerIconImage = HeaderIconImage::latest()->first();
+        $penilai = \App\Models\Penilai::first(); // Assuming first penilai, adjust as needed
 
         $surats = Surat::find($id);
-        $pdf = Pdf::loadView('surats.pdf', compact('headerIconImage', 'surats', 'atasanNama', 'atasanNip', 'atasanPangkat', 'atasanUnitkerja', 'atasanJabatan'));
+        $pdf = Pdf::loadView('surats.pdf', compact('headerIconImage', 'surats', 'atasanNama', 'atasanNip', 'atasanPangkat', 'atasanUnitkerja', 'atasanJabatan', 'penilai'));
 
         return $pdf->stream('surats.pdf');
     }
