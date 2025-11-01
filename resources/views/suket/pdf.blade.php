@@ -20,22 +20,22 @@ $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
     <tr>
         <td style="width:200px">Nama</td>
         <td style="width: 30px">:</td>
-        <td>{{ $atasanNama }}</td>
+        <td>{{ $penilai->nama }}</td>
     </tr>
     <tr>
         <td>NIP</td>
         <td style="width: 30px">:</td>
-        <td>{{ $atasanNip }}</td>
+        <td>{{ $penilai->nip }}</td>
     </tr>
     <tr>
         <td>Pangkat, Gol./Ruang</td>
         <td style="width: 30px">:</td>
-        <td>{{ $atasanPangkat }}</td>
+        <td>{{ $penilai->jabatan }}</td>
     </tr>
     <tr>
         <td>Jabatan</td>
         <td style="width: 30px">:</td>
-        <td>{{ $atasanJabatan }}</td>
+        <td>{{ $penilai->jabatan }}</td>
     </tr>
     <tr>
         <td>Unit Kerja</td>
