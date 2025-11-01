@@ -35,12 +35,12 @@ $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
     <tr>
         <td>Jabatan</td>
         <td style="width: 30px">:</td>
-        <td>{{ $penilai->jabatan }}</td>
+        <td>{{ $penilai->pangkat }}</td>
     </tr>
     <tr>
         <td>Unit Kerja</td>
         <td style="width: 30px">:</td>
-        <td>{{ $atasanUnitkerja}}</td>
+        <td>{{ $penilai->unitkerja}}</td>
     </tr>
     <tr>
         <td>NPSN</td>

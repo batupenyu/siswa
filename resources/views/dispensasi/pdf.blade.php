@@ -125,19 +125,26 @@
     <td></td>
     <td></td>
     <td style="text-align: justify; vertical-align:top" colspan="3">
+        @if($dispensasi->description)
+        {!! nl2br(e($dispensasi->description)) !!}
+        @else
         <ol style="padding-left: 20px; text-align: justify;vertical-align: top">
             <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt, magnam?</li>
             <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium, quam ipsa?</li>
             <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis similique dolore sed!</li>
         </ol>
+        @endif
     </td>
     <tr>
         <td></td>
         <td></td>
-        <td style="text-align: justify" colspan="3">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veritatis
-            libero quidem ipsam quaerat nisi quos nesciunt, tempore voluptatem autem ducimus inventore maiores expedita
-            hic quasi velit vel sint in dignissimos placeat, alias nemo dolorum. Nesciunt adipisci eligendi excepturi
-            cumque consequuntur velit harum quibusdam rerum voluptatibus provident? Eum harum nesciunt ex?</td>
+        <td style="text-align: justify" colspan="3">
+            @if($dispensasi->description)
+            {!! nl2br(e($dispensasi->description)) !!}
+            @else
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veritatis libero quidem ipsam quaerat nisi quos nesciunt, tempore voluptatem autem ducimus inventore maiores expedita hic quasi velit vel sint in dignissimos placeat, alias nemo dolorum. Nesciunt adipisci eligendi excepturi cumque consequuntur velit harum quibusdam rerum voluptatibus provident? Eum harum nesciunt ex?
+            @endif
+        </td>
     </tr>
     </table>
 

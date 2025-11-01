@@ -14,6 +14,7 @@ class Dispensasi extends Model
         'tgl_kegiatan',
         'waktu_kegiatan',
         'tgl_ditetapkan',
+        'description',
     ];
 
     public function siswa()
