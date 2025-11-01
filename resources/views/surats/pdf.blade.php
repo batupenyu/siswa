@@ -54,7 +54,6 @@
     <img src="{{ $base64 }}" alt="Kop Surat" style="width: 100%; max-width: 500px;">
 </div>
 <div class="container">
-    @endif
     <h3 style="text-align: center">
         SURAT TUGAS <br>
         Nomor : ........ / ..... / {{ Carbon\carbon::parse($surats->tgl_kegiatan)->translatedFormat('Y') }}
