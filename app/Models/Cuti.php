@@ -13,8 +13,11 @@ class Cuti extends Model
 
     protected $fillable = [
         'pegawais_id',
+<<<<<<< HEAD
         'penilai_id',
         'kpa_id',
+=======
+>>>>>>> 0da78d7 (commit)
         'jenis_cuti',
         'status_penilai',
         'status_kpa',
@@ -31,13 +34,24 @@ class Cuti extends Model
         return $this->belongsTo(Pegawai::class, 'pegawais_id');
     }
 
+<<<<<<< HEAD
+=======
+    public function sisaCuti()
+    {
+        return $this->belongsTo(SisaCuti::class, 'pegawais_id', 'pegawais_id');
+    }
+
+>>>>>>> 0da78d7 (commit)
     public function penilai()
     {
         return $this->belongsTo(Penilai::class, 'penilai_id');
     }
+<<<<<<< HEAD
 
     public function kpa()
     {
         return $this->belongsTo(Kpa::class, 'kpa_id');
     }
+=======
+>>>>>>> 0da78d7 (commit)
 }

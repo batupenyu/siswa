@@ -16,6 +16,14 @@ class AppServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../resources/assets/bootstrap' => public_path('vendor/bootstrap'),
         ], 'bootstrap-assets');
+<<<<<<< HEAD
+=======
+        if ($this->app->environment('local')) {
+            if (class_exists(\Laravel\Sail\SailServiceProvider::class)) {
+                $this->app->register(\Laravel\Sail\SailServiceProvider::class);
+            }
+        }
+>>>>>>> 0da78d7 (commit)
     }
 
     /**

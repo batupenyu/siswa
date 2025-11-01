@@ -8,6 +8,10 @@ class StPegawai extends Model
 {
     protected $table = 'st_pegawai';
     protected $fillable = [
+<<<<<<< HEAD
+=======
+        'no_surat',
+>>>>>>> 0da78d7 (commit)
         'dasar_surat',
         'tgl_awal',
         'tgl_akhir',

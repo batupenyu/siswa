@@ -57,7 +57,11 @@ $lastName = isset($namaParts[1]) ? $namaParts[1] : '';
 <img src="{{ public_path('images/kopcabdin1.png') }}" alt="">
 <h4 style="text-align: center">
     <u>SURAT TUGAS</u> <br>
+<<<<<<< HEAD
     Nomor : 421.5/........./ST/CABDINDIK WIL I/{{
+=======
+    Nomor : 800/{{ $stPegawai->no_surat }}/ST/CABDINDIK WIL I/{{
+>>>>>>> 0da78d7 (commit)
         Carbon\Carbon::Parse($stPegawai->tgl_kegiatan)->translatedFormat('Y')
         }}.
 </h4>
@@ -76,7 +80,11 @@ $lastName = isset($namaParts[1]) ? $namaParts[1] : '';
 {{-- <img src="{{ public_path('images/kopsekolah.png') }}" alt=""> --}}
 <h4 style="text-align: center">
     <u>SURAT TUGAS</u> <br>
+<<<<<<< HEAD
     Nomor : 094/........./ST/SMKN 1 Kb/Dindik/{{
+=======
+    Nomor : 800/{{ $stPegawai->no_surat }}/ST/SMKN 1 Kb/Dindik/{{
+>>>>>>> 0da78d7 (commit)
         Carbon\Carbon::Parse($stPegawai->tgl_kegiatan)->translatedFormat('Y')
         }}.
 </h4>
@@ -124,9 +132,15 @@ $lastName = isset($namaParts[1]) ? $namaParts[1] : '';
                             <li>Undang-Undang Nomor 20 Tahun 2003 tentang Sistem Pendidikan Nasional (Lembaran Negara
                                 Republik Indonesia Tahun
                                 2003 Nomor 78, Tambahan Lembaran Negara Republik Indonesia Nomor 4301);</li>
+<<<<<<< HEAD
                             <li>
                                 {{ $stPegawai }}
                             </li>
+=======
+                            <!-- <li>
+                                {{ $stPegawai }}
+                            </li> -->
+>>>>>>> 0da78d7 (commit)
                             {{-- <li>Peraturan Menteri Pendidikan Nasional No. 34 Tahun 2006 tentang Pembinaan Prestasi
                                 Siswa
                                 yang Memiliki Potensi

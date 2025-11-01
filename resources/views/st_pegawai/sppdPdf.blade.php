@@ -74,7 +74,11 @@
             <td></td>
             <td>kepala</td>
             <td>:</td>
+<<<<<<< HEAD
             <td> {{$penilai->unitkerja ?? ''}} </td>
+=======
+            <td> {{$penilai->unitkerja}} </td>
+>>>>>>> 0da78d7 (commit)
           </tr>
           <br>
           <br>
@@ -96,7 +100,11 @@
               <br>
               NIP.{{ $kpaNip }}
               @else
+<<<<<<< HEAD
               {{ $penilai->nama ?? '' }}
+=======
+              {{ $penilai->nama}}
+>>>>>>> 0da78d7 (commit)
               <br>
               @endif
               @else
@@ -106,7 +114,11 @@
           </tr>
           <tr>
             <td></td>
+<<<<<<< HEAD
             <td colspan="3">NIP.{{$penilai->nip ?? ''}}</td>
+=======
+            <td colspan="3">NIP.{{$penilai->nip}}</td>
+>>>>>>> 0da78d7 (commit)
           </tr>
         </table>
       </td>
@@ -458,7 +470,11 @@
             <td></td>
             <td>kepala</td>
             <td>:</td>
+<<<<<<< HEAD
             <td>{{$penilai->unitkerja ?? ''}}</td>
+=======
+            <td>{{$penilai->unitkerja}}</td>
+>>>>>>> 0da78d7 (commit)
           </tr>
           <br>
           <br>
@@ -480,7 +496,13 @@
               <br>
               NIP.{{ $kpaNip }}
               @else
+<<<<<<< HEAD
               <br>
+=======
+              <!-- {{ $penilai->nama}} -->
+              <br>
+              <!-- NIP.{{ $penilai->nip }} -->
+>>>>>>> 0da78d7 (commit)
               @endif
               @else
               -
@@ -489,11 +511,19 @@
           </tr>
           <tr>
             <td></td>
+<<<<<<< HEAD
             <td colspan="3">{{$penilai->nama ?? ''}}</td>
           </tr>
           <tr>
             <td></td>
             <td colspan="3">NIP. {{$penilai->nip ?? ''}}</td>
+=======
+            <td colspan="3">{{$penilai->nama}}</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td colspan="3">NIP. {{$penilai->nip}}</td>
+>>>>>>> 0da78d7 (commit)
           </tr>
         </table>
       </td>
@@ -528,6 +558,7 @@
   <!-- <div style="page-break-before: always;"> -->
   <p style="text-align: center;padding-left:400px; font-size: 10pt; margin-top: 20px;">
     Pejabat Pembuat Komitmen <br>
+<<<<<<< HEAD
     {{$kpa->jabatan ?? ''}} {{$kpa->unitkerja ?? ''}} <br>
     {{$kpa->instansi ?? ''}} <br>
     <br>
@@ -536,6 +567,16 @@
     {{$kpa->nama ?? ''}} <br>
     {{$kpa->pangkat ?? ''}} <br>
     NIP.{{$kpa->nip ?? ''}} <br>
+=======
+    {{$kpa->jabatan}} {{$kpa->unitkerja}} <br>
+    {{$kpa->instansi}} <br>
+    <br>
+    <br>
+    <br>
+    {{$kpa->nama}} <br>
+    {{$kpa->pangkat}} <br>
+    NIP.{{$kpa->nip}} <br>
+>>>>>>> 0da78d7 (commit)
   </p>
   </div>
 

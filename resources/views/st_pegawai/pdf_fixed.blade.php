@@ -45,11 +45,19 @@
     <img src="{{ public_path('images/kopcabdin1.png') }}" alt="">
     <h4 style="text-align: center">
         <u>SURAT TUGAS</u> <br>
+<<<<<<< HEAD
         Nomor : 421.5/........./ST/CABDINDIK WIL I/{{ Carbon\Carbon::Parse($stPegawai->tgl_kegiatan)->translatedFormat('Y') }}.
     </h4>
     @else
     <div class="header">
         @if (isset($penilai) && isset($penilai->nip) && $stPegawai->pegawais->first()->nip == $penilai->nip)
+=======
+        Nomor : 800/{{ $stPegawai->no_surat }}/ST/CABDINDIK WIL I/{{ Carbon\Carbon::Parse($stPegawai->tgl_kegiatan)->translatedFormat('Y') }}.
+    </h4>
+    @else
+    <div class="header">
+        @if ($stPegawai->pegawais->first()->nip == $penilai->nip)
+>>>>>>> 0da78d7 (commit)
         <img src="{{ public_path('images/kopcabdin1.png') }}" alt="">
         @else
         @if($headerIconImage)
@@ -61,7 +69,11 @@
     </div>
     <h4 style="text-align: center">
         <u>SURAT TUGAS</u> <br>
+<<<<<<< HEAD
         Nomor : 094/........./ST/SMKN 1 Kb/Dindik/{{ Carbon\Carbon::Parse($stPegawai->tgl_kegiatan)->translatedFormat('Y') }}.
+=======
+        Nomor : 800/{{ $stPegawai->no_surat }}/ST/SMKN 1 Kb/Dindik/{{ Carbon\Carbon::Parse($stPegawai->tgl_kegiatan)->translatedFormat('Y') }}.
+>>>>>>> 0da78d7 (commit)
     </h4>
     @endif
     @else
@@ -141,6 +153,7 @@
 
 @if($stPegawai->pegawais->isNotEmpty())
 <p style="padding-left:420px">
+<<<<<<< HEAD
     Ditetapkan di {{(!isset($penilai) || !isset($penilai->nip) || $penilai->nip == '' || $stPegawai->pegawais->first()->nip != $penilai->nip) ? 'Koba' : 'Pangkalpinang'}} <br>
     Pada tanggal, {{ Carbon\Carbon::parse($stPegawai->tgl_awal)->translatedFormat('d F Y') }}. <br><br>
     @if (!isset($penilai) || !isset($penilai->nip) || $stPegawai->pegawais->first()->nip != $penilai->nip)
@@ -151,6 +164,18 @@
     {{$kpa->jabatan ?? ''}} {{$kpa->unitkerja ?? ''}} <br><br><br><br>
     {{$kpa->nama ?? ''}} <br>
     NIP. {{$kpa->nip ?? ''}}
+=======
+    Ditetapkan di {{$stPegawai->pegawais->first()->nip != $penilai->nip ? 'Koba' : 'Pangkalpinang'}} <br>
+    Pada tanggal, {{ Carbon\Carbon::parse($stPegawai->tgl_awal)->translatedFormat('d F Y') }}. <br><br>
+    @if ($stPegawai->pegawais->first()->nip != $penilai->nip)
+    {{$penilai->jabatan}} <br><br><br><br>
+    {{$penilai->nama}} <br>
+    NIP.{{ $penilai->nip }}
+    @else
+    {{$kpa->jabatan}} {{$kpa->unitkerja}} <br><br><br><br>
+    {{$kpa->nama}} <br>
+    NIP. {{$kpa->nip }}
+>>>>>>> 0da78d7 (commit)
     @endif
 </p>
 @endif

@@ -190,21 +190,33 @@
         </tr>
         <tr>
             <td>N-2</td>
+<<<<<<< HEAD
             <td></td>
+=======
+            <td>{{ $cuti->sisaCuti->sisa_tahun_n_2 ?? 0 }}</td>
+>>>>>>> 0da78d7 (commit)
             <td>Sisa:</td>
             <td>4. CUTI MELAHIRKAN</td>
             <td>{{ $cuti->jenis_cuti == 'melahirkan' ? 'Ya' : '-' }}</td>
         </tr>
         <tr>
             <td>N-1</td>
+<<<<<<< HEAD
             <td></td>
+=======
+            <td>{{ $cuti->sisaCuti->sisa_tahun_n_1 ?? 0 }}</td>
+>>>>>>> 0da78d7 (commit)
             <td>Sisa:</td>
             <td>5. CUTI KARENA ALASAN PENTING</td>
             <td>{{ $cuti->jenis_cuti == 'alasan_penting' ? 'Ya' : '-' }}</td>
         </tr>
         <tr>
             <td>N</td>
+<<<<<<< HEAD
             <td></td>
+=======
+            <td>{{ $cuti->sisaCuti->sisa_tahun_n ?? 0 }}</td>
+>>>>>>> 0da78d7 (commit)
             <td>Sisa:</td>
             <td>6. CUTI DILUAR TANGGUNGAN NEGARA</td>
             <td>{{ $cuti->jenis_cuti == 'luar_tanggungan' ? 'Ya' : '-' }}</td>
@@ -254,7 +266,11 @@
             <tr>
                 <td style="text-align: center; padding-left:355px" colspan="4" class="approver-info">
                     Kepala Cabang Dinas Pendidikan Wilayah I<br><br><br><br>
+<<<<<<< HEAD
                     Nama : {{ $cuti->penilai->nama ?? '-' }}<br>
+=======
+                    {{ $cuti->penilai->nama ?? '-' }}<br>
+>>>>>>> 0da78d7 (commit)
                     NIP. {{ $cuti->penilai->nip ?? '-' }}
                 </td>
             </tr>
@@ -278,7 +294,11 @@
             <tr>
                 <td style="text-align: center; padding-left:355px" colspan="4" class="approver-info">
                     Kepala cabang Wilayah 1 Dinas Pendidikan <br> Provinsi Kep. Bangka Belitung<br><br><br><br>
+<<<<<<< HEAD
                     Nama : {{ $cuti->kpa->nama ?? '-' }}<br>
+=======
+                    {{ $cuti->kpa->nama ?? '-' }}<br>
+>>>>>>> 0da78d7 (commit)
                     NIP. {{ $cuti->kpa->nip ?? '-' }}
                 </td>
             </tr>

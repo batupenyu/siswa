@@ -5,6 +5,16 @@
     <h1>Daftar Cuti</h1>
     <a href="{{ route('cuti.create') }}" class="btn btn-primary mb-3">Tambah Cuti</a>
 
+<<<<<<< HEAD
+=======
+    <form action="{{ route('cuti.index') }}" method="GET" class="mb-3">
+        <div class="input-group">
+            <input type="text" name="search" class="form-control" placeholder="Cari berdasarkan nama pegawai..." value="{{ request('search') }}">
+            <button class="btn btn-outline-secondary" type="submit">Cari</button>
+        </div>
+    </form>
+
+>>>>>>> 0da78d7 (commit)
     @if(session('success'))
     <div class="alert alert-success">{{ session('success') }}</div>
     @endif
@@ -15,6 +25,13 @@
                 <th>ID</th>
                 <th>Pegawai</th>
                 <th>Jenis Cuti</th>
+<<<<<<< HEAD
+=======
+                <!-- Removed Sisa Cuti N columns -->
+                <!-- <th>Sisa Cuti N</th>
+            <th>Sisa Cuti N-1</th>
+            <th>Sisa Cuti N-2</th> -->
+>>>>>>> 0da78d7 (commit)
                 <th>Status Penilai</th>
                 <th>Status KPA</th>
                 <th>Lama Cuti</th>
@@ -29,6 +46,13 @@
                 <td>{{ $item->id }}</td>
                 <td>{{ $item->pegawai->nama ?? 'N/A' }}</td>
                 <td>{{ $item->jenis_cuti }}</td>
+<<<<<<< HEAD
+=======
+                <!-- Removed sisa_cuti_n data -->
+                <!-- <td>{{ $item->sisa_cuti_n ?? '-' }}</td>
+                <td>{{ $item->sisa_cuti_n_1 ?? '-' }}</td>
+                <td>{{ $item->sisa_cuti_n_2 ?? '-' }}</td> -->
+>>>>>>> 0da78d7 (commit)
                 <td>{{ $item->status_penilai ?? '-' }}</td>
                 <td>{{ $item->status_kpa ?? '-' }}</td>
                 <td>{{ $item->lama_cuti }}</td>
@@ -38,6 +62,12 @@
                     <a href="{{ route('cuti.show', $item->id) }}" class="btn btn-info btn-sm" title="Lihat">
                         <i class="bi bi-eye"></i>
                     </a>
+<<<<<<< HEAD
+=======
+                    <a href="{{ route('cuti.rekap_pegawai', $item->pegawais_id) }}" class="btn btn-secondary btn-sm" title="Rekap Cuti Pegawai">
+                        <i class="bi bi-file-pdf"></i>
+                    </a>
+>>>>>>> 0da78d7 (commit)
                     <a href="{{ route('cuti.edit', $item->id) }}" class="btn btn-warning btn-sm" title="Edit">
                         <i class="bi bi-pencil"></i>
                     </a>

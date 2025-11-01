@@ -54,7 +54,11 @@
         </tr>
         <tr>
             <td>Nomor</td>
+<<<<<<< HEAD
             <td>: 800/...... /SMKN1 Kb/Dindik/2025</td>
+=======
+            <td>: {{ $stPegawai->no_surat }}{{Carbon\Carbon::Parse($stPegawai->tgl_ditetapkan)->translatedFormat('Y')}}</td>
+>>>>>>> 0da78d7 (commit)
             <td></td>
         </tr>
     </table>
@@ -66,13 +70,22 @@
             <td style="width: 30px; text-align:center">1.</td>
             <td style="width: 300px;">Pejabat yang memberi perintah</td>
             @php
+<<<<<<< HEAD
             $jabatanParts = explode(' ', $penilai->jabatan ?? '');
             $firstJabatan = $jabatanParts[0] ?? '';
+=======
+            $jabatanParts = explode(' ', $penilai->jabatan);
+            $firstJabatan = $jabatanParts[0];
+>>>>>>> 0da78d7 (commit)
             @endphp
             <td>
                 {{-- {{$penilai->jabatan}} --}}
                 {{$firstJabatan}}
+<<<<<<< HEAD
                 {{$penilai->unitkerja ?? ''}}
+=======
+                {{$penilai->unitkerja}}
+>>>>>>> 0da78d7 (commit)
             </td>
         </tr>
         <tr>
@@ -98,7 +111,11 @@
             </td>
             <td>
                 a. {{ $firstPegawai->pangkat }} <br>
+<<<<<<< HEAD
                 b. {{ $firstPegawai->jabatan }}/{{ $penilai->unitkerja ?? ''}} <br>
+=======
+                b. {{ $firstPegawai->jabatan }}/{{ $penilai->unitkerja }} <br>
+>>>>>>> 0da78d7 (commit)
                 c. {{ $stPegawai->tingkat_biaya ?? '-' }}
             </td>
         </tr>
@@ -166,15 +183,23 @@
                 b. Akun
             </td>
             <td>
+<<<<<<< HEAD
                 a. {{$penilai->unitkerja ?? '' }} <br>
+=======
+                a. {{ $penilai->unitkerja }} <br>
+>>>>>>> 0da78d7 (commit)
                 b. {{$stPegawai->korek}} <br>
             </td>
         </tr>
         <tr>
             <td style="vertical-align: top; text-align:center">10.</td>
             <td style="vertical-align: top">Keterangan lain-lain</td>
+<<<<<<< HEAD
             <td>Surat Tugas Nomor : 800/........./SMKN 1
                 Kb/Dindik/{{Carbon\Carbon::Parse($stPegawai->tgl_kegiatan)->translatedFormat('Y')}}
+=======
+            <td>Surat Tugas Nomor : {{ $stPegawai->no_surat }}{{Carbon\Carbon::Parse($stPegawai->tgl_kegiatan)->translatedFormat('Y')}}
+>>>>>>> 0da78d7 (commit)
                 tanggal {{Carbon\Carbon::Parse($stPegawai->tgl_kegiatan)->translatedFormat('d F Y')}}
             </td>
         </tr>
@@ -187,14 +212,24 @@
     <p style="text-align: center;padding-left:400px; font-size: 11pt; margin-top: 20px;">
         {{-- {{$penilai->jabatan}} --}}
         {{$firstJabatan}}
+<<<<<<< HEAD
         {{$penilai->unitkerja ?? ''}}
+=======
+        {{$penilai->unitkerja}}
+>>>>>>> 0da78d7 (commit)
         <br>
         <br>
         <br>
         <br>
+<<<<<<< HEAD
         <span style="text-transform: uppercase; font-weight: bold;">{{ $penilai->nama ?? '' }}</span>
         <br>
         NIP. {{ $penilai->nip ?? '' }}
+=======
+        <span style="text-transform: uppercase; font-weight: bold;">{{ $penilai->nama }}</span>
+        <br>
+        NIP. {{ $penilai->nip }}
+>>>>>>> 0da78d7 (commit)
     </p>
 </body>
 

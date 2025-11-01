@@ -73,7 +73,11 @@
             <!-- Sidebar -->
             <div class="col-md-3 col-lg-2 d-md-block sidebar collapse show">
                 <div class="position-sticky pt-3">
+<<<<<<< HEAD
                     <h4 class="text-center mb-4">My Admin</h4>
+=======
+                    <h4 class="text-center mb-4">My App</h4>
+>>>>>>> 0da78d7 (commit)
                     <div class="d-flex flex-column px-3">
                         <a href="{{ route('header_icon_images.index') }}" class="nav-link"><i class="bi bi-image"></i> Ganti kop</a>
                         <a href="{{ route('siswas.index') }}" class="nav-link"><i class="bi bi-people"></i> Siswa</a>
@@ -106,7 +110,18 @@
                         <a href="{{ route('bends.index') }}" class="nav-link"><i class="bi bi-list-check"></i> Bend</a>
                         <a href="{{ route('ipps.index') }}" class="nav-link"><i class="bi bi-list-check"></i> Donasi</a>
                         <a href="{{ route('cuti.index') }}" class="nav-link"><i class="bi bi-calendar-check"></i> Cuti</a>
+<<<<<<< HEAD
                         <a href="{{ route('spmts.index') }}" class="nav-link"><i class="bi bi-file-earmark-text"></i> SPMT</a>
+=======
+                        <a href="{{ route('sisa_cuti.index') }}" class="nav-link"><i class="bi bi-calendar-check"></i> Sisa Cuti</a>
+                        <a href="{{ route('spmts.index') }}" class="nav-link"><i class="bi bi-file-earmark-text"></i> SPMT</a>
+                        @auth
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="nav-link" style="background: none; border: none;"><i class="bi bi-box-arrow-right"></i> Logout</button>
+                            </form>
+                        @endauth
+>>>>>>> 0da78d7 (commit)
                     </div>
                 </div>
             </div>

@@ -29,6 +29,14 @@
         padding-bottom: 10px;
         margin-bottom: 20px;
     }
+<<<<<<< HEAD
+=======
+
+    .header img {
+        width: 100%;
+        height: auto;
+    }
+>>>>>>> 0da78d7 (commit)
 </style>
 <!-- resources/views/nama_file.blade.php -->
 

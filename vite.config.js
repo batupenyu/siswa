@@ -8,4 +8,10 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+<<<<<<< HEAD
+=======
+    server: {
+        https: true,
+    },
+>>>>>>> 0da78d7 (commit)
 });

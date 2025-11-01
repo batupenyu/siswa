@@ -147,12 +147,19 @@ if ($gol == 'IV/a') {
 
 $value = ($koefisien * $diffInMonths / 12) * $prosentase / 100;
 $totalAkKredit += $value; // Add to the total
+<<<<<<< HEAD
 // $baru = number_format($totalAkKredit + $akKredits_first->pegawai->integrasi,2);
 $baru = number_format($totalAkKredit, 3);
 // $lama = number_format($totalAkKredit + $akKredits_first->pegawai->integrasi - $akKredits_first->pegawai->integrasi,2);
 $integrasi = number_format($akKredits_first->pegawai->integrasi, 3);
 $hasilPangkat = number_format($baru - $pangkat, 3);
 $hasilJenjang = number_format($baru - $jenjang, 3);
+=======
+$baru = $totalAkKredit;
+$integrasi = (float) $akKredits_first->pegawai->integrasi;
+$hasilPangkat = $baru - $pangkat;
+$hasilJenjang = $baru - $jenjang;
+>>>>>>> 0da78d7 (commit)
 ?>
 @endforeach
 

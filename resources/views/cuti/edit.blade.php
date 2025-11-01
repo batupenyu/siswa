@@ -30,6 +30,7 @@
                     </select>
                 </div>
 
+<<<<<<< HEAD
                 <div class="form-group">
                     <label for="penilai_id">Penilai</label>
                     <select name="penilai_id" id="penilai_id" class="form-control" required>
@@ -49,6 +50,9 @@
                         @endforeach
                     </select>
                 </div>
+=======
+
+>>>>>>> 0da78d7 (commit)
 
                 <div class="form-group">
                     <label for="jenis_cuti">Jenis Cuti</label>
@@ -63,6 +67,31 @@
                     </select>
                 </div>
 
+<<<<<<< HEAD
+=======
+                <!-- Removed sisa_cuti fields -->
+                <!-- <div class="form-group row">
+                    <label for="sisa_cuti_n" class="col-md-4 col-form-label">Sisa Cuti Tahun n</label>
+                    <div class="col-md-8">
+                        <input type="number" name="sisa_cuti_n" id="sisa_cuti_n" class="form-control" value="{{ old('sisa_cuti_n', $cuti->sisa_cuti_n) }}" readonly>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="sisa_cuti_n_1" class="col-md-4 col-form-label">Sisa Cuti Tahun n-1</label>
+                    <div class="col-md-8">
+                        <input type="number" name="sisa_cuti_n_1" id="sisa_cuti_n_1" class="form-control" value="{{ old('sisa_cuti_n_1', $cuti->sisa_cuti_n_1) }}" readonly>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="sisa_cuti_n_2" class="col-md-4 col-form-label">Sisa Cuti Tahun n-2</label>
+                    <div class="col-md-8">
+                        <input type="number" name="sisa_cuti_n_2" id="sisa_cuti_n_2" class="form-control" value="{{ old('sisa_cuti_n_2', $cuti->sisa_cuti_n_2) }}" readonly>
+                    </div>
+                </div> -->
+
+>>>>>>> 0da78d7 (commit)
                 <div class="form-group">
                     <label for="status_penilai">Status Penilai</label>
                     <select name="status_penilai" id="status_penilai" class="form-control">
@@ -119,8 +148,13 @@
             </div>
         </div>
 
+<<<<<<< HEAD
         <button type="submit" class="btn btn-primary">Update</button>
         <a href="{{ route('cuti.index') }}" class="btn btn-secondary">Batal</a>
+=======
+        <button type="submit" class="btn btn-primary mt-3">Update</button>
+        <a href="{{ route('cuti.index') }}" class="btn btn-secondary mt-3">Batal</a>
+>>>>>>> 0da78d7 (commit)
     </form>
 </div>
 @endsection

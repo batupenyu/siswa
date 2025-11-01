@@ -32,6 +32,10 @@ class StPegawaiController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
+<<<<<<< HEAD
+=======
+            'no_surat' => 'nullable|string',
+>>>>>>> 0da78d7 (commit)
             'dasar_surat' => 'required|string',
             'tempat_kegiatan' => 'required|string',
             'tgl_awal' => 'required|date',
@@ -57,6 +61,13 @@ class StPegawaiController extends Controller
             'korek' => 'nullable|string',
         ]);
 
+<<<<<<< HEAD
+=======
+        if (empty($validatedData['no_surat'])) {
+            $validatedData['no_surat'] = '421.5/ ........... /SMKN1 Kb/Dindik/';
+        }
+
+>>>>>>> 0da78d7 (commit)
         $stPegawai = StPegawai::create($validatedData);
 
         if ($request->has('pegawai_id')) {
@@ -96,6 +107,10 @@ class StPegawaiController extends Controller
     public function update(Request $request, StPegawai $stPegawai)
     {
         $validatedData = $request->validate([
+<<<<<<< HEAD
+=======
+            'no_surat' => 'nullable|string',
+>>>>>>> 0da78d7 (commit)
             'dasar_surat' => 'required|string',
             'tempat_kegiatan' => 'required|string',
             'tgl_awal' => 'required|date',
@@ -121,6 +136,13 @@ class StPegawaiController extends Controller
             'korek' => 'nullable|string',
         ]);
 
+<<<<<<< HEAD
+=======
+        if (empty($validatedData['no_surat'])) {
+            $validatedData['no_surat'] = '421.5/ ........... /SMKN1 Kb/Dindik/';
+        }
+
+>>>>>>> 0da78d7 (commit)
         $stPegawai->update($validatedData);
 
         if ($request->has('pegawai_id')) {

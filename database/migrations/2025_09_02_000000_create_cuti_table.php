@@ -32,6 +32,12 @@ class CreateCutiTable extends Migration
             $table->date('tanggal_selesai');
             $table->string('telepon');
             $table->text('alamat_selama_cuti');
+<<<<<<< HEAD
+=======
+            $table->integer('sisa_cuti_n')->nullable();
+            $table->integer('sisa_cuti_n_1')->nullable();
+            $table->integer('sisa_cuti_n_2')->nullable();
+>>>>>>> 0da78d7 (commit)
             $table->timestamps();
 
             $table->foreign('pegawais_id')->references('id')->on('pegawais')->onDelete('cascade');

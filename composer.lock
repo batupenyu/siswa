@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "f4bf9d8ef30c522b9fb4604bd0b80a8b",
+=======
+    "content-hash": "bcc3c67c85010f63e928700180c5270c",
+>>>>>>> 0da78d7 (commit)
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -2424,6 +2428,7 @@
         },
         {
             "name": "maennchen/zipstream-php",
+<<<<<<< HEAD
             "version": "3.2.0",
             "source": {
                 "type": "git",
@@ -2434,12 +2439,28 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/maennchen/ZipStream-PHP/zipball/9712d8fa4cdf9240380b01eb4be55ad8dcf71416",
                 "reference": "9712d8fa4cdf9240380b01eb4be55ad8dcf71416",
+=======
+            "version": "3.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/maennchen/ZipStream-PHP.git",
+                "reference": "aeadcf5c412332eb426c0f9b4485f6accba2a99f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/maennchen/ZipStream-PHP/zipball/aeadcf5c412332eb426c0f9b4485f6accba2a99f",
+                "reference": "aeadcf5c412332eb426c0f9b4485f6accba2a99f",
+>>>>>>> 0da78d7 (commit)
                 "shasum": ""
             },
             "require": {
                 "ext-mbstring": "*",
                 "ext-zlib": "*",
+<<<<<<< HEAD
                 "php-64bit": "^8.3"
+=======
+                "php-64bit": "^8.2"
+>>>>>>> 0da78d7 (commit)
             },
             "require-dev": {
                 "brianium/paratest": "^7.7",
@@ -2448,7 +2469,11 @@
                 "guzzlehttp/guzzle": "^7.5",
                 "mikey179/vfsstream": "^1.6",
                 "php-coveralls/php-coveralls": "^2.5",
+<<<<<<< HEAD
                 "phpunit/phpunit": "^12.0",
+=======
+                "phpunit/phpunit": "^11.0",
+>>>>>>> 0da78d7 (commit)
                 "vimeo/psalm": "^6.0"
             },
             "suggest": {
@@ -2490,7 +2515,11 @@
             ],
             "support": {
                 "issues": "https://github.com/maennchen/ZipStream-PHP/issues",
+<<<<<<< HEAD
                 "source": "https://github.com/maennchen/ZipStream-PHP/tree/3.2.0"
+=======
+                "source": "https://github.com/maennchen/ZipStream-PHP/tree/3.1.2"
+>>>>>>> 0da78d7 (commit)
             },
             "funding": [
                 {
@@ -2498,7 +2527,11 @@
                     "type": "github"
                 }
             ],
+<<<<<<< HEAD
             "time": "2025-07-17T11:15:13+00:00"
+=======
+            "time": "2025-01-27T12:07:53+00:00"
+>>>>>>> 0da78d7 (commit)
         },
         {
             "name": "markbaker/complex",
@@ -7038,6 +7071,7 @@
         },
         {
             "name": "laravel/sail",
+<<<<<<< HEAD
             "version": "v1.44.0",
             "source": {
                 "type": "git",
@@ -7048,6 +7082,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/laravel/sail/zipball/a09097bd2a8a38e23ac472fa6a6cf5b0d1c1d3fe",
                 "reference": "a09097bd2a8a38e23ac472fa6a6cf5b0d1c1d3fe",
+=======
+            "version": "v1.46.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/sail.git",
+                "reference": "eb90c4f113c4a9637b8fdd16e24cfc64f2b0ae6e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/sail/zipball/eb90c4f113c4a9637b8fdd16e24cfc64f2b0ae6e",
+                "reference": "eb90c4f113c4a9637b8fdd16e24cfc64f2b0ae6e",
+>>>>>>> 0da78d7 (commit)
                 "shasum": ""
             },
             "require": {
@@ -7097,7 +7143,11 @@
                 "issues": "https://github.com/laravel/sail/issues",
                 "source": "https://github.com/laravel/sail"
             },
+<<<<<<< HEAD
             "time": "2025-07-04T16:17:06+00:00"
+=======
+            "time": "2025-09-23T13:44:39+00:00"
+>>>>>>> 0da78d7 (commit)
         },
         {
             "name": "mockery/mockery",

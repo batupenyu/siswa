@@ -174,7 +174,11 @@
                 <tr>
                     <td style="width: 100px">Kepada</td>
                     <td style="width: 20px">:</td>
+<<<<<<< HEAD
                     <td>Yth. {{$penilai->jabatan ?? ''}} {{$penilai->unitkerja ?? ''}}</td>
+=======
+                    <td>Yth. {{$penilai->jabatan}} {{$penilai->unitkerja}}</td>
+>>>>>>> 0da78d7 (commit)
                 </tr>
                 @php
                 $firstPegawai = $stPegawaiItem->pegawais->first();
@@ -189,7 +193,11 @@
                 <tr>
                     <td>Dari</td>
                     <td>:</td>
+<<<<<<< HEAD
                     <td>{{$jabatanParts[0] ?? ''}} {{$penilai->unitkerja ?? ''}}</td>
+=======
+                    <td>{{$jabatanParts[0]}} {{$penilai->unitkerja}}</td>
+>>>>>>> 0da78d7 (commit)
                 </tr>
                 <tr>
                     <td>Tanggal</td>
@@ -228,7 +236,11 @@
                 <tr>
                     <td>Hal</td>
                     <td>:</td>
+<<<<<<< HEAD
                     <td style="text-align: justify">{{$stPegawaiItem->nama_kegiatan}}.</td>
+=======
+                    <td style="text-align: justify">Laporan {{$stPegawaiItem->nama_kegiatan}}.</td>
+>>>>>>> 0da78d7 (commit)
                 </tr>
             </table>
 
@@ -240,6 +252,7 @@
         </div>
 
         <table class="table table-borderless">
+<<<<<<< HEAD
             <tr>
                 <th style="width: 30px;">I. </th>
                 <th>Dasar Pelaksanaan</th>
@@ -265,6 +278,36 @@
                 <td>
                     Melaksanakan {{ $stPegawaiItem->nama_kegiatan }} yang akan dilaksanakan pada : <br>
                     Hari/Tanggal <span style="padding-left: 30px">:</span>
+=======
+            <!-- <table border="1"> -->
+            <tr>
+                <th style="width: 30px;">I. </th>
+                <th colspan="3">Dasar Pelaksanaan</th>
+            </tr>
+            <tr>
+                <td></td>
+                <td style=" text-align: justify;" colspan="3">{{$stPegawaiItem->dasar_surat ?? '-'}}.</td>
+            </tr>
+            <tr>
+                <th>II. </th>
+                <th colspan="3">Maksud dan Tujuan</th>
+            </tr>
+            <tr>
+                <td></td>
+                <td colspan="3" style=" text-align: justify;">{{$stPegawaiItem->maksud_tujuan ?? '-'}}.</td>
+            </tr>
+            <tr>
+                <th>III. </th>
+                <th colspan="3">Waktu dan Tempat</th>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="width: 100px;">
+                    Hari/Tanggal
+                </td>
+                <td style="width: 20px;">:</td>
+                <td>
+>>>>>>> 0da78d7 (commit)
                     {{-- {{Carbon\Carbon::parse($stPegawaiItem->tgl_awal)->translatedFormat('d-m-Y') }} --}}
                     @if ($stPegawaiItem->tgl_awal != $stPegawaiItem->tgl_akhir)
                     {{ Carbon\carbon::parse($stPegawaiItem->tgl_awal)->translatedFormat('l') }} - {{
@@ -275,6 +318,7 @@
                     {{ Carbon\carbon::parse($stPegawaiItem->tgl_awal)->translatedFormat('l') }}/
                     {{Carbon\carbon::parse($stPegawaiItem->tgl_akhir)->translatedFormat('d-m-Y') }}
                     @endif
+<<<<<<< HEAD
                     <br>
                     Pukul <span style="padding-left: 82px">:</span>
                     {{ Carbon\Carbon::parse($stPegawaiItem->jam_kegiatan)->format('H:i')}} WIB s.d Selesai
@@ -307,6 +351,54 @@
             <tr>
                 <td></td>
                 <td style=" text-align: justify;">{{$stPegawaiItem->kesimpulan ?? '-'}}</td>
+=======
+                </td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td style="width: 100px;">Tempat </td>
+                <td>:</td>
+                <td style="text-align: justify;">{{ $stPegawaiItem->tempat_kegiatan }}
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="width: 100px;">Pukul</td>
+                <td>:</td>
+                <td style="text-align: justify;">{{ Carbon\Carbon::parse($stPegawaiItem->jam_kegiatan)->format('H:i')}} WIB s.d Selesai</td>
+            </tr>
+
+            <tr>
+                <th>IV. </th>
+                <th colspan="3">Materi dan Narasumber (apabila ada)</th>
+            </tr>
+            <tr>
+                <td></td>
+                <td colspan="3" style="text-align: justify;">
+                    {{$stPegawaiItem->materi_narsum ?? '-'}}
+                </td>
+            </tr>
+            <tr>
+                <th>V. </th>
+                <th colspan="3">Hasil yang diperoleh</th>
+            </tr>
+            <tr>
+                <td></td>
+                <td colspan="3" style="text-align: justify;">
+                    {{$stPegawaiItem->hasil ?? '-'}}
+                </td>
+            </tr>
+            <tr>
+                <th>VI. </th>
+                <th colspan="3">Kesimpulan dan saran</th>
+            </tr>
+            <tr>
+                <td></td>
+                <td colspan="3" style="text-align: justify;">
+                    {{$stPegawaiItem->kesimpulan ?? '-'}}
+                </td>
+>>>>>>> 0da78d7 (commit)
             </tr>
         </table>
 
@@ -315,6 +407,7 @@
         <table class="table table-sm table-borderless">
             <tr>
                 <td class="center">
+<<<<<<< HEAD
                     Mengetahui,<br>
                     {{$penilai->jabatan ?? ''}},<br>
                     <br>
@@ -341,6 +434,50 @@
                     NIP.{{ isset($nipParts[0]) ? $nipParts[0] : '' }}{{ isset($nipParts[1]) ? $nipParts[1] : '' }}{{ isset($nipParts[2]) ? $nipParts[2] : '' }}{{ isset($nipParts[3]) ? $nipParts[3] : '' }}
                     @else
                     - @endif
+=======
+                    <br>
+                    <br>
+                    Mengetahui,<br>
+                    {{$penilai->jabatan }},<br>
+                    <br>
+                    <br>
+                    {{$penilai->nama}}<br>
+                    NIP.{{$penilai->nip}}
+                </td>
+
+                <td style="width:70px"> </td>
+
+                <td style="vertical-align: top; padding-right: 20px;">
+                    Yang melaporkan,<br> <br>
+                    @if($stPegawaiItem && $stPegawaiItem->pegawais->isNotEmpty())
+                    @foreach($stPegawaiItem->pegawais as $pegawai)
+                    @php
+                    $namaParts = explode(' ', $pegawai->nama);
+                    $firstName = $namaParts[0] ?? '';
+                    $lastName1 = $namaParts[1] ?? '';
+                    $lastName2 = $namaParts[2] ?? '';
+                    $namaLengkap = trim($firstName . ' ' . $lastName1 . ' ' . $lastName2);
+                    @endphp
+
+                    {{ $namaLengkap }}<br>
+                    NIP. {{ $pegawai->nip }}<br>
+                    {{ $pegawai->jabatan ?? '-' }}<br><br>
+                    @endforeach
+                    @else
+                    -
+                    @endif
+                </td>
+
+                <td class="center" style="vertical-align: top;">
+                    <br><br><br><br>
+                    @if($stPegawaiItem && $stPegawaiItem->pegawais->isNotEmpty())
+                    @foreach($stPegawaiItem->pegawais as $pegawai)
+                    ................<br><br><br><br>
+                    @endforeach
+                    @else
+                    -
+                    @endif
+>>>>>>> 0da78d7 (commit)
                 </td>
             </tr>
         </table>

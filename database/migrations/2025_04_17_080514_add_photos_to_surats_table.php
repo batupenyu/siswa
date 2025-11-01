@@ -12,7 +12,13 @@ return new class extends Migration
     public function up()
     {
         Schema::table('surat', function (Blueprint $table) {
+<<<<<<< HEAD
             $table->json('photos')->nullable(); // Remove default value as MySQL doesn't support it for JSON
+=======
+            // $table->json('photos')->nullable(); // Menyimpan array path foto
+            $table->json('photos')->nullable(false)->default('[]'); // Default value: array kosong
+
+>>>>>>> 0da78d7 (commit)
         });
     }
 
