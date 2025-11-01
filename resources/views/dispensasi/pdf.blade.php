@@ -36,11 +36,17 @@
 <div class="container">
     {{-- <img src="{{ public_path('images/kopSekolah.png') }}" alt=""> --}}
     <div class="header">
-        @if($headerIconImage)
-        <img src="{{ public_path('storage/header_icons/' . $headerIconImage->filename) }}" alt="Icon">
-        @else
-        <img src="{{ public_path('images/icon.png') }}" alt="Kop Surat">
-        @endif
+        @php
+        if($headerIconImage) {
+        $path = storage_path('app/public/header_icons/' . $headerIconImage->filename);
+        } else {
+        $path = public_path('images/icon.png');
+        }
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+        @endphp
+        <img src="{{ $base64 }}" alt="Kop Surat" style="width: 100%;">
     </div>
     <h4 style="text-align: center">
         <u>SURAT DISPENSASI </u><br>

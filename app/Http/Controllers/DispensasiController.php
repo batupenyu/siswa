@@ -155,9 +155,10 @@ class DispensasiController extends Controller
         $atasanPangkat = Configurasi::valueOf('atasan.pangkat');
         $atasanUnitkerja = Configurasi::valueOf('atasan.unitkerja');
         $dispensasi = Dispensasi::with('siswa')->findOrFail($id);
+        $headerIconImage = HeaderIconImage::latest()->first();
 
         // Assuming you have a view 'dispensasi.pdf' for PDF layout
-        $pdf = Pdf::loadView('dispensasi.tabelDispensasi', compact('dispensasi', 'atasanNama', 'atasanJabatan', 'atasanNip', 'atasanPangkat', 'atasanUnitkerja'));
+        $pdf = Pdf::loadView('dispensasi.tabelDispensasi', compact('dispensasi', 'atasanNama', 'atasanJabatan', 'atasanNip', 'atasanPangkat', 'atasanUnitkerja', 'headerIconImage'));
 
         return $pdf->stream('dispensasi_' . $id . '.pdf');
     }
