@@ -12,6 +12,12 @@ $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
     <img src="{{ $base64 }}" alt="Kop Surat" style="width: 100%;">
 </div>
 
+<style>
+    @page {
+        margin-top: 0.5cm;
+    }
+</style>
+
 <table border="0" style="font-size: 10pt">
     <tr>
         <td style="padding-left: 300px;width:75px"><i>Lampiran</i></td>
