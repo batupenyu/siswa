@@ -79,7 +79,7 @@
                         <!-- Siswa Field -->
 
                         <script>
-                            $(document).ready(function () {
+                            $(document).ready(function() {
                                 $('#pegawai_id').select2({
                                     placeholder: "Select Pegawai", // Placeholder text
                                     allowClear: true, // Allow clearing the selection
@@ -93,9 +93,9 @@
                             <label for="dasar_surat" class="col-md-4 col-form-label text-md-right">{{ __('Dasar Surat')
                                 }}</label>
                             <div class="col-md-6">
-                                <input id="dasar_surat" type="text"
+                                <textarea id="dasar_surat"
                                     class="form-control @error('dasar_surat') is-invalid @enderror" name="dasar_surat"
-                                    value="{{ old('dasar_surat') }}" required autocomplete="dasar_surat" autofocus>
+                                    required autocomplete="dasar_surat" autofocus>{{ old('dasar_surat') }}</textarea>
                                 @error('dasar_surat')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
