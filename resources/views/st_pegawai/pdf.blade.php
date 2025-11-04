@@ -112,7 +112,7 @@ $lastName = isset($namaParts[1]) ? $namaParts[1] : '';
             <table>
                 <tr>
                     <td>
-                        <ol style="padding-left: 20px; padding-top: 0px; margin-top: 0px;">
+                        <ol style="padding-left: 20px; padding-top: 0px; margin-top: 0px;align-text: justify;">
 
                             <li>Undang-Undang Nomor 27 Tahun 2000 tentang Pembentukan Provinsi Kepulauan Bangka Belitung
                                 (Lembaran Negara

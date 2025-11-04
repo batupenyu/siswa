@@ -134,7 +134,7 @@
         <br>
         <br>
         <br>
-        {{ $penilai->name }}
+        {{ $penilai->nama}}
         <br>
         NIP. {{ $penilai->nip }}
     </p>
