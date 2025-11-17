@@ -109,10 +109,10 @@
                         <a href="{{ route('sisa_cuti.index') }}" class="nav-link"><i class="bi bi-calendar-check"></i> Sisa Cuti</a>
                         <a href="{{ route('spmts.index') }}" class="nav-link"><i class="bi bi-file-earmark-text"></i> SPMT</a>
                         @auth
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <button type="submit" class="nav-link" style="background: none; border: none;"><i class="bi bi-box-arrow-right"></i> Logout</button>
-                            </form>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="nav-link" style="background: none; border: none;"><i class="bi bi-box-arrow-right"></i> Logout</button>
+                        </form>
                         @endauth
                     </div>
                 </div>

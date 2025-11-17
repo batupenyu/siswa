@@ -107,9 +107,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/surats/{surat}/photos/{index}', [SuratController::class, 'deletePhoto'])->name('surats.delete.photo');
     Route::get('/photos/{id}', [PhotoController::class, 'show'])->name('photos.show');
 
+    Route::delete('/pegawais/hapus-semua', [PegawaiController::class, 'destroyAll'])->name('pegawais.destroyAll');
     Route::resource('pegawais', PegawaiController::class);
     Route::get('/pegawais/{id}/pdf', [PegawaiController::class, 'pdf'])->name('pegawais.pdf');
     Route::get('/pegawais/{id}/kredit', [PegawaiController::class, 'kredit'])->name('pegawais.kredit');
+    Route::post('/pegawais/import', [PegawaiController::class, 'importExcel'])->name('pegawais.importExcel');
 
     Route::resource('st-pegawai', StPegawaiController::class);
     Route::get('stPegawai', [StPegawaiController::class, 'index'])->name('stPegawai.index');

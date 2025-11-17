@@ -125,4 +125,77 @@
         <a href="{{ route('cuti.index') }}" class="btn btn-secondary mt-3">Batal</a>
     </form>
 </div>
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const tanggalMulai = document.getElementById('tanggal_mulai');
+        const tanggalSelesai = document.getElementById('tanggal_selesai');
+        const lamaCutiInput = document.getElementById('lama_cuti');
+
+        // Daftar hari libur nasional (contoh: tahun 2025)
+        // Format: 'YYYY-MM-DD'
+        const hariLiburNasional = [
+            '2025-01-01', // Tahun Baru
+            '2025-01-29', // Tahun Baru Imlek
+            '2025-03-01', // Hari Raya Nyepi
+            '2025-03-29', // Wafat Isa Almasih
+            '2025-04-01', // Isra Mikraj
+            '2025-04-18', // Jumat Agung
+            '2025-05-01', // Hari Buruh
+            '2025-05-29', // Kenaikan Isa Almasih
+            '2025-06-01', // Hari Raya Waisak
+            '2025-06-29', // Hari Raya Idul Fitri (1 Syawal 1446H)
+            '2025-06-30',
+            '2025-08-17', // HUT RI
+            '2025-09-01', // Idul Adha
+            '2025-09-21', // Tahun Baru Islam
+            '2025-12-25', // Natal
+            // Tambahkan hari libur lain sesuai kebijakan instansi
+        ];
+
+        function isHoliday(date) {
+            const dateString = date.toISOString().split('T')[0];
+            return hariLiburNasional.includes(dateString);
+        }
+
+        function hitungHariKerja(tglMulai, tglSelesai) {
+            if (!tglMulai || !tglSelesai) return 0;
+
+            const mulai = new Date(tglMulai);
+            const selesai = new Date(tglSelesai);
+
+            if (mulai > selesai) return 0;
+
+            let hariKerja = 0;
+            const currentDate = new Date(mulai);
+
+            while (currentDate <= selesai) {
+                const hari = currentDate.getDay(); // 0 = Minggu, 6 = Sabtu
+                if (hari !== 0 && hari !== 6 && !isHoliday(currentDate)) {
+                    hariKerja++;
+                }
+                currentDate.setDate(currentDate.getDate() + 1);
+            }
+
+            return hariKerja;
+        }
+
+        function updateLamaCuti() {
+            const mulai = tanggalMulai.value;
+            const selesai = tanggalSelesai.value;
+
+            if (mulai && selesai) {
+                const lama = hitungHariKerja(mulai, selesai);
+                lamaCutiInput.value = lama;
+            } else {
+                lamaCutiInput.value = '';
+            }
+        }
+
+        tanggalMulai.addEventListener('change', updateLamaCuti);
+        tanggalSelesai.addEventListener('change', updateLamaCuti);
+    });
+</script>
+@endpush
 @endsection

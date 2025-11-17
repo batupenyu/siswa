@@ -8,10 +8,36 @@ use App\Models\Pegawai;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use App\Exports\PegawaiExport;
+use App\Imports\PegawaiImport;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\DB;
 
 class PegawaiController extends Controller
 {
+
+
+    public function destroyAll()
+    {
+        // Pastikan hapus data child dulu karena foreign key
+        DB::table('pegawai_st_pegawai')->delete();
+
+        // Hapus semua pegawai
+        DB::table('pegawais')->delete();
+
+        return redirect()->back()->with('success', 'Semua data pegawai berhasil dihapus.');
+    }
+
+    public function importExcel(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls'
+        ]);
+
+        Excel::import(new PegawaiImport, $request->file('file'));
+
+        return redirect()->back()->with('success', 'Data pegawai berhasil diimpor!');
+    }
+
     public function index(Request $request)
     {
         $search = $request->input('search');
@@ -42,10 +68,10 @@ class PegawaiController extends Controller
 
     public function store(Request $request)
     {
-        // Validate the incoming request data
+        // Validasi: NIP harus string dan unik — penting untuk mencegah konversi ke angka
         $validatedData = $request->validate([
             'nama' => 'required|string|max:255',
-            'nip' => 'required|string|max:255|unique:pegawais,nip', // Ensure NIP is unique
+            'nip' => 'required|string|max:255|unique:pegawais,nip', // Tetap sebagai string!
             'jabatan' => 'required|string|max:255',
             'pangkat' => 'nullable|string|max:255',
             'status_kepegawaian' => 'nullable|string|max:255',
@@ -62,16 +88,17 @@ class PegawaiController extends Controller
             'tgl_tmt_cpns' => 'nullable|date',
         ]);
 
-        // Use mass assignment to create Pegawai
-        $pegawai = Pegawai::create($validatedData);
+        Pegawai::create($validatedData);
 
-        // Redirect to the index page with a success message
         return redirect()->route('pegawais.index')->with('success', 'Pegawai berhasil ditambahkan.');
     }
 
     public function show($id)
     {
         $pegawai = Pegawai::with(['stPegawai', 'akKredits', 'anak', 'pasangan', 'ppGaji'])->find($id);
+        if (!$pegawai) {
+            return redirect()->route('pegawais.index')->with('error', 'Pegawai tidak ditemukan.');
+        }
         return view('pegawai.show', compact('pegawai'));
     }
 
@@ -84,9 +111,10 @@ class PegawaiController extends Controller
     public function update(Request $request, $id)
     {
         $pegawai = Pegawai::findOrFail($id);
+
         $validatedData = $request->validate([
             'nama' => 'required|string|max:255',
-            'nip' => 'required|string|max:255',
+            'nip' => 'required|string|max:255|unique:pegawais,nip,' . $pegawai->id, // exclude current ID
             'jabatan' => 'required|string|max:255',
             'pangkat' => 'required|string|max:255',
             'status_kepegawaian' => 'nullable|string|max:255',
@@ -111,8 +139,10 @@ class PegawaiController extends Controller
     public function destroy($id)
     {
         $pegawai = Pegawai::find($id);
-        $pegawai->delete();
-        return redirect()->route('pegawais.index');
+        if ($pegawai) {
+            $pegawai->delete();
+        }
+        return redirect()->route('pegawais.index')->with('success', 'Pegawai berhasil dihapus.');
     }
 
     public function pdf($id)
@@ -124,8 +154,18 @@ class PegawaiController extends Controller
         $atasanUnitkerja = Configurasi::valueOf('atasan.unitkerja');
 
         $pegawais = Pegawai::find($id);
-        $pdf = Pdf::loadView('pegawai.pdf', compact('pegawais', 'atasanNama', 'atasanNip', 'atasanPangkat', 'atasanUnitkerja', 'atasanJabatan'));
-        // ->setPaper('a4', 'landscape'); // Set the paper size and orientation
+        if (!$pegawais) {
+            return redirect()->back()->with('error', 'Pegawai tidak ditemukan.');
+        }
+
+        $pdf = Pdf::loadView('pegawai.pdf', compact(
+            'pegawais',
+            'atasanNama',
+            'atasanNip',
+            'atasanPangkat',
+            'atasanUnitkerja',
+            'atasanJabatan'
+        ));
 
         return $pdf->stream('pegawai.pdf');
     }
@@ -133,14 +173,13 @@ class PegawaiController extends Controller
     public function kredit($id)
     {
         $pegawai = Pegawai::find($id);
-
         if (!$pegawai) {
-            return redirect()->back()->with('error', 'Pegawai not found.');
+            return redirect()->back()->with('error', 'Pegawai tidak ditemukan.');
         }
 
         $akKredits = $pegawai->akKredits;
         if ($akKredits->isEmpty()) {
-            return redirect()->back()->with('error', 'No AkKredit records found.');
+            return redirect()->back()->with('error', 'Tidak ada data kredit kegiatan.');
         }
 
         return view('pegawai.kredit', compact('pegawai', 'akKredits'));
@@ -148,14 +187,14 @@ class PegawaiController extends Controller
 
     public function exportExcel(Request $request)
     {
-        // Get the same filters as the index method
         $search = $request->input('search');
         $pangkat = $request->input('pangkat');
 
-        // Create filename with current date
         $filename = 'data-pegawai-' . now()->format('Y-m-d') . '.xlsx';
 
-        // Export using PegawaiExport with filters
+        // ⚠️ PENTING: Pastikan PegawaiExport.php meng-handle NIP sebagai TEKS,
+        // bukan angka! Lihat dokumentasi atau contoh implementasi WithMapping + WithColumnFormatting.
+
         return Excel::download(
             new PegawaiExport($search, $pangkat),
             $filename
