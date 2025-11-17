@@ -44,14 +44,9 @@
                             </div>
                         </div>
                         <div class="mb-3 row align-items-center">
-                            <label for="jabatan" class="col-md-4 col-form-label">Jabatan</label>
+                            <label for="nip" class="col-md-4 col-form-label">Jabatan</label>
                             <div class="col-md-8">
-                                <input type="text" name="jabatan" id="jabatan"
-                                    class="form-control @error('jabatan') is-invalid @enderror"
-                                    value="{{ old('jabatan', $pegawai->jabatan) }}">
-                                @error('jabatan')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                                <input type="text" class="form-control" id="jabatan" name="jabatan" value="{{ old('jabatan', $pegawai->jabatan ?? '') }}" required>
                             </div>
                         </div>
                         <div class="mb-3 row align-items-center">
