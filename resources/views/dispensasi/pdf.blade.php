@@ -63,6 +63,7 @@
             <td>:</td>
             <td style="text-align: justify">{{ $dispensasi->nama_kegiatan }}</td>
         </tr>
+        <br>
         <tr style="vertical-align: top">
             <td style="width:100px">Kepada</td>
             <td>:</td>
@@ -94,6 +95,7 @@
         </tr>
         @endforelse
     </table>
+    <br>
     @else
     <a href="{{ route('tabeldispensasi', $dispensasi->id) }}" class="btn btn-primary btn-sm"><i>Daftar nama
             terlampir</i></a>
@@ -104,7 +106,7 @@
         <td>Untuk</td>
         <td>:</td>
         <td>
-            Melaksanakan {{ $dispensasi->nama_kegiatan }} <br>
+            Melaksanakan {{ $dispensasi->nama_kegiatan }} pada:<br> <br>
             Hari/tanggal <span>:</span>
             @if ($dispensasi->tgl_kegiatan == $dispensasi->tgl_akhir_kegiatan)
             {{ Carbon\carbon::parse($dispensasi->tgl_kegiatan)->translatedFormat('l') }} - {{
@@ -128,11 +130,11 @@
         @if($dispensasi->description)
         {!! nl2br(e($dispensasi->description)) !!}
         @else
-        <ol style="padding-left: 20px; text-align: justify;vertical-align: top">
+        <!-- <ol style="padding-left: 20px; text-align: justify;vertical-align: top">
             <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt, magnam?</li>
             <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium, quam ipsa?</li>
             <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis similique dolore sed!</li>
-        </ol>
+        </ol> -->
         @endif
     </td>
     <tr>
@@ -142,7 +144,7 @@
             @if($dispensasi->description)
             {!! nl2br(e($dispensasi->description)) !!}
             @else
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veritatis libero quidem ipsam quaerat nisi quos nesciunt, tempore voluptatem autem ducimus inventore maiores expedita hic quasi velit vel sint in dignissimos placeat, alias nemo dolorum. Nesciunt adipisci eligendi excepturi cumque consequuntur velit harum quibusdam rerum voluptatibus provident? Eum harum nesciunt ex?
+            Demikian surat dispensasi ini dibuat untuk dapat dipergunakan sebagaimana mestinya.
             @endif
         </td>
         </table>
@@ -150,13 +152,13 @@
         <p style="text-align: center;padding-left:300px">
             Koba, {{ Carbon\Carbon::parse($dispensasi->tgl_ditetapkan)->translatedFormat('d F Y') }}
             <br>
-            {{ $atasanJabatan }}
+            {{ $penilai->nama }}
             <br>
             <br>
             <br>
             <br>
-            {{ $atasanNama}}
+            {{ $penilai->jabatan }}
             <br>
-            NIP. {{ $atasanNip }}
+            NIP. {{ $penilai->nip }}
         </p>
 </div>
