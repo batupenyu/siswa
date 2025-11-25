@@ -26,6 +26,16 @@
         </form>
     </div>
 
+    <!-- Export and Import Section -->
+    <div class="mb-3 d-flex justify-content-between align-items-center">
+        <a href="{{ route('siswas.export') }}" class="btn btn-success">Export to XLSX</a>
+        <form action="{{ route('siswas.import') }}" method="POST" enctype="multipart/form-data" class="d-flex align-items-center">
+            @csrf
+            <input type="file" name="file" accept=".xlsx,.csv" required class="form-control form-control-sm me-2">
+            <button type="submit" class="btn btn-primary btn-sm">Import XLSX</button>
+        </form>
+    </div>
+
     <!-- Add New Student Button -->
     <div class="mb-3 text-end">
         <a href="{{ route('siswas.create') }}" class="btn btn-primary">Tambah Siswa</a>
@@ -57,7 +67,7 @@
                 </td>
                 <td>{{ $siswa->name }}</td>
                 <td>{{ $siswa->nis }}</td>
-                <td>{{ $siswa->kelas->name }}</td>
+                <td>{{ $siswa->kelas->name ?? '' }}</td>
                 <td style="text-align: center">
                     <div class="dropdown">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"

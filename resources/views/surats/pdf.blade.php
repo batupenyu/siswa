@@ -65,6 +65,7 @@
             <td>:</td>
             <td style="text-align: justify">{{$surats->dasar_surat}}</td>
         </tr>
+        <br>
         <tr style="vertical-align: top">
             <td style="width:100px">Kepada</td>
             <td>:</td>
@@ -91,6 +92,7 @@
         </tr>
         @endforeach
     </table>
+    <br>
     @else
     <a href="{{ route('tabelPdf', $surats->id) }}" class="btn btn-primary btn-sm"><i>Daftar nama terlampir</i></a>
     @endif
@@ -118,13 +120,12 @@
             Tempat <span style="padding-left: 32px">:</span> {{ $surats->tempat_kegiatan }}
         </td>
     </tr>
+    <br>
     <tr>
-        <td style="text-align: justify" colspan="3">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veritatis
-            libero quidem ipsam quaerat nisi quos nesciunt, tempore voluptatem autem ducimus inventore maiores expedita
-            hic quasi velit vel sint in dignissimos placeat, alias nemo dolorum. Nesciunt adipisci eligendi excepturi
-            cumque consequuntur velit harum quibusdam rerum voluptatibus provident? Eum harum nesciunt ex?</td>
+        <td style="text-align: justify" colspan="3">Demikian surat tugas ini dibuat untuk dapat dipergunakan sebagaimana mestinya.</td>
     </tr>
     </table>
+    <br>
 
     <p style="text-align: center;padding-left:300px">
         {{ $surats->ditetapkan_di }}, {{ Carbon\Carbon::parse($surats->tgl_ditetapkan)->translatedFormat('d F Y') }}

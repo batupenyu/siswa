@@ -5,17 +5,47 @@ namespace App\Http\Controllers;
 use App\Models\Configurasi;
 use App\Models\Siswa;
 use App\Models\Kelas;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-// use Barryvdh\DomPDF\PDF;
-// use PDF;
+use Illuminate\Http\Request;
+use App\Imports\SiswaImport;
+use App\Exports\SiswaExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
-
-
-
 
 class SiswaController extends Controller
 {
+    public function export()
+    {
+        try {
+            return Excel::download(new SiswaExport, 'siswas.xlsx');
+        } catch (\Exception $e) {
+            \Log::error('Export Siswa failed: ' . $e->getMessage());
+            return redirect()->route('siswas.index')->with('error', 'Export failed. Please check logs or try again.');
+        }
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,csv',
+        ]);
+
+        try {
+            Excel::import(new SiswaImport, $request->file('file'));
+            return redirect()->route('siswas.index')->with('success', 'Import berhasil.');
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+            $failures = $e->failures();
+            $messages = [];
+            foreach ($failures as $failure) {
+                $messages[] = 'Baris ' . $failure->row() . ': ' . implode(', ', $failure->errors());
+            }
+            return redirect()->route('siswas.index')->with('error', implode(' | ', $messages));
+        } catch (\Exception $e) {
+            Log::error('Import error: ' . $e->getMessage());
+            return redirect()->route('siswas.index')->with('error', 'Import gagal, terjadi kesalahan.');
+        }
+    }
+
     public function index(Request $request)
     {
         $search = $request->input('search');
@@ -37,7 +67,6 @@ class SiswaController extends Controller
         return view('siswa.create', compact('kelas'));
     }
 
-    // In the controller
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -62,15 +91,6 @@ class SiswaController extends Controller
 
         return redirect()->route('siswas.index');
     }
-    // public function store(Request $request)
-    // {
-    //     $validated = $request->validate([
-    //         'name' => 'required',
-    //         'nis' => 'required',
-    //         'kelas_id' => 'required|exists:kelas,id'
-    //     ]);
-    //     return redirect()->route('siswas.index')->with('success', 'Student created successfully.');
-    // }
 
     public function edit(Siswa $siswa)
     {
@@ -93,7 +113,7 @@ class SiswaController extends Controller
     public function destroy(Siswa $siswa)
     {
         $siswa->delete();
-        return redirect()->route('siswa.index')->with('success', 'Student deleted successfully.');
+        return redirect()->route('siswas.index')->with('success', 'Student deleted successfully.');
     }
 
 
@@ -107,7 +127,7 @@ class SiswaController extends Controller
         $siswa = Siswa::find($id);
         $pdf = Pdf::loadView('siswa.pdf', compact('siswa', 'atasanNama', 'atasanJabatan', 'atasanNip', 'atasanPangkat', 'atasanUnitkerja'))
             ->setPaper('a4')
-            ->setOptions(['margin-left' => 30]); // Set left margin to 3 cm (30 mm)
+            ->setOptions(['margin-left' => 30]);
         return $pdf->stream('siswa.pdf');
     }
 

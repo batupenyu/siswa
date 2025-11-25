@@ -89,10 +89,11 @@ Route::middleware('auth')->group(function () {
     Route::get('mutasi/{mutasi}/pdf', [MutasiController::class, 'viewPdf'])->name('mutasi.pdf');
 
     Route::resource('siswas', SiswaController::class);
+    Route::get('/siswas/export', [\App\Http\Controllers\SiswaController::class, 'export'])->name('siswas.export');
+    Route::post('/siswas/import', [\App\Http\Controllers\SiswaController::class, 'import'])->name('siswas.import');
     Route::resource('ipps', \App\Http\Controllers\IppController::class);
     Route::get('ipps/{id}/kwitansi', [\App\Http\Controllers\IppController::class, 'kwitansi'])->name('ipps.kwitansi');
     Route::resource('siswa-profil', SiswaProfilController::class);
-    Route::post('/siswas', [SiswaController::class, 'store'])->name('siswa.store');
     Route::get('/', [SiswaController::class, 'index'])->name('siswas.index');
     Route::get('/siswa/{id}/pdf', [SiswaController::class, 'pdf'])->name('siswa.pdf');
     Route::get('/siswa/{siswa}', [SiswaController::class, 'show'])->name('siswa.show');
