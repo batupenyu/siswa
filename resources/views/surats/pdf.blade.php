@@ -102,7 +102,7 @@
         <td>Untuk</td>
         <td>:</td>
         <td>
-            Melaksanakan {{ $surats->nama_kegiatan }} <br>
+            Melaksanakan {{ $surats->nama_kegiatan }} <br><br>
             Hari/tanggal <span>:</span>
             @if ($surats->tgl_kegiatan != $surats->tgl_akhir_kegiatan)
             {{ Carbon\carbon::parse($surats->tgl_kegiatan)->translatedFormat('l') }} - {{

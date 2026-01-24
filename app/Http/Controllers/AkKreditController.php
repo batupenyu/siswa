@@ -159,18 +159,6 @@ class AkKreditController extends Controller
 
 
 
-    // public function generatePdf(Request $request)
-    // {
-    //     $pegawais = Pegawai::all();
-    //     $pegawaiId = $request->query('pegawai_id');
-
-    //     $akKredits = $pegawaiId
-    //         ? AkKredit::where('pegawais_id', $pegawaiId)->get()
-    //         : AkKredit::all();
-
-    //     $pdf = Pdf::loadView('akKredits.pdf', compact('akKredits', 'pegawais', 'pegawaiId'));
-    //     return $pdf->stream('akKredits.pdf');
-    // }
 
     public function generatePdf(Request $request)
     {
@@ -192,17 +180,19 @@ class AkKreditController extends Controller
         $pegawaiId = $request->query('pegawai_id');
 
         // Fetch all records (filtered by pegawai_id if provided)
-        $akKredits = AkKredit::when($pegawaiId, function ($query, $pegawaiId) {
-            return $query->where('pegawais_id', $pegawaiId); // Update column name to 'pegawais_id'
-        })
+        $akKredits = AkKredit::with('pegawai')
+            ->when($pegawaiId, function ($query, $pegawaiId) {
+                return $query->where('pegawais_id', $pegawaiId); // Update column name to 'pegawais_id'
+            })
             ->whereBetween('startDate', [$tgl_awal, $tgl_akhir])
             ->orderBy('startDate', 'ASC')
             ->get();
 
         // Fetch the first record (filtered by pegawai_id if provided)
-        $akKredits_first = AkKredit::when($pegawaiId, function ($query, $pegawaiId) {
-            return $query->where('pegawais_id', $pegawaiId); // Update column name to 'pegawais_id'
-        })
+        $akKredits_first = AkKredit::with('pegawai')
+            ->when($pegawaiId, function ($query, $pegawaiId) {
+                return $query->where('pegawais_id', $pegawaiId); // Update column name to 'pegawais_id'
+            })
             ->whereBetween('startDate', [$tgl_awal, $tgl_akhir])
             ->orderBy('startDate', 'DESC')
             ->first(); // Use first() to get the first matching record
@@ -212,40 +202,41 @@ class AkKreditController extends Controller
             return redirect()->route('akKredits.index')->with('error', 'No matching records found for the specified date range.');
         }
 
+        // Skip the mismatch check for date range queries - this validation doesn't make sense for date ranges
+        // The original logic was checking if all records have the same startDate as tgl_awal, which is not appropriate for date range queries
 
-
-        // Check if tgl_awal is not equal to startDate in any AkKredit record
-        $mismatchFound = false;
-        foreach ($akKredits as $record) {
-            if ($record->startDate != $tgl_awal) {
-                $mismatchFound = false;
-                break; // Exit the loop early if a mismatch is found
-            }
-        }
-
-        // If a mismatch is found, redirect back to the index page with an error message
-        if ($mismatchFound) {
-            return redirect()->route('akKredits.index')->with('error', 'Mismatch detected: Some records have startDate values that do not match tgl_awal.');
-        }
+        // Debug: Return a simple response to check if we reach this point
+        \Log::info('Reached PDF generation', [
+            'pegawaiId' => $pegawaiId,
+            'tgl_awal' => $tgl_awal,
+            'tgl_akhir' => $tgl_akhir,
+            'akKredits_count' => $akKredits->count(),
+            'akKredits_first_exists' => $akKredits_first ? true : false
+        ]);
 
         // Pass the data to the view
-        $pdf = Pdf::loadView('pdf.akKredits', compact(
-            'penilai',
-            'kpa',
-            'akKredits',
-            'akKredits_first',
-            'atasanNama',
-            'atasanNip',
-            'atasanPangkat',
-            'atasanUnitkerja',
-            'atasanJabatan',
-            'atasanInstansi',
-            'tgl_awal',
-            'tgl_akhir'
-        ));
+        try {
+            $pdf = Pdf::loadView('pdf.akKredits', compact(
+                'penilai',
+                'kpa',
+                'akKredits',
+                'akKredits_first',
+                'atasanNama',
+                'atasanNip',
+                'atasanPangkat',
+                'atasanUnitkerja',
+                'atasanJabatan',
+                'atasanInstansi',
+                'tgl_awal',
+                'tgl_akhir'
+            ));
 
-        // Return the PDF as a stream (preview in browser)
-        return $pdf->stream('akumulasi-an.-' . $akKredits_first->pegawai->nama . '-' . \Carbon\Carbon::parse($akKredits_first->endDate)->format('Y')  . '.pdf');
+            // Return the PDF as a stream (preview in browser)
+            return $pdf->stream('akumulasi-an.-' . $akKredits_first->pegawai->nama . '-' . \Carbon\Carbon::parse($akKredits_first->endDate)->format('Y')  . '.pdf');
+        } catch (\Exception $e) {
+            \Log::error('PDF Generation Error: ' . $e->getMessage() . ' Line: ' . $e->getLine() . ' File: ' . $e->getFile());
+            return redirect()->route('akKredits.index')->with('error', 'Error generating PDF: ' . $e->getMessage());
+        }
     }
 
     public function penetapan(Request $request)
@@ -268,17 +259,19 @@ class AkKreditController extends Controller
         $pegawaiId = $request->query('pegawai_id');
 
         // Fetch all records (filtered by pegawai_id if provided)
-        $akKredits = AkKredit::when($pegawaiId, function ($query, $pegawaiId) {
-            return $query->where('pegawais_id', $pegawaiId); // Update column name to 'pegawais_id'
-        })
+        $akKredits = AkKredit::with('pegawai')
+            ->when($pegawaiId, function ($query, $pegawaiId) {
+                return $query->where('pegawais_id', $pegawaiId); // Update column name to 'pegawais_id'
+            })
             ->whereBetween('startDate', [$tgl_awal, $tgl_akhir])
             ->orderBy('startDate', 'ASC')
             ->get();
 
         // Fetch the first record (filtered by pegawai_id if provided)
-        $akKredits_first = AkKredit::when($pegawaiId, function ($query, $pegawaiId) {
-            return $query->where('pegawais_id', $pegawaiId); // Update column name to 'pegawais_id'
-        })
+        $akKredits_first = AkKredit::with('pegawai')
+            ->when($pegawaiId, function ($query, $pegawaiId) {
+                return $query->where('pegawais_id', $pegawaiId); // Update column name to 'pegawais_id'
+            })
             ->whereBetween('startDate', [$tgl_awal, $tgl_akhir])
             ->orderBy('startDate', 'DESC')
             ->first(); // Use first() to get the first matching record
@@ -288,38 +281,32 @@ class AkKreditController extends Controller
             return redirect()->route('akKredits.index')->with('error', 'No matching records found for the specified date range.');
         }
 
-        // Check if tgl_awal is not equal to startDate in any AkKredit record
-        $mismatchFound = false;
-        foreach ($akKredits as $record) {
-            if ($record->startDate != $tgl_awal) {
-                $mismatchFound = false;
-                break; // Exit the loop early if a mismatch is found
-            }
-        }
-
-        // If a mismatch is found, redirect back to the index page with an error message
-        if ($mismatchFound) {
-            return redirect()->route('index')->with('error', 'Mismatch detected: Some records have startDate values that do not match tgl_awal.');
-        }
+        // Skip the mismatch check for date range queries - this validation doesn't make sense for date ranges
+        // The original logic was checking if all records have the same startDate as tgl_awal, which is not appropriate for date range queries
 
         // Pass the data to the view
-        $pdf = Pdf::loadView('pdf.penetapan', compact(
-            'penilai',
-            'kpa',
-            'akKredits',
-            'akKredits_first',
-            'atasanNama',
-            'atasanNip',
-            'atasanPangkat',
-            'atasanUnitkerja',
-            'atasanJabatan',
-            'atasanInstansi',
-            'tgl_awal',
-            'tgl_akhir'
-        ));
+        try {
+            $pdf = Pdf::loadView('pdf.penetapan', compact(
+                'penilai',
+                'kpa',
+                'akKredits',
+                'akKredits_first',
+                'atasanNama',
+                'atasanNip',
+                'atasanPangkat',
+                'atasanUnitkerja',
+                'atasanJabatan',
+                'atasanInstansi',
+                'tgl_awal',
+                'tgl_akhir'
+            ));
 
-        // Return the PDF as a stream (preview in browser)
-        return $pdf->stream('penetapan-an.-' . $akKredits_first->pegawai->nama . '-' . \Carbon\Carbon::parse($akKredits_first->endDate)->format('Y')  . '.pdf');
+            // Return the PDF as a stream (preview in browser)
+            return $pdf->stream('penetapan-an.-' . $akKredits_first->pegawai->nama . '-' . \Carbon\Carbon::parse($akKredits_first->endDate)->format('Y')  . '.pdf');
+        } catch (\Exception $e) {
+            \Log::error('PDF Generation Error (penetapan): ' . $e->getMessage());
+            return redirect()->route('akKredits.index')->with('error', 'Error generating PDF: ' . $e->getMessage());
+        }
     }
 
     public function viewPdf($id)
@@ -359,5 +346,16 @@ class AkKreditController extends Controller
 
         // Stream the PDF to the browser
         return $pdf->stream('konversi-an.-' . $akKredit->pegawai->nama . '-' . \Carbon\Carbon::parse($akKredit->endDate)->format('Y')  . '.pdf');
+    }
+
+    public function forPegawai($pegawaiId)
+    {
+        $akKredits = AkKredit::where('pegawais_id', $pegawaiId)->get();
+
+        return response()->json([
+            'pegawai_id' => $pegawaiId,
+            'count' => $akKredits->count(),
+            'records' => $akKredits
+        ]);
     }
 }

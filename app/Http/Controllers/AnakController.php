@@ -151,6 +151,19 @@ class AnakController extends Controller
         return redirect()->route('anak.index')->with('success', 'Data anak berhasil diperbarui.');
     }
 
+    public function create()
+    {
+        $pegawais = \App\Models\Pegawai::all();
+        return view('anak.create', compact('pegawais'));
+    }
+
+    public function edit($id)
+    {
+        $anak = Anak::findOrFail($id);
+        $pegawais = \App\Models\Pegawai::all();
+        return view('anak.edit', compact('anak', 'pegawais'));
+    }
+
     public function viewCreate()
     {
         $pegawais = \App\Models\Pegawai::all();

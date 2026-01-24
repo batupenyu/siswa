@@ -132,4 +132,17 @@ class PasanganController extends Controller
 
         return redirect()->route('pasangan.index')->with('success', 'Data pasangan berhasil diperbarui.');
     }
+
+    public function create()
+    {
+        $pegawais = Pegawai::all();
+        return view('pasangan.create', compact('pegawais'));
+    }
+
+    public function edit($id)
+    {
+        $pasangan = Pasangan::findOrFail($id);
+        $pegawais = Pegawai::all();
+        return view('pasangan.edit', compact('pasangan', 'pegawais'));
+    }
 }

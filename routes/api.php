@@ -22,5 +22,21 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('siswa-profil', SiswaProfilController::class);
-Route::apiResource('anak', AnakController::class);
+Route::apiResource('siswa-profil', SiswaProfilController::class)->names([
+    'index' => 'api.siswa-profil.index',
+    'create' => 'api.siswa-profil.create',
+    'store' => 'api.siswa-profil.store',
+    'show' => 'api.siswa-profil.show',
+    'edit' => 'api.siswa-profil.edit',
+    'update' => 'api.siswa-profil.update',
+    'destroy' => 'api.siswa-profil.destroy',
+]);
+Route::apiResource('anak', AnakController::class)->names([
+    'index' => 'api.anak.index',
+    'create' => 'api.anak.create',
+    'store' => 'api.anak.store',
+    'show' => 'api.anak.show',
+    'edit' => 'api.anak.edit',
+    'update' => 'api.anak.update',
+    'destroy' => 'api.anak.destroy',
+]);
