@@ -8,10 +8,21 @@ use App\Http\Requests\PerdaRequest;
 
 class PerdaController extends Controller
 {
+    public function index()
+    {
+        $perdas = Perda::paginate(10);
+        return view('perda.index', compact('perdas'));
+    }
+
     public function viewIndex()
     {
         $perdas = Perda::paginate(10);
         return view('perda.index', compact('perdas'));
+    }
+
+    public function create()
+    {
+        return view('perda.create');
     }
 
     public function viewCreate()
@@ -30,6 +41,12 @@ class PerdaController extends Controller
     {
         $perda = Perda::findOrFail($id);
         return view('perda.show', compact('perda'));
+    }
+
+    public function edit($id)
+    {
+        $perda = Perda::findOrFail($id);
+        return view('perda.edit', compact('perda'));
     }
 
     public function viewEdit($id)

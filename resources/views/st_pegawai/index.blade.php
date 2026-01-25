@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card-header">Daftar St. Pegawai
-                <a href="{{ route('st-pegawai.create') }}" class="btn btn-sm btn-success float-end">Create</a>
+                <a href="{{ route('stPegawai.create') }}" class="btn btn-sm btn-success float-end">Create</a>
             </div>
             <div class="card-body">
                 @if (session('status'))
@@ -106,25 +106,25 @@
                                         <i class="bi-three-dots-vertical"></i>
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton-{{ $item->id }}">
-                                        <a href="{{ route('st-pegawai.pdf', $item->id) }}" class="dropdown-item"><i
+                                        <a href="{{ route('stPegawai.pdf', $item->id) }}" class="dropdown-item"><i
                                                 class="bi-file-pdf"></i> Spt</a>
-                                        <a href="{{ route('st-pegawai.laporan', $item->id) }}" class="dropdown-item"><i
+                                        <a href="{{ route('stPegawai.laporan', $item->id) }}" class="dropdown-item"><i
                                                 class="bi-file-pdf"></i> Laporan</a>
-                                        <a href="{{ route('rincian_pdf', $item->id) }}" class="dropdown-item"><i
+                                        <a href="{{ route('stPegawai.rincianPdf', $item->id) }}" class="dropdown-item"><i
                                                 class="bi bi-list-check"></i> Rincian</a>
-                                        <a href="{{ route('spb_pdf', $item->id) }}" class="dropdown-item"><i
+                                        <a href="{{ route('stPegawai.spbPdf', $item->id) }}" class="dropdown-item"><i
                                                 class="bi bi-list-check"></i> Spb</a>
-                                        <a href="{{ route('kwitansi_pdf', $item->id) }}" class="dropdown-item"><i
+                                        <a href="{{ route('stPegawai.kwitansiPdf', $item->id) }}" class="dropdown-item"><i
                                                 class="bi bi-list-check"></i> Kwitansi</a>
-                                        <a href="{{ route('sppd_depan', $item->id) }}" class="dropdown-item"><i
+                                        <a href="{{ route('stPegawai.sppd_depan', $item->id) }}" class="dropdown-item"><i
                                                 class="bi bi-list-check"></i> Sppd_1</a>
-                                        <a href="{{ route('sppd_pdf', $item->id) }}" class="dropdown-item"><i
+                                        <a href="{{ route('stPegawai.sppdPdf', $item->id) }}" class="dropdown-item"><i
                                                 class="bi bi-list-check"></i> Sppd_2</a>
                                         <a href="{{ route('photo_surat.index', $item->id) }}" class="dropdown-item"><i
                                                 class="bi bi-camera-fill"></i> Photo</a>
-                                        <a href="{{ route('st-pegawai.edit', $item->id) }}" class="dropdown-item"><i
+                                        <a href="{{ route('stPegawai.edit', $item->id) }}" class="dropdown-item"><i
                                                 class="bi-pen-fill"></i> Edit</a>
-                                        <form action="{{ route('st-pegawai.destroy', $item->id) }}" method="POST"
+                                        <form action="{{ route('stPegawai.destroy', $item->id) }}" method="POST"
                                             style="display:inline;">
                                             @csrf
                                             @method('DELETE')

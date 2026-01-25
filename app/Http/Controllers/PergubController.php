@@ -7,6 +7,15 @@ use Illuminate\Http\Request;
 
 class PergubController extends Controller
 {
+    public function index(Request $request)
+    {
+        $query = $request->input('search');
+        $pergubList = Pergub::when($query, function ($q) use ($query) {
+            return $q->where('description', 'like', '%' . $query . '%');
+        })->paginate(5)->appends(['search' => $query]);
+        return view('pergub.index', compact('pergubList'));
+    }
+
     public function viewIndex(Request $request)
     {
         $query = $request->input('search');
@@ -14,6 +23,11 @@ class PergubController extends Controller
             return $q->where('description', 'like', '%' . $query . '%');
         })->paginate(5)->appends(['search' => $query]);
         return view('pergub.index', compact('pergubList'));
+    }
+
+    public function create()
+    {
+        return view('pergub.create');
     }
 
     public function viewCreate()
@@ -35,6 +49,12 @@ class PergubController extends Controller
     {
         $pergub = Pergub::findOrFail($id);
         return view('pergub.show', compact('pergub'));
+    }
+
+    public function edit($id)
+    {
+        $pergub = Pergub::findOrFail($id);
+        return view('pergub.edit', compact('pergub'));
     }
 
     public function viewEdit($id)

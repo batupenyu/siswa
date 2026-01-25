@@ -65,6 +65,15 @@ Route::resource('kpa', KpaController::class);
 Route::resource('bp', BpController::class);
 Route::resource('surat_izin_pegawai', SuratIzinPegawaiController::class);
 Route::resource('stPegawai', StPegawaiController::class);
+Route::post('st-pegawai/{id}/upload', [StPegawaiController::class, 'uploadFile'])->name('st-surat.upload');
+// Custom routes for StPegawai PDF generation
+Route::get('stPegawai/{id}/pdf', [StPegawaiController::class, 'pdf'])->name('stPegawai.pdf');
+Route::get('stPegawai/{id}/laporan', [StPegawaiController::class, 'laporan'])->name('stPegawai.laporan');
+Route::get('stPegawai/{id}/rincian-pdf', [StPegawaiController::class, 'rincianPdf'])->name('stPegawai.rincianPdf');
+Route::get('stPegawai/{id}/spb-pdf', [StPegawaiController::class, 'spbPdf'])->name('stPegawai.spbPdf');
+Route::get('stPegawai/{id}/kwitansi-pdf', [StPegawaiController::class, 'kwitansiPdf'])->name('stPegawai.kwitansiPdf');
+Route::get('stPegawai/{id}/sppd-depan', [StPegawaiController::class, 'sppd_depan'])->name('stPegawai.sppd_depan');
+Route::get('stPegawai/{id}/sppd-pdf', [StPegawaiController::class, 'sppdPdf'])->name('stPegawai.sppdPdf');
 // Redirect old akKredit URL to new akKredits URL for backward compatibility
 Route::redirect('akKredit', 'akKredits', 301);
 // Define custom routes BEFORE the resource route to avoid being caught by the wildcard
@@ -80,12 +89,24 @@ Route::get('test-generate-pdf', function() {
     return 'Test route works!';
 })->name('test.generate.pdf');
 Route::resource('mutasi', MutasiController::class);
+Route::get('mutasi/{mutasi}/pdf', [MutasiController::class, 'viewPdf'])->name('mutasi.pdf');
 Route::resource('sukets', SuketController::class);
-Route::resource('surat', SuratController::class);
+Route::get('sukets/{id}/pdf', [SuketController::class, 'pdf'])->name('sukets.pdf');
+Route::resource('surats', SuratController::class);
+Route::post('surats/{id}/upload', [SuratController::class, 'uploadFile'])->name('surats.upload');
+Route::get('surats/{id}/pdf', [SuratController::class, 'pdf'])->name('surats.pdf');
+Route::redirect('/surat', '/surats', 301);  // Redirect old URL to new URL for backward compatibility
 Route::resource('dispensasi', DispensasiController::class);
 Route::resource('siswa-profil', SiswaProfilController::class);
 Route::resource('anak', AnakController::class);
 Route::get('anak/{id}/pdf', [AnakController::class, 'pdf'])->name('anak.pdf');
+
+// Custom routes for GambarSuratController
+Route::get('gambar_surat/{surat_id}', [GambarSuratController::class, 'index'])->name('gambar_surat.index');
+Route::get('gambar_surat/{surat_id}/create', [GambarSuratController::class, 'create'])->name('gambar_surat.create');
+Route::post('gambar_surat/{surat_id}', [GambarSuratController::class, 'store'])->name('gambar_surat.store');
+Route::delete('gambar_surat/{surat_id}/{gambar_id}', [GambarSuratController::class, 'destroy'])->name('gambar_surat.destroy');
+Route::get('gambar_surat/{surat_id}/print-pdf', [GambarSuratController::class, 'printPdf'])->name('gambar_surat.printPdf');
 Route::resource('pasangan', PasanganController::class);
 Route::resource('pp_gaji', PPGajiController::class);
 Route::resource('pergub', PergubController::class);
@@ -93,7 +114,9 @@ Route::resource('perda', PerdaController::class);
 Route::resource('bends', BendController::class);
 Route::resource('ipps', IppController::class);
 Route::resource('cuti', CutiController::class);
+Route::get('cuti/rekap-pegawai/{pegawai_id}', [CutiController::class, 'rekapPegawai'])->name('cuti.rekap_pegawai');
 Route::resource('sisa_cuti', SisaCutiController::class);
 Route::resource('spmts', SpmtController::class);
+Route::resource('photo_surat', PhotoSuratController::class);
 
 
