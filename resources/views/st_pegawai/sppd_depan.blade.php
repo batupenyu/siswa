@@ -191,7 +191,7 @@
         <br>
         <br>
         <br>
-        <span style="text-transform: uppercase; font-weight: bold;">{{ $penilai->nama }}</span>
+        <span style="font-weight: bold;">{{ $penilai->nama }}</span>
         <br>
         NIP. {{ $penilai->nip }}
     </p>
