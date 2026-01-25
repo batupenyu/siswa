@@ -96,7 +96,7 @@
                                 <li><a class="dropdown-item" href="{{ route('akKredits.index') }}"><i class="bi bi-person-badge"></i> Angka kredit</a></li>
                                 <li><a class="dropdown-item" href="{{ route('mutasi.index') }}"><i class="bi bi-arrow-left-right"></i> Surat mutasi siswa</a></li>
                                 <li><a class="dropdown-item" href="{{ route('sukets.index') }}"><i class="bi bi-file-text"></i> Surat ket. siswa</a></li>
-<li><a class="dropdown-item" href="{{ route('surat.index') }}"><i class="bi bi-person-badge"></i> Surat tugas siswa</a></li>
+<li><a class="dropdown-item" href="{{ route('surats.index') }}"><i class="bi bi-person-badge"></i> Surat tugas siswa</a></li>
                                 <li><a class="dropdown-item" href="{{ route('dispensasi.index') }}"><i class="bi bi-person-badge"></i> Surat dispen siswa</a></li>
                                 <li><a class="dropdown-item" href="{{ route('siswa-profil.index') }}"><i class="bi bi-person-badge"></i> Siswa Profil</a></li>
                             </ul>

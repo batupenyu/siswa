@@ -97,6 +97,8 @@ Route::post('surats/{id}/upload', [SuratController::class, 'uploadFile'])->name(
 Route::get('surats/{id}/pdf', [SuratController::class, 'pdf'])->name('surats.pdf');
 Route::redirect('/surat', '/surats', 301);  // Redirect old URL to new URL for backward compatibility
 Route::resource('dispensasi', DispensasiController::class);
+Route::get('dispensasi/{id}/pdf', [DispensasiController::class, 'pdf'])->name('dispensasi.pdf');
+Route::get('dispensasi/{id}/tabel-dispensasi', [DispensasiController::class, 'tabeldispensasi'])->name('dispensasi.tabeldispensasi');
 Route::resource('siswa-profil', SiswaProfilController::class);
 Route::resource('anak', AnakController::class);
 Route::get('anak/{id}/pdf', [AnakController::class, 'pdf'])->name('anak.pdf');
