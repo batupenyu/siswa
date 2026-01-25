@@ -38,8 +38,21 @@ class AkKreditController extends Controller
             return $query->where('pegawais_id', $pegawaiId); // Update column name to 'pegawais_id'
         })->orderBy('startDate', 'DESC')->first(); // Use first() to get the first matching record in ascending order
 
+        // Fetch unique periods for the dropdown
+        $availablePeriods = AkKredit::select('startDate')
+            ->distinct()
+            ->orderBy('startDate', 'DESC')
+            ->get()
+            ->map(function ($item) {
+                $year = \Carbon\Carbon::parse($item->startDate)->year;
+                return [
+                    'value' => $item->startDate,
+                    'label' => $year
+                ];
+            });
+
         // Pass data to the view
-        return view('akKredits.index', compact('akKredits', 'pegawais', 'pegawaiId', 'akKredit'));
+        return view('akKredits.index', compact('akKredits', 'pegawais', 'pegawaiId', 'akKredit', 'availablePeriods'));
         // return view('pdf.akKredits', compact('akKredits', 'pegawais', 'pegawaiId'));
     }
 
@@ -165,6 +178,13 @@ class AkKreditController extends Controller
         // Retrieve input parameters
         $tgl_awal = $request->tgl_awal;
         $tgl_akhir = $request->tgl_akhir;
+        $pegawaiId = $request->query('pegawai_id');
+
+        // Retrieve additional options
+        $options = [
+            'angka_integrasi' => $request->has('angka_integrasi'),
+            'periode' => $request->get('periode', []), // Now an array of selected periods
+        ];
 
         // Fetch configuration data for the atasan
         $penilai = Penilai::first();
@@ -176,45 +196,188 @@ class AkKreditController extends Controller
         $atasanUnitkerja = Configurasi::valueOf('atasan.unitkerja');
         $atasanInstansi = Configurasi::valueOf('atasan.instansi');
 
-        // Fetch the data for the selected pegawai or all records
-        $pegawaiId = $request->query('pegawai_id');
+        // Handle multiple periods selection - prioritize selected periods over date range
+        $selectedPeriods = $options['periode'];
 
-        // Fetch all records (filtered by pegawai_id if provided)
+        // Fetch the data for the selected pegawai or all records based on selected periods
         $akKredits = AkKredit::with('pegawai')
             ->when($pegawaiId, function ($query, $pegawaiId) {
                 return $query->where('pegawais_id', $pegawaiId); // Update column name to 'pegawais_id'
             })
-            ->whereBetween('startDate', [$tgl_awal, $tgl_akhir])
+            ->when(!empty($selectedPeriods), function ($query) use ($selectedPeriods, $tgl_awal, $tgl_akhir) {
+                // If 'all' is selected, don't apply date filter
+                if (in_array('all', $selectedPeriods)) {
+                    return $query; // No date filter
+                } else {
+                    $query = $query->where(function ($q) use ($selectedPeriods, $tgl_awal, $tgl_akhir) {
+                        $hasCondition = false;
+
+                        // Process specific date periods (like '2025-01-01')
+                        $specificDates = array_filter($selectedPeriods, function($period) {
+                            return preg_match('/^\d{4}-\d{2}-\d{2}$/', $period) && !in_array($period, ['all', 'current_year', 'last_year', 'last_2_years', 'last_5_years']);
+                        });
+
+                        if (!empty($specificDates)) {
+                            $q->whereIn('startDate', $specificDates);
+                            $hasCondition = true;
+                        }
+
+                        // Process relative periods (like 'current_year', 'last_year')
+                        $relativePeriods = array_intersect($selectedPeriods, ['current_year', 'last_year', 'last_2_years', 'last_5_years']);
+
+                        foreach ($relativePeriods as $period) {
+                            $range = $this->getSinglePeriodRange($period, $tgl_awal, $tgl_akhir);
+                            if ($range) {
+                                if ($hasCondition) {
+                                    $q->orWhereBetween('startDate', [$range['start'], $range['end']]);
+                                } else {
+                                    $q->whereBetween('startDate', [$range['start'], $range['end']]);
+                                    $hasCondition = true;
+                                }
+                            }
+                        }
+                    });
+                }
+            })
             ->orderBy('startDate', 'ASC')
             ->get();
 
-        // Fetch the first record (filtered by pegawai_id if provided)
+        // Fetch the first record (filtered by pegawai_id if provided) with the same filters as main query
         $akKredits_first = AkKredit::with('pegawai')
             ->when($pegawaiId, function ($query, $pegawaiId) {
                 return $query->where('pegawais_id', $pegawaiId); // Update column name to 'pegawais_id'
             })
-            ->whereBetween('startDate', [$tgl_awal, $tgl_akhir])
-            ->orderBy('startDate', 'DESC')
-            ->first(); // Use first() to get the first matching record
+            ->when(!empty($selectedPeriods), function ($query) use ($selectedPeriods, $tgl_awal, $tgl_akhir) {
+                // If 'all' is selected, don't apply date filter
+                if (in_array('all', $selectedPeriods)) {
+                    return $query; // No date filter
+                } else {
+                    $query = $query->where(function ($q) use ($selectedPeriods, $tgl_awal, $tgl_akhir) {
+                        $hasCondition = false;
+
+                        // Process specific date periods (like '2025-01-01')
+                        $specificDates = array_filter($selectedPeriods, function($period) {
+                            return preg_match('/^\d{4}-\d{2}-\d{2}$/', $period) && !in_array($period, ['all', 'current_year', 'last_year', 'last_2_years', 'last_5_years']);
+                        });
+
+                        if (!empty($specificDates)) {
+                            $q->whereIn('startDate', $specificDates);
+                            $hasCondition = true;
+                        }
+
+                        // Process relative periods (like 'current_year', 'last_year')
+                        $relativePeriods = array_intersect($selectedPeriods, ['current_year', 'last_year', 'last_2_years', 'last_5_years']);
+
+                        foreach ($relativePeriods as $period) {
+                            $range = $this->getSinglePeriodRange($period, $tgl_awal, $tgl_akhir);
+                            if ($range) {
+                                if ($hasCondition) {
+                                    $q->orWhereBetween('startDate', [$range['start'], $range['end']]);
+                                } else {
+                                    $q->whereBetween('startDate', [$range['start'], $range['end']]);
+                                    $hasCondition = true;
+                                }
+                            }
+                        }
+                    });
+                }
+            })
+            ->orderBy('endDate', 'DESC')  // Sort by endDate to get the most recent period
+            ->first(); // Use first() to get the first matching record (latest end date)
 
         // Check if akKredit is null
         if (!$akKredits_first) {
             return redirect()->route('akKredits.index')->with('error', 'No matching records found for the specified date range.');
         }
 
-        // Skip the mismatch check for date range queries - this validation doesn't make sense for date ranges
-        // The original logic was checking if all records have the same startDate as tgl_awal, which is not appropriate for date range queries
+        // Calculate the total AK credit for all records - using same logic as before but with the filtered records
+        $totalAkKreditValue = 0;
+        \Log::info('Generate PDF calculation start', ['akKredits_count' => count($akKredits->toArray())]);
+        foreach ($akKredits as $akKredit) {
+            $startDate = \Carbon\Carbon::parse($akKredit->startDate);
+            $endDate = \Carbon\Carbon::parse($akKredit->endDate);
+            $diffInMonths = $startDate->diffInMonths($endDate) + 1;
 
-        // Debug: Return a simple response to check if we reach this point
-        \Log::info('Reached PDF generation', [
-            'pegawaiId' => $pegawaiId,
-            'tgl_awal' => $tgl_awal,
-            'tgl_akhir' => $tgl_akhir,
-            'akKredits_count' => $akKredits->count(),
-            'akKredits_first_exists' => $akKredits_first ? true : false
+            if ($akKredit->predikat == 'Sangat Baik') {
+                $prosentase = 150;
+            } else {
+                $prosentase = 100;
+            }
+
+            $gol = $akKredit->pegawai->pangkat;
+
+            if ($gol == 'IV/a') {
+                $koefisien = 37.5;
+                $jenjang = 450;
+            } elseif ($gol == 'III/d') {
+                $koefisien = 25;
+                $jenjang = 200;
+                $namaPangkat = 'Penata tk';
+            } elseif ($gol == 'III/c') {
+                $koefisien = 12.5;
+                $jenjang = 100;
+            } else {
+                $koefisien = 0; // Default for other cases
+            }
+
+            $value = ($koefisien * $diffInMonths / 12) * $prosentase / 100;
+            \Log::info('Generate PDF calculation detail', [
+                'akKredit_id' => $akKredit->id,
+                'gol' => $gol,
+                'diffInMonths' => $diffInMonths,
+                'koefisien' => $koefisien,
+                'prosentase' => $prosentase,
+                'value' => $value,
+                'running_total' => $totalAkKreditValue + $value
+            ]);
+            $totalAkKreditValue += $value; // Add the numeric value, not formatted string
+        }
+
+        // Calculate integrasi value based on options
+        $integrasiValue = 0;
+        if (isset($options['angka_integrasi']) && $options['angka_integrasi']) {
+            $integrasiValue = (float)($akKredits_first->pegawai->integrasi ?? 0);
+        }
+
+        // Calculate total with integrasi if option is selected
+        $totalAkKreditValueWithIntegrasi = $totalAkKreditValue + $integrasiValue;
+
+        \Log::info('Generate PDF final calculation', [
+            'totalAkKreditValue' => $totalAkKreditValue,
+            'integrasiValue' => $integrasiValue,
+            'totalAkKreditValueWithIntegrasi' => $totalAkKreditValueWithIntegrasi,
+            'pegawai_pangkat' => $akKredits_first->pegawai->pangkat ?? 'unknown',
+            'options' => $options
         ]);
 
-        // Pass the data to the view
+        // Calculate the final 'baru' value based on the employee's pangkat
+        $employeePangkat = $akKredits_first->pegawai->pangkat;
+        if ($employeePangkat == 'III/d') {
+            // Use the appropriate total based on whether integrasi is included
+            if (isset($options['angka_integrasi']) && $options['angka_integrasi']) {
+                $finalBaruValue = $totalAkKreditValueWithIntegrasi - 100; // For III/d, baru = total_with_integrasi - 100
+            } else {
+                $finalBaruValue = $totalAkKreditValue - 100; // For III/d, baru = total_without_integrasi - 100
+            }
+        } else {
+            // Use the appropriate total based on whether integrasi is included
+            if (isset($options['angka_integrasi']) && $options['angka_integrasi']) {
+                $finalBaruValue = $totalAkKreditValueWithIntegrasi; // For others, baru = total_with_integrasi
+            } else {
+                $finalBaruValue = $totalAkKreditValue; // For others, baru = total_without_integrasi
+            }
+        }
+
+        // Pass the data to the view - use the appropriate total based on integrasi option
+        $displayTotalAkKreditValue = isset($options['angka_integrasi']) && $options['angka_integrasi']
+            ? $totalAkKreditValueWithIntegrasi
+            : $totalAkKreditValue;
+
+        // Also pass the integrasi value separately for use in views if needed
+        $integrasiValueForView = isset($options['angka_integrasi']) && $options['angka_integrasi']
+            ? $integrasiValue
+            : 0;
+
         try {
             $pdf = Pdf::loadView('pdf.akKredits', compact(
                 'penilai',
@@ -228,7 +391,11 @@ class AkKreditController extends Controller
                 'atasanJabatan',
                 'atasanInstansi',
                 'tgl_awal',
-                'tgl_akhir'
+                'tgl_akhir',
+                'displayTotalAkKreditValue', // This is the total to display (with or without integrasi based on option)
+                'finalBaruValue',
+                'options',
+                'integrasiValueForView' // Pass integrasi value separately
             ));
 
             // Return the PDF as a stream (preview in browser)
@@ -246,6 +413,13 @@ class AkKreditController extends Controller
         $kpa = Kpa::first();
         $tgl_awal = $request->tgl_awal;
         $tgl_akhir = $request->tgl_akhir;
+        $pegawaiId = $request->query('pegawai_id');
+
+        // Retrieve additional options
+        $options = [
+            'angka_integrasi' => $request->has('angka_integrasi'),
+            'periode' => $request->get('periode', []), // Now an array of selected periods
+        ];
 
         // Fetch configuration data for the atasan
         $atasanNama = Configurasi::valueOf('atasan.nama');
@@ -255,26 +429,94 @@ class AkKreditController extends Controller
         $atasanUnitkerja = Configurasi::valueOf('atasan.unitkerja');
         $atasanInstansi = Configurasi::valueOf('atasan.instansi');
 
-        // Fetch the data for the selected pegawai or all records
-        $pegawaiId = $request->query('pegawai_id');
+        // Handle multiple periods selection - prioritize selected periods over date range
+        $selectedPeriods = $options['periode'];
 
-        // Fetch all records (filtered by pegawai_id if provided)
+        // Fetch the data for the selected pegawai or all records based on selected periods
         $akKredits = AkKredit::with('pegawai')
             ->when($pegawaiId, function ($query, $pegawaiId) {
                 return $query->where('pegawais_id', $pegawaiId); // Update column name to 'pegawais_id'
             })
-            ->whereBetween('startDate', [$tgl_awal, $tgl_akhir])
+            ->when(!empty($selectedPeriods), function ($query) use ($selectedPeriods, $tgl_awal, $tgl_akhir) {
+                // If 'all' is selected, don't apply date filter
+                if (in_array('all', $selectedPeriods)) {
+                    return $query; // No date filter
+                } else {
+                    $query = $query->where(function ($q) use ($selectedPeriods, $tgl_awal, $tgl_akhir) {
+                        $hasCondition = false;
+
+                        // Process specific date periods (like '2025-01-01')
+                        $specificDates = array_filter($selectedPeriods, function($period) {
+                            return preg_match('/^\d{4}-\d{2}-\d{2}$/', $period) && !in_array($period, ['all', 'current_year', 'last_year', 'last_2_years', 'last_5_years']);
+                        });
+
+                        if (!empty($specificDates)) {
+                            $q->whereIn('startDate', $specificDates);
+                            $hasCondition = true;
+                        }
+
+                        // Process relative periods (like 'current_year', 'last_year')
+                        $relativePeriods = array_intersect($selectedPeriods, ['current_year', 'last_year', 'last_2_years', 'last_5_years']);
+
+                        foreach ($relativePeriods as $period) {
+                            $range = $this->getSinglePeriodRange($period, $tgl_awal, $tgl_akhir);
+                            if ($range) {
+                                if ($hasCondition) {
+                                    $q->orWhereBetween('startDate', [$range['start'], $range['end']]);
+                                } else {
+                                    $q->whereBetween('startDate', [$range['start'], $range['end']]);
+                                    $hasCondition = true;
+                                }
+                            }
+                        }
+                    });
+                }
+            })
             ->orderBy('startDate', 'ASC')
             ->get();
 
-        // Fetch the first record (filtered by pegawai_id if provided)
+        // Fetch the first record (filtered by pegawai_id if provided) with the same filters as main query
         $akKredits_first = AkKredit::with('pegawai')
             ->when($pegawaiId, function ($query, $pegawaiId) {
                 return $query->where('pegawais_id', $pegawaiId); // Update column name to 'pegawais_id'
             })
-            ->whereBetween('startDate', [$tgl_awal, $tgl_akhir])
-            ->orderBy('startDate', 'DESC')
-            ->first(); // Use first() to get the first matching record
+            ->when(!empty($selectedPeriods), function ($query) use ($selectedPeriods, $tgl_awal, $tgl_akhir) {
+                // If 'all' is selected, don't apply date filter
+                if (in_array('all', $selectedPeriods)) {
+                    return $query; // No date filter
+                } else {
+                    $query = $query->where(function ($q) use ($selectedPeriods, $tgl_awal, $tgl_akhir) {
+                        $hasCondition = false;
+
+                        // Process specific date periods (like '2025-01-01')
+                        $specificDates = array_filter($selectedPeriods, function($period) {
+                            return preg_match('/^\d{4}-\d{2}-\d{2}$/', $period) && !in_array($period, ['all', 'current_year', 'last_year', 'last_2_years', 'last_5_years']);
+                        });
+
+                        if (!empty($specificDates)) {
+                            $q->whereIn('startDate', $specificDates);
+                            $hasCondition = true;
+                        }
+
+                        // Process relative periods (like 'current_year', 'last_year')
+                        $relativePeriods = array_intersect($selectedPeriods, ['current_year', 'last_year', 'last_2_years', 'last_5_years']);
+
+                        foreach ($relativePeriods as $period) {
+                            $range = $this->getSinglePeriodRange($period, $tgl_awal, $tgl_akhir);
+                            if ($range) {
+                                if ($hasCondition) {
+                                    $q->orWhereBetween('startDate', [$range['start'], $range['end']]);
+                                } else {
+                                    $q->whereBetween('startDate', [$range['start'], $range['end']]);
+                                    $hasCondition = true;
+                                }
+                            }
+                        }
+                    });
+                }
+            })
+            ->orderBy('endDate', 'DESC')  // Sort by endDate to get the most recent period
+            ->first(); // Use first() to get the first matching record (latest end date)
 
         // Check if akKredit is null
         if (!$akKredits_first) {
@@ -284,7 +526,82 @@ class AkKreditController extends Controller
         // Skip the mismatch check for date range queries - this validation doesn't make sense for date ranges
         // The original logic was checking if all records have the same startDate as tgl_awal, which is not appropriate for date range queries
 
-        // Pass the data to the view
+        // Calculate the total AK credit for all records - using same logic as akumulasi
+        $totalAkKreditValue = 0;
+        \Log::info('Penetapan calculation start', ['akKredits_count' => count($akKredits->toArray())]);
+        foreach ($akKredits as $akKredit) {
+            $startDate = \Carbon\Carbon::parse($akKredit->startDate);
+            $endDate = \Carbon\Carbon::parse($akKredit->endDate);
+            $diffInMonths = $startDate->diffInMonths($endDate) + 1;
+
+            if ($akKredit->predikat == 'Sangat Baik') {
+                $prosentase = 150;
+            } else {
+                $prosentase = 100;
+            }
+
+            $gol = $akKredit->pegawai->pangkat;
+
+            if ($gol == 'IV/a') {
+                $koefisien = 37.5;
+                $jenjang = 450;
+            } elseif ($gol == 'III/d') {
+                $koefisien = 25;
+                $jenjang = 200;
+                $namaPangkat = 'Penata tk';
+            } elseif ($gol == 'III/c') {
+                $koefisien = 12.5;
+                $jenjang = 100;
+            } else {
+                $koefisien = 0; // Default for other cases
+            }
+
+            $value = ($koefisien * $diffInMonths / 12) * $prosentase / 100;
+            \Log::info('Penetapan calculation detail', [
+                'akKredit_id' => $akKredit->id,
+                'gol' => $gol,
+                'diffInMonths' => $diffInMonths,
+                'koefisien' => $koefisien,
+                'prosentase' => $prosentase,
+                'value' => $value,
+                'running_total' => $totalAkKreditValue + $value
+            ]);
+            $totalAkKreditValue += $value; // Add the numeric value, not formatted string
+        }
+        // Add integrasi value based on options
+        $integrasiValue = 0;
+        if ($options['angka_integrasi']) {
+            $integrasiValue = (float)($akKredits_first->pegawai->integrasi ?? 0);
+        }
+
+        $totalAkKreditValueWithIntegrasi = $totalAkKreditValue + $integrasiValue;
+
+        \Log::info('Penetapan final calculation', [
+            'totalAkKreditValue' => $totalAkKreditValue,
+            'integrasiValue' => $integrasiValue,
+            'totalAkKreditValueWithIntegrasi' => $totalAkKreditValueWithIntegrasi,
+            'pegawai_pangkat' => $akKredits_first->pegawai->pangkat ?? 'unknown',
+            'options' => $options
+        ]);
+
+        // Calculate the final 'baru' value based on the employee's pangkat
+        $employeePangkat = $akKredits_first->pegawai->pangkat;
+        if ($employeePangkat == 'III/d') {
+            $finalBaruValue = $totalAkKreditValueWithIntegrasi - 100; // For III/d, baru = total - 100
+        } else {
+            $finalBaruValue = $totalAkKreditValueWithIntegrasi; // For others, baru = total
+        }
+
+        // Pass the data to the view - use the appropriate total based on integrasi option
+        $displayTotalAkKreditValue = isset($options['angka_integrasi']) && $options['angka_integrasi']
+            ? $totalAkKreditValueWithIntegrasi
+            : $totalAkKreditValue;
+
+        // Also pass the integrasi value separately for use in views if needed
+        $integrasiValueForView = isset($options['angka_integrasi']) && $options['angka_integrasi']
+            ? $integrasiValue
+            : 0;
+
         try {
             $pdf = Pdf::loadView('pdf.penetapan', compact(
                 'penilai',
@@ -298,7 +615,11 @@ class AkKreditController extends Controller
                 'atasanJabatan',
                 'atasanInstansi',
                 'tgl_awal',
-                'tgl_akhir'
+                'tgl_akhir',
+                'displayTotalAkKreditValue', // This is the total to display (with or without integrasi based on option)
+                'finalBaruValue',
+                'options',
+                'integrasiValueForView' // Pass integrasi value separately
             ));
 
             // Return the PDF as a stream (preview in browser)
@@ -357,5 +678,125 @@ class AkKreditController extends Controller
             'count' => $akKredits->count(),
             'records' => $akKredits
         ]);
+    }
+
+    /**
+     * Get date range based on selected period option
+     */
+    private function getDateRangeForPeriod($period, $tgl_awal, $tgl_akhir)
+    {
+        switch ($period) {
+            case 'all':
+                // Return null to indicate no date restriction
+                return null;
+            case '2025-01-01':
+                return [
+                    'start' => '2025-01-01',
+                    'end' => '2025-12-31'
+                ];
+            case '2024-01-01':
+                return [
+                    'start' => '2024-01-01',
+                    'end' => '2024-12-31'
+                ];
+            case '2023-01-01':
+                return [
+                    'start' => '2023-01-01',
+                    'end' => '2023-12-31'
+                ];
+            case 'current_year':
+                $year = date('Y');
+                return [
+                    'start' => $year . '-01-01',
+                    'end' => $year . '-12-31'
+                ];
+            case 'last_year':
+                $year = date('Y') - 1;
+                return [
+                    'start' => $year . '-01-01',
+                    'end' => $year . '-12-31'
+                ];
+            case 'last_2_years':
+                $year = date('Y') - 1;
+                $startYear = $year - 1;
+                return [
+                    'start' => $startYear . '-01-01',
+                    'end' => $year . '-12-31'
+                ];
+            case 'last_5_years':
+                $year = date('Y');
+                $startYear = $year - 4;
+                return [
+                    'start' => $startYear . '-01-01',
+                    'end' => $year . '-12-31'
+                ];
+            case 'specific':
+            default:
+                // Use the provided date range
+                return [
+                    'start' => $tgl_awal,
+                    'end' => $tgl_akhir
+                ];
+        }
+    }
+
+    /**
+     * Get date range for a single period
+     */
+    private function getSinglePeriodRange($period, $tgl_awal, $tgl_akhir)
+    {
+        switch ($period) {
+            case 'all':
+                // Return null to indicate no date restriction
+                return null;
+            case '2025-01-01':
+                return [
+                    'start' => '2025-01-01',
+                    'end' => '2025-12-31'
+                ];
+            case '2024-01-01':
+                return [
+                    'start' => '2024-01-01',
+                    'end' => '2024-12-31'
+                ];
+            case '2023-01-01':
+                return [
+                    'start' => '2023-01-01',
+                    'end' => '2023-12-31'
+                ];
+            case 'current_year':
+                $year = date('Y');
+                return [
+                    'start' => $year . '-01-01',
+                    'end' => $year . '-12-31'
+                ];
+            case 'last_year':
+                $year = date('Y') - 1;
+                return [
+                    'start' => $year . '-01-01',
+                    'end' => $year . '-12-31'
+                ];
+            case 'last_2_years':
+                $year = date('Y') - 1;
+                $startYear = $year - 1;
+                return [
+                    'start' => $startYear . '-01-01',
+                    'end' => $year . '-12-31'
+                ];
+            case 'last_5_years':
+                $year = date('Y');
+                $startYear = $year - 4;
+                return [
+                    'start' => $startYear . '-01-01',
+                    'end' => $year . '-12-31'
+                ];
+            case 'specific':
+            default:
+                // Use the provided date range
+                return [
+                    'start' => $tgl_awal,
+                    'end' => $tgl_akhir
+                ];
+        }
     }
 }

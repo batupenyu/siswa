@@ -109,6 +109,12 @@ class PegawaiController extends Controller
         return view('pegawai.edit', compact('pegawai'));
     }
 
+    public function editModal($id)
+    {
+        $pegawai = Pegawai::with(['stPegawai', 'akKredits', 'anak', 'pasangan', 'ppGaji'])->findOrFail($id);
+        return view('pegawai.edit_modal', compact('pegawai'));
+    }
+
     public function update(Request $request, $id)
     {
         $pegawai = Pegawai::findOrFail($id);
@@ -133,6 +139,13 @@ class PegawaiController extends Controller
         ]);
 
         $pegawai->update($validatedData);
+
+        if ($request->ajax() || $request->wantsJson() || $request->has('from_modal')) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Data pegawai berhasil diperbarui.'
+            ]);
+        }
 
         return redirect()->route('pegawais.index')->with('success', 'Data pegawai berhasil diperbarui.');
     }

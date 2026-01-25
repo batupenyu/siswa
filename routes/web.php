@@ -55,6 +55,7 @@ Route::resource('kelas', KelasController::class);
 Route::resource('header_icon_images', HeaderIconImageController::class);
 Route::resource('holidays', HolidayController::class);
 Route::resource('pegawais', PegawaiController::class);
+Route::get('pegawais/{id}/edit-modal', [PegawaiController::class, 'editModal'])->name('pegawais.edit-modal');
 Route::get('pegawais/export-excel', [PegawaiController::class, 'exportExcel'])->name('pegawais.exportExcel');
 Route::post('pegawais/import-excel', [PegawaiController::class, 'importExcel'])->name('pegawais.importExcel');
 Route::delete('pegawais/destroy-all', [PegawaiController::class, 'destroyAll'])->name('pegawais.destroyAll');

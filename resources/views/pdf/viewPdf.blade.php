@@ -155,6 +155,11 @@ if ($akKredit->pegawai->pangkat == 'IV/a') {
     $pangkat = 100;
     $jenjang = 200;
     $namaPangkat = 'Penata TK. I';
+} elseif ($akKredit->pegawai->pangkat == 'III/c') {
+    $koefisien = 12.5;
+    $pangkat = 50;
+    $jenjang = 100;
+    $namaPangkat = 'Penata';
 } else {
     $koefisien = 0;
     $pangkat = 0;
@@ -187,7 +192,7 @@ $totalAkKredit += $value; // Add to the total
     <p style="text-align: center; margin: 0; padding: 0;">
         <b>
             KONVERSI PREDIKAT KINERJA KE ANGKA KREDIT<br>
-            NOMOR : 800/ ...... / ...... /Dindik/{{ $date->translatedFormat('Y') }}/PAK
+            NOMOR : 800/ ...... / ...... /Dindik/{{ \Carbon\Carbon::parse($akKredit->endDate)->format('Y') }}/PAK
         </b>
     </p>
     <br>
@@ -195,7 +200,7 @@ $totalAkKredit += $value; // Add to the total
     <br>
     <div class="inline-container">
         <div class="left-align">
-            Instansi : {{ $atasanInstansi }}
+            Instansi : {{ $penilai->instansi }}
         </div>
         <div class="right-align">
             Periode : {{Carbon\Carbon::parse($akKredit->startDate)->translatedFormat('d F ')}} s.d.

@@ -105,61 +105,75 @@
         }
     </style>
 </head>
-<?php $totalAkKredit = 0; ?>
-<!-- Initialize total -->
-@foreach ($akKredits as $akKredit)
-<?php
-$startDate = Carbon\Carbon::parse($akKredit->startDate);
-$endDate = Carbon\Carbon::parse($akKredit->endDate);
-$diffInMonths = $startDate->diffInMonths($endDate) + 1;
-$gol = $akKredit->pegawai->pangkat;
-
-if ($akKredit->predikat == 'Sangat Baik') {
-    $prosentase = 150;
-} else {
-    $prosentase = 100;
-}
-
-if ($gol == 'IV/a') {
-    $lama = 200;
-    $koefisien = 37.5;
-    $pangkat = 150;
-    $jenjang = 450;
-    $nextPangkat = 'jenjang Ahli Madya Pangkat/Golongan ruang Pembina TK.I,IV/b';
-    $namaPangkat = 'Pembina';
-} elseif ($gol == 'III/d') {
-    $lama = 100;
-    $koefisien = 25;
-    $pangkat = 200;
-    $jenjang = 200;
-    $nextPangkat = 'jenjang Ahli Madya Pangkat/Golongan ruang Pembina,IV/a';
-    $namaPangkat = 'Penata TK.I';
-} elseif ($gol == 'III/c') {
-    $lama = 50;
-    $koefisien = 12.5;
-    $pangkat = 50;
-    $jenjang = 100;
-    $nextPangkat = 'jenjang Ahli Muda Pangkat/Golongan ruang Penata TK.I,III/d';
-    $namaPangkat = 'Pembina IV/a';
-} else {
-    null;
-}
-
-$value = ($koefisien * $diffInMonths / 12) * $prosentase / 100;
-$totalAkKredit += $value; // Add to the total
-$baru = $totalAkKredit;
-$integrasi = (float) $akKredits_first->pegawai->integrasi;
-$hasilPangkat = $baru - $pangkat;
-$hasilJenjang = $baru - $jenjang;
-?>
-@endforeach
 
 <body>
     <?php
+    // Use the total calculated in the controller
+    $gol = $akKredits_first->pegawai->pangkat; // Get the pangkat of the employee
+
+    if ($gol == 'IV/a') {
+        $lama = 200;
+        $pangkat = 150;
+        $jenjang = 450;
+        $nextPangkat = 'jenjang Ahli Madya Pangkat/Golongan ruang Pembina TK.I,IV/b';
+        $namaPangkat = 'Pembina';
+    } elseif ($gol == 'III/d') {
+        $lama = 100;
+        $pangkat = 200;
+        $jenjang = 200;
+        $nextPangkat = 'jenjang Ahli Madya Pangkat/Golongan ruang Pembina,IV/a';
+        $namaPangkat = 'Penata TK.I';
+    } elseif ($gol == 'III/c') {
+        $lama = 50;
+        $pangkat = 50;
+        $jenjang = 100;
+        $nextPangkat = 'jenjang Ahli Muda Pangkat/Golongan ruang Penata,III/c';
+        $namaPangkat = 'Penata';
+    } else {
+        $lama = 0; // Default value for other cases
+        $pangkat = 0;
+        $jenjang = 0;
+    }
+
+    if(isset($options) && isset($options['angka_integrasi']) && $options['angka_integrasi']) {
+        $integrasi = (float) $akKredits_first->pegawai->integrasi;
+    } else {
+        $integrasi = 0;
+    }
+
+    // Apply the rule for pangkat III/d: baru = total - lama
+    if ($gol == 'III/d') {
+        $baru = $displayTotalAkKreditValue - $lama; // total - lama (which is 100 for III/d)
+    } else {
+        $baru = $displayTotalAkKreditValue;
+    }
+
+    $hasilPangkat = $displayTotalAkKreditValue - $pangkat;
+    $hasilJenjang = $displayTotalAkKreditValue - $jenjang;
+    // Debug: Log the values being used
+    \Log::info('Penetapan calculation debug', [
+        'displayTotalAkKreditValue' => $displayTotalAkKreditValue,
+        'pangkat' => $pangkat,
+        'jenjang' => $jenjang,
+        'hasilPangkat' => $hasilPangkat,
+        'hasilJenjang' => $hasilJenjang
+    ]);
+
+    foreach ($akKredits as $akKredit) {
+        $startDate = Carbon\Carbon::parse($akKredit->startDate);
+        $endDate = Carbon\Carbon::parse($akKredit->endDate);
+        $diffInMonths = $startDate->diffInMonths($endDate) + 1;
+
+        if ($akKredit->predikat == 'Sangat Baik') {
+            $prosentase = 150;
+        } else {
+            $prosentase = 100;
+        }
+    }
 
     use App\Models\Holiday;
 
-    $date = \Carbon\Carbon::parse($akKredit->endDate)->addDay();
+    $date = \Carbon\Carbon::parse($akKredits_first->endDate)->addDay();
 
     // Fetch holiday dates from the database
     $holidays = Holiday::pluck('date')->map(function ($d) {
@@ -174,7 +188,7 @@ $hasilJenjang = $baru - $jenjang;
     <p style="text-align: center; margin: 0; padding: 0;">
         <b>
             PENETAPAN ANGKA KREDIT<br>
-            NOMOR : 800/ ...... /......../Dindik/{{ $date->translatedFormat('Y') }}/PAK
+            NOMOR : 800/ ...... /......../Dindik/{{ \Carbon\Carbon::parse($akKredits_first->endDate)->format('Y') }}/PAK
         </b>
     </p>
     <br>
@@ -182,7 +196,7 @@ $hasilJenjang = $baru - $jenjang;
     <br>
     <div class="inline-container">
         <div class="left-align">
-            Instansi : {{ $atasanInstansi }}
+            Instansi : {{ $penilai->instansi }}
         </div>
         <div class="right-align">
             Periode : {{Carbon\Carbon::parse($akKredits_first->startDate)->translatedFormat('d F ')}} s.d.
@@ -370,7 +384,10 @@ $hasilJenjang = $baru - $jenjang;
             </tr>
             <tr>
                 <td colspan="2">
-                    @if (($lama+$baru+$integrasi-$lama)-$pangkat || ($lama+$baru-$lama)-$pangkat > 0)
+                    @php
+                        $pangkatDifference = $displayTotalAkKreditValue - $pangkat;
+                    @endphp
+                    @if ($pangkatDifference > 0)
                     Kelebihan/<del>Kekurangan</del> *) Angka Kredit yang harus dicapai untuk kenaikan pangkat
                     @else
                     <del>Kelebihan</del>/Kekurangan *) Angka Kredit yang harus dicapai untuk kenaikan pangkat
@@ -379,16 +396,19 @@ $hasilJenjang = $baru - $jenjang;
                 {{-- <td colspan="2" style="text-align: center">{{ $hasilPangkat }}</td> --}}
                 <td colspan="2" style="text-align: center">
                     @if ($tahun == 2022)
-                    {{ number_format(($lama+$baru+$integrasi-$lama)-$pangkat,3) }}
+                    {{ number_format($displayTotalAkKreditValue-$pangkat,3) }}
                     @else
-                    {{ number_format(($lama+$baru-$lama)-$pangkat,3) }}
+                    {{ number_format($displayTotalAkKreditValue-$pangkat,3) }}
                     @endif
                 </td>
                 <td colspan="2"></td>
             </tr>
             <tr>
                 <td colspan="2">
-                    @if (($lama+$baru+$integrasi-$lama)-$jenjang || ($lama+$baru-$lama)-$jenjang > 0)
+                    @php
+                        $jenjangDifference = $displayTotalAkKreditValue - $jenjang;
+                    @endphp
+                    @if ($jenjangDifference > 0)
                     Kelebihan/<del>Kekurangan</del> *) Angka Kredit yang harus dicapai untuk kenaikan jenjang
                     @else
                     <del>Kelebihan</del>/Kekurangan *) Angka Kredit yang harus dicapai untuk kenaikan jenjang
@@ -398,21 +418,34 @@ $hasilJenjang = $baru - $jenjang;
                 {{-- <td colspan="2" style="text-align: center">{{ $hasilJenjang }}</td> --}}
                 <td colspan="2" style="text-align: center">
                     @if ($tahun == 2022)
-                    {{ number_format(($lama+$baru+$integrasi-$lama)-$jenjang,3) }}
+                    {{ number_format($displayTotalAkKreditValue-$jenjang,3) }}
                     @else
-                    {{ number_format(($lama+$baru-$lama)-$jenjang,3) }}
+                    {{ number_format($displayTotalAkKreditValue-$jenjang,3) }}
                     @endif
                 </td>
             </tr>
             <tr>
                 <td colspan="6" style="text-align: justify">
-                    {{-- @if ($akKredit->pegawai->pangkat = $gol && $hasilJenjang > 0) --}}
-                    @if (($lama+$baru+$integrasi-$lama)-$pangkat > 0)
-                    <b><i>Dapat</i></b>
+                    @if(isset($options) && isset($options['angka_integrasi']) && $options['angka_integrasi'])
+                        @php
+                            $condition = (($lama+$baru+$integrasi-$lama)-$pangkat > 0);
+                        @endphp
+                        @if ($condition)
+                        <b><i>Dapat</i></b>
+                        @else
+                        <b><i>Tidak dapat</i></b>
+                        @endif
                     @else
-                    <b><i>Tidak dapat</i></b>
+                        @php
+                            $condition = (($lama+$baru-$lama)-$pangkat > 0);
+                        @endphp
+                        @if ($condition)
+                        <b><i>Dapat</i></b>
+                        @else
+                        <b><i>Tidak dapat</i></b>
+                        @endif
                     @endif
-                    dipertimbangkan untuk kenaikan Pangkat/Jabatan setingkat lebih tinggi ke
+                    dipertimbangkan untuk kenaikan Pangkat/Jabatan setingat lebih tinggi ke
                     <b><i>{{$nextPangkat}}</i></b>
                 </td>
             </tr>

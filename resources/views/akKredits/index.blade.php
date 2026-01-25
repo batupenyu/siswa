@@ -65,32 +65,70 @@
     /* Inline styling for the form */
     .inline-form {
         display: flex;
-        align-items: center;
+        flex-direction: column;
+        align-items: stretch;
         gap: 10px; /* Space between elements */
+        margin-bottom: 20px;
+    }
+
+    /* Container for checkboxes */
+    .checkbox-container {
+        margin: 10px 0;
     }
 
     /* Styling for input fields */
     .inline-form input[type="date"] {
-        padding: 5px;
+        padding: 8px;
         font-size: 14px;
         border: 1px solid #ccc;
         border-radius: 4px;
+        width: 100%;
     }
 
     /* Styling for the submit button */
     .inline-form input[type="submit"] {
-        padding: 5px 10px;
-        font-size: 14px;
+        padding: 10px 15px;
+        font-size: 16px;
         background-color: #007bff;
         color: white;
         border: none;
         border-radius: 4px;
         cursor: pointer;
+        width: 100%;
+        transition: background-color 0.3s;
     }
 
     /* Hover effect for the submit button */
     .inline-form input[type="submit"]:hover {
         background-color: #0056b3;
+    }
+
+    /* Responsive adjustments */
+    @media (min-width: 768px) {
+        .inline-form {
+            flex-direction: row;
+            align-items: flex-start;
+        }
+
+        .inline-form input[type="submit"] {
+            width: auto;
+            min-width: 180px;
+        }
+
+        .checkbox-container {
+            flex: 1;
+        }
+    }
+
+    /* Additional responsive adjustments for smaller screens */
+    @media (max-width: 767px) {
+        .inline-form {
+            gap: 15px;
+        }
+
+        .periode-checkboxes {
+            max-height: 150px !important;
+        }
     }
     </style>
     </head>
@@ -137,20 +175,94 @@
         <div class="card-body full-width">
             <!-- First Form: Generate PDF -->
             <form class="inline-form full-width" action="{{ route('akKredits.generatePdf') }}" method="GET">
-                <label for="tgl_awal">Start </label>
-                <input type="date" id="tgl_awal" name="tgl_awal" value="2022-01-01" required class="full-width mb-10">
-                <label for="tgl_akhir">End </label>
-                <input type="date" id="tgl_akhir" name="tgl_akhir" value="{{ date('Y-m-d') }}" required class="full-width mb-10">
+                <div class="mb-10 checkbox-container">
+                    <label class="form-label">Options:</label>
+                    <div class="periode-checkboxes" style="max-height: 200px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; border-radius: 4px;">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="angka_integrasi" id="angka_integrasi_akumulasi">
+                            <label class="form-check-label" for="angka_integrasi_akumulasi">Angka Integrasi</label>
+                        </div>
+                        <hr style="margin: 10px 0;">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="periode[]" value="all" id="periode_all_akumulasi">
+                            <label class="form-check-label" for="periode_all_akumulasi">All Periods</label>
+                        </div>
+                        @foreach($availablePeriods as $period)
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="periode[]" value="{{ $period['value'] }}" id="periode_{{ $loop->index }}_akumulasi_{{ $period['value'] }}">
+                            <label class="form-check-label" for="periode_{{ $loop->index }}_akumulasi_{{ $period['value'] }}">{{ $period['label'] }}</label>
+                        </div>
+                        @endforeach
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="periode[]" value="current_year" id="periode_current_year_akumulasi">
+                            <label class="form-check-label" for="periode_current_year_akumulasi">Current Year</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="periode[]" value="last_year" id="periode_last_year_akumulasi">
+                            <label class="form-check-label" for="periode_last_year_akumulasi">Last Year</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="periode[]" value="last_2_years" id="periode_last_2_years_akumulasi">
+                            <label class="form-check-label" for="periode_last_2_years_akumulasi">Last 2 Years</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="periode[]" value="last_5_years" id="periode_last_5_years_akumulasi">
+                            <label class="form-check-label" for="periode_last_5_years_akumulasi">Last 5 Years</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hidden date fields with default values -->
+                <input type="hidden" name="tgl_awal" value="2022-01-01">
+                <input type="hidden" name="tgl_akhir" value="{{ date('Y-m-d') }}">
+
                 <input type="hidden" name="pegawai_id" value="{{ $pegawaiId }}">
                 <input type="submit" value="Print Akumulasi" class="full-width">
             </form>
-    
+
             <!-- Second Form: Penetapan -->
             <form class="inline-form full-width mt-20" action="{{ route('akKredits.penetapan') }}" method="GET">
-                <label for="tgl_awal">Start </label>
-                <input type="date" id="tgl_awal" name="tgl_awal" value="2022-01-01" required class="full-width mb-10">
-                <label for="tgl_akhir">End </label>
-                <input type="date" id="tgl_akhir" name="tgl_akhir" value="{{ date('Y-m-d') }}" required class="full-width mb-10">
+                <div class="mb-10 checkbox-container">
+                    <label class="form-label">Options:</label>
+                    <div class="periode-checkboxes" style="max-height: 200px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; border-radius: 4px;">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="angka_integrasi" id="angka_integrasi_penetapan">
+                            <label class="form-check-label" for="angka_integrasi_penetapan">Angka Integrasi</label>
+                        </div>
+                        <hr style="margin: 10px 0;">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="periode[]" value="all" id="periode_all_penetapan">
+                            <label class="form-check-label" for="periode_all_penetapan">All Periods</label>
+                        </div>
+                        @foreach($availablePeriods as $period)
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="periode[]" value="{{ $period['value'] }}" id="periode_{{ $loop->index }}_penetapan_{{ $period['value'] }}">
+                            <label class="form-check-label" for="periode_{{ $loop->index }}_penetapan_{{ $period['value'] }}">{{ $period['label'] }}</label>
+                        </div>
+                        @endforeach
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="periode[]" value="current_year" id="periode_current_year_penetapan">
+                            <label class="form-check-label" for="periode_current_year_penetapan">Current Year</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="periode[]" value="last_year" id="periode_last_year_penetapan">
+                            <label class="form-check-label" for="periode_last_year_penetapan">Last Year</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="periode[]" value="last_2_years" id="periode_last_2_years_penetapan">
+                            <label class="form-check-label" for="periode_last_2_years_penetapan">Last 2 Years</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="periode[]" value="last_5_years" id="periode_last_5_years_penetapan">
+                            <label class="form-check-label" for="periode_last_5_years_penetapan">Last 5 Years</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hidden date fields with default values -->
+                <input type="hidden" name="tgl_awal" value="2022-01-01">
+                <input type="hidden" name="tgl_akhir" value="{{ date('Y-m-d') }}">
+
                 <input type="hidden" name="pegawai_id" value="{{ $pegawaiId }}">
                 <input type="submit" value="Print Penetapan" class="full-width">
             </form>
@@ -250,7 +362,7 @@ document.addEventListener('DOMContentLoaded', function () {
         button.addEventListener('click', function () {
             const pegawaiId = this.getAttribute('data-id');
             // Load the edit form via AJAX
-            fetch(`/pegawais/${pegawaiId}/edit`)
+            fetch(`/pegawais/${pegawaiId}/edit-modal`)
                 .then(response => response.text())
                 .then(html => {
                     formContainer.innerHTML = html;
@@ -260,21 +372,29 @@ document.addEventListener('DOMContentLoaded', function () {
                     const form = formContainer.querySelector('form');
                     if (form) {
                         // Remove any existing submit event listeners to avoid duplicates
-                        form.removeEventListener('submit', submitHandler);
-                        // Define the submit handler function
-                        function submitHandler(e) {
+                        const submitHandler = function(e) {
                             e.preventDefault();
+                            console.log('Form submitted');
                             const formData = new FormData(form);
+
+                            // Get CSRF token
+                            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                            console.log('CSRF Token:', csrfToken);
+
                             fetch(form.action, {
                                 method: form.method,
                                 headers: {
                                     'X-Requested-With': 'XMLHttpRequest',
-                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                                    'X-CSRF-TOKEN': csrfToken,
                                 },
                                 body: formData
                             })
-                            .then(response => response.json())
+                            .then(response => {
+                                console.log('Response status:', response.status);
+                                return response.json();
+                            })
                             .then(data => {
+                                console.log('Response data:', data);
                                 if (data.success) {
                                     // Close modal and optionally refresh or update the table row
                                     modal.hide();
@@ -298,16 +418,24 @@ document.addEventListener('DOMContentLoaded', function () {
                             .catch(error => {
                                 console.error('Error:', error);
                             });
-                        }
+                        };
+
+                        // Remove existing listener before adding new one
+                        form.removeEventListener('submit', submitHandler);
                         form.addEventListener('submit', submitHandler);
 
                         // Add click event listener for simpan_perubahan button to trigger form submission
                         const simpanButton = form.querySelector('#simpan_perubahan');
                         if (simpanButton) {
-                            simpanButton.addEventListener('click', function (e) {
+                            // Remove existing click listener before adding new one
+                            const clickHandler = function(e) {
+                                console.log('Simpan Perubahan button clicked');
                                 e.preventDefault();
                                 form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
-                            });
+                            };
+
+                            simpanButton.removeEventListener('click', clickHandler);
+                            simpanButton.addEventListener('click', clickHandler);
                         }
                     }
                 })
@@ -318,5 +446,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
 </script>
 @endsection

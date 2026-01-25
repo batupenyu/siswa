@@ -7,8 +7,12 @@
         $koefisien = 25;
         $jenjang = 200;
         $namaPangkat = 'Penata tk';
+    } elseif ($akKredit->pegawai->pangkat =='III/c') {
+        $koefisien = 12.5;
+        $jenjang = 100;
+        $namaPangkat = 'Penata';
     } else {
-
+        $koefisien = 0; // Default value
     }
 
     if ($akKredit->predikat =='Sangat Baik') {
@@ -33,5 +37,5 @@
 @endforeach
 <tr>
     <th style="text-align: center" colspan="5">JUMLAH ANGKA KREDIT YANG DIPEROLEH</th>
-    <td style="text-align: right; padding-right:60px">{{ number_format($totalAkKredit, 3) }}</td>
+    <td style="text-align: right; padding-right:60px">{{ number_format($displayTotalAkKreditValue, 3) }}</td>
 </tr>
