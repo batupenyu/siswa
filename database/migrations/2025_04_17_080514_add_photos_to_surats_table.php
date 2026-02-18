@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('surat', function (Blueprint $table) {
             // $table->json('photos')->nullable(); // Menyimpan array path foto
-            $table->json('photos')->nullable(false)->default('[]'); // Default value: array kosong
+            $table->json('photos')->nullable(); // Default value: null
 
         });
     }

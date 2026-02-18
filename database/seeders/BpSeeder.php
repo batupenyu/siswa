@@ -12,10 +12,11 @@ class BpSeeder extends Seeder
      */
     public function run(): void
     {
-        Bp::create([
+        Bp::firstOrCreate([
+            'nip' => '19800407 200501 1 007',
+        ], [
             'nama' => 'JOKO SANTOSO,S.St.Pi',
             'jabatan' => 'Bendaha Pengeluaran Pembantu',
-            'nip' => '19800407 200501 1 007',
             'pangkat' => 'Pembina, IV/a',
             'unitkerja' => 'Cabang Dinas Wilayah I',
             'instansi' => 'Dinas Pendidikan Prov. Kep. Bangka Belitung',

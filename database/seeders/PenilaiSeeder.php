@@ -12,10 +12,11 @@ class PenilaiSeeder extends Seeder
      */
     public function run(): void
     {
-        Penilai::create([
+        Penilai::firstOrCreate([
+            'nip' => '197708262006041005',
+        ], [
             'nama' => 'Syahryanto, S.T',
             'jabatan' => 'Kepala Sekolah',
-            'nip' => '197708262006041005',
             'pangkat' => 'Pembina, IV/a',
             'unitkerja' => 'SMK Negeri 1 Koba',
             'instansi' => 'Dinas Pendidikan Prov. Kep. Bangka Belitung',

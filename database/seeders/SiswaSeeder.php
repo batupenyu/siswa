@@ -15,20 +15,14 @@ class SiswaSeeder extends Seeder
         // Sample data for siswas table
         Siswa::create([
             'name' => 'Siswa One',
-            'email' => 'siswa1@example.com',
             'nis' => '1234567890',
-            'kelas_id' => 1, // Adjust as per your kelas table data
-            'tanggal_lahir' => '2005-01-01',
-            // Add other required fields as per your Siswa model
+            'kelas_id' => null, // No kelas assigned yet
         ]);
 
         Siswa::create([
             'name' => 'Siswa Two',
-            'email' => 'siswa2@example.com',
             'nis' => '0987654321',
-            'kelas_id' => 1, // Adjust as per your kelas table data
-            'tanggal_lahir' => '2006-02-02',
-            // Add other required fields as per your Siswa model
+            'kelas_id' => null, // No kelas assigned yet
         ]);
     }
 }
