@@ -34,11 +34,11 @@
 </style>
 
 <div class="container">
-    @if($stPegawai->pegawais->isNotEmpty())
+    @if($stPegawai && $stPegawai->pegawais && $stPegawai->pegawais->isNotEmpty())
     @php
     $firstPegawai = $stPegawai->pegawais->first();
-    $namaParts = explode(' ', $firstPegawai->jabatan);
-    $firstName = $namaParts[0];
+    $namaParts = $firstPegawai->jabatan ? explode(' ', $firstPegawai->jabatan) : [''];
+    $firstName = $namaParts[0] ?? '';
     @endphp
 
     @if ($firstName == 'Kepala')
@@ -49,7 +49,7 @@
     </h4>
     @else
     <div class="header">
-        @if ($stPegawai->pegawais->first()->nip == $penilai->nip)
+        @if ($firstPegawai && $firstPegawai->nip == $penilai->nip)
         <img src="{{ public_path('images/kopcabdin1.png') }}" alt="">
         @else
         @if($headerIconImage)
@@ -65,7 +65,7 @@
     </h4>
     @endif
     @else
-    -
+    <div class="alert alert-warning">Data petugas tidak ditemukan.</div>
     @endif
 </div>
 <br>
@@ -140,11 +140,12 @@
 
 </table>
 
-@if($stPegawai->pegawais->isNotEmpty())
+@if($stPegawai && $stPegawai->pegawais && $stPegawai->pegawais->isNotEmpty())
+@php $firstPegawai = $stPegawai->pegawais->first(); @endphp
 <p style="padding-left:420px">
-    Ditetapkan di {{$stPegawai->pegawais->first()->nip != $penilai->nip ? 'Koba' : 'Pangkalpinang'}} <br>
+    Ditetapkan di {{$firstPegawai && $firstPegawai->nip != $penilai->nip ? 'Koba' : 'Pangkalpinang'}} <br>
     Pada tanggal, {{ Carbon\Carbon::parse($stPegawai->tgl_awal)->translatedFormat('d F Y') }}. <br><br>
-    @if ($stPegawai->pegawais->first()->nip != $penilai->nip)
+    @if ($firstPegawai && $firstPegawai->nip != $penilai->nip)
     {{$penilai->jabatan}} <br><br><br><br>
     {{$penilai->nama}} <br>
     NIP.{{ $penilai->nip }}

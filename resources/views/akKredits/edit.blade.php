@@ -33,7 +33,7 @@
                                 <option value="" disabled>Select a Pegawai</option>
                                 @foreach ($pegawais as $pegawai)
                                     <option value="{{ $pegawai->id }}" {{ $akKredit->pegawais_id == $pegawai->id ? 'selected' : '' }}>
-                                        {{ $pegawai->nama }} <!-- Assuming 'name' is a column in the pegawai table -->
+                                        {{ $pegawai->nama }} <!-- Assuming 'nama' is a column in thepegawai table -->
                                     </option>
                                 @endforeach
                             </select>

@@ -215,7 +215,7 @@ $totalAkKredit += $value; // Add to the total
                 <td colspan="2">
                     <span class="label">Nama</span>
                     <span class="colon">:</span>
-                    <span class="value">{{ $akKredit->pegawai->nama }}</span>
+                    <span class="value">{{ $akKredit->pegawai->name }}</span>
                 </td>
             </tr>
             <tr>
@@ -333,10 +333,10 @@ $totalAkKredit += $value; // Add to the total
         Pada tanggal, {{ $date->translatedFormat('d F Y') }}. <br><br>
         Pejabat Penilai Kinerja <br><br><br><br>
         @if ($akKredit->pegawai->nip != $penilai->nip)
-        {{$penilai->nama}} <br>
+        {{$penilai->name}} <br>
         NIP.{{ $penilai->nip }}`
         @else
-        {{$kpa->nama}} <br>
+        {{$kpa->name}} <br>
         NIP. {{$kpa->nip }}
         @endif
     </p>

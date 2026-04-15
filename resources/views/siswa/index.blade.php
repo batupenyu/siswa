@@ -33,6 +33,7 @@
             @csrf
             <input type="file" name="file" accept=".xlsx,.csv" required class="form-control form-control-sm me-2">
             <button type="submit" class="btn btn-primary btn-sm">Import XLSX</button>
+            <small class="text-muted ms-2"><a href="{{ route('siswas.template') }}">Unduh template</a></small>
         </form>
     </div>
 
@@ -45,6 +46,13 @@
     @if(session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
+    </div>
+    @endif
+
+    <!-- Display Error Message -->
+    @if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
     </div>
     @endif
 

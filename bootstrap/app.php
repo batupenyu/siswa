@@ -11,6 +11,26 @@
 |
 */
 
+// Force MySQL connection - override Windows environment variable
+$envFile = dirname(__DIR__) . '/.env';
+if (file_exists($envFile)) {
+    $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    foreach ($lines as $line) {
+        if (strpos($line, 'DB_CONNECTION=') === 0) {
+            $dbConnection = substr($line, strlen('DB_CONNECTION='));
+            $_ENV['DB_CONNECTION'] = $dbConnection;
+            $_SERVER['DB_CONNECTION'] = $dbConnection;
+            putenv("DB_CONNECTION={$dbConnection}");
+        }
+        if (strpos($line, 'DB_DATABASE=') === 0) {
+            $dbDatabase = substr($line, strlen('DB_DATABASE='));
+            $_ENV['DB_DATABASE'] = $dbDatabase;
+            $_SERVER['DB_DATABASE'] = $dbDatabase;
+            putenv("DB_DATABASE={$dbDatabase}");
+        }
+    }
+}
+
 $app = new Illuminate\Foundation\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );

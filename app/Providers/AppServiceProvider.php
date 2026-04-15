@@ -30,5 +30,10 @@ class AppServiceProvider extends ServiceProvider
     {
         // Configure pagination to use Bootstrap
         Paginator::useBootstrap();
+
+        // Force HTTPS in production environments
+        if (!$this->app->environment('local', 'testing')) {
+            \URL::forceScheme('https');
+        }
     }
 }

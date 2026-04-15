@@ -22,7 +22,7 @@
                     <!-- Left Column -->
                     <div class="col-md-6">
                         <div class="mb-3 row align-items-center">
-                            <label for="nama" class="col-md-4 col-form-label">Nama</label>
+                            <label for="name" class="col-md-4 col-form-label">Nama</label>
                             <div class="col-md-8">
                                 <input type="text" name="nama" id="nama"
                                     class="form-control @error('nama') is-invalid @enderror"
@@ -233,4 +233,20 @@
         </div>
     </div>
 </div>
+
+@section('scripts')
+<script>
+function validateForm(btn) {
+    var nama = document.getElementById('nama').value.trim();
+    var nip = document.getElementById('nip').value.trim();
+    var jabatan = document.getElementById('jabatan').value.trim();
+    var pangkat = document.getElementById('pangkat').value.trim();
+    
+    if (!nama || !nip || !jabatan || !pangkat) {
+        alert('Mohon lengkapi semua field: Nama, NIP, Jabatan, dan Pangkat');
+        return false;
+    }
+    return true;
+}
+</script>
 @endsection

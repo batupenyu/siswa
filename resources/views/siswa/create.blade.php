@@ -10,7 +10,7 @@
     <div class="card">
         <div class="card-body">
             <h1>Create Student</h1>
-            <form action="{{ route('siswa.store') }}" method="POST">
+            <form action="{{ route('siswas.store') }}" method="POST">
                 @csrf
                 <div class="row">
                     <div class="mb-3 col-md-6">

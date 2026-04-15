@@ -11,11 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('cuti', function (Blueprint $table) {
-            $table->dropForeign(['penilai_id']);
-            $table->dropForeign(['kpa_id']);
-            $table->dropColumn(['penilai_id', 'kpa_id']);
-        });
+        if (Schema::hasColumn('cuti', 'penilai_id')) {
+            Schema::table('cuti', function (Blueprint $table) {
+                $table->dropForeign('cuti_penilai_id_foreign');
+                $table->dropColumn('penilai_id');
+            });
+        }
+        
+        if (Schema::hasColumn('cuti', 'kpa_id')) {
+            Schema::table('cuti', function (Blueprint $table) {
+                $table->dropForeign('cuti_kpa_id_foreign');
+                $table->dropColumn('kpa_id');
+            });
+        }
     }
 
     /**

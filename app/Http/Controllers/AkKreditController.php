@@ -64,7 +64,7 @@ class AkKreditController extends Controller
 
         $akKredits = AkKredit::with('pegawai')
             ->when($search, function ($query, $search) {
-                $query->where('pegawai.nama', 'like', '%' . $search . '%')
+                $query->where('pegawai.name', 'like', '%' . $search . '%')
                     ->orWhere('pegawai.nip', 'like', '%' . $search . '%')
                     ->orWhere('pegawai.jabatan', 'like', '%' . $search . '%')
                     ->orWhere('pegawai.unitkerja', 'like', '%' . $search . '%');
@@ -245,7 +245,7 @@ class AkKreditController extends Controller
         ));
 
         // Return the PDF as a stream (preview in browser)
-        return $pdf->stream('akumulasi-an.-' . $akKredits_first->pegawai->nama . '-' . \Carbon\Carbon::parse($akKredits_first->endDate)->format('Y')  . '.pdf');
+        return $pdf->stream('akumulasi-an.-' . $akKredits_first->pegawai->name . '-' . \Carbon\Carbon::parse($akKredits_first->endDate)->format('Y')  . '.pdf');
     }
 
     public function penetapan(Request $request)
@@ -319,7 +319,7 @@ class AkKreditController extends Controller
         ));
 
         // Return the PDF as a stream (preview in browser)
-        return $pdf->stream('penetapan-an.-' . $akKredits_first->pegawai->nama . '-' . \Carbon\Carbon::parse($akKredits_first->endDate)->format('Y')  . '.pdf');
+        return $pdf->stream('penetapan-an.-' . $akKredits_first->pegawai->name . '-' . \Carbon\Carbon::parse($akKredits_first->endDate)->format('Y')  . '.pdf');
     }
 
     public function viewPdf($id)
@@ -358,6 +358,6 @@ class AkKreditController extends Controller
         ));
 
         // Stream the PDF to the browser
-        return $pdf->stream('konversi-an.-' . $akKredit->pegawai->nama . '-' . \Carbon\Carbon::parse($akKredit->endDate)->format('Y')  . '.pdf');
+        return $pdf->stream('konversi-an.-' . $akKredit->pegawai->name . '-' . \Carbon\Carbon::parse($akKredit->endDate)->format('Y')  . '.pdf');
     }
 }

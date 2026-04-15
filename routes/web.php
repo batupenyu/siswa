@@ -91,10 +91,14 @@ Route::middleware('auth')->group(function () {
     Route::resource('siswas', SiswaController::class);
     Route::get('/siswas/export', [\App\Http\Controllers\SiswaController::class, 'export'])->name('siswas.export');
     Route::post('/siswas/import', [\App\Http\Controllers\SiswaController::class, 'import'])->name('siswas.import');
+    Route::get('/siswas/template', [\App\Http\Controllers\SiswaController::class, 'downloadTemplate'])->name('siswas.template');
+Route::get('/siswas/template/view', [\App\Http\Controllers\SiswaController::class, 'template'])->name('siswas.template.page');
     Route::resource('ipps', \App\Http\Controllers\IppController::class);
     Route::get('ipps/{id}/kwitansi', [\App\Http\Controllers\IppController::class, 'kwitansi'])->name('ipps.kwitansi');
     Route::resource('siswa-profil', SiswaProfilController::class);
-    Route::get('/', [SiswaController::class, 'index'])->name('siswas.index');
+    Route::get('/', function () {
+        return redirect()->route('login');
+    });
     Route::get('/siswa/{id}/pdf', [SiswaController::class, 'pdf'])->name('siswa.pdf');
     Route::get('/siswa/{siswa}', [SiswaController::class, 'show'])->name('siswa.show');
 
@@ -113,6 +117,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/pegawais/{id}/pdf', [PegawaiController::class, 'pdf'])->name('pegawais.pdf');
     Route::get('/pegawais/{id}/kredit', [PegawaiController::class, 'kredit'])->name('pegawais.kredit');
     Route::post('/pegawais/import', [PegawaiController::class, 'importExcel'])->name('pegawais.importExcel');
+    Route::get('/pegawais/template', [PegawaiController::class, 'downloadTemplate'])->name('pegawais.template');
 
     Route::resource('st-pegawai', StPegawaiController::class);
     Route::get('stPegawai', [StPegawaiController::class, 'index'])->name('stPegawai.index');
@@ -189,4 +194,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('spmts', SpmtController::class);
 
     Route::resource('sisa_cuti', \App\Http\Controllers\SisaCutiController::class);
+
+    // Secure form routes
+    Route::get('/secure-form', [\App\Http\Controllers\SecureController::class, 'showForm'])->name('secure.form');
+    Route::post('/secure-form', [\App\Http\Controllers\SecureController::class, 'handleForm'])->name('secure.form.submit');
 });

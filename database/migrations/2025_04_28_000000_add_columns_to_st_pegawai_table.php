@@ -12,10 +12,10 @@ return new class extends Migration
     public function up()
     {
         Schema::table('st_pegawai', function (Blueprint $table) {
-            $table->text('maksud_tujuan')->nullable()->after('tempat_ditetapkan');
-            $table->text('materi_narsum')->nullable()->after('maksud_tujuan');
-            $table->text('hasil')->nullable()->after('materi_narsum');
-            $table->text('kesimpulan')->nullable()->after('hasil');
+            $table->text('maksud_tujuan')->nullable();
+            $table->text('materi_narsum')->nullable();
+            $table->text('hasil')->nullable();
+            $table->text('kesimpulan')->nullable();
         });
     }
 

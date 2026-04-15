@@ -70,9 +70,13 @@ class PegawaiExport implements FromCollection, WithHeadings, WithMapping, WithCo
 
     public function map($pegawai): array
     {
+        $nip = (string) $pegawai->nip;
+        // Prepend with space to force text format
+        $nip = ' ' . $nip;
+
         return [
             $pegawai->nama,
-            $pegawai->nip,
+            $nip,
             $pegawai->jabatan,
             $pegawai->pangkat,
             $pegawai->integrasi,

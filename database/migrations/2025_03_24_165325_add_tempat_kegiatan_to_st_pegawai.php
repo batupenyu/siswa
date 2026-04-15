@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('st_pegawai', function (Blueprint $table) {
             //
-            $table->string('tempat_kegiatan')->after('jam_kegiatan');
+            $table->string('tempat_kegiatan')->nullable();
         });
     }
 

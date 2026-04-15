@@ -66,7 +66,7 @@ class PegawaiExport implements FromQuery, WithHeadings, WithMapping, WithColumnF
         // Alternatif: gunakan \u{200B} (zero-width space) — tapi lebih aman pakai petik + pastikan format teks
         return [
             $nip, // Cukup kirim string biasa — format teks akan di-handle oleh styles
-            $pegawai->nama,
+            $pegawai->name,
             $pegawai->jabatan,
             $pegawai->pangkat,
             $pegawai->status_kepegawaian,

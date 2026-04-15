@@ -31,7 +31,7 @@
                             <select name="pegawais_id" id="pegawais_id" class="form-select" required>
                                 <option value="" disabled selected>Select a Pegawai</option>
                                 @foreach ($pegawais as $pegawai)
-                                    <option value="{{ $pegawai->id }}">{{ $pegawai->nama }}</option> <!-- Assuming 'name' is a column in the pegawai table -->
+                                    <option value="{{ $pegawai->id }}">{{ $pegawai->nama }}</option> <!-- Assuming 'nama' is a column in thepegawai table -->
                                 @endforeach
                             </select>
                         </div>

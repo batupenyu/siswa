@@ -192,7 +192,7 @@
                         <td>
                             {{Carbon\Carbon::parse($akKredit->startDate)->format('Y')}}
                         </td>
-                        <td>{{ $akKredit->pegawai->nama }}
+                        <td>{{ $akKredit->pegawai->name }}
                         </td>
                         <td>{{ $akKredit->predikat }}</td>
                         <td style="text-align: center">

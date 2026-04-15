@@ -9,7 +9,7 @@
         <a href="{{ route('pegawais.create') }}" class="btn btn-primary">Tambah Pegawai</a>
         <a href="{{ route('pegawais.exportExcel') }}" class="btn btn-success ms-2">Export Excel</a>
         <button type="button" class="btn btn-info ms-2" data-bs-toggle="modal" data-bs-target="#importExcelModal">
-            Import Excel
+            Import CSV
         </button>
 
         <!-- Tambahkan tombol Hapus Semua di sini -->
@@ -20,21 +20,21 @@
         </form>
     </div>
 
-    <!-- Modal Import Excel -->
+    <!-- Modal Import CSV -->
     <div class="modal fade" id="importExcelModal" tabindex="-1" aria-labelledby="importExcelModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <form action="{{ route('pegawais.importExcel') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-header">
-                        <h5 class="modal-title" id="importExcelModalLabel">Import Data Pegawai dari Excel</h5>
+                        <h5 class="modal-title" id="importExcelModalLabel">Import Data Pegawai dari CSV</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label for="file" class="form-label">Pilih File Excel (.xlsx atau .xls)</label>
-                            <input type="file" class="form-control" id="file" name="file" accept=".xlsx, .xls" required>
-                            <small class="text-muted">Format file harus sesuai template. <a href="#" class="text-decoration-none">Unduh template</a></small>
+                            <label for="file" class="form-label">Pilih File CSV</label>
+                            <input type="file" class="form-control" id="file" name="file" accept=".csv" required>
+                            <small class="text-muted">Format file harus sesuai template. <a href="{{ route('pegawais.template') }}" class="text-decoration-none">Unduh template</a></small>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -45,6 +45,13 @@
             </div>
         </div>
     </div>
+
+    <!-- Display Error Message -->
+    @if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+    @endif
 
     <!-- Search Form -->
     <div class="mb-3">

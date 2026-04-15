@@ -120,7 +120,7 @@ class AnakController extends Controller
             return redirect()->route('anak.index')->with('error', 'Data anak tidak ditemukan.');
         }
         $pdf = PDF::loadView('anak.show', compact('pegawai', 'anak', 'penilai', 'ppgaji', 'pasangan'));
-        return $pdf->stream($pegawai->nama . '.pdf');
+        return $pdf->stream($pegawai->name . '.pdf');
     }
 
     public function viewEdit($id)

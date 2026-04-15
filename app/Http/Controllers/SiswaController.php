@@ -9,14 +9,48 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Imports\SiswaImport;
 use App\Exports\SiswaExport;
+use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 class SiswaController extends Controller
 {
+    public function downloadTemplate()
+    {
+        $headers = ['name', 'nis', 'npsn', 'kelas_id'];
+        $example = [
+            ['John Doe', '12345', '12345678', '1'],
+            ['Jane Smith', '12346', '12345679', '2'],
+        ];
+
+        return Excel::download(new class($headers, $example) implements FromCollection, WithHeadings {
+            private $headers;
+            private $example;
+            public function __construct($headers, $example) {
+                $this->headers = $headers;
+                $this->example = $example;
+            }
+            public function collection() {
+                return collect($this->example);
+            }
+            public function headings(): array {
+                return $this->headers;
+            }
+        }, 'template-siswa.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    }
+
+    public function template()
+    {
+        return view('siswa.template');
+    }
+
     public function export()
     {
         try {
+            if (Siswa::count() === 0) {
+                return redirect()->route('siswas.index')->with('error', 'Tidak ada data untuk dieksport!');
+            }
             return Excel::download(new SiswaExport, 'siswas.xlsx');
         } catch (\Exception $e) {
             \Log::error('Export Siswa failed: ' . $e->getMessage());

@@ -170,7 +170,17 @@ class StPegawaiController extends Controller
         $kpaUnitkerja = Configurasi::valueOf('kpa.unitkerja');
 
         $stPegawai = StPegawai::find($id);
-        $pegawai_first = StPegawai::with('pegawais')->first();
+        
+        if (!$stPegawai || $stPegawai->pegawais->isEmpty()) {
+            return redirect()->back()->with('error', 'Data tidak ditemukan atau belum ada petugas yang назнаangkan.');
+        }
+        
+        $pegawai_first = $stPegawai->pegawais->first();
+        
+        // Fallback if penilai/kpa is null
+        $penilai = $penilai ?? (object)['nip' => '', 'nama' => '', 'jabatan' => '', 'unitkerja' => ''];
+        $kpa = $kpa ?? (object)['nip' => '', 'nama' => '', 'jabatan' => '', 'unitkerja' => ''];
+        
         $pdf = Pdf::loadView('st_pegawai.pdf_fixed', compact('penilai', 'kpa', 'headerIconImage', 'pegawai_first', 'stPegawai', 'atasanNama', 'atasanNip', 'atasanPangkat', 'atasanUnitkerja', 'atasanJabatan', 'kpaNama', 'kpaNip', 'kpaPangkat', 'kpaUnitkerja', 'kpaJabatan'))
             ->setOption('margin-top', 0);
 
@@ -446,17 +456,15 @@ class StPegawaiController extends Controller
     public function laporan($id)
     {
         $st_pegawai = StPegawai::with('pegawais')->find($id);
-        $penilai = \App\Models\Penilai::first();
-        $kpa = \App\Models\Kpa::first();
-        $bp = \App\Models\Bp::first();
+        $penilai = \App\Models\Penilai::first() ?? (object)['nip' => '', 'nama' => '', 'jabatan' => '', 'unitkerja' => ''];
+        $kpa = \App\Models\Kpa::first() ?? (object)['nip' => '', 'nama' => '', 'jabatan' => '', 'unitkerja' => ''];
+        $bp = \App\Models\Bp::first() ?? (object)['nip' => '', 'nama' => '', 'jabatan' => '', 'unitkerja' => ''];
         $headerIconImage = HeaderIconImage::latest()->first();
-        // $headerIconImage = Configurasi::valueOf('header_icon_image');
 
         if (!$st_pegawai) {
             abort(404, 'Record not found');
         }
 
-        // Wrap the single record in an array to be compatible with the blade expecting a collection
         $st_pegawai_collection = collect([$st_pegawai]);
 
         $pdf = Pdf::loadView('st_pegawai.laporan', ['headerIconImage' => $headerIconImage, 'stPegawai' => $st_pegawai_collection, 'penilai' => $penilai, 'kpa' => $kpa, 'bp' => $bp])
@@ -468,10 +476,9 @@ class StPegawaiController extends Controller
     public function sppd_depan($id)
     {
         $st_pegawai = StPegawai::with('pegawais')->find($id);
-        $penilai = \App\Models\Penilai::first();
-        $kpa = \App\Models\Kpa::first();
-        $bp = \App\Models\Bp::first();
-
+        $penilai = \App\Models\Penilai::first() ?? (object)['nip' => '', 'nama' => '', 'jabatan' => '', 'unitkerja' => ''];
+        $kpa = \App\Models\Kpa::first() ?? (object)['nip' => '', 'nama' => '', 'jabatan' => '', 'unitkerja' => ''];
+        $bp = \App\Models\Bp::first() ?? (object)['nip' => '', 'nama' => '', 'jabatan' => '', 'unitkerja' => ''];
 
         $atasanNama = Configurasi::valueOf('atasan.nama');
         $atasanJabatan = Configurasi::valueOf('atasan.jabatan');

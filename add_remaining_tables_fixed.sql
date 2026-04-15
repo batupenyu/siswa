@@ -1,0 +1,69 @@
+-- Create configurasi table if it doesn't exist
+CREATE TABLE IF NOT EXISTS configurasi (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    `key` VARCHAR(255) NOT NULL,
+    value TEXT NULL,
+    created_at TIMESTAMP NULL DEFAULT NULL,
+    updated_at TIMESTAMP NULL DEFAULT NULL
+);
+
+-- Add nama_kegiatan column to surat table if it doesn't exist
+SET @col_exists = (SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'siswa' AND TABLE_NAME = 'surat' AND COLUMN_NAME = 'nama_kegiatan');
+SET @sql = IF(@col_exists = 0, 'ALTER TABLE surat ADD COLUMN nama_kegiatan VARCHAR(255) NULL DEFAULT NULL', 'SELECT "Column already exists" as Message');
+PREPARE stmt FROM @sql;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+-- Add file column to surat table if it doesn't exist
+SET @col_exists = (SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'siswa' AND TABLE_NAME = 'surat' AND COLUMN_NAME = 'file');
+SET @sql = IF(@col_exists = 0, 'ALTER TABLE surat ADD COLUMN file VARCHAR(255) NULL DEFAULT NULL', 'SELECT "Column already exists" as Message');
+PREPARE stmt FROM @sql;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+-- Create pegawais table if it doesn't exist
+CREATE TABLE IF NOT EXISTS pegawais (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    nip VARCHAR(255) NOT NULL,
+    jabatan VARCHAR(255) NULL DEFAULT NULL,
+    pangkat VARCHAR(255) NULL DEFAULT NULL,
+    created_at TIMESTAMP NULL DEFAULT NULL,
+    updated_at TIMESTAMP NULL DEFAULT NULL
+);
+
+-- Create st_pegawai table if it doesn't exist
+CREATE TABLE IF NOT EXISTS st_pegawai (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    pegawai_id BIGINT UNSIGNED NOT NULL,
+    nomor_st VARCHAR(255) NOT NULL,
+    tanggal_st DATE NOT NULL,
+    created_at TIMESTAMP NULL DEFAULT NULL,
+    updated_at TIMESTAMP NULL DEFAULT NULL
+);
+
+-- Create pegawai_st_pegawai table if it doesn't exist
+CREATE TABLE IF NOT EXISTS pegawai_st_pegawai (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    pegawai_id BIGINT UNSIGNED NOT NULL,
+    st_pegawai_id BIGINT UNSIGNED NOT NULL,
+    created_at TIMESTAMP NULL DEFAULT NULL,
+    updated_at TIMESTAMP NULL DEFAULT NULL
+);
+
+-- Create ak_kredits table if it doesn't exist
+CREATE TABLE IF NOT EXISTS ak_kredits (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP NULL DEFAULT NULL,
+    updated_at TIMESTAMP NULL DEFAULT NULL
+);
+
+-- Create holidays table if it doesn't exist
+CREATE TABLE IF NOT EXISTS holidays (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    date DATE NOT NULL,
+    created_at TIMESTAMP NULL DEFAULT NULL,
+    updated_at TIMESTAMP NULL DEFAULT NULL
+);

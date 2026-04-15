@@ -1,0 +1,3 @@
+name,nip,jabatan,pangkat,status_kepegawaian,agama,alamat,tgl_tmt_cpns,integrasi,no_karpeg,jenis_kelamin,tgl_lahir,tempat_lahir,tgl_tmt_jabatan,tgl_tmt_pangkat
+John Doe,123456789012345678,Staff IT,"III/d, Penata Tk. I",PNS,islam,Jl. Contoh No. 123,2020-01-01,Tidak,123456789,Laki-laki,1990-01-01,Jakarta,2020-01-01,2022-01-01
+Jane Smith,123456789012345679,Manager,"IV/a, Pembina",PNS,kristen,Jl. Contoh No. 124,2019-05-15,Ya,987654321,Perempuan,1985-05-15,Bandung,2019-05-15,2021-05-15
