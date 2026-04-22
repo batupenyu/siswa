@@ -48,37 +48,57 @@ class PegawaiController extends Controller
     {
         $handle = fopen($filePath, 'r');
 
-        // Skip header row
-        fgetcsv($handle);
+        $firstRow = fgetcsv($handle);
+        if ($firstRow === false) {
+            fclose($handle);
+            return;
+        }
 
-        while (($data = fgetcsv($handle)) !== FALSE) {
-            // Map CSV columns to database fields
-            // CSV columns: name, nip, jabatan, pangkat, status_kepegawaian, agama, alamat, tgl_tmt_cpns, integrasi, no_karpeg, jenis_kelamin, tgl_lahir, tempat_lahir, tgl_tmt_jabatan, tgl_tmt_pangkat
-            if (isset($data[0], $data[1], $data[2])) { // At least name, nip, jabatan
-                $name = trim($data[0] ?? '');
-                $nip = trim($data[1] ?? '');
+        rewind($handle);
+        
+        $delimiter = ';';
+        $testDelimiters = [';', ',', '\t'];
+        $maxCount = 0;
+        $bestDelimiter = ',';
+        
+        foreach ($testDelimiters as $d) {
+            $count = count(str_getcsv($firstRow[0] ?? '', $d));
+            if ($count > $maxCount) {
+                $maxCount = $count;
+                $bestDelimiter = $d;
+            }
+        }
+        
+        if ($bestDelimiter !== ',') {
+            $delimiter = $bestDelimiter;
+        }
 
-                // Only proceed if both required fields are present
+        fgetcsv($handle, 0, $delimiter);
+
+        while (($row = fgetcsv($handle, 0, $delimiter)) !== FALSE) {
+            if (isset($row[0], $row[1], $row[2])) {
+                $name = $this->cleanString($row[0] ?? '');
+                $nip = $this->cleanString($row[1] ?? '');
+
                 if (!empty($name) && !empty($nip)) {
                     $pegawaiData = [
                         'nama' => $name,
                         'nip' => $nip,
-                        'jabatan' => $data[2] ?? null,
-                        'pangkat' => $data[3] ?? null,
-                        'status_kepegawaian' => $this->validateEnumValue($data[4] ?? null, ['PNS', 'PPPK', 'Honor', '-']),
-                        'agama' => $this->validateEnumValue($data[5] ?? null, ['islam', 'kristen', 'protestan', 'hindu', 'budha', 'konghucu']),
-                        'alamat' => $data[6] ?? null,
-                        'tgl_tmt_cpns' => $this->validateDate($data[7] ?? null),
-                        'integrasi' => $data[8] ?? null,
-                        'no_karpeg' => $data[9] ?? null,
-                        'jenis_kelamin' => $this->validateEnumValue($data[10] ?? null, ['Laki-laki', 'Perempuan']),
-                        'tgl_lahir' => $this->validateDate($data[11] ?? null),
-                        'tempat_lahir' => $data[12] ?? null,
-                        'tgl_tmt_jabatan' => $this->validateDate($data[13] ?? null),
-                        'tgl_tmt_pangkat' => $this->validateDate($data[14] ?? null),
+                        'jabatan' => $this->cleanString($row[2] ?? ''),
+                        'pangkat' => $this->cleanString($row[3] ?? ''),
+                        'status_kepegawaian' => $this->validateEnumValue($row[4] ?? null, ['PNS', 'PPPK', 'Honor', '-']),
+                        'agama' => $this->validateEnumValue($row[5] ?? null, ['islam', 'kristen', 'protestan', 'hindu', 'budha', 'konghucu']),
+                        'alamat' => $this->cleanString($row[6] ?? ''),
+                        'tgl_tmt_cpns' => $this->validateDate($row[7] ?? null),
+                        'integrasi' => $this->cleanString($row[8] ?? ''),
+                        'no_karpeg' => $this->cleanString($row[9] ?? ''),
+                        'jenis_kelamin' => $this->validateEnumValue($row[10] ?? null, ['Laki-laki', 'Perempuan']),
+                        'tgl_lahir' => $this->validateDate($row[11] ?? null),
+                        'tempat_lahir' => $this->cleanString($row[12] ?? ''),
+                        'tgl_tmt_jabatan' => $this->validateDate($row[13] ?? null),
+                        'tgl_tmt_pangkat' => $this->validateDate($row[14] ?? null),
                     ];
 
-                    // Check if NIP already exists to avoid duplicates
                     $existingPegawai = Pegawai::where('nip', $pegawaiData['nip'])->first();
                     if (!$existingPegawai) {
                         Pegawai::create($pegawaiData);
@@ -88,6 +108,19 @@ class PegawaiController extends Controller
         }
 
         fclose($handle);
+    }
+
+    private function cleanString($value)
+    {
+        if ($value === null || $value === '') {
+            return null;
+        }
+        
+        $value = trim($value);
+        $value = str_replace("\xA0", ' ', $value);
+        $value = preg_replace('/\s+/', ' ', $value);
+        
+        return $value;
     }
 
     public function downloadTemplate()

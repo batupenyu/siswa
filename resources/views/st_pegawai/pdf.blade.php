@@ -329,6 +329,8 @@ Pada tanggal <span style="padding-left: 14px">:</span> {{
     <br>
     {{ $atasanNama}}
     <br>
+    {{ $atasanJabatan}}
+    <br>
     NIP. {{ $atasanNip }}
 </p>
 @endif --}}

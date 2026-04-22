@@ -456,9 +456,18 @@ class StPegawaiController extends Controller
     public function laporan($id)
     {
         $st_pegawai = StPegawai::with('pegawais')->find($id);
-        $penilai = \App\Models\Penilai::first() ?? (object)['nip' => '', 'nama' => '', 'jabatan' => '', 'unitkerja' => ''];
-        $kpa = \App\Models\Kpa::first() ?? (object)['nip' => '', 'nama' => '', 'jabatan' => '', 'unitkerja' => ''];
-        $bp = \App\Models\Bp::first() ?? (object)['nip' => '', 'nama' => '', 'jabatan' => '', 'unitkerja' => ''];
+        $penilai = \App\Models\Penilai::first();
+        if (!$penilai) {
+            $penilai = (object)['nip' => '', 'nama' => '', 'jabatan' => '', 'unitkerja' => ''];
+        }
+        $kpa = \App\Models\Kpa::first();
+        if (!$kpa) {
+            $kpa = (object)['nip' => '', 'nama' => '', 'jabatan' => '', 'unitkerja' => ''];
+        }
+        $bp = \App\Models\Bp::first();
+        if (!$bp) {
+            $bp = (object)['nip' => '', 'nama' => '', 'jabatan' => '', 'unitkerja' => ''];
+        }
         $headerIconImage = HeaderIconImage::latest()->first();
 
         if (!$st_pegawai) {

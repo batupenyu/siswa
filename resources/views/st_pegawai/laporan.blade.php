@@ -178,11 +178,11 @@
                 </tr>
                 @php
                 $firstPegawai = $stPegawaiItem->pegawais->first();
-                $namaParts = explode(' ', $firstPegawai->nama);
-                $jabatanParts = explode(' ', $firstPegawai->jabatan);
-                $nipParts = explode(' ', $firstPegawai->nip);
-                $unitParts = explode(' ', $firstPegawai->unitkerja);
-                $firstName = $namaParts[0];
+                $namaParts = $firstPegawai ? explode(' ', $firstPegawai->nama) : [];
+                $jabatanParts = $firstPegawai ? explode(' ', $firstPegawai->jabatan) : [];
+                $nipParts = $firstPegawai ? explode(' ', $firstPegawai->nip) : [];
+                $unitParts = $firstPegawai ? explode(' ', $firstPegawai->unitkerja) : [];
+                $firstName = $namaParts[0] ?? '';
                 $lastName1 = isset($namaParts[1]) ? $namaParts[1] : '';
                 $lastName2 = isset($namaParts[2]) ? $namaParts[2] : '';
                 @endphp

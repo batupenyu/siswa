@@ -148,6 +148,7 @@
     @if ($firstPegawai && $firstPegawai->nip != $penilai->nip)
     {{$penilai->jabatan}} <br><br><br><br>
     {{$penilai->nama}} <br>
+    {{$penilai->pangkat}} <br>
     NIP.{{ $penilai->nip }}
     @else
     {{$kpa->jabatan}} {{$kpa->unitkerja}} <br><br><br><br>
