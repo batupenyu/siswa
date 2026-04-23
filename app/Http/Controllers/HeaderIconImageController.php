@@ -35,7 +35,6 @@ class HeaderIconImageController extends Controller
                 'path' => $path,
             ]);
         }
-
         return redirect()->route('header_icon_images.index')->with('success', 'Image uploaded successfully.');
     }
 

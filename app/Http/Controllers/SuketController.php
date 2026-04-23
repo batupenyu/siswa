@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Suket;
-use App\Models\Siswa;
+use App\Models\HeaderIconImage;
 use App\Models\Penilai;
+use App\Models\Siswa;
+use App\Models\Suket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -15,9 +16,9 @@ class SuketController extends Controller
         $search = $request->input('search');
 
         if ($search) {
-            $sukets = Suket::where('description', 'like', '%' . $search . '%')
+            $sukets = Suket::where('description', 'like', '%'.$search.'%')
                 ->orWhereHas('siswa', function ($query) use ($search) {
-                    $query->where('name', 'like', '%' . $search . '%');
+                    $query->where('name', 'like', '%'.$search.'%');
                 })
                 ->paginate(5);
         } else {
@@ -33,6 +34,7 @@ class SuketController extends Controller
     public function create()
     {
         $siswas = Siswa::all();
+
         return view('suket.create', compact('siswas'));
     }
 
@@ -49,7 +51,7 @@ class SuketController extends Controller
             Suket::create($validated);
             Log::info('Suket saved successfully');
         } catch (\Exception $e) {
-            Log::error('Error saving suket: ' . $e->getMessage());
+            Log::error('Error saving suket: '.$e->getMessage());
         }
 
         return redirect()->route('sukets.index');
@@ -58,6 +60,7 @@ class SuketController extends Controller
     public function edit(Suket $suket)
     {
         $siswas = Siswa::all();
+
         return view('suket.edit', compact('suket', 'siswas'));
     }
 
@@ -78,6 +81,7 @@ class SuketController extends Controller
     public function destroy(Suket $suket)
     {
         $suket->delete();
+
         return redirect()->route('sukets.index')->with('success', 'Suket deleted successfully.');
     }
 
@@ -92,8 +96,10 @@ class SuketController extends Controller
         $suket = Suket::with('siswa.kelas')->findOrFail($id);
         $siswa = $suket->siswa;
         $penilai = Penilai::first();
+        $headerIconImage = HeaderIconImage::latest()->first();
 
-        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('suket.pdf', compact('suket', 'siswa', 'atasanNama', 'atasanJabatan', 'atasanNip', 'atasanPangkat', 'atasanUnitkerja', 'penilai'))
+
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('suket.pdf', compact('suket', 'siswa', 'atasanNama', 'atasanJabatan', 'atasanNip', 'atasanPangkat', 'atasanUnitkerja', 'penilai', 'headerIconImage'))
             ->setPaper('a4')
             ->setOptions(['margin-left' => 30]);
 

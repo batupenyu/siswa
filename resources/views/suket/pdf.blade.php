@@ -1,12 +1,38 @@
-@php
+ @php
 $path = public_path('images/kopSekolah.png');
 $type = pathinfo($path, PATHINFO_EXTENSION);
 $data = file_get_contents($path);
 $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
 @endphp
 <div style="text-align: center;">
-    <img src="{{ $base64 }}" style="display: block; margin: 0 auto; width: 100%; height: auto">
+    <!-- <img src="{{ $base64 }}" style="display: block; margin: 0 auto; width: 100%; height: auto"> -->
 </div>
+
+<div class="header">
+    @php
+    if(isset($headerIconImage) && $headerIconImage) {
+        // Get the full storage path
+        $imagePath = storage_path('app/' . $headerIconImage->path);
+    } else {
+        $imagePath = public_path('images/icon.png');
+    }
+
+    // Check if file exists
+    if(file_exists($imagePath)) {
+        $type = pathinfo($imagePath, PATHINFO_EXTENSION);
+        $data = file_get_contents($imagePath);
+        $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+        $imageExists = true;
+    } else {
+        $imageExists = false;
+    }
+    @endphp
+
+    @if($imageExists)
+        <img src="{{ $base64 }}" alt="Kop Surat" style="width: 100%;">
+    @endif
+</div>
+
 <h3 style="text-align: center"><u>SURAT KETERANGAN</u>
     <br>
     Nomor: 421.5/ .... /SMKl Kb/Dindik/2025

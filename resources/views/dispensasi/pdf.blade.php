@@ -38,19 +38,39 @@
 
 <!-- Section content -->
 <div class="container">
-    {{-- <img src="{{ public_path('images/kopSekolah.png') }}" alt=""> --}}
+    @php
+    $path = public_path('images/kopSekolah.png');
+    $type = pathinfo($path, PATHINFO_EXTENSION);
+    $data = file_get_contents($path);
+    $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+    @endphp
+    <div style="text-align: center;">
+        <!-- <img src="{{ $base64 }}" style="display: block; margin: 0 auto; width: 100%; height: auto"> -->
+    </div>
+
     <div class="header">
         @php
-        if($headerIconImage) {
-        $path = storage_path('app/public/header_icons/' . $headerIconImage->filename);
+        if(isset($headerIconImage) && $headerIconImage) {
+            // Get the full storage path
+            $imagePath = storage_path('app/' . $headerIconImage->path);
         } else {
-        $path = public_path('images/icon.png');
+            $imagePath = public_path('images/icon.png');
         }
-        $type = pathinfo($path, PATHINFO_EXTENSION);
-        $data = file_get_contents($path);
-        $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
+        // Check if file exists
+        if(file_exists($imagePath)) {
+            $type = pathinfo($imagePath, PATHINFO_EXTENSION);
+            $data = file_get_contents($imagePath);
+            $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+            $imageExists = true;
+        } else {
+            $imageExists = false;
+        }
         @endphp
-        <img src="{{ $base64 }}" alt="Kop Surat" style="width: 100%;">
+
+        @if($imageExists)
+            <img src="{{ $base64 }}" alt="Kop Surat" style="width: 100%;">
+        @endif
     </div>
     <h4 style="text-align: center">
         <u>SURAT DISPENSASI </u><br>
@@ -152,12 +172,14 @@
         <p style="text-align: center;padding-left:300px">
             Koba, {{ Carbon\Carbon::parse($dispensasi->tgl_ditetapkan)->translatedFormat('d F Y') }}
             <br>
+            {{ $penilai->jabatan }}
+            <br>
+            <br>
+            <br>
+            <br>
             {{ $penilai->nama }}
             <br>
-            <br>
-            <br>
-            <br>
-            {{ $penilai->jabatan }}
+            {{ $penilai->pangkat }}
             <br>
             NIP. {{ $penilai->nip }}
         </p>
