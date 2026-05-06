@@ -131,7 +131,7 @@
         <td style="text-align: justify; vertical-align:auto;width:50px">:</td>
         <td style="vertical-align:top">
             <ol style="padding-left: 20px; padding-top: 0px; margin-top: 0px; text-align:justify">
-                <li>Dalam rangka mengikuti {{ $stPegawai->nama_kegiatan }}</li>
+                <li>Dalam rangka {{ $stPegawai->nama_kegiatan }}</li>
                 <li>Membuat laporan hasil pelaksanaan perintah tugas kepada {{$penilai->jabatan}} {{$penilai->unitkerja}}</li>
                 <li>Dilaksanakan dengan sebaik-baiknya dan penuh rasa tanggung jawab.</li>
             </ol>

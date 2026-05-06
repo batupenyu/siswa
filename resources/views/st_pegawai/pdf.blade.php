@@ -276,7 +276,7 @@ $lastName = isset($namaParts[1]) ? $namaParts[1] : '';
     <tr>
         <td>
             <ol style="padding-left: 20px; padding-top: 0px; margin-top: 0px;">
-                <li>Dalam rangka melaksanakan {{ $stPegawai->nama_kegiatan }}</li>
+                <li>Dalam rangka {{ $stPegawai->nama_kegiatan }}</li>
                 {{-- <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi officiis
                                 necessitatibus dolore eius a inventore, dolores eum exercitationem! In nisi amet
                                 temporibus quibusdam beatae rem eum ipsam ullam accusantium harum? Incidunt illum, enim
