@@ -95,6 +95,8 @@ Route::middleware('auth')->group(function () {
 Route::get('/siswas/template/view', [\App\Http\Controllers\SiswaController::class, 'template'])->name('siswas.template.page');
     Route::resource('ipps', \App\Http\Controllers\IppController::class);
     Route::get('ipps/{id}/kwitansi', [\App\Http\Controllers\IppController::class, 'kwitansi'])->name('ipps.kwitansi');
+    Route::get('/siswa-profil/exportExcel', [SiswaProfilController::class, 'exportExcel'])->name('siswa-profil.exportExcel');
+    Route::post('/siswa-profil/importExcel', [SiswaProfilController::class, 'importExcel'])->name('siswa-profil.importExcel');
     Route::resource('siswa-profil', SiswaProfilController::class);
     Route::get('/', function () {
         return redirect()->route('login');

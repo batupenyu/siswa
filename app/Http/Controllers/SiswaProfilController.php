@@ -8,6 +8,9 @@ use App\Http\Requests\SiswaProfilRequest;
 use App\Models\Penilai;
 use App\Models\Siswa;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Exports\SiswaProfilExport;
+use App\Imports\SiswaProfilImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SiswaProfilController extends Controller
 {
@@ -83,6 +86,18 @@ class SiswaProfilController extends Controller
         return redirect()->route('siswa-profil.show', $siswaProfil->id)->with('success', 'Siswa Profil updated successfully.');
     }
 
+
+    public function exportExcel()
+    {
+        return Excel::download(new SiswaProfilExport(), 'siswa_profil.xlsx');
+    }
+
+    public function importExcel(Request $request)
+    {
+        $request->validate(['file' => 'required|mimes:xlsx,xls,csv']);
+        Excel::import(new SiswaProfilImport(), $request->file('file'));
+        return redirect()->route('siswa-profil.index')->with('success', 'Data berhasil diimport.');
+    }
 
     /**
      * Remove the specified resource from storage.

@@ -306,8 +306,7 @@ $lastName = isset($namaParts[1]) ? $namaParts[1] : '';
 @endphp
 {{-- <p style="text-align: left; padding-left:420px">
     Dikeluarkan di <span>:</span> {{ $stPegawai->tempat_ditetapkan }} <br>
-Pada tanggal <span style="padding-left: 14px">:</span> {{
-    Carbon\Carbon::parse($stPegawai->tgl_ditetapkan)->translatedFormat('d F Y') }}
+Pada tanggal <span style="padding-left: 14px">:</span> {{Carbon\Carbon::parse($stPegawai->tgl_ditetapkan)->translatedFormat('d F Y') }}
 <p> --}}
     {{-- @if ($firstName == 'Kepala')
 <p style="text-align: center;padding-left:300px">

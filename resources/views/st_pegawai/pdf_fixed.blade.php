@@ -144,7 +144,7 @@
 @php $firstPegawai = $stPegawai->pegawais->first(); @endphp
 <p style="padding-left:420px">
     Ditetapkan di {{$firstPegawai && $firstPegawai->nip != $penilai->nip ? 'Koba' : 'Pangkalpinang'}} <br>
-    Pada tanggal, {{ Carbon\Carbon::parse($stPegawai->tgl_awal)->translatedFormat('d F Y') }}. <br><br>
+    Pada tanggal, {{ Carbon\Carbon::parse($stPegawai->tgl_ditetapkan)->translatedFormat('d F Y') }}. <br><br>
     @if ($firstPegawai && $firstPegawai->nip != $penilai->nip)
     {{$penilai->jabatan}} <br><br><br><br>
     {{$penilai->nama}} <br>
