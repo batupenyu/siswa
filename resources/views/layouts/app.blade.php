@@ -84,18 +84,26 @@
                         <a href="{{ route('kpa.index') }}" class="nav-link"><i class="bi bi-person-check"></i> KPA</a>
                         <a href="{{ route('bp.index') }}" class="nav-link"><i class="bi bi-person-badge"></i> BP</a>
                         <div class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="suratDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-folder"></i> Surat
+                            <a class="nav-link dropdown-toggle" href="#" id="suratPegawaiDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-folder"></i> Surat Pegawai
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="suratDropdown">
+                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="suratPegawaiDropdown">
                                 <li><a class="dropdown-item" href="{{ route('surat_izin_pegawai.index') }}"><i class="bi bi-person-badge"></i> Surat izin pegawai</a></li>
                                 <li><a class="dropdown-item" href="{{ route('stPegawai.index') }}"><i class="bi bi-person-badge"></i> Surat tugas pegawai</a></li>
                                 <li><a class="dropdown-item" href="{{ route('akKredit.index') }}"><i class="bi bi-person-badge"></i> Angka kredit</a></li>
+                            </ul>
+                        </div>
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="suratSiswaDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-folder"></i> Surat Siswa
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="suratSiswaDropdown">
                                 <li><a class="dropdown-item" href="{{ route('mutasi.index') }}"><i class="bi bi-arrow-left-right"></i> Surat mutasi siswa</a></li>
                                 <li><a class="dropdown-item" href="{{ route('sukets.index') }}"><i class="bi bi-file-text"></i> Surat ket. siswa</a></li>
                                 <li><a class="dropdown-item" href="{{ route('surat') }}"><i class="bi bi-person-badge"></i> Surat tugas siswa</a></li>
                                 <li><a class="dropdown-item" href="{{ route('dispensasi.index') }}"><i class="bi bi-person-badge"></i> Surat dispen siswa</a></li>
                                 <li><a class="dropdown-item" href="{{ route('siswa-profil.index') }}"><i class="bi bi-person-badge"></i> Siswa Profil</a></li>
+                                <li><a class="dropdown-item" href="{{ route('surat-panggilan.index') }}"><i class="bi bi-telephone"></i> Surat Panggilan Siswa</a></li>
                             </ul>
                         </div>
                         <a href="{{ route('anak.index') }}" class="nav-link"><i class="bi bi-people"></i> Anak & KP4</a>

@@ -31,6 +31,7 @@ use App\Http\Controllers\BpController;
 use App\Http\Controllers\MutasiController;
 use App\Http\Controllers\SiswaProfilController;
 use App\Http\Controllers\SpmtController;
+use App\Http\Controllers\SuratPanggilanController;
 
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
@@ -196,6 +197,8 @@ Route::get('/siswas/template/view', [\App\Http\Controllers\SiswaController::clas
     Route::resource('spmts', SpmtController::class);
 
     Route::resource('sisa_cuti', \App\Http\Controllers\SisaCutiController::class);
+
+    Route::resource('surat-panggilan', SuratPanggilanController::class);
 
     // Secure form routes
     Route::get('/secure-form', [\App\Http\Controllers\SecureController::class, 'showForm'])->name('secure.form');
