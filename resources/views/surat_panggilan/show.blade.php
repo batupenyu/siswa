@@ -77,11 +77,12 @@
     <p style="margin-bottom: 2px;">Kepada Yth.</p>
     <p style="margin: 0;">Orang Tua / Wali Siswa</p>
     <p style="margin: 0;"><strong>{{ \Illuminate\Support\Str::title($surat->nama_siswa) }}</strong></p>
-    <p style="margin: 0;">Di Tempat</p>
+    <p style="margin: 0;">di</p>
+    <p style="margin: 0; padding-left: 20px;">Tempat</p>
 
     {{-- Pembuka --}}
     <div class="body-text">
-        <p>Dengan hormat,</p>
+        <!-- <p>Dengan hormat,</p> -->
         <p>
             Sehubungan dengan keperluan bimbingan dan konseling, kami mengundang Bapak/Ibu Orang Tua/Wali
             siswa <strong>{{ \Illuminate\Support\Str::title($surat->nama_siswa) }}</strong> untuk hadir pada:
