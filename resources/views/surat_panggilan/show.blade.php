@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <title>Surat Panggilan Siswa</title>
     <style>
-        body { font-family: Arial, sans-serif; font-size: 12px; line-height: 1.6; }
-        .container { width: 90%; margin: auto; font-size: 12px; }
+        body { font-family: Arial, sans-serif; font-size: 12pt; line-height: 1.6; }
+        .container { width: 90%; margin: auto; font-size: 12pt; }
         /* .kop { text-align: center; border-bottom: 3px double #000; padding-bottom: 8px; margin-bottom: 16px; } */
         .kop { margin-bottom: 16px; border-bottom: none; }
         .kop img { display: block; border: none; }
         .kop h2 { margin: 0; font-size: 14px; text-transform: uppercase; }
-        .kop p { margin: 0; font-size: 11px; }
+        .kop p { margin: 0; font-size: 12pt; }
         table.info { width: 100%; }
         table.info td { padding: 1px 0; vertical-align: top; }
         table.info td.label { width: 120px; white-space: nowrap; }
@@ -131,8 +131,7 @@
                     @else
                         Guru Bimbingan Konseling,
                     @endif
-                    <br><br><br>
-                    <!-- <br><br> -->
+                    <br><br>
                     <div class="name">{{ \Illuminate\Support\Str::title($surat->nama_guru_bk) }}</div>
                     @if($surat->pangkat_golongan)
                         <div>{{ $surat->pangkat_golongan }}</div>
