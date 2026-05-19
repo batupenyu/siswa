@@ -37,9 +37,37 @@
         </form>
     </div>
 
+    <!-- Kelas Summary Cards -->
+    @if($siswasByKelas->isNotEmpty())
+    <div class="row mb-4">
+        @foreach($siswasByKelas->sortKeys() as $kelasName => $count)
+        <div class="col-6 col-md-3 mb-2">
+            <a href="{{ route('siswas.index', ['kelas' => $kelasName]) }}" class="text-decoration-none">
+                <div class="card text-center border-secondary {{ request('kelas') == $kelasName ? 'border-primary bg-primary text-white' : '' }}" style="cursor:pointer;">
+                    <div class="card-body py-2">
+                        <div class="fw-bold">{{ $kelasName ?? 'Tanpa Kelas' }}</div>
+                        <div class="fs-4">{{ $count }}</div>
+                        <small class="{{ request('kelas') == $kelasName ? 'text-white-50' : 'text-muted' }}">siswa</small>
+                    </div>
+                </div>
+            </a>
+        </div>
+        @endforeach
+        @if(request('kelas'))
+        <div class="col-12 mb-2">
+            <a href="{{ route('siswas.index') }}" class="btn btn-sm btn-outline-secondary">Tampilkan Semua</a>
+        </div>
+        @endif
+    </div>
+    @endif
+
     <!-- Add New Student Button -->
-    <div class="mb-3 text-end">
+    <div class="mb-3 d-flex justify-content-between align-items-center">
         <a href="{{ route('siswas.create') }}" class="btn btn-primary">Tambah Siswa</a>
+        <form action="{{ route('siswas.destroyAll') }}" method="POST" onsubmit="return confirm('Hapus SEMUA siswa? Tindakan ini tidak dapat dibatalkan.')">
+            @csrf @method('DELETE')
+            <button class="btn btn-danger">Hapus Semua</button>
+        </form>
     </div>
 
     <!-- Display Success Message -->

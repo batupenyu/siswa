@@ -18,10 +18,10 @@ class SiswaController extends Controller
 {
     public function downloadTemplate()
     {
-        $headers = ['name', 'nis', 'npsn', 'kelas_id'];
+        $headers = ['nama', 'nis', 'npsn', 'kelas'];
         $example = [
-            ['John Doe', '12345', '12345678', '1'],
-            ['Jane Smith', '12346', '12345679', '2'],
+            ['John Doe', '12345', '12345678', 'X RPL 1'],
+            ['Jane Smith', '12346', '12345679', 'X RPL 2'],
         ];
 
         return Excel::download(new class($headers, $example) implements FromCollection, WithHeadings {
@@ -37,7 +37,7 @@ class SiswaController extends Controller
             public function headings(): array {
                 return $this->headers;
             }
-        }, 'template-siswa.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        }, 'template-siswa.xlsx');
     }
 
     public function template()
@@ -83,16 +83,32 @@ class SiswaController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
+        $kelasFilter = $request->input('kelas');
+
+        $query = Siswa::with('kelas')
+            ->join('kelas', 'siswas.kelas_id', '=', 'kelas.id')
+            ->orderBy('kelas.name')
+            ->select('siswas.*');
 
         if ($search) {
-            $siswas = Siswa::where('name', 'like', '%' . $search . '%')
-                ->orWhere('nis', 'like', '%' . $search . '%')
-                ->paginate(5);
-        } else {
-            $siswas = Siswa::paginate(5);
+            $query->where(function($q) use ($search) {
+                $q->where('siswas.name', 'like', '%' . $search . '%')
+                  ->orWhere('siswas.nis', 'like', '%' . $search . '%');
+            });
         }
 
-        return view('siswa.index', compact('siswas'));
+        if ($kelasFilter) {
+            $query->where('kelas.name', $kelasFilter);
+        }
+
+        $siswas = $query->paginate(20)->appends($request->only(['search', 'kelas']));
+
+        $siswasByKelas = Siswa::with('kelas')
+            ->get()
+            ->groupBy('kelas.name')
+            ->map(fn($group) => $group->count());
+
+        return view('siswa.index', compact('siswas', 'siswasByKelas'));
     }
 
     public function create()
@@ -142,6 +158,12 @@ class SiswaController extends Controller
         ]);
         $siswa->update($validated);
         return redirect()->route('siswas.index')->with('success', 'Student updated successfully.');
+    }
+
+    public function destroyAll()
+    {
+        Siswa::query()->delete();
+        return redirect()->route('siswas.index')->with('success', 'Semua data siswa berhasil dihapus.');
     }
 
     public function destroy(Siswa $siswa)

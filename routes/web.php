@@ -89,11 +89,12 @@ Route::middleware('auth')->group(function () {
     Route::resource('mutasi', MutasiController::class);
     Route::get('mutasi/{mutasi}/pdf', [MutasiController::class, 'viewPdf'])->name('mutasi.pdf');
 
-    Route::resource('siswas', SiswaController::class);
+    Route::delete('/siswas/destroy-all', [\App\Http\Controllers\SiswaController::class, 'destroyAll'])->name('siswas.destroyAll');
     Route::get('/siswas/export', [\App\Http\Controllers\SiswaController::class, 'export'])->name('siswas.export');
     Route::post('/siswas/import', [\App\Http\Controllers\SiswaController::class, 'import'])->name('siswas.import');
     Route::get('/siswas/template', [\App\Http\Controllers\SiswaController::class, 'downloadTemplate'])->name('siswas.template');
-Route::get('/siswas/template/view', [\App\Http\Controllers\SiswaController::class, 'template'])->name('siswas.template.page');
+    Route::get('/siswas/template/view', [\App\Http\Controllers\SiswaController::class, 'template'])->name('siswas.template.page');
+    Route::resource('siswas', SiswaController::class);
     Route::resource('ipps', \App\Http\Controllers\IppController::class);
     Route::get('ipps/{id}/kwitansi', [\App\Http\Controllers\IppController::class, 'kwitansi'])->name('ipps.kwitansi');
     Route::get('/siswa-profil/exportExcel', [SiswaProfilController::class, 'exportExcel'])->name('siswa-profil.exportExcel');
